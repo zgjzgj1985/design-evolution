@@ -1,0 +1,11 @@
+{
+    "python": {
+        "version": "3.11",
+        "package_manager": "pip"
+    },
+    "streamlit": {
+        "entry": "app.py"
+    },
+    "build_command": "",
+    "start_command": "mkdir -p /data/chroma_db /data/logs && _startup"
+}

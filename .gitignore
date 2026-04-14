@@ -24,6 +24,7 @@ node_modules/
 # Database
 *.db
 *.sqlite
+data/
 
 # OS
 .DS_Store
