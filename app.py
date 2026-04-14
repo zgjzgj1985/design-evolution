@@ -261,7 +261,7 @@ def get_pikalytics_scraper():
 def get_analyzer():
     """获取分析器实例（每次调用都重新创建以获取最新配置）"""
     return IntentExtractor(
-        provider=st.session_state.get("llm_provider", config.LLM_PROVIDER),
+        provider="openrouter",
         model=st.session_state.get("llm_model", config.LLM_MODEL),
         base_url=st.session_state.get("llm_base_url", ""),
         api_key=st.session_state.get("llm_api_key", ""),
@@ -386,15 +386,12 @@ with st.sidebar:
     # LLM 配置 - 折叠式按钮（默认折叠，配置已迁移至 Zeabur 环境变量）
     with st.expander("LLM 设置", expanded=False):
         # 优先级：环境变量（Zeabur） > 本地配置文件（本地调试用）
-        env_provider = os.getenv("LLM_PROVIDER", "openai")
-        env_model = os.getenv("LLM_MODEL", "gpt-4o-mini")
-        env_base_url = os.getenv("OPENROUTER_BASE_URL", "")
+        env_model = os.getenv("LLM_MODEL", "anthropic/claude-3.5-sonnet")
+        env_base_url = os.getenv("OPENROUTER_BASE_URL", "https://us.novaiapi.com/v1")
         env_api_key = os.getenv("OPENAI_API_KEY", "")
 
         saved = load_llm_settings()
-        # 环境变量始终优先；settings.json 仅作为本地调试备选
         defaults = {
-            "provider": env_provider,
             "model": env_model,
             "base_url": env_base_url,
             "api_key": env_api_key,
@@ -406,7 +403,7 @@ with st.sidebar:
                     defaults[key] = val
 
         # 同步最新配置
-        st.session_state["llm_provider"] = defaults.get("provider")
+        st.session_state["llm_provider"] = "openrouter"
         st.session_state["llm_model"] = defaults.get("model")
         st.session_state["llm_base_url"] = defaults.get("base_url")
         st.session_state["llm_api_key"] = defaults.get("api_key")
@@ -443,32 +440,21 @@ with st.sidebar:
         with st.form("llm_config_form"):
             st.markdown("**连接设置（本地调试用）**")
 
-            provider_options = {p["value"]: p["label"] for p in config.LLM_PROVIDER_OPTIONS}
-            provider_labels = list(provider_options.keys())
-            default_idx = provider_labels.index(st.session_state["llm_provider"]) if st.session_state["llm_provider"] in provider_labels else 0
-            selected_provider = st.selectbox(
-                "Provider",
-                options=provider_labels,
-                index=default_idx,
-                format_func=lambda x: provider_options[x],
-                key="llm_provider_select",
-            )
-
-            model_name_label = st.text_input(
+            st.text_input(
                 "Model",
                 value=st.session_state["llm_model"],
                 placeholder="输入模型名称",
                 key="llm_model_input",
             )
 
-            base_url_input = st.text_input(
+            st.text_input(
                 "Base URL",
                 value=st.session_state["llm_base_url"] or "",
                 placeholder="留空使用官方地址",
                 key="llm_base_url_input",
             )
 
-            api_key_input = st.text_input(
+            st.text_input(
                 "API Key（云端请在 Zeabur 环境变量中配置）",
                 type="password",
                 value=st.session_state["llm_api_key"],
@@ -479,11 +465,10 @@ with st.sidebar:
             submitted = st.form_submit_button("保存设置（本地有效）", type="secondary", use_container_width=True)
 
             if submitted:
-                st.session_state["llm_provider"] = selected_provider
-                st.session_state["llm_model"] = model_name_label
-                st.session_state["llm_base_url"] = base_url_input
-                st.session_state["llm_api_key"] = api_key_input
-                ok = save_llm_settings(selected_provider, model_name_label, base_url_input, api_key_input)
+                st.session_state["llm_model"] = st.session_state["llm_model_input"]
+                st.session_state["llm_base_url"] = st.session_state["llm_base_url_input"]
+                st.session_state["llm_api_key"] = st.session_state["llm_api_key_input"]
+                ok = save_llm_settings("openrouter", st.session_state["llm_model"], st.session_state["llm_base_url"], st.session_state["llm_api_key"])
                 if ok:
                     st.success("配置已保存")
                 else:
@@ -494,7 +479,7 @@ with st.sidebar:
         if st.button("测试连接", key="btn_test_connection", use_container_width=True):
             with st.spinner("正在测试连接..."):
                 test_extractor = IntentExtractor(
-                    provider=st.session_state.get("llm_provider", config.LLM_PROVIDER),
+                    provider="openrouter",
                     model=st.session_state.get("llm_model", config.LLM_MODEL),
                     base_url=st.session_state.get("llm_base_url", ""),
                     api_key=st.session_state.get("llm_api_key", ""),

@@ -18,44 +18,17 @@ else:
 class Config:
     """全局配置类"""
 
-    # LLM Provider
-    LLM_PROVIDER: str = os.getenv("LLM_PROVIDER", "openai")
-
-    # OpenRouter / OpenAI Compatible 配置
-    OPENROUTER_BASE_URL: str = os.getenv("OPENROUTER_BASE_URL", "https://openrouter.ai/api/v1")
-    LLM_MODEL: str = os.getenv("LLM_MODEL", "gpt-4o-mini")
+    # OpenRouter 配置（固定使用）
+    OPENROUTER_BASE_URL: str = os.getenv("OPENROUTER_BASE_URL", "https://us.novaiapi.com/v1")
+    LLM_MODEL: str = os.getenv("LLM_MODEL", "anthropic/claude-3.5-sonnet")
     EMBEDDING_MODEL: str = os.getenv("EMBEDDING_MODEL", "text-embedding-3-small")
 
-    # LLM API Key（支持从环境变量或 .env 文件读取）
-    @property
-    def LLM_API_KEY(cls) -> str:
-        """优先从环境变量读取，其次从 .env 文件读取"""
-        key = os.getenv("OPENAI_API_KEY", "")
-        if not key or key == "sk-your-api-key-here":
-            # 尝试读取 .llm_settings.json
-            settings_file = Path(__file__).parent.parent / ".llm_settings.json"
-            if settings_file.exists():
-                try:
-                    import json
-                    with open(settings_file, "r", encoding="utf-8") as f:
-                        settings = json.load(f)
-                        return settings.get("api_key", "")
-                except:
-                    pass
-        return key
+    # LLM API Key（支持从环境变量读取）
+    LLM_API_KEY: str = os.getenv("OPENAI_API_KEY", "")
 
-    # LLM Provider 显示名称映射
-    LLM_PROVIDER_OPTIONS: list = [
-        {"value": "openai", "label": "OpenAI"},
-        {"value": "anthropic", "label": "Anthropic"},
-        {"value": "openrouter", "label": "OpenRouter"},
-    ]
-
-    # 各 Provider 的默认模型
+    # 默认模型
     LLM_DEFAULT_MODELS: dict = {
-        "openai": "gpt-4o-mini",
-        "anthropic": "claude-sonnet-4-20250514",
-        "openrouter": "anthropic/claude-3.5-sonnet",
+        "anthropic/claude-3.5-sonnet",
     }
 
     # 数据库配置

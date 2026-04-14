@@ -24,7 +24,7 @@ class IntentExtractor:
             base_url: API 地址（留空用对应 provider 默认地址）
             model: 模型名称（留空用 provider 默认模型）
         """
-        self.provider = provider or config.LLM_PROVIDER
+        self.provider = provider or "openrouter"
         self._api_key = api_key
         self._base_url = base_url
         self._model = model
