@@ -59,9 +59,12 @@ class Config:
     }
 
     # 数据库配置
-    DATA_DIR: Path = Path(__file__).parent.parent / "data"
-    CHROMA_PERSIST_DIR: Path = DATA_DIR / "chroma_db"
-    SQLITE_DB_PATH: Path = DATA_DIR / "game_design.db"
+    # Sealos 部署时使用 /data 目录（挂载的持久化存储）
+    # 本地开发时使用项目根目录下的 data 文件夹
+    _base_dir = Path(os.getenv("DATA_DIR", str(Path(__file__).parent.parent / "data")))
+    DATA_DIR: Path = _base_dir
+    CHROMA_PERSIST_DIR: Path = _base_dir / "chroma_db"
+    SQLITE_DB_PATH: Path = _base_dir / "game_design.db"
 
     # 确保数据目录存在
     DATA_DIR.mkdir(exist_ok=True)

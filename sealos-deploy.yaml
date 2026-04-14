@@ -1,0 +1,76 @@
+apiVersion: apps.sealos.io/v1
+kind: App
+metadata:
+  name: design-evolution-archive
+  annotations:
+    description: "游戏设计演进研究工具 - Streamlit 应用"
+spec:
+  # 容器镜像
+  image: python:3.11-slim
+
+  # 启动命令（会在容器内自动打包运行）
+  cmd: ["bash", "-c", """
+    apt-get update && apt-get install -y --no-install-recommends \\
+        procps \\
+        curl \\
+    && pip install --no-cache-dir -r requirements.txt \\
+    && mkdir -p /data/chroma_db /data/logs \\
+    && streamlit run app.py \\
+        --server.address=0.0.0.0 \\
+        --server.port=8080 \\
+        --server.headless=true \\
+        --browser.serverAddress=localhost \\
+        --server.enableCORS=false \\
+        --server.enableXsrfProtection=true
+  """]
+
+  # 端口配置
+  ports:
+    - containerPort: 8080
+      protocol: TCP
+
+  # 环境变量（LLM API Key 需要在这里配置）
+  env:
+    - name: OPENAI_API_KEY
+      value: ""
+    - name: LLM_PROVIDER
+      value: "openai"
+    - name: LLM_MODEL
+      value: "gpt-4o-mini"
+    - name: OPENROUTER_BASE_URL
+      value: ""
+    - name: PYTHONUNBUFFERED
+      value: "1"
+    - name: STREAMLIT_SERVER_PORT
+      value: "8080"
+
+  # 持久化存储配置（重要！保存 SQLite 和 ChromaDB 数据）
+  mounts:
+    - name: app-data
+      path: /data
+      # 可以使用 PVC 或空目录
+      # 如果 Sealos 支持 nfs 或 local-path，可替换以下配置
+
+  # 资源限制（免费试用配置）
+  resources:
+    limits:
+      cpu: "1"
+      memory: 1Gi
+    requests:
+      cpu: "250m"
+      memory: 512Mi
+
+  # 健康检查
+  healthCheck:
+    enabled: true
+    port: 8080
+    path: /
+
+  # 副本数（免费试用建议 1）
+  replicas: 1
+
+  # 访问配置
+  accessToken: ""
+  ssl: false
+  # 国内访问建议关闭 CDN，启用国内加速
+  networkType: LoadBalancer
