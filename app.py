@@ -428,10 +428,10 @@ with st.sidebar:
                 st.write("- API Key: **未设置**")
 
             extractor = IntentExtractor(
-                provider=st.session_state.get("llm_provider", config.LLM_PROVIDER),
-                model=st.session_state.get("llm_model", config.LLM_MODEL),
-                base_url=st.session_state.get("llm_base_url", ""),
-                api_key=st.session_state.get("llm_api_key", ""),
+                provider=st.session_state.get("llm_provider"),
+                model=st.session_state.get("llm_model"),
+                base_url=st.session_state.get("llm_base_url") or "",
+                api_key=st.session_state.get("llm_api_key") or "",
             )
             llm = extractor._get_llm()
             if llm is None:
