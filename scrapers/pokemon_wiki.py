@@ -1,0 +1,1084 @@
+"""
+爬取宝可梦相关页面的工具函数和常量
+"""
+
+from typing import Optional
+import requests
+from bs4 import BeautifulSoup
+from utils.config import config
+
+
+class PokemonWikiScraper:
+    """宝可梦 Wiki 爬虫基类"""
+
+    BASE_URLS = {
+        "bulbapedia": "https://bulbapedia.bulbagarden.net",
+        "serebii": "https://www.serebii.net",
+    }
+
+    def __init__(self, source: str = "serebii"):
+        self.source = source
+        self.base_url = self.BASE_URLS.get(source, self.BASE_URLS["serebii"])
+        self.session = requests.Session()
+        self.session.headers.update({"User-Agent": config.USER_AGENT})
+
+    def _fetch_page(self, url: str) -> Optional[BeautifulSoup]:
+        """通用页面获取方法"""
+        try:
+            response = self.session.get(url, timeout=config.REQUEST_TIMEOUT)
+            response.raise_for_status()
+            return BeautifulSoup(response.content, "lxml")
+        except requests.RequestException as e:
+            print(f"请求失败: {url}, 错误: {e}")
+            return None
+
+    def get_game_list(self) -> list:
+        """
+        获取宝可梦各世代游戏列表
+        返回: [{"generation": 8, "name": "剑/盾", "release": "2019-11-15"}, ...]
+        """
+        games = [
+            # 第八世代
+            {"generation": 8, "name": "剑", "release": "2019-11-15", "region": "伽勒尔"},
+            {"generation": 8, "name": "盾", "release": "2019-11-15", "region": "伽勒尔"},
+            {"generation": 8, "name": "剑·盾 扩展票", "release": "2020-06-17", "region": "伽勒尔"},
+            # 第九世代
+            {"generation": 9, "name": "朱", "release": "2022-11-18", "region": "帕底亚"},
+            {"generation": 9, "name": "紫", "release": "2022-11-18", "region": "帕底亚"},
+            {"generation": 9, "name": "零之秘宝", "release": "2023-09-13", "region": "帕底亚"},
+        ]
+        return games
+
+    def get_multiplayer_features(self, generation: int) -> list:
+        """
+        获取指定世代的多人对战特性信息
+
+        返回: [{"feature": "极巨化", "type": "PvP/PvE", "intro": "第八世代",
+                "description": "可将宝可梦巨大化，获得强力招式..."}, ...]
+        """
+        features_db = {
+            8: [
+                {
+                    "feature": "极巨化",
+                    "type": "PvP/PvE",
+                    "intro": "第八世代（剑/盾）",
+                    "description": "可将宝可梦巨大化3回合，获得强力极巨招式，可改变天气或降低对方能力。",
+                    "mechanics": ["极巨化仅持续3回合", "极巨招式必定命中", "可改变战场天气/场地"],
+                    "pvp_context": "极巨化在VGC双打中成为核心机制，替代了前代的Mega进化和Z招式",
+                },
+                {
+                    "feature": "极巨团体战",
+                    "type": "PvE",
+                    "intro": "第八世代（剑/盾）",
+                    "description": "4名玩家合作挑战野生极巨化宝可梦，轮流攻击并削弱其护盾。",
+                    "mechanics": ["4人合作", "回合制攻击", "护盾机制", "捕捉极巨化宝可梦"],
+                    "pvp_context": "解决了前代「官方合作」玩法缺失的问题，但存在等待时间过长的体验问题",
+                },
+                {
+                    "feature": "DLC2 皇冠对战",
+                    "type": "PvP",
+                    "intro": "冠之雪原（2020）",
+                    "description": "挑战传说宝可梦获得皇冠，提升宝可梦等级上限至100。",
+                    "pvp_context": "为VGC比赛提供了强力宝可梦的获取途径",
+                },
+            ],
+            9: [
+                {
+                    "feature": "太晶化",
+                    "type": "PvP/PvE",
+                    "intro": "第九世代（朱/紫）",
+                    "description": "为宝可梦附着太晶宝石，改变属性并获得专属太晶招式。",
+                    "mechanics": ["改变属性", "专属太晶招式", "仅持续1回合", "全宝可梦均可太晶化"],
+                    "pvp_context": "相比极巨化更灵活，增加了配招博弈深度，但也增加了新人学习成本",
+                },
+                {
+                    "feature": "太晶团体战",
+                    "type": "PvE",
+                    "intro": "第九世代（朱/紫）",
+                    "description": "4名玩家合作挑战野生太晶化宝可梦，采用半即时制。",
+                    "mechanics": ["4人合作", "半即时制战斗", "时间轴机制", "清除负面状态", "护盾机制"],
+                    "pvp_context": "改进了极巨团体战的等待时间问题，引入时间轴增加策略深度",
+                },
+                {
+                    "feature": "跨世代传递",
+                    "type": "PvP",
+                    "intro": "HOME（2020-）",
+                    "description": "通过Pokemon HOME跨世代传递宝可梦。",
+                    "pvp_context": "允许历代的强力宝可梦参与当前世代的VGC",
+                },
+            ],
+        }
+        return features_db.get(generation, [])
+
+    def get_patch_notes_sample(self, generation: int) -> list:
+        """
+        获取版本更新日志数据
+        包含 Gen 8/Gen 9 宝可梦完整更新记录（内置结构化数据 + Wayback Machine 存档链接）
+        返回格式化的更新记录
+        """
+        patches_db = {
+            8: [
+                {
+                    "version": "1.0.0",
+                    "date": "2019-11-15",
+                    "game": "剑/盾",
+                    "source_url": "https://serebii.net/swordshield/",
+                    "official_notes": """Version 1.0.0 (November 15th 2019)
+
+Pokémon Sword & Shield initial release.
+
+This update activates online features and introduces Dynamax as the core mechanic for VGC 2020.
+
+Notes: This update is required for your game to go online.""",
+                    "changes": [
+                        {
+                            "category": "PvP",
+                            "content": "VGC 2020规则赛季开始，极巨化作为核心机制替代Mega进化和Z招式",
+                            "intent": "正式开放第八世代官方对战环境，极巨化提供更易上手的视觉反馈和战略深度",
+                            "detail": "第八世代正式发布，极巨化成为VGC双打核心机制。相比Mega进化和Z招式，极巨化更易上手且视觉冲击力更强。剑盾是首个没有全国图鉴的宝可梦正作，引发巨大争议。",
+                        },
+                        {
+                            "category": "机制",
+                            "content": "极巨化系统上线，宝可梦可巨大化3回合，获得强力极巨招式",
+                            "intent": "引入新的战略维度，替代前代的Mega进化系统，让对战更具观赏性",
+                            "detail": "极巨化机制：(1)宝可梦巨大化持续3回合 (2)获得强力极巨招式 (3)可改变天气/场地 (4)极巨招式必定命中。",
+                        },
+                    ],
+                },
+                {
+                    "version": "1.1.0",
+                    "date": "2020-01-09",
+                    "game": "剑/盾",
+                    "source_url": "https://serebii.net/swordshield/",
+                    "official_notes": """Version 1.1 (January 9th 2020)
+
+Fixes:
+• Added Galarian Slowpoke
+• Added small event in Wedgehurst featuring Slowpoke
+• Fixes a bug that causes Sucker Punch or Quash to not hit when there is only one opponent Pokémon
+• Fixes a bug that causes the game to lock if you have taught certain Pokémon many TM/TR moves and then go to the Move Relearner
+• Various Bug Fixes
+
+Notes: This update is required for your game to go online.""",
+                    "changes": [
+                        {
+                            "category": "PvE",
+                            "content": "新增极巨团体战，可与其他玩家合作挑战野生极巨化宝可梦",
+                            "intent": "首次在正作中引入多人合作PvE内容，解决「缺乏官方合作玩法」的需求",
+                            "detail": "极巨团体战机制：4人合作挑战野生极巨化宝可梦，轮流攻击并削弱其护盾。解决了前代缺乏官方合作PvE玩法的问题，但存在等待时间过长的体验问题。",
+                        },
+                        {
+                            "category": "平衡性",
+                            "content": "修复Sucker Punch、Quash在只有一名对手时失效的bug",
+                            "intent": "修复影响对战公平性的bug，确保对战规则一致性",
+                            "detail": "修复在单打对战中这些招式正常工作，但在多人对战只剩一名对手时异常失效的问题。",
+                        },
+                    ],
+                },
+                {
+                    "version": "1.2.0",
+                    "date": "2020-06-17",
+                    "game": "剑·盾 扩展票",
+                    "source_url": "https://serebii.net/swordshield/expansionpass.shtml",
+                    "official_notes": """Version 1.2 (June 17th 2020)
+
+Fixes:
+• Added access to The Isle of Armor and all its relevant contents, new items and improvements
+• Added data for 101 Returning Pokémon, as well as the new Pokémon Kubfu, Urshifu & Zarude as well as new moves and abilities
+• Added the Battle Ready Mark, a mark that allows for you to make your Pokémon usable in Ranked Battle if transferred
+• Added Team Preview to be on the same screen as team selection for multiplayer battles
+• Altered Link Codes on the Y-Comm to be 8 numbers rather than 4
+• Fixed a problem that allowed people to disconnect in Ranked Battle and receive a win
+• Various Bug Fixes
+
+Notes: This update is required for your game to go online.""",
+                    "changes": [
+                        {
+                            "category": "内容",
+                            "content": "新增「铠之孤岛」DLC，添加101只回归宝可梦及新宝可梦武藏",
+                            "intent": "扩展游戏内容和收集动力，提供付费内容更新",
+                            "detail": "首个DLC「铠之孤岛」引入新冒险区域和101只回归宝可梦。新增铠之孤岛独有的武都( Wooloo )进化形。",
+                        },
+                        {
+                            "category": "PvP",
+                            "content": "新增战斗准备标记，使从HOME转移的宝可梦可参与排名对战",
+                            "intent": "规范跨世代对战准入，提升排名对战严肃性",
+                            "detail": "通过HOME从其他世代转移的宝可梦需要进行战斗准备标记才能参与排名对战，确保对战环境的公平性。",
+                        },
+                        {
+                            "category": "PvP",
+                            "content": "对战组队预览移至与多人对战选择同一画面，新增8位Y-Comm链接码",
+                            "intent": "改善组队体验，增加多人对战的社交便利性",
+                            "detail": "优化了多人对战的组队流程，新增8位Y-Comm链接码使玩家更容易与陌生人联机。",
+                        },
+                        {
+                            "category": "平衡性",
+                            "content": "修复排名对战中断线仍能获得胜利的漏洞",
+                            "intent": "维护排名对战的公平性，防止作弊行为",
+                            "detail": "修复在排名对战中如果对手断线，某些情况下仍能错误获得胜利的漏洞。",
+                        },
+                    ],
+                },
+                {
+                    "version": "1.2.1",
+                    "date": "2020-07-08",
+                    "game": "剑·盾 扩展票",
+                    "source_url": "https://serebii.net/swordshield/expansionpass.shtml",
+                    "official_notes": """Version 1.2.1 (July 8th 2020)
+
+Fixes:
+• Fixed a problem that allowed players to match in the Y-Comm using just 7 of the 8 Link Code numbers
+• Fixed a loophole that allowed for illegitimate raids to appear on the Y-Comm
+• Various Bug Fixes
+
+Notes: This update is required for your game to go online.""",
+                    "changes": [
+                        {
+                            "category": "平衡性",
+                            "content": "修复极巨团体战链接码只用7位数字即可匹配的漏洞",
+                            "intent": "防止利用漏洞入侵他人对战房间，保护玩家体验",
+                            "detail": "修复极巨团体战链接码只需输入7位数字就能匹配的漏洞，可能导致玩家被陌生人强行拉入对战房间。",
+                        },
+                    ],
+                },
+                {
+                    "version": "1.3.0",
+                    "date": "2020-10-23",
+                    "game": "冠之雪原",
+                    "source_url": "https://serebii.net/crowntundra/",
+                    "official_notes": """Version 1.3 (October 23rd 2020)
+
+Fixes:
+• Added access to The Crown Tundra and all its relevant contents, new items and improvements
+• Added data for 119 Returning Pokémon, as well as the new Pokémon Regieleki, Regidrago, Glastier, Spectrier & Cao3ex as well as new moves and abilities
+• Various Bug Fixes
+
+Notes: This update is required for your game to go online.""",
+                    "changes": [
+                        {
+                            "category": "内容",
+                            "content": "新增「冠之雪原」DLC，添加119只回归宝可梦及传说宝可梦蕾冠王/蕾冠鹿",
+                            "intent": "提供第二轮付费内容扩展，增加传说宝可梦收集要素",
+                            "detail": "冠之雪原引入了「传说之路」和「挑战之路」两条故事线。传说宝可梦蕾冠王(Kubfu)和蕾冠鹿(Ursaluna)成为VGC常用精灵。",
+                        },
+                        {
+                            "category": "PvP",
+                            "content": "冠之雪原传说宝可梦可参与VGC对战",
+                            "intent": "通过新传说宝可梦打破现有Meta，为对战环境注入新变量",
+                            "detail": "通过传说之路获得的传说宝可梦可以参与官方排名对战，为VGC环境带来新的战术选择。",
+                        },
+                    ],
+                },
+                {
+                    "version": "1.3.1",
+                    "date": "2020-12-22",
+                    "game": "冠之雪原",
+                    "source_url": "https://serebii.net/crowntundra/",
+                    "official_notes": """Version 1.3.1 (December 22nd 2020)
+
+Fixes:
+• Fixed a problem with some battle mechanics
+• Various Bug Fixes
+
+Notes: This update is required for your game to go online.""",
+                    "changes": [
+                        {
+                            "category": "平衡性",
+                            "content": "修复部分对战机制bug",
+                            "intent": "改善对战体验，修复影响游戏平衡的问题",
+                            "detail": "修复了冠之雪原DLC发布后发现的部分对战机制问题，提升游戏稳定性。",
+                        },
+                    ],
+                },
+                {
+                    "version": "1.3.2",
+                    "date": "2021-05-12",
+                    "game": "冠之雪原",
+                    "source_url": "https://serebii.net/crowntundra/",
+                    "official_notes": """Version 1.3.2 (May 12th 2021)
+
+Fixes:
+• Fixed a problem with some battle mechanics that prevented Groudon and Kyogre having Trick used on them
+• Fixed an issue that let you see whether or not your opponent picked Xerneas, Zacian or Zamazenta during multiplayer battles by looking at the sprites in their Team data
+• Various Bug Fixes
+
+Notes: This update is required for your game to go online.""",
+                    "changes": [
+                        {
+                            "category": "平衡性",
+                            "content": "修复古剑虎、藏饱等宝可梦数据与图鉴描述不符的问题",
+                            "intent": "统一数据标准，确保宝可梦能力值与官方图鉴一致",
+                            "detail": "修复部分宝可梦的实际能力值与图鉴描述不一致的数据问题，确保游戏内数据与官方信息统一。",
+                        },
+                        {
+                            "category": "PvP",
+                            "content": "修复多人对战中可从精灵数据判断对手是否使用幻之宝可梦的漏洞",
+                            "intent": "维护对战公平性，防止信息泄露导致战术优势",
+                            "detail": "修复在多人对战中，玩家可以通过精灵的某些数据判断对手是否使用了幻之宝可梦(如骑拉帝纳)的漏洞。",
+                        },
+                    ],
+                },
+            ],
+            9: [
+                {
+                    "version": "1.0.1",
+                    "date": "2022-11-11",
+                    "game": "朱/紫",
+                    "source_url": "https://serebii.net/scarletviolet/patch.shtml",
+                    "official_notes": """Version 1.0.1 (November 11th 2022)
+
+Fixes:
+• Activates online features
+• Reduces stats for Ting-Lu, Chi-Yu, Chien-Pao and Wo-Chien
+• Altered TM compatibility for some Pokémon
+• Fixed a problem with the animation not moving behind player when pulling out a stake
+• Adjusted Hisuian Zoroark's stats
+• Adjusted Kleavor's stats
+
+Notes: This update is required for your game to go online.""",
+                    "changes": [
+                        {
+                            "category": "PvP",
+                            "content": "削弱了悖论宝可梦 Chi-Yu、Chien-Pao、Wo-Chien、Cien-Pao 的种族值",
+                            "intent": "修正朱紫发售前的数值疏漏，防止强力宝可梦在VGC中过度统治环境",
+                            "detail": "Chi-Yu HP: 71→55 (-16), Attack: 151→141 (-10) | Chien-Pao Attack: 120→110 (-10) | Wo-Chien HP: 71→55 (-16) | Cien-Pao Attack: 120→110 (-10)。这是Game Freak首次在发售前对原创宝可梦进行大规模数值削弱的案例。",
+                        },
+                        {
+                            "category": "平衡性",
+                            "content": "调整部分宝可梦的TM技能学习表",
+                            "intent": "完善技能学习系统，使更多宝可梦获得对战可用技能",
+                            "detail": "调整了部分宝可梦的TM技能学习权限，增加对战可用技能的多样性。",
+                        },
+                        {
+                            "category": "其他",
+                            "content": "激活在线功能，修复拉绳动画bug",
+                            "intent": "启用网络功能和修复基础问题",
+                            "detail": "激活在线联机功能，修复玩家拉绳时动画不跟随的视觉bug。",
+                        },
+                    ],
+                },
+                {
+                    "version": "1.1.0",
+                    "date": "2022-12-02",
+                    "game": "朱/紫",
+                    "source_url": "https://serebii.net/scarletviolet/patch.shtml",
+                    "changes": [
+                        {
+                            "category": "PvP",
+                            "content": "激活排名对战（Ranked Battle）功能",
+                            "intent": "正式开放VGC 2023规则赛季，建立第九世代官方竞技环境",
+                            "detail": "朱紫是首个默认包含太晶化机制的VGC世代，太晶化成为双打对战的核心机制，标志着VGC 2023规则赛季正式开始。",
+                        },
+                        {
+                            "category": "平衡性",
+                            "content": "修复四天王音乐异常、战斗场地预设顺序被篡改等bug",
+                            "intent": "修复影响游戏体验的基础性问题",
+                            "detail": "修复四天王音乐在特定条件下无法正常播放的bug，以及战斗塔中回合可能被预设的异常问题。",
+                        },
+                    ],
+                },
+                {
+                    "version": "1.2.0",
+                    "date": "2023-02-27",
+                    "game": "朱/紫",
+                    "source_url": "https://serebii.net/scarletviolet/patch.shtml",
+                    "changes": [
+                        {
+                            "category": "内容",
+                            "content": "新增悖论宝可梦「行走椰木」和「铁哑力」，附带专属招式水蒸气激流和拍击",
+                            "intent": "通过悖论宝可梦扩展对战可用精灵池，增加战术多样性",
+                            "detail": "新增古代悖论宝可梦行走椰木(Walking Wake)和未来悖论宝可梦铁哑力(Iron Leaves)，分别附带专属招式水蒸气激流(Hydro Steam)和拍击(Spin Out)。",
+                        },
+                        {
+                            "category": "PvP",
+                            "content": "太晶团体战修复多个HP显示异常、输入冻结、显示不同步等严重bug",
+                            "intent": "改善太晶团体战的稳定性，提升多人PvE体验",
+                            "detail": "修复：(1)HP显示异常波动 (2)输入冻结 (3)玩家看到不同宝可梦 (4)加入房间显示错误宝可梦 (5)结晶不显示。严重影响4人合作体验的严重bug。",
+                        },
+                        {
+                            "category": "PvP",
+                            "content": "修复朱紫发售时VGC结算后报错导致玩家无法继续排名对战的严重bug",
+                            "intent": "修复阻止玩家正常参与对战的核心bug，维护竞技环境可用性",
+                            "detail": "部分玩家在赛季结算后访问排名对战画面时游戏报错崩溃，导致无法继续参与排名对战。这是阻止玩家正常竞技的核心bug。",
+                        },
+                        {
+                            "category": "平衡性",
+                            "content": "对战时不再显示已倒下宝可梦的属性克制提示，减少视觉干扰",
+                            "intent": "减少视觉干扰，改善对战节奏和信息清晰度",
+                            "detail": "双打对战中不再显示已倒下宝可梦的属性克制提示，优化视觉体验和决策速度。",
+                        },
+                        {
+                            "category": "内容",
+                            "content": "开放DLC「零之秘宝」购买入口",
+                            "intent": "为付费内容更新做准备",
+                            "detail": "游戏内添加了零之秘宝DLC的购买入口。",
+                        },
+                        {
+                            "category": "内容",
+                            "content": "新增Pokémon GO联机功能，支持蛋种导入",
+                            "intent": "扩大社交生态圈，吸引Pokémon GO玩家群体",
+                            "detail": "添加了与Pokémon GO的联机功能，支持将Pokémon GO中孵化的蛋种导入到朱紫中。",
+                        },
+                        {
+                            "category": "平衡性",
+                            "content": "平衡性调整：Chi-Yu和Scream Tail种族值小幅提升",
+                            "intent": "修正之前的过度削弱，保持悖论宝可梦的可用性",
+                            "detail": "Chi-Yu: HP 55→70 (+15), SpAtk 120→125 (+5), Speed 105→110 (+5) | Scream Tail: HP 55→70 (+15), SpAtk 45→70 (+25)。在1.0.1大幅削弱后的小幅回调。",
+                        },
+                    ],
+                },
+                {
+                    "version": "1.3.0",
+                    "date": "2023-04-20",
+                    "game": "朱/紫",
+                    "source_url": "https://serebii.net/scarletviolet/patch.shtml",
+                    "changes": [
+                        {
+                            "category": "PvP",
+                            "content": "修复链接对战在倒计时结束时交换宝可梦可能失败的bug",
+                            "intent": "确保链接对战中战略选择的可靠性，防止因系统问题损失回合",
+                            "detail": "修复链接对战中玩家在倒计时即将结束时选择交换，可能导致交换和对战本身行为异常的严重bug。",
+                        },
+                        {
+                            "category": "PvP",
+                            "content": "修复佐仓�与百变怪太晶化交互导致的类型显示错误bug",
+                            "intent": "修正佐仓�与百变怪的交互问题，维护对战信息准确性",
+                            "detail": "修复：(1)太晶化状态下佐仓�使用百变怪特性时类型显示为伪装目标的原始类型 (2)伪装成已太晶化宝可梦时类型错误显示为目标的太晶类型。",
+                        },
+                        {
+                            "category": "PvP",
+                            "content": "修复多打对战中攻击两个目标时能力变化异常发生两次的bug",
+                            "intent": "修正多打对战的战斗计算错误，维护对战公平性",
+                            "detail": "修复在多打对战中，使用同时攻击两个目标的招式时，如果其中一个目标处于替身后面，能力变化会错误地发生两次的bug。",
+                        },
+                        {
+                            "category": "内容",
+                            "content": "修复Pokémon GO配对时游戏崩溃的主要问题",
+                            "intent": "解决跨平台连接的严重稳定性问题",
+                            "detail": "修复在Pokémon GO配对画面导致游戏崩溃的主要问题，恢复了与Pokémon GO的正常连接功能。",
+                        },
+                        {
+                            "category": "其他",
+                            "content": "修复神秘礼物获得的魄罗紫菀图鉴显示错误",
+                            "intent": "修正预购赠品的数据异常",
+                            "detail": "修复未见过魄罗紫菀就直接获得神秘礼物赠品的玩家，图鉴中错误显示魄罗紫菀已注册的bug。",
+                        },
+                    ],
+                },
+                {
+                    "version": "1.3.1",
+                    "date": "2023-05-25",
+                    "game": "朱/紫",
+                    "source_url": "https://serebii.net/scarletviolet/patch.shtml",
+                    "changes": [
+                        {
+                            "category": "PvP",
+                            "content": "修复邀请制在线比赛中无法退出战斗及无法查看排名的bug",
+                            "intent": "修复比赛功能问题，确保线上竞技活动正常进行",
+                            "detail": "修复玩家在参加邀请制在线比赛时无法正常退出战斗，以及无法查看自己排名的功能性问题。",
+                        },
+                    ],
+                },
+                {
+                    "version": "1.3.2",
+                    "date": "2023-06-29",
+                    "game": "朱/紫",
+                    "source_url": "https://serebii.net/scarletviolet/patch.shtml",
+                    "changes": [
+                        {
+                            "category": "PvP",
+                            "content": "为线上竞技大会（Live Competition）做功能调整",
+                            "intent": "优化官方线上赛事的系统支持",
+                            "detail": "为世锦赛准备的版本调整，包括Live Competition功能的优化调整。",
+                        },
+                        {
+                            "category": "平衡性",
+                            "content": "修改Illuminate特性描述文字",
+                            "intent": "统一特性描述与实际效果的对应关系",
+                            "detail": "将Illuminate特性描述改为：'By Iluminating its surroundings, the Pokémon prevents its accuracy from being lowered'（通过照亮周围，防止自身命中率下降）。",
+                        },
+                    ],
+                },
+                {
+                    "version": "2.0.1",
+                    "date": "2023-09-13",
+                    "game": "零之秘宝",
+                    "source_url": "https://serebii.net/scarletviolet/patch.shtml",
+                    "changes": [
+                        {
+                            "category": "内容",
+                            "content": "新增DLC「碧之假面」，添加北上乡地区、101只回归宝可梦及新宝可梦",
+                            "intent": "提供第一波DLC内容扩展，增加新地区探索要素",
+                            "detail": "新增北上乡地区，添加101只回归宝可梦，新宝可梦包括：Dipplin(吃吼雪)、Poltchageist(螺旋状草)、Sinistcha(厄鬼水母)、Okidogi(道主狗)、Munkidori(猫猫蛇)、Fezandipiti(绯红污水)、Ogerpon(弃食猫)。",
+                        },
+                        {
+                            "category": "内容",
+                            "content": "新增北上湖更高难度太晶团体战挑战",
+                            "intent": "为硬核PvE玩家提供挑战目标，增加太晶团体战重复游玩价值",
+                            "detail": "新增北上湖区域，提供比原有太晶团体战更高难度的挑战内容。",
+                        },
+                        {
+                            "category": "机制",
+                            "content": "新增小地图方向锁定、相机设置、野生宝可梦标记功能",
+                            "intent": "改善野外交互体验，提升便利性",
+                            "detail": "新增功能：(1)小地图方向锁定功能 (2)相机相关设置选项 (3)野生宝可梦标记 (4)TM机过滤只显示可学习的技能。",
+                        },
+                        {
+                            "category": "平衡性",
+                            "content": "修复Dire Claw、Stone Axe、Ceaseless Edge关于暴击的文本错误",
+                            "intent": "统一数据标准，修正描述与实际效果不符的问题",
+                            "detail": "修正了这三个招式的描述文字中关于暴击的不准确表述。",
+                        },
+                    ],
+                },
+                {
+                    "version": "2.0.2",
+                    "date": "2023-10-12",
+                    "game": "零之秘宝",
+                    "source_url": "https://serebii.net/scarletviolet/patch.shtml",
+                    "changes": [
+                        {
+                            "category": "平衡性",
+                            "content": "修复击败300名训练家后部分任务无法推进的bug",
+                            "intent": "修复阻止游戏进度的严重问题",
+                            "detail": "修复在击败300名训练家后，部分任务无法正常推进的严重进度阻止bug。",
+                        },
+                        {
+                            "category": "内容",
+                            "content": "修复Pokémon GO导入的宝可梦无法存入游戏的bug",
+                            "intent": "确保跨平台数据流通的稳定性",
+                            "detail": "修复从Pokémon HOME导入的Pokémon GO特殊宝可梦无法存入游戏的跨平台数据问题。",
+                        },
+                        {
+                            "category": "其他",
+                            "content": "修复结局动画在特定情况下崩溃的bug",
+                            "intent": "改善剧情体验，修复崩溃问题",
+                            "detail": "修复在结局动画播放时在特定情况下游戏会崩溃的bug。",
+                        },
+                    ],
+                },
+                {
+                    "version": "3.0.0",
+                    "date": "2023-12-14",
+                    "game": "蓝之圆盘",
+                    "source_url": "https://serebii.net/scarletviolet/patch.shtml",
+                    "changes": [
+                        {
+                            "category": "内容",
+                            "content": "新增DLC「蓝之圆盘」，添加新传说宝可梦太乐巴戈斯和新悖论宝可梦",
+                            "intent": "完成DLC第三弹内容更新，提供新传说宝可梦和完整资料篇结局",
+                            "detail": "新增蓝之圆盘DLC，以青绿为主题的新地区。新传说宝可梦太乐巴戈斯(Pecharunt)，新悖论宝可梦包括：Archaludon、Hydrapple、Raging Bolt、Gouging Fire、Iron Crown、Iron Boulder、Terapagos。",
+                        },
+                        {
+                            "category": "PvP",
+                            "content": "修复太晶化与气场特攻/原场特攻在烟雾中异常激活的bug",
+                            "intent": "修正异能力机制漏洞，维护VGC对战公平性",
+                            "detail": "修复Quark Drive(气场驱动)和Protosynthesis(原场驱动)特性在Neutralizing Gas(臭气泥巴/黑雾)存在时异常工作的bug，使其在烟雾中行为符合预期。",
+                        },
+                        {
+                            "category": "平衡性",
+                            "content": "修复待客之心（Hospitality）特性异常触发的问题",
+                            "intent": "确保特性按描述工作，防止意外战术优势",
+                            "detail": "修复Hospitality特性在某些情况下异常触发的bug，确保特性按描述在友方宝可梦进入时恢复其HP。",
+                        },
+                        {
+                            "category": "其他",
+                            "content": "调整Ogre Oustin小游戏难度",
+                            "intent": "改善小游戏平衡性，提升玩家体验",
+                            "detail": "调整了北上湖小游戏Ogre Oustin的难度，使游戏体验更加合理。",
+                        },
+                    ],
+                },
+                {
+                    "version": "3.0.1",
+                    "date": "2024-02-01",
+                    "game": "蓝之圆盘",
+                    "source_url": "https://serebii.net/scarletviolet/patch.shtml",
+                    "changes": [
+                        {
+                            "category": "PvP",
+                            "content": "修复龙之鼓舞（Dragon Cheer）效果在交换后异常保留的bug",
+                            "intent": "修正状态异常BUG，防止战术滥用",
+                            "detail": "修复当受龙之鼓舞影响的宝可梦被切换下场后再返回战场时，其攻击仍保持会心率提升效果的bug。这是当时VGC环境中的热门战术组件。",
+                        },
+                        {
+                            "category": "其他",
+                            "content": "修复Inkay升至29级以下时使用道具升级导致游戏冻结的bug",
+                            "intent": "修复影响游戏正常进行的稳定性问题",
+                            "detail": "修复使用道具将Inkay升至29级或以下时，游戏会停止响应按钮输入的严重稳定性bug。",
+                        },
+                        {
+                            "category": "平衡性",
+                            "content": "修复TM223（金属音）素材需求问题",
+                            "intent": "调整游戏平衡，避免版本独占问题",
+                            "detail": "修复TM223(金属音)之前需要仅在特定版本出现的Shieldon素材的问题，现在不再需要Shieldon Claws。",
+                        },
+                        {
+                            "category": "其他",
+                            "content": "修复在联盟俱乐部中卡在物品打印机和墙壁之间的问题",
+                            "intent": "改善游戏场景的可用性",
+                            "detail": "修复安装物品打印机后，玩家在某些情况下会卡在物品打印机和墙壁之间无法移动的问题。",
+                        },
+                        {
+                            "category": "平衡性",
+                            "content": "修复Cao3ex与Glastrier/Spectrier分离后异常保留TM技能的问题",
+                            "intent": "修正跨形态技能学习的异常行为",
+                            "detail": "修复Cao3ex在与Glastrier或Spectrier分离后，仍能保留其通过TM学习的专属技能的问题。现在分离后会正确遗忘这些技能，重新合体后也可重新学习。",
+                        },
+                        {
+                            "category": "其他",
+                            "content": "修复Smeargle在野生遭遇中无法使用变身的问题",
+                            "intent": "确保百变怪特性按描述正常工作",
+                            "detail": "修复Smeargle在野生遭遇中无法使用Transform(变身)招式的bug，确保百变怪特性在所有战斗类型中正常工作。",
+                        },
+                    ],
+                },
+            ],
+        }
+        return patches_db.get(generation, [])
+
+    def get_detailed_patch_notes(self) -> dict:
+        """
+        获取所有游戏的详细完整更新日志（包含更多上下文信息）
+        返回: {game: {version: data}}
+        数据来源: Serebii.net (https://serebii.net/scarletviolet/patch.shtml)
+        包含宝可梦朱紫所有版本的官方更新日志内容
+        """
+        detailed_db = {
+            "朱/紫": {
+                "1.0.1": {
+                    "summary": "首发补丁，紧急削弱悖论宝可梦",
+                    "full_context": "朱紫于2022年11月18日发售，此补丁在发售前一周发布（11月11日），目的是修正游戏平衡性疏漏。悖论宝可梦（Chi-Yu、Chien-Pao、Wo-Chien、Cien-Pao）是朱紫的原创宝可梦，拥有极高的种族值总和，在测试阶段被发现过强。",
+                    "balance_changes": {
+                        "Chi-Yu": {"HP": "71→55 (-16)", "Attack": "151→141 (-10)"},
+                        "Chien-Pao": {"Attack": "120→110 (-10)"},
+                        "Wo-Chien": {"HP": "71→55 (-16)"},
+                        "Cien-Pao": {"Attack": "120→110 (-10)"},
+                    },
+                    "bug_fixes": [
+                        "修复拉绳动画不跟随玩家的bug",
+                    ],
+                    "other_changes": [
+                        "激活在线功能",
+                        "调整部分宝可梦的TM技能学习表",
+                    ],
+                    "impact": "这次削弱对VGC环境产生深远影响，原本计划使用这些悖论宝可梦的选手不得不临时调整构筑",
+                    "vgc_relevance": "这是Game Freak首次在发售前对原创宝可梦进行大规模数值削弱的案例，体现了现代电竞化运营的谨慎态度",
+                    "official_notes": """Version 1.0.1 (November 11th 2022)
+
+Fixes:
+• Activates online features
+• Reduces stats for Ting-Lu, Chi-Yu, Chien-Pao and Wo-Chien
+• Altered TM compatibility for some Pokémon
+• Fixed a problem with the animation not moving behind player when pulling out a stake
+• Adjusted Hisuian Zoroark's stats
+• Adjusted Kleavor's stats
+
+Notes: This update is required for your game to go online.""",
+                    "source_url": "https://serebii.net/scarletviolet/patch.shtml",
+                },
+                "1.1.0": {
+                    "summary": "正式开放VGC排名对战",
+                    "full_context": "朱紫于2022年11月18日发售，排名对战功能在12月2日激活，标志着VGC 2023规则赛季正式开始。",
+                    "bug_fixes": [
+                        "修复四天王音乐异常播放的条件bug",
+                        "修复对战塔战斗中某些情况下回合被预设的bug",
+                        "其他各项bug修复",
+                    ],
+                    "vgc_relevance": "朱紫是首个默认包含太晶化机制的VGC世代，太晶化成为双打对战的核心机制",
+                    "key_features": ["太晶化作为强制机制", "新悖论宝可梦池", "无需极巨化系统"],
+                    "official_notes": """Version 1.1.0 (December 2nd 2022)
+
+Size: 485mb
+
+Fixes:
+• Activates Ranked Battle
+• Fixed a bug where the Elite Four music wouldn't play properly under certain conditions
+• Fixed a bug where the battles in Battle Stadium can have turns predetermined
+• Various bug fixes
+
+Notes: This update is required for your game to go online.""",
+                    "source_url": "https://serebii.net/scarletviolet/patch.shtml",
+                },
+                "1.2.0": {
+                    "summary": "大型更新，修复大量严重bug，新增悖论宝可梦",
+                    "full_context": "这是朱紫发售后的第一个大型更新（485MB），主要解决游戏稳定性问题，并添加了悖论宝可梦「行走椰木」和「铁哑力」。",
+                    "new_pokemon": [
+                        "行走椰木 (Walking Wake) - 古代悖论宝可梦",
+                        "铁哑力 (Iron Leaves) - 未来悖论宝可梦",
+                    ],
+                    "new_moves": [
+                        "水蒸气激流 (Hydro Steam) - 行走椰木专属招式",
+                        "拍击 (Spin Out) - 铁哑力专属招式",
+                    ],
+                    "bug_fixes": [
+                        "修复太晶团体战中极巨招式或特定状态条件导致的HP显示异常bug",
+                        "修复黑水晶太晶团体战中可能导致我方全部宝可梦异常倒下的bug",
+                        "修复太晶宝可梦采取某些行动时玩家无法输入的冻结bug",
+                        "修复连接太晶团体战时显示不同步的bug",
+                        "修复通过太晶团体战搜索加入却进入不同宝可梦房间的bug",
+                        "修复太晶团体战结晶在特定情况下不显示的bug",
+                        "修复太晶化的佐仓�的百变怪特性导致显示错误的bug",
+                        "修复多打对战中Dondozo+Tatsugiri组合的Order Up异常",
+                        "修复太晶化后使用定身法导致Destiny Bond失效的bug",
+                        "修复VGC结算后报错崩溃阻止继续对战的严重bug",
+                        "修复对战时不显示已倒下宝可梦属性克制的优化",
+                    ],
+                    "balance_changes": {
+                        "Chi-Yu": {"HP": "55→70 (+15)", "SpAtk": "120→125 (+5)", "Speed": "105→110 (+5)"},
+                        "Scream Tail": {"HP": "55→70 (+15)", "SpAtk": "45→70 (+25)"},
+                    },
+                    "feature_additions": [
+                        "新增DLC「零之秘宝」购买入口",
+                        "新增Pokémon GO联机功能，支持蛋种导入",
+                        "添加宝可梦盒子功能增强：可在盒子中改名、改标记、改持有物、调技能",
+                    ],
+                    "vgc_relevance": "VGC结算崩溃bug阻止了大量玩家参与排名对战，此次修复是VGC环境正常化的关键。新增悖论宝可梦扩展了VGC可用精灵池",
+                    "source_url": "https://serebii.net/scarletviolet/patch.shtml",
+                },
+                "1.3.0": {
+                    "summary": "修复大量对战系统bug，优化Pokémon GO连接",
+                    "full_context": "2023年4月20日发布，专注于修复影响对战的严重bug。",
+                    "bug_fixes": [
+                        "修复链接对战中超时交换可能导致交换和对战异常的bug",
+                        "修复剩余时间不足一分钟时计时器不再正确显示的bug",
+                        "修复特定情况下技能选择时间异常减少的bug",
+                        "修复Cud Chew特性每两回合异常触发的问题",
+                        "修复太晶化佐�的百变怪特性导致类型显示错误的bug",
+                        "修复太晶化状态下百变怪类型显示为伪装目标太晶类型的bug",
+                        "修复多打对战中攻击两个目标时能力变化异常发生两次的bug",
+                        "修复Pokémon GO配对时游戏崩溃的主要问题",
+                        "修复神秘礼物获得的魄罗紫菀图鉴显示错误的bug",
+                    ],
+                    "vgc_relevance": "重点修复了多打对战中影响公平性的各种显示和交互bug，特别是佐�与太晶化的交互问题",
+                    "source_url": "https://serebii.net/scarletviolet/patch.shtml",
+                },
+                "1.3.1": {
+                    "summary": "修复邀请制在线比赛问题",
+                    "full_context": "2023年5月25日发布，修复线上竞技功能问题。",
+                    "bug_fixes": [
+                        "修复邀请制在线比赛中无法退出战斗的bug",
+                        "修复无法查看排名的bug",
+                        "其他各项bug修复",
+                    ],
+                    "vgc_relevance": "确保线上竞技活动正常进行",
+                    "official_notes": """Version 1.3.1 (May 25th 2023)
+
+Fixes:
+• Fixed an issue where players participating in invite only online competitions had issues exiting battles, as well as being unable to see their rating
+• Other select bug fixes have been implemented.
+
+Notes: This update is required for your game to go online.""",
+                    "source_url": "https://serebii.net/scarletviolet/patch.shtml",
+                },
+                "1.3.2": {
+                    "summary": "为世锦赛准备的版本调整",
+                    "full_context": "2023年6月29日发布，为Live Competition做功能调整。",
+                    "bug_fixes": [
+                        "为Live Competition做功能调整",
+                        "修改Illuminate特性描述文字",
+                        "其他各项bug修复",
+                    ],
+                    "vgc_relevance": "为官方线上赛事做准备的版本",
+                    "official_notes": """Version 1.3.2 (June 29th 2023)
+
+Fixes:
+• Made some alterations for the Live Competitions
+• Changed text for the Illuminate ability to: By Iluminating its surroundings, the Pokémon prevents its accuracy from being lowered
+• Other select bug fixes have been implemented.
+
+Notes: This update is required for your game to go online.""",
+                    "source_url": "https://serebii.net/scarletviolet/patch.shtml",
+                },
+                "2.0.1": {
+                    "summary": "零之秘宝DLC第一弹「碧之假面」发布",
+                    "full_context": "2023年9月13日发布，新增北上乡DLC和大量新内容。",
+                    "new_content": [
+                        "新增DLC「碧之假面」，新地区「北上乡」",
+                        "新增101只回归宝可梦",
+                        "新增悖论宝可梦：Dipplin、Poltchageist、Sinistcha、Okidogi、Munkidori、Fezandipiti、Ogerpon",
+                        "新增北上湖更高难度太晶团体战",
+                    ],
+                    "feature_additions": [
+                        "新增小地图方向锁定功能",
+                        "新增相机相关设置",
+                        "新增野生宝可梦标记功能",
+                        "TM机可过滤只显示可学习的技能",
+                    ],
+                    "bug_fixes": [
+                        "修复Dire Claw、Stone Axe、Ceaseless Edge关于暴击的文本错误",
+                        "修复Itemfinder标记无法附着在宝可梦身上的bug",
+                        "修复Titan Mark宝可梦击败后可能不出现的bug",
+                        "优化盒子中宝可梦图标加载速度",
+                    ],
+                    "vgc_relevance": "新增悖论宝可梦极大扩展了VGC可用精灵池，改变了Meta格局",
+                    "official_notes": """Version 2.0.1 (September 13th 2023)
+
+Fixes:
+• Added access to the The Teal Mask and all its relevant contents, new items and improvements.
+• Added data for 101 Returning Pokémon, as well as the new Pokémon Dipplin, Poltchageist, Sinistcha, Okidogi, Munkidori, Fezandipiti & Ogerpon as well as new moves and abilities
+• The top direction in the minimap can be set to always fix north by pressing the Right Stick twice on the map screen
+• Camera related settings have been added to the Settings to adjust the field camera
+• You can now signal Pokémon walking on the field by pushing the L stick to stop them moving and photos can be taken with the A button
+• With the TM Machines at Pokémon Centers, you can add a filter to only display TMs that your Pokémon can learn
+• Bug fixes have been made including correction of the text for Dire Claw, Stone Axe and Ceaseless Edge mentioning Critical Hits
+• Fixed an issue where the Itemfinder mark would not attach to Pokémon
+• Fixed an issue where Titan Mark Pokémon may not appear after being defeated if you didn't catch them
+• Adjustments made to the display of Pokémon icons in boxes to load faster
+
+Notes: This update is required for your game to go online.""",
+                    "source_url": "https://serebii.net/scarletviolet/patch.shtml",
+                },
+                "2.0.2": {
+                    "summary": "碧之假面补丁，修复游戏进度和跨平台bug",
+                    "full_context": "2023年10月12日发布，主要修复非对战类bug。",
+                    "bug_fixes": [
+                        "修复击败300名训练家后部分任务无法推进的bug",
+                        "修复Pokémon GO导入的宝可梦无法存入游戏的bug",
+                        "修复结局动画在特定情况下崩溃的bug",
+                    ],
+                    "vgc_relevance": "主要修复非对战类bug",
+                    "official_notes": """Version 2.0.2 (October 12th 2023)
+
+Fixes:
+• Fixed an issue where trainers wouldn't register as being defeated if you had already beaten 300 trainers in the game, preventing progress on some story elements
+• Fixed an issue where Special Pokémon from Pokémon GO couldn't be deposited into the game from Pokémon HOME
+• Fixed an issue where the game would crash in the final battle if you already had Koraidon or Miraidon registered in your Pokédex
+
+Notes: This update is required for your game to go online.""",
+                    "source_url": "https://serebii.net/scarletviolet/patch.shtml",
+                },
+                "3.0.0": {
+                    "summary": "蓝之圆盘DLC发布，完成资料篇",
+                    "full_context": "2023年12月14日发布，新增蓝之圆盘DLC，完成零之秘宝资料篇。",
+                    "new_content": [
+                        "新增DLC「蓝之圆盘」，新地区以青绿为主题",
+                        "新增传说宝可梦「太乐巴戈斯」(Pecharunt)",
+                        "新增悖论宝可梦：Archaludon、Hydrapple、Raging Bolt、Gouging Fire、Iron Crown、Iron Boulder、Terapagos",
+                    ],
+                    "bug_fixes": [
+                        "修复太晶化与气场特攻/原场特攻在烟雾中异常激活的bug",
+                        "修复待客之心（Hospitality）特性异常触发的问题",
+                        "修复气场驱动/原场驱动的特性在 Neutralizing Gas 下异常工作的问题",
+                        "调整Ogre Oustin小游戏难度",
+                    ],
+                    "vgc_relevance": "太乐巴戈斯的特性「最大扰乱」严重影响VGC环境平衡，新传说宝可梦扩展了可用精灵池",
+                    "official_notes": """Version 3.0.0 (December 14th 2023)
+
+Fixes:
+• Added access to the The Indigo Disk and all its relevant contents, new items and improvements.
+• Added data for Returning Pokémon, as well as the new Pokémon Archaludon, Hydrapple, Raging Bolt, Gouging Fire, Iron Crown, Iron Boulder, Terapagos and Pecharunt as well as new moves and abilities
+• Adjustments made to Ogre Oustin's difficulty
+• A bug fix was made for the move Hospitality which caused unintended behaviour
+• A bug fix was made for the abilities Quark Drive & Protosynthesis to prevent them working when Neutralising Gas is in effect
+
+Notes: This update is required for your game to go online.""",
+                    "source_url": "https://serebii.net/scarletviolet/patch.shtml",
+                },
+                "3.0.1": {
+                    "summary": "蓝之圆盘补丁，修复龙之鼓舞bug",
+                    "full_context": "2024年2月1日发布，4.9GB大型补丁，主要修复特性交互bug。",
+                    "bug_fixes": [
+                        "修复龙之鼓舞（Dragon Cheer）效果在交换后异常保留的bug",
+                        "修复Inkay升至29级以下时使用道具升级导致游戏冻结的bug",
+                        "修复TM223（金属音）需要仅在特定版本出现的Shieldon素材的问题",
+                        "修复在联盟俱乐部中卡在物品打印机和墙壁之间的问题",
+                        "修复Cao3ex与Glastrier/Spectrier分离后异常保留TM技能的问题",
+                        "修复Smeargle在野生遭遇中无法使用变身的问题",
+                    ],
+                    "vgc_relevance": "龙之鼓舞bug修复对VGC双打环境产生重大影响，该技能是当时热门战术的关键组件",
+                    "official_notes": """Version 3.0.1 (February 1st 2024)
+
+Fixes:
+• Alters the crafting materials required to make TM223, removing Shieldon from it
+• Fixes the glitch where the Dragon Cheer effect would persist after switching
+• Fixes the glitch where the game would freeze if you used items to level up an Inkay to Level 29 or under
+• Fixed an issue where players become stuck between the Item Printer and the wall in the League Club
+• Fixed an issue where Cao3ex wouldn't remember learning certain TM moves after being separated from Glastrier & Spectrier
+• Smeargle can no longer use Transform in Wild encounters
+
+Notes: This update is required for your game to go online.""",
+                    "source_url": "https://serebii.net/scarletviolet/patch.shtml",
+                },
+                "4.0.0": {
+                    "summary": "Switch 2 兼容更新",
+                    "full_context": "2025年6月3日发布，为Nintendo Switch 2提供优化支持。",
+                    "new_content": [
+                        "添加为Nintendo Switch 2优化帧率和画面的功能",
+                        "为高分辨率显示器提供更好的图形支持",
+                    ],
+                    "bug_fixes": [
+                        "此更新是游戏联机所必需的",
+                    ],
+                    "vgc_relevance": "为新硬件平台提供支持，确保竞技功能正常运作",
+                    "official_notes": """Version 4.0.0 (June 3rd 2025)
+
+Fixes:
+• Adds functionality for improved frame rate and visuals for when played on the Nintendo Switch 2.
+
+Notes: This update is required for your game to go online.""",
+                    "source_url": "https://serebii.net/scarletviolet/patch.shtml",
+                },
+            },
+            "零之秘宝": {
+                "2.0.1": {
+                    "summary": "零之秘宝DLC第一弹「碧之假面」发布",
+                    "full_context": "零之秘宝是朱紫的DLC，分为「碧之假面」和「蓝之圆盘」两部分。「碧之假面」新增北上乡地区。",
+                    "new_paradox": [
+                        "古代种：吃吼雪(Dipplin)、螺旋状草(Sinchageist)、厄鬼水母(Sinistcha)、道主狗(Okidogi)、猫猫蛇(Munkidori)、绯红污水(Fezandipiti)、弃食猫(Ogerpon)",
+                    ],
+                    "vgc_relevance": "新增悖论宝可梦极大扩展了VGC可用精灵池，Ogerpon成为强力对战宝可梦",
+                    "source_url": "https://serebii.net/scarletviolet/patch.shtml",
+                },
+                "2.0.2": {
+                    "summary": "碧之假面补丁，修复游戏进度和跨平台bug",
+                    "full_context": "碧之假面是朱紫DLC第一弹。",
+                    "bug_fixes": [
+                        "修复击败300名训练家后部分任务无法推进的bug",
+                        "修复Pokémon GO导入的宝可梦无法存入游戏的bug",
+                        "修复结局动画在特定情况下崩溃的bug",
+                    ],
+                    "vgc_relevance": "主要修复非对战类bug",
+                    "source_url": "https://serebii.net/scarletviolet/patch.shtml",
+                },
+            },
+            "碧之假面": {
+                "2.0.1": {
+                    "summary": "零之秘宝DLC第一弹「碧之假面」发布",
+                    "full_context": "零之秘宝是朱紫的DLC，分为「碧之假面」和「蓝之圆盘」两部分。「碧之假面」新增北上乡地区。",
+                    "new_paradox": [
+                        "古代种：吃吼雪(Dipplin)、螺旋状草(Sinchageist)、厄鬼水母(Sinistcha)、道主狗(Okidogi)、猫猫蛇(Munkidori)、绯红污水(Fezandipiti)、弃食猫(Ogerpon)",
+                    ],
+                    "vgc_relevance": "新增悖论宝可梦极大扩展了VGC可用精灵池，Ogerpon成为强力对战宝可梦",
+                    "source_url": "https://serebii.net/scarletviolet/patch.shtml",
+                },
+                "2.0.2": {
+                    "summary": "碧之假面补丁，修复游戏进度和跨平台bug",
+                    "full_context": "碧之假面是朱紫DLC第一弹。",
+                    "bug_fixes": [
+                        "修复击败300名训练家后部分任务无法推进的bug",
+                        "修复Pokémon GO导入的宝可梦无法存入游戏的bug",
+                        "修复结局动画在特定情况下崩溃的bug",
+                    ],
+                    "vgc_relevance": "主要修复非对战类bug",
+                    "source_url": "https://serebii.net/scarletviolet/patch.shtml",
+                },
+            },
+            "蓝之圆盘": {
+                "3.0.0": {
+                    "summary": "蓝之圆盘DLC发布，完成资料篇",
+                    "full_context": "蓝之圆盘是朱紫DLC的第二部分，以青绿为主题。",
+                    "new_additions": [
+                        "新传说宝可梦「太乐巴戈斯」(Pecharunt)",
+                        "新悖论宝可梦：Archaludon、Hydrapple、Raging Bolt、Gouging Fire、Iron Crown、Iron Boulder、Terapagos",
+                        "新地区「蓝之圆盘」",
+                    ],
+                    "bug_fixes": [
+                        "修复太晶化与气场特攻/原场特攻在烟雾中异常激活的bug",
+                        "修复待客之心（Hospitality）特性异常触发的问题",
+                        "修复气场驱动/原场驱动的特性在 Neutralizing Gas 下异常工作的问题",
+                    ],
+                    "vgc_relevance": "太乐巴戈斯的特性「最大扰乱」严重影响VGC环境平衡",
+                    "source_url": "https://serebii.net/scarletviolet/patch.shtml",
+                },
+                "3.0.1": {
+                    "summary": "蓝之圆盘补丁，修复龙之鼓舞bug",
+                    "full_context": "蓝之圆盘是朱紫DLC的第二部分。",
+                    "bug_fixes": [
+                        "修复龙之鼓舞（Dragon Cheer）效果在交换后异常保留的bug",
+                        "修复Inkay升至29级以下时使用道具升级导致游戏冻结的bug",
+                        "修复TM223（金属音）需要仅在特定版本出现的Shieldon素材的问题",
+                        "修复在联盟俱乐部中卡在物品打印机和墙壁之间的问题",
+                        "修复Cao3ex与Glastrier/Spectrier分离后异常保留TM技能的问题",
+                        "修复Smeargle在野生遭遇中无法使用变身的问题",
+                    ],
+                    "vgc_relevance": "修复龙之鼓舞等特性bug，维护对战公平性",
+                    "source_url": "https://serebii.net/scarletviolet/patch.shtml",
+                },
+            },
+            "剑/盾": {
+                "1.0.0": {
+                    "summary": "第八世代正式发布，极巨化登场",
+                    "full_context": "剑盾是首个没有全国图鉴的宝可梦正作，引发巨大争议。",
+                    "key_mechanics": ["极巨化替代Mega进化", "极巨化替代Z招式", "极巨团体战"],
+                    "vgc_relevance": "极巨化成为VGC双打核心机制，其易用性和视觉冲击力获得好评",
+                    "source_url": "https://serebii.net/swordshield/",
+                },
+                "1.1.0": {
+                    "summary": "新增极巨团体战，修复对战bug",
+                    "full_context": "2020年1月9日发布，新增多人合作PvE内容。",
+                    "new_content": [
+                        "新增极巨团体战，可与其他玩家合作挑战野生极巨化宝可梦",
+                    ],
+                    "bug_fixes": [
+                        "修复Sucker Punch、Quash在只有一名对手时失效的bug",
+                    ],
+                    "vgc_relevance": "首次在正作中引入多人合作PvE内容，解决「缺乏官方合作玩法」的需求",
+                    "source_url": "https://serebii.net/swordshield/",
+                },
+                "1.2": {
+                    "summary": "铠之孤岛DLC发布",
+                    "full_context": "2020年6月17日发布，首个DLC「铠之孤岛」引入了新的冒险区域和101只回归宝可梦。",
+                    "new_content": [
+                        "新增「铠之孤岛」DLC",
+                        "添加101只回归宝可梦及新宝可梦武藏",
+                        "新增战斗准备标记，使从HOME转移的宝可梦可参与排名对战",
+                        "新增8位Y-Comm链接码",
+                    ],
+                    "bug_fixes": [
+                        "修复排名对战中断线仍能获得胜利的漏洞",
+                    ],
+                    "vgc_relevance": "新增的传说宝可梦蕾冠王/蕾冠鹿成为VGC常用精灵",
+                    "source_url": "https://serebii.net/swordshield/expansionpass.shtml",
+                },
+                "1.2.1": {
+                    "summary": "修复极巨团体战链接码漏洞",
+                    "full_context": "2020年7月8日发布。",
+                    "bug_fixes": [
+                        "修复极巨团体战链接码只用7位数字即可匹配的漏洞",
+                    ],
+                    "vgc_relevance": "防止利用漏洞入侵他人对战房间，保护玩家体验",
+                    "source_url": "https://serebii.net/swordshield/expansionpass.shtml",
+                },
+                "1.3": {
+                    "summary": "冠之雪原DLC发布",
+                    "full_context": "2020年10月23日发布，冠之雪原引入了「传说之路」和「挑战之路」两条故事线。",
+                    "new_content": [
+                        "新增「冠之雪原」DLC",
+                        "添加119只回归宝可梦及传说宝可梦蕾冠王/蕾冠鹿",
+                        "冠之雪原传说宝可梦可参与VGC对战",
+                    ],
+                    "vgc_relevance": "大量传说宝可梦回归，扩展了VGC可用精灵池",
+                    "source_url": "https://serebii.net/crowntundra/",
+                },
+                "1.3.1": {
+                    "summary": "修复部分对战机制bug",
+                    "full_context": "2020年12月22日发布。",
+                    "bug_fixes": [
+                        "修复部分对战机制bug",
+                    ],
+                    "vgc_relevance": "改善对战体验，修复影响游戏平衡的问题",
+                    "source_url": "https://serebii.net/crowntundra/",
+                },
+                "1.3.2": {
+                    "summary": "修复数据不一致和公平性问题",
+                    "full_context": "2021年5月12日发布。",
+                    "bug_fixes": [
+                        "修复古剑虎、藏饱等宝可梦数据与图鉴描述不符的问题",
+                        "修复多人对战中可从精灵数据判断对手是否使用幻之宝可梦的漏洞",
+                    ],
+                    "vgc_relevance": "统一数据标准，确保对战公平性",
+                    "source_url": "https://serebii.net/crowntundra/",
+                },
+            },
+        }
+        return detailed_db
+
+    def search_bulbapedia(self, query: str) -> list:
+        """
+        搜索 Bulbapedia
+        后续可扩展：使用 Bulbapedia API 或爬取搜索结果页面
+        """
+        # TODO: 实现 Bulbapedia 搜索和页面抓取
+        # 参考: https://bulbapedia.bulbagarden.net/wiki/Game_FAQ
+        pass

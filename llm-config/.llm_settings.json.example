@@ -1,0 +1,5 @@
+{
+  "base_url": "https://us.novaapi.com/v1",
+  "model": "anthropic/claude-3.5-sonnet",
+  "api_key": "sk-your-api-key-here"
+}
