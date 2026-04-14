@@ -1,9 +1,8 @@
 """
 演进报告生成器
-将研究主题 + 过滤后的更新 → 一次性发给 AI → 输出结构化报告
+将研究主题 + 过滤后的更新 → 一次性发给 AI → 输出 Markdown 深度报告
 """
 
-import json
 import re
 from typing import Optional
 from analyzer.prompts import GAME_DESIGN_CONTEXT
@@ -26,7 +25,7 @@ class EvolutionReportGenerator:
         """将更新列表格式化为 Prompt 文本"""
         lines = []
         for i, patch in enumerate(patches):
-            lines.append(f"--- 更新 {i + 1} ---")
+            lines.append(f"### 更新 {i + 1}")
             lines.append(f"版本: {patch.get('version', patch.get('date', 'N/A'))}")
             lines.append(f"日期: {patch.get('date', 'N/A')}")
             lines.append(f"标题: {patch.get('title', 'N/A')}")
@@ -34,25 +33,14 @@ class EvolutionReportGenerator:
             lines.append("")
         return "\n".join(lines)
 
-    def _parse_json_response(self, text: str) -> Optional[dict]:
-        """解析 LLM 返回的 JSON 响应"""
-        json_match = re.search(r"```(?:json)?\s*([\s\S]*?)\s*```", text)
-        if json_match:
-            json_str = json_match.group(1)
-        else:
-            json_str = text.strip()
-
-        try:
-            return json.loads(json_str)
-        except json.JSONDecodeError:
-            obj_match = re.search(r"\{[\s\S]*\}", json_str)
-            if obj_match:
-                try:
-                    return json.loads(obj_match.group(0))
-                except json.JSONDecodeError:
-                    pass
-            print(f"JSON 解析失败，原始响应（前200字）: {text[:200]}")
-            return None
+    def _extract_markdown_response(self, text: str) -> str:
+        """提取 LLM 返回的 Markdown 报告"""
+        # 去掉可能的 markdown code block 包裹
+        md_match = re.search(r"```(?:markdown)?\s*([\s\S]*?)\s*```", text)
+        if md_match:
+            return md_match.group(1).strip()
+        # 如果不是 code block，直接返回，可能是 AI 直接输出 Markdown
+        return text.strip()
 
     def generate_report(
         self,
@@ -67,7 +55,7 @@ class EvolutionReportGenerator:
             all_patches: 所有可用更新
 
         Returns:
-            报告字典，失败返回 None
+            包含 "_markdown" 字段的报告字典，失败返回 None
         """
         topic = get_topic_by_id(topic_id)
         if topic is None:
@@ -107,14 +95,22 @@ class EvolutionReportGenerator:
         try:
             response = llm.invoke(prompt)
             text = response.content if hasattr(response, "content") else str(response)
-            result = self._parse_json_response(text)
+            markdown = self._extract_markdown_response(text)
 
-            if result:
-                result["_topic"] = topic["name"]
-                result["_matched_count"] = len(matched)
-                result["_topic_description"] = topic["description"]
-
-            return result
+            if markdown:
+                return {
+                    "_markdown": markdown,
+                    "_topic": topic["name"],
+                    "_matched_count": len(matched),
+                    "_topic_description": topic["description"],
+                }
+            else:
+                return {
+                    "_error": True,
+                    "_message": "AI 未返回有效报告内容",
+                    "research_question": topic["description"],
+                    "matched_count": len(matched),
+                }
 
         except Exception as e:
             print(f"演进报告生成失败: {e}")

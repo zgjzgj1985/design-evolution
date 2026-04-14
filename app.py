@@ -1391,43 +1391,50 @@ with tab4:
                     report = st.session_state[report_key]
                     st.divider()
 
-                    def _report_section(title, content):
-                        st.markdown(f"""
-                        <div class="tab4-report-section">
-                            <h4>{title}</h4>
-                            <div class="tab4-report-field">
-                                <p>{content}</p>
-                            </div>
-                        </div>""", unsafe_allow_html=True)
+                    # 直接渲染 Markdown 格式的报告（新的深度报告格式）
+                    if isinstance(report, str):
+                        st.markdown(report)
+                    elif isinstance(report, dict) and report.get("_markdown"):
+                        st.markdown(report["_markdown"])
+                    elif isinstance(report, dict):
+                        # 兼容旧的 JSON 格式报告
+                        def _report_section(title, content):
+                            st.markdown(f"""
+                            <div class="tab4-report-section">
+                                <h4>{title}</h4>
+                                <div class="tab4-report-field">
+                                    <p>{content}</p>
+                                </div>
+                            </div>""", unsafe_allow_html=True)
 
-                    if report.get("evolution_summary"):
-                        _report_section("演进总览", report["evolution_summary"])
+                        if report.get("evolution_summary"):
+                            _report_section("演进总览", report["evolution_summary"])
 
-                    if report.get("generation_analysis"):
-                        st.markdown('<div class="tab4-report-section"><h4>历代解决方案</h4></div>', unsafe_allow_html=True)
-                        for stage in report["generation_analysis"]:
-                            label = stage.get("period", "")
-                            st.markdown(f"**{label}**")
-                            for k, v in [(k, v) for k, v in stage.items() if k != "period"]:
-                                st.markdown(f"- **{k}**: {v}")
-                            st.divider()
+                        if report.get("generation_analysis"):
+                            st.markdown('<div class="tab4-report-section"><h4>历代解决方案</h4></div>', unsafe_allow_html=True)
+                            for stage in report["generation_analysis"]:
+                                label = stage.get("period", "")
+                                st.markdown(f"**{label}**")
+                                for k, v in [(k, v) for k, v in stage.items() if k != "period"]:
+                                    st.markdown(f"- **{k}**: {v}")
+                                st.divider()
 
-                    for key in ["key_insight", "key_insights"]:
-                        if key in report:
-                            val = report[key]
-                            _report_section(
-                                "关键设计洞察",
-                                val if isinstance(val, str) else "<br>".join(f"- {v}" for v in val)
-                            )
-                            break
+                        for key in ["key_insight", "key_insights"]:
+                            if key in report:
+                                val = report[key]
+                                _report_section(
+                                    "关键设计洞察",
+                                    val if isinstance(val, str) else "<br>".join(f"- {v}" for v in val)
+                                )
+                                break
 
-                    if report.get("design_principle"):
-                        _report_section("可复用的设计原则", report["design_principle"])
+                        if report.get("design_principle"):
+                            _report_section("可复用的设计原则", report["design_principle"])
 
-                    for k in ["unresolved_problems", "still_unsolved"]:
-                        if k in report:
-                            _report_section("仍未解决的问题", report[k])
-                            break
+                        for k in ["unresolved_problems", "still_unsolved"]:
+                            if k in report:
+                                _report_section("仍未解决的问题", report[k])
+                                break
 
                     st.divider()
                     if st.button("换一个主题重新分析", key="btn_change_topic"):
@@ -1436,54 +1443,102 @@ with tab4:
                 else:
                     # 未生成报告：显示主按钮
                     st.divider()
+                    st.info("💡 生成演进报告将综合分析历代相关更新，内容较详细，预计需等待 20-60 秒。")
                     if st.button("生成演进报告", type="primary", key="btn_gen_v2", width="stretch"):
                         topic_keywords = topic.get("matched_preview", [])
-                        matched = [p for p in patches if any(kw in p.get("title", "") for kw in topic_keywords)]
+                        matched = [p for p in patches if any(
+                            kw in (p.get("title", "") + " " + p.get("content", ""))
+                            for kw in topic_keywords
+                        )]
                         if not matched:
                             matched = patches[:10]
 
+                        # 构建完整的更新内容供 AI 参考
                         matched_text = "\n".join(
-                            f"[{p.get('version', '')}] {p.get('title', '')} | {p.get('content', '')[:200]}"
-                            for p in matched[:20]
+                            f"### [{p.get('version', '')}] {p.get('title', '')}\n日期: {p.get('date', 'N/A')}\n\n{p.get('content', '')}"
+                            for p in matched[:30]
                         )
 
-                        prompt = f"""你是一位游戏设计师，正在研究：{topic['description']}，为什么重要：{topic.get('why_important', '')}
-相关更新列表：{topic.get("matched_preview", [])}
-完整数据：
+                        # 强制深度输出的 prompt（Markdown 格式，不限长度）
+                        prompt = f"""你是宝可梦-like 游戏多人对战设计演进研究专家，专注于深度分析游戏设计演进的"前因后果"。
+
+## 研究目标
+主题：{topic['name']}
+研究问题：{topic.get('description', '')}
+核心意义：{topic.get('why_important', '帮助理解历代设计师如何解决同类问题')}
+
+## 数据基础
+以下是从真实更新日志中提取的 {len(matched)} 条相关更新，请基于这些数据进行分析：
 {matched_text}
 
-请输出 JSON（不要 markdown 包裹）：
-{{
-    "research_question": "这条演化线要研究的设计问题",
-    "evolution_summary": "一句话概括历代解决思路的演进趋势",
-    "generation_analysis": [
-        {{
-            "period": "世代/版本区间",
-            "core_solution": "当时的核心解决方案是什么",
-            "mechanism_used": "使用了哪些具体机制",
-            "effect": "效果如何",
-            "side_effect": "带来了什么新问题"
-        }}
-    ],
-    "key_insight": "最重要的设计洞察（1-2句话）",
-    "unresolved_problems": "至今仍未解决的问题",
-    "design_principle": "提炼的设计原则"
-}}
-直接输出 JSON，不要有其他内容。"""
+## 输出要求（强制，务必遵守）
+
+**【字数要求】输出必须达到 2500 中文字符以上。如果数据不足，请明确说明"基于现有 {len(matched)} 条数据的分析如下"，然后基于这 {len(matched)} 条数据尽力展开分析。**
+
+**【格式要求】直接输出 Markdown 格式的完整报告，不要用 JSON，不要用代码块包裹整个报告。**
+
+**【深度要求】这是研究型报告，不是摘要。要说清楚：**
+- 这个设计问题在每一代/每一个版本中具体是怎么表现的？
+- 设计师尝试了哪些不同的解法？
+- 每种解法为什么有效或无效？
+- 玩家社区对每种解法的真实反馈是什么？
+- 设计师在后续版本中是如何基于之前的经验迭代的？
+- 这个问题的本质是什么？有没有根本性的解决方案？
+- 跨游戏的比较：其他宝可梦-like 游戏（如 Temtem、Cassette Beasts、Palworld）有没有类似的设计尝试？效果如何？
+
+**【报告结构】按以下框架输出：**
+
+# {topic['name']}——设计演进深度分析报告
+
+## 一、研究问题的本质
+（深度阐述这个设计问题的核心矛盾是什么，为什么它困扰了设计师这么多年）
+
+## 二、历代解决方案的深度拆解
+### 2.1 [世代/版本区间]
+- **具体机制**：用了什么机制来解决这个问题？
+- **设计意图**：设计师当时想达到什么目标？
+- **实际效果**：玩家社区的反馈如何？数据表现如何？
+- **局限性**：为什么这个方案最终不够好？
+- **后续演进**：设计师从这个方案中学到了什么，用到了下一代？
+
+（对每一个世代/版本重复上述分析，如果有数据的话）
+
+## 三、设计师的决策逻辑演变
+（从历代方案中，提炼设计师思路的变化——他们对这个问题的认知是如何加深的？）
+
+## 四、跨游戏对比
+（如果有数据，对比其他宝可梦-like 游戏在类似问题上的解法）
+
+## 五、问题的本质与未来方向
+（这个问题的根本矛盾在哪里？理想状态下应该怎么设计？现实中有什么约束？）
+
+## 六、关键设计洞察
+（总结 3-5 条可指导未来设计的原则）
+
+---
+
+**现在请基于上述 {len(matched)} 条真实更新数据，生成 2500+ 字的深度分析报告：**
+"""
 
                         analyzer = get_analyzer()
                         llm = analyzer._get_llm()
                         if llm is None:
                             st.error("LLM 不可用，请检查 API 配置")
                         else:
-                            with st.spinner("正在调用 AI 生成演进报告..."):
+                            with st.spinner("正在调用 AI 生成演进报告（内容较丰富，请耐心等待 20-60 秒）..."):
                                 try:
                                     response = llm.invoke(prompt)
                                     text = response.content if hasattr(response, "content") else str(response)
-                                    json_match = __import__('re').search(r'```(?:json)?\s*([\s\S]*?)\s*```', text)
-                                    json_str = json_match.group(1) if json_match else text.strip()
-                                    r = __import__('json').loads(json_str)
-                                    st.session_state[report_key] = r
+                                    # 去掉可能的 JSON code block 包裹
+                                    import re
+                                    md_match = re.search(r"```(?:markdown)?\s*([\s\S]*?)\s*```", text)
+                                    if md_match:
+                                        text = md_match.group(1).strip()
+                                    else:
+                                        # 如果不是 code block，直接使用，可能是 AI 直接输出 Markdown
+                                        text = text.strip()
+                                    # 直接存储 Markdown 文本
+                                    st.session_state[report_key] = text
                                     st.rerun()
                                 except Exception as e:
                                     st.error(f"报告生成失败: {e}")
