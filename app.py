@@ -385,23 +385,31 @@ with st.sidebar:
 
     # LLM 配置 - 折叠式按钮（默认折叠，配置已迁移至 Zeabur 环境变量）
     with st.expander("LLM 设置", expanded=False):
-        # 优先使用环境变量（Zeabur），其次读取本地配置文件
+        # 优先级：环境变量（Zeabur） > 本地配置文件（本地调试用）
         env_provider = os.getenv("LLM_PROVIDER", "openai")
         env_model = os.getenv("LLM_MODEL", "gpt-4o-mini")
         env_base_url = os.getenv("OPENROUTER_BASE_URL", "")
         env_api_key = os.getenv("OPENAI_API_KEY", "")
 
         saved = load_llm_settings()
+        # 环境变量始终优先；settings.json 仅作为本地调试备选
+        defaults = {
+            "provider": env_provider,
+            "model": env_model,
+            "base_url": env_base_url,
+            "api_key": env_api_key,
+        }
         if saved:
-            defaults = saved
-        else:
-            defaults = {"provider": env_provider, "model": env_model, "base_url": env_base_url, "api_key": env_api_key}
+            for key in defaults:
+                val = saved.get(key, "")
+                if val:
+                    defaults[key] = val
 
         # 同步最新配置
-        st.session_state["llm_provider"] = defaults.get("provider", env_provider)
-        st.session_state["llm_model"] = defaults.get("model", env_model)
-        st.session_state["llm_base_url"] = defaults.get("base_url") or env_base_url
-        st.session_state["llm_api_key"] = defaults.get("api_key") or env_api_key
+        st.session_state["llm_provider"] = defaults.get("provider")
+        st.session_state["llm_model"] = defaults.get("model")
+        st.session_state["llm_base_url"] = defaults.get("base_url")
+        st.session_state["llm_api_key"] = defaults.get("api_key")
 
         has_api_key = bool(st.session_state.get("llm_api_key", ""))
         if not has_api_key:
