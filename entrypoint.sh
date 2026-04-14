@@ -15,4 +15,5 @@ exec streamlit run app.py \
     --server.headless=true \
     --browser.serverAddress=localhost \
     --server.enableCORS=false \
-    --server.enableXsrfProtection=true
+    --server.enableXsrfProtection=false \
+    --server.enableWebsocketCompression=false
