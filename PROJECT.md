@@ -21,7 +21,7 @@
 设计演化档案/
 ├── app.py                    # Streamlit Web 主入口
 ├── requirements.txt          # Python 依赖清单
-├── .env.example              # 环境变量模板
+├── .env                      # 环境变量配置
 ├── .llm_settings.json        # LLM 配置（用户级配置）
 │
 ├── scrapers/                 # 数据采集层
@@ -43,7 +43,7 @@
 │   └── vector_store.py       # 向量存储 (ChromaDB)
 │
 └── utils/
-    └── config.py             # 全局配置
+    └── config.py              # 全局配置
 ```
 
 ### 数据流
@@ -161,15 +161,7 @@ streamlit run app.py
 
 - **版本**：正式版 (v1.0+)
 - **数据完整性**：Gen 8/Gen 9 宝可梦更新日志已完成
-- **数据来源**：Serebii.net 官方更新日志页面
-
-### 数据来源说明
-
-宝可梦朱紫/剑盾的更新日志数据来源于 [Serebii.net](https://serebii.net/)，这是最权威的宝可梦资讯站点之一：
-
-- **Gen 9 (朱/紫)**：包含 v1.0.1 ~ v4.0.0 所有版本
-- **Gen 8 (剑/盾)**：包含 1.0.0 ~ 1.3.2 所有版本
-- **DLC 内容**：碧之假面、蓝之圆盘详细数据
+- **数据来源**：[Serebii.net](https://serebii.net/) 官方更新日志页面
 
 ---
 
