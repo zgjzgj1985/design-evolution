@@ -448,23 +448,12 @@ with st.sidebar:
                 key="llm_provider_select",
             )
 
-            # Model Name
-            model_options = {
-                "openai": ["gpt-4o-mini", "gpt-4o", "gpt-3.5-turbo"],
-                "anthropic": ["claude-3-5-sonnet-latest", "claude-3-sonnet-20240229"],
-                "openrouter": ["anthropic/claude-3.5-sonnet", "google/gemini-pro-1.5", "openai/gpt-4o"],
-            }
-            model_choices = model_options.get(selected_provider, ["gpt-4o-mini"])
-            current_model = st.session_state["llm_model"]
-            if current_model not in model_choices:
-                current_model = model_choices[0]
-            model_idx = model_choices.index(current_model) if current_model in model_choices else 0
-
-            selected_model = st.selectbox(
+            # Model Name - 自由输入框，支持中转API自定义模型
+            model_name_label = st.text_input(
                 "Model",
-                options=model_choices,
-                index=model_idx,
-                key="llm_model_select",
+                value=st.session_state["llm_model"],
+                placeholder="输入模型名称，如 gpt-4o-mini、claude-3.5-sonnet 等",
+                key="llm_model_input",
             )
 
             st.markdown("**API 配置**")
@@ -491,11 +480,11 @@ with st.sidebar:
 
             if submitted:
                 st.session_state["llm_provider"] = selected_provider
-                st.session_state["llm_model"] = selected_model
+                st.session_state["llm_model"] = model_name_label
                 st.session_state["llm_base_url"] = base_url_input
                 st.session_state["llm_api_key"] = api_key_input
 
-                ok = save_llm_settings(selected_provider, selected_model, base_url_input, api_key_input)
+                ok = save_llm_settings(selected_provider, model_name_label, base_url_input, api_key_input)
                 if ok:
                     st.success("配置已保存")
                 else:
