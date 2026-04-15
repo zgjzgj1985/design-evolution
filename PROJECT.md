@@ -20,12 +20,19 @@
 ```
 设计演化档案/
 ├── app.py                    # Streamlit Web 主入口
+├── data_manager.py           # 本地数据管理（核心）
+├── fetch_all_data.py         # 数据采集脚本（一次性执行）
 ├── requirements.txt          # Python 依赖清单
 ├── .env                      # 环境变量配置
 ├── .llm_settings.json        # LLM 配置（用户级配置）
 │
+├── data/                     # 预采集静态数据
+│   ├── temtem/patches.json   # Temtem 更新日志（100条）
+│   ├── palworld/patches.json # 幻兽帕鲁更新日志（100条）
+│   └── cassette_beasts/      # 占位（Steam无公告）
+│
 ├── scrapers/                 # 数据采集层
-│   ├── steam_scraper.py      # Steam News API 爬虫
+│   ├── steam_scraper.py      # Steam 爬虫（本地优先，API降级）
 │   ├── pokemon_wiki.py       # 宝可梦 Wiki + 内置数据
 │   ├── bulbapedia.py         # Bulbapedia + PokeAPI
 │   ├── smogon.py             # Smogon/Pikalytics
@@ -49,15 +56,17 @@
 ### 数据流
 
 ```
-外部数据源 (Steam API, Wiki, PokeAPI)
+本地 data/ 目录（预采集 JSON，不访问网络）
     ↓
-数据采集层 (scrapers/)
-    ↓
-数据存储层 (SQLite + ChromaDB)
+数据管理层 (data_manager.py)
     ↓
 AI 分析层 (LLM)
     ↓
 Web UI 展示 (Streamlit)
+
+Steam API（仅当本地数据不存在时降级访问）
+    ↓
+fetch_all_data.py（一次性采集，更新 data/ 目录）
 ```
 
 ---
@@ -71,16 +80,22 @@ Web UI 展示 (Streamlit)
 | 1 | 版本编年史 | 展示所有更新日志，支持搜索和分类筛选 |
 | 2 | 机制时间轴 | Plotly 交互图表，可视化历代机制演进 |
 | 3 | 设计意图分析 | 调用 LLM 分析单条更新的设计意图 |
-| 4 | 演进报告 | AI 主题发现 → 用户选择 → 生成报告 |
+| 4 | 演进报告 | **AI 动态发现主题** → 用户选择 → 生成定制化报告 |
 | 5 | 版本对比 | 对比两个游戏/版本的更新内容 |
 
-### 内置研究主题
+### 动态主题发现
 
-- **集火与保排机制演进** - 2v2 中如何平衡「两人集火秒杀一人」
-- **PvE 团体战体验演进** - 发呆等待、状态失控、贡献度不均
-- **爆发资源机制演进** - Mega进化→Z招式→极巨化→太晶化
-- **速度线与行动顺序博弈** - 先手优势在双打中的调节
-- **VGC 规则赛季迭代** - 通过 Ban/Pick 维持环境多样性
+本工具已升级为**完全动态化主题发现**，不再依赖预置主题：
+
+- **AI 自动扫描**：分析当前游戏所有更新日志，从数据本身涌现设计主题
+- **无先入为主**：不预设"正确答案"，从数据中自然发现问题
+- **跨游戏通用**：任何新游戏接入后，工具能自动发现该游戏的设计主题
+- **早期版本研究示例方向**（仅供参考）：
+  - 集火与保排机制演进
+  - PvE 团体战体验演进
+  - 爆发资源机制演进
+  - 速度线与行动顺序博弈
+  - VGC 规则赛季迭代
 
 ---
 
@@ -90,7 +105,7 @@ Web UI 展示 (Streamlit)
 |------|------|----------|
 | Pokemon 剑/盾 | 非 Steam | Wiki 爬虫 + 内置数据 |
 | Pokemon 朱/紫 | 非 Steam | Wiki 爬虫 + 内置数据 |
-| Temtem | Steam (ID: 1179580) | Steam News API |
+| Temtem | Steam (ID: 745920) | Steam News API |
 | Cassette Beasts | Steam (ID: 1322240) | Steam News API |
 | Palworld | Steam (ID: 1623730) | Steam News API |
 

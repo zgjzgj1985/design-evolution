@@ -27,9 +27,9 @@ class Config:
     LLM_API_KEY: str = os.getenv("OPENAI_API_KEY", "")
 
     # 默认模型
-    LLM_DEFAULT_MODELS: dict = {
+    LLM_DEFAULT_MODELS: list = [
         "anthropic/claude-3.5-sonnet",
-    }
+    ]
 
     # 数据库配置
     # 部署时可通过 DATA_DIR 环境变量指定路径
@@ -49,19 +49,23 @@ class Config:
         "Chrome/120.0.0.0 Safari/537.36"
     )
 
-    # 目标游戏列表
-    SUPPORTED_GAMES: list = [
-        "Pokemon",       # 宝可梦正作
-        "Temtem",        #  Temtem
-        "Cassette Beasts",  # 磁带妖怪
-        "Palworld",      # 幻兽帕鲁
-    ]
+    # 目标游戏列表（键: 英文标识符, 值: 显示名称）
+    SUPPORTED_GAMES: dict = {
+        "Pokemon": "宝可梦 (Pokemon)",
+        "Temtem": "Temtem",
+        "Cassette Beasts": "磁带妖怪 (Cassette Beasts)",
+        "Palworld": "幻兽帕鲁 (Palworld)",
+    }
 
     # 宝可梦各世代信息
     POKEMON_GENERATIONS: dict = {
         8: {"name": "第八世代", "games": ["剑/盾", "盾/剑"], "years": "2019-2022"},
         9: {"name": "第九世代", "games": ["朱/紫"], "years": "2022-2024"},
     }
+
+    # Reddit API 配置（用于社区反应采集）
+    REDDIT_CLIENT_ID: str = os.getenv("REDDIT_CLIENT_ID", "")
+    REDDIT_CLIENT_SECRET: str = os.getenv("REDDIT_CLIENT_SECRET", "")
 
 
 config = Config()

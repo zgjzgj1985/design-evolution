@@ -465,6 +465,9 @@ class SQLiteStore:
         ]
         return [dict(zip(columns, r)) for r in rows]
 
+    # ========== 社区玩家反应相关方法 ==========
+
+
 
 # 全局数据库实例
 db = SQLiteStore()

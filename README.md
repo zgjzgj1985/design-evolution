@@ -60,12 +60,19 @@ streamlit run app.py
 ```
 设计演化档案/
 ├── app.py                    # Streamlit Web 主入口
+├── data_manager.py           # 本地数据管理（核心）
+├── fetch_all_data.py         # 数据采集脚本（一次性执行）
 ├── requirements.txt          # Python 依赖清单
 ├── .env                      # 环境变量配置
 ├── .llm_settings.json        # LLM 配置
 │
+├── data/                     # 预采集静态数据
+│   ├── temtem/patches.json   # Temtem 更新日志（100条）
+│   ├── palworld/patches.json # 幻兽帕鲁更新日志（100条）
+│   └── cassette_beasts/      # 占位（Steam无公告）
+│
 ├── scrapers/                 # 数据采集层
-│   ├── steam_scraper.py      # Steam News API 爬虫
+│   ├── steam_scraper.py      # Steam 爬虫（降级方案）
 │   ├── pokemon_wiki.py       # 宝可梦 Wiki + 内置数据
 │   ├── bulbapedia.py         # Bulbapedia + PokeAPI
 │   ├── smogon.py             # Smogon/Pikalytics
@@ -88,6 +95,8 @@ streamlit run app.py
 
 ## 内置研究主题
 
+**注意**：本工具已升级为**完全动态化主题发现**，不再依赖预置主题。AI 会自动扫描当前游戏的所有更新日志，归纳出值得研究的设计主题。以下为早期版本示例方向：
+
 - **集火与保排机制演进** — 2v2 中如何平衡「两人集火秒杀一人」
 - **PvE 团体战体验演进** — 发呆等待、状态失控、贡献度不均
 - **爆发资源机制演进** — Mega进化→Z招式→极巨化→太晶化
@@ -96,7 +105,8 @@ streamlit run app.py
 
 ## 数据存储
 
-- **SQLite** — 结构化存储：游戏信息、版本、更新日志、分析结果
+- **本地 data/ 目录** — Steam 游戏预采集更新日志（JSON，不访问网络）
+- **SQLite** — 结构化存储：游戏信息、版本、分析结果
 - **ChromaDB** — 向量存储：设计意图向量，支持语义搜索
 
 ## 扩展新游戏

@@ -24,6 +24,8 @@ class BulbapediaScraper:
             "User-Agent": config.USER_AGENT,
             "Accept": "application/json",
         })
+        # 明确禁用代理，避免代理认证问题
+        self.session.trust_env = False
 
     def _api_request(self, params: dict) -> Optional[dict]:
         """调用 Bulbapedia API"""
@@ -239,6 +241,7 @@ class SerebiiScraper:
         self.session.headers.update({
             "User-Agent": config.USER_AGENT,
         })
+        self.session.trust_env = False
 
     def _fetch(self, path: str) -> Optional[BeautifulSoup]:
         """获取页面"""
@@ -330,6 +333,7 @@ class PokeAPIScraper:
         self.session.headers.update({
             "User-Agent": config.USER_AGENT,
         })
+        self.session.trust_env = False
 
     def get_generation(self, generation_id: int) -> Optional[dict]:
         """获取世代信息"""

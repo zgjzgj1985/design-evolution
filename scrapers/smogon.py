@@ -25,6 +25,8 @@ class SmogonScraper:
             "User-Agent": config.USER_AGENT,
             "Accept": "text/html,application/xhtml+xml",
         })
+        # 明确禁用代理，避免代理认证问题
+        self.session.trust_env = False
 
     def _fetch(self, path: str) -> Optional[BeautifulSoup]:
         """获取页面"""
@@ -90,6 +92,7 @@ class SmogonStatsScraper:
         self.session.headers.update({
             "User-Agent": config.USER_AGENT + " (Research Bot)",
         })
+        self.session.trust_env = False
 
     def _fetch_text(self, url: str) -> Optional[str]:
         """获取纯文本数据（Smogon stats 用文本格式）"""
@@ -186,6 +189,7 @@ class PikalyticsScraper:
         self.session.headers.update({
             "User-Agent": config.USER_AGENT,
         })
+        self.session.trust_env = False
 
     def _fetch(self, path: str) -> Optional[BeautifulSoup]:
         """获取页面"""

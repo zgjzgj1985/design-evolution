@@ -11,7 +11,6 @@
 import streamlit as st
 import pandas as pd
 import plotly.express as px
-import plotly.graph_objects as go
 import json
 from datetime import datetime
 from pathlib import Path
@@ -353,7 +352,8 @@ with st.sidebar:
     # 游戏选择
     selected_game = st.selectbox(
         "选择游戏",
-        options=config.SUPPORTED_GAMES,
+        options=list(config.SUPPORTED_GAMES.keys()),
+        format_func=lambda x: config.SUPPORTED_GAMES[x],
         index=0,
     )
 
@@ -367,20 +367,23 @@ with st.sidebar:
             format_func=lambda x: f"第{x}世代 ({config.POKEMON_GENERATIONS[x]['years']})",
         )
 
-    # 数据刷新
+    # 数据刷新（仅清除 session 缓存，不重新抓取网络）
     st.subheader("数据源")
-    refresh_data = st.button("刷新数据", width="stretch")
-
-    if refresh_data:
+    st.info("更新日志已预采集到本地 data/ 目录，应用启动时直接读取，不访问网络。如需采集最新数据，请运行 `python fetch_all_data.py` 后重启应用。")
+    if st.button("清除缓存", width="stretch"):
         st.cache_resource.clear()
+        keys_to_delete = [k for k in st.session_state.keys() if k.startswith("_cached_patches_")]
+        for k in keys_to_delete:
+            del st.session_state[k]
         st.rerun()
 
     # 显示数据源信息
-    st.markdown('<p class="data-source-badge">实时数据源</p>', unsafe_allow_html=True)
+    st.markdown('<p class="data-source-badge">本地静态数据</p>', unsafe_allow_html=True)
     st.caption("""
-    - **Steam News API**: 官方更新公告
+    - **本地 data/ 目录**: 已采集的更新日志 JSON（不访问网络）
     - **PokeAPI**: 宝可梦版本数据
     - **Bulbapedia**: Wiki 机制信息
+    - 如需更新数据，运行 `python fetch_all_data.py`
     """)
 
     # LLM 配置 - 折叠式按钮（默认折叠，配置已迁移至 Zeabur 环境变量）
@@ -513,11 +516,19 @@ with st.sidebar:
 
 # ==================== 主界面 ====================
 st.markdown('<h1 class="main-header">游戏设计演进研究工具</h1>', unsafe_allow_html=True)
-st.markdown('<p class="sub-header">宝可梦Like游戏多人对战（PvP/PvE）设计迭代分析 | 实时数据</p>', unsafe_allow_html=True)
+st.markdown('<p class="sub-header">宝可梦Like游戏多人对战（PvP/PvE）设计迭代分析 | 本地静态数据</p>', unsafe_allow_html=True)
 
-# 获取数据
-with st.spinner("正在从数据源获取信息..."):
-    patches, features, fetch_stats = fetch_game_data(selected_game, generation)
+# 获取数据 - 优化：用 session_state 缓存，避免每次 rerun 都重新请求
+# 缓存 key 包含游戏和世代，只有切换时才重新获取
+cache_data_key = f"_cached_patches_{selected_game}_{generation}"
+cache_time_key = f"_cached_patches_time_{selected_game}_{generation}"
+
+if cache_data_key not in st.session_state:
+    with st.spinner("正在从数据源获取信息..."):
+        patches, features, fetch_stats = fetch_game_data(selected_game, generation)
+    st.session_state[cache_data_key] = (patches, features, fetch_stats)
+else:
+    patches, features, fetch_stats = st.session_state[cache_data_key]
 
 # 统计信息
 col1, col2, col3, col4 = st.columns(4)
@@ -527,9 +538,9 @@ with col2:
     st.metric("更新日志", len(patches))
 with col3:
     st.metric("世代", f"第{generation}世代" if selected_game == "Pokemon" else "N/A")
-with col4:
-    source_label = "Wiki 结构化数据" if fetch_stats["source"] == "wiki" else "Steam 实时数据"
-    st.caption(f"数据来源：{source_label}")
+    with col4:
+        source_label = "Wiki 结构化数据" if fetch_stats["source"] == "wiki" else "本地 data/ 目录"
+        st.caption(f"数据来源：{source_label}")
 
 # 显示错误信息（如果有）
 if fetch_stats.get("errors"):
@@ -552,7 +563,7 @@ tab1, tab2, tab3, tab4, tab5 = st.tabs([
 # ==================== Tab 1: 版本编年史 ====================
 with tab1:
     st.header("版本编年史")
-    st.markdown("从 Steam 官方 API 获取的真实更新日志记录" if selected_game not in {"Pokemon"} else "基于 Wiki 结构化整理的版本更新记录")
+    st.markdown("从 Steam News API 预采集的更新日志记录" if selected_game not in {"Pokemon"} else "基于 Wiki 结构化整理的版本更新记录")
 
     if not patches:
         if selected_game == "Pokemon":
@@ -686,7 +697,7 @@ with tab1:
         </style>
         """, unsafe_allow_html=True)
 
-        for patch in filtered_patches[:20]:
+        for idx_patch, patch in enumerate(filtered_patches[:20]):
             # 从数据库读取已缓存的分析结果（如果有）
             ch = get_content_hash(patch)
             cached_cls = global_db.get_classification(selected_game, ch)
@@ -731,17 +742,6 @@ with tab1:
 
             pvp_badge = '<span style="background:#ff6b6b;color:white;padding:2px 8px;border-radius:10px;font-size:11px;margin-left:6px">多人对战相关</span>' if pvp_related else ''
 
-            card_html = (
-                f'<div style="border-left: 4px solid {highlight_border}; background: {highlight_bg};'
-                f'padding: 12px 16px; margin-bottom: 8px; border-radius: 4px;">'
-                f'<div style="font-weight: 600; margin-bottom: 4px;">'
-                f'{badge_icon} <b>{patch.get("date", "N/A")}</b> — {patch.get("title", "N/A")[:60]}{type_label}{pvp_badge}'
-                f'</div>'
-                f'<div style="font-size: 0.82rem; color: #666;">'
-                f'版本: {patch.get("version", "N/A")}　类别: {" / ".join(patch.get("categories", [])[:3])}'
-                f'</div>'
-                f'</div>'
-            )
             content_preview = patch.get("content", "")
             content_line = f'<div style="font-size:0.82rem;color:#555;margin-top:6px;line-height:1.5">{content_preview[:100]}{"..." if len(content_preview) > 100 else ""}</div>' if content_preview else ""
 
@@ -831,6 +831,8 @@ with tab1:
                     st.markdown("**设计意图**:")
                     st.info(patch.get("intent"))
 
+
+                # =============================================
                 # 检查是否已有分析结果
                 # 优先级：session_state（新分析） > DB缓存（可能旧格式）
                 if st.session_state.get(f"show_reanalysis_result_{patch_key}"):
@@ -842,7 +844,6 @@ with tab1:
                     result_source = "新分析"
                 elif cls:
                     existing_analysis = cls
-                    # 旧缓存没有 research_direction，标记来源
                     has_new_fields = bool(cls.get("research_direction") or cls.get("mechanic_tags"))
                     result_source = "旧缓存" if not has_new_fields else "DB缓存"
                 else:
@@ -856,14 +857,14 @@ with tab1:
                 # 重新分析优先处理（放在外面，不受 if/else 影响）
                 if st.session_state.get(f"reanalysis_triggered_{patch_key}"):
                     st.session_state[f"reanalysis_triggered_{patch_key}"] = False
-                    with st.spinner("✨ AI 正在分析中（需等待10-30秒），请稍候..."):
+                    with st.spinner("AI 正在分析中（需等待10-30秒），请稍候..."):
                         try:
                             extractor = get_analyzer()
                             result = extractor.analyze_intent(
                                 game=selected_game,
                                 version=patch.get("version", ""),
                                 date=patch.get("date", ""),
-                                content=f"{patch.get('title', '')}\n\n{patch.get('content', '')}",
+                                content=patch.get("title", "") + "\n\n" + patch.get("content", ""),
                             )
                             if result:
                                 st.session_state[patch_key] = result
@@ -883,9 +884,9 @@ with tab1:
                                 st.session_state[f"show_reanalysis_result_{patch_key}"] = True
                                 st.rerun()
                             else:
-                                st.error("⚠️ 分析未能返回结果，请稍后重试")
+                                st.error("分析未能返回结果，请稍后重试")
                         except Exception as e:
-                            st.error(f"❌ 分析失败: {str(e)}")
+                            st.error("分析失败: " + str(e))
 
                 if analysis_result and (
                     analysis_result.get("exact_change")
@@ -898,64 +899,57 @@ with tab1:
                     # 已有分析结果，展示详细卡片
                     ai_border = "#ff6b6b" if pvp_related else "#1f77b4"
                     ai_bg = "#fff5f5" if pvp_related else "#f0f7ff"
-                    pvp_badge_ai = '<span style="background:#ff6b6b;color:white;padding:2px 8px;border-radius:10px;font-size:11px;margin-left:8px">多人对战相关</span>' if pvp_related else ''
-                    st.markdown(f'<div class="patch-ai-section" style="background: linear-gradient(135deg, {ai_bg} 0%, {"#e8f4fd" if pvp_related else "#e8f4fd"} 100%); border-left: 4px solid {ai_border}; border-radius: 8px; padding: 14px; margin: 12px 0;">', unsafe_allow_html=True)
-                    source_tag = f'<span style="background:{"#888" if "旧" in result_source else "#52c41a"};color:white;padding:1px 6px;border-radius:6px;font-size:10px;margin-left:8px">{result_source}</span>' if result_source else ''
-                    st.markdown(f'<div style="font-size:1rem;font-weight:700;margin-bottom:10px">AI 分析结果{pvp_badge_ai}{source_tag}</div>', unsafe_allow_html=True)
+                    pvp_badge_ai = '<span style="background:#ff6b6b;color:white;padding:2px 8px;border-radius:10px;font-size:11px;margin-left:8px">多人对战相关</span>' if pvp_related else ""
+                    result_color = "#52c41a" if "新" in result_source else "#888"
+                    source_tag = '<span style="background:' + result_color + ';color:white;padding:1px 6px;border-radius:6px;font-size:10px;margin-left:8px">' + result_source + '</span>' if result_source else ""
 
-                    # 具体改动
+                    st.markdown('<div style="background:linear-gradient(135deg,' + ai_bg + ' 0%,#e8f4fd 100%);border-left:4px solid ' + ai_border + ';border-radius:8px;padding:14px;margin:12px 0;">', unsafe_allow_html=True)
+                    st.markdown('<div style="font-size:1rem;font-weight:700;margin-bottom:10px">AI 分析结果' + pvp_badge_ai + source_tag + '</div>', unsafe_allow_html=True)
+
                     exact = analysis_result.get("exact_change", "")
                     if exact:
-                        st.markdown(f"**具体改动**: {exact}")
+                        st.markdown("**具体改动**: " + exact)
 
-                    # 竞技影响
                     impact = analysis_result.get("competitive_impact", analysis_result.get("intent_summary", ""))
                     if impact:
-                        st.markdown(f"**竞技影响**: {impact}")
+                        st.markdown("**竞技影响**: " + impact)
 
-                    # 设计理由
                     rationale = analysis_result.get("design_rationale", analysis_result.get("problem_solved", ""))
                     if rationale:
-                        st.markdown(f"**设计理由**: {rationale}")
+                        st.markdown("**设计理由**: " + rationale)
 
-                    # 研究方向（新增字段）
                     direction = analysis_result.get("research_direction", "")
                     if direction:
-                        st.markdown(f"**研究方向**: {direction}")
+                        st.markdown("**研究方向**: " + direction)
 
-                    # 涉及机制
                     mechanics = analysis_result.get("mechanic_tags", analysis_result.get("mechanics", []))
                     if mechanics:
                         mech_list = mechanics if isinstance(mechanics, list) else [mechanics]
-                        st.markdown("**涉及机制**: " + " ".join([f'<span class="patch-tag patch-tag-mechanic">{m}</span>' for m in mech_list[:6]]), unsafe_allow_html=True)
+                        st.markdown("**涉及机制**: " + " ".join(['<span class="patch-tag patch-tag-mechanic">' + m + '</span>' for m in mech_list[:6]]), unsafe_allow_html=True)
 
-                    # 受影响玩家
                     players = analysis_result.get("player_impact", analysis_result.get("affected_players", ""))
                     if players:
                         if isinstance(players, list):
                             players = "、".join(players)
-                        st.markdown(f"**受影响玩家**: {players}")
+                        st.markdown("**受影响玩家**: " + players)
 
-                    # 平衡性评估
                     balance = analysis_result.get("balance_assessment", analysis_result.get("design_pattern", ""))
                     if balance:
-                        st.markdown(f"**平衡评估**: {balance}")
+                        st.markdown("**平衡评估**: " + balance)
 
-                    # 历史参照
                     similar = analysis_result.get("similar_historical_cases", [])
                     if similar and isinstance(similar, list):
                         st.markdown("**历史参照**:")
                         for r in similar[:3]:
                             if isinstance(r, dict):
-                                st.markdown(f"- {r.get('description', r)}")
+                                st.markdown("- " + str(r.get("description", r)))
                             else:
-                                st.markdown(f"- {r}")
+                                st.markdown("- " + str(r))
 
                     st.markdown('</div>', unsafe_allow_html=True)
 
-                    # 重新分析按钮
-                    if st.button("重新分析", key=f"reanalysis_{patch_key}"):
-                        st.session_state[f"reanalysis_triggered_{patch_key}"] = True
+                    if st.button("重新分析", key="reanalysis_" + patch_key):
+                        st.session_state["reanalysis_triggered_" + patch_key] = True
                         st.rerun()
 
                 else:
@@ -963,47 +957,39 @@ with tab1:
                     st.markdown('<div style="font-size:1rem;font-weight:700;margin-bottom:4px">AI 分析</div>', unsafe_allow_html=True)
 
                     if llm_ready:
-                        # 有 LLM 配置，显示分析按钮（单行排列）
-                        if st.button("深度分析", type="primary", key=f"analyze_{patch_key}"):
-                                with st.spinner("✨ AI 正在分析中（需等待10-30秒），请稍候..."):
-                                    try:
-                                        extractor = get_analyzer()
-                                        # 使用完整的 analyze_intent 方法而非轻量 classify_patch
-                                        result = extractor.analyze_intent(
+                        if st.button("深度分析", type="primary", key="analyze_" + patch_key):
+                            with st.spinner("AI 正在分析中（需等待10-30秒），请稍候..."):
+                                try:
+                                    extractor = get_analyzer()
+                                    result = extractor.analyze_intent(
+                                        game=selected_game,
+                                        version=patch.get("version", ""),
+                                        date=patch.get("date", ""),
+                                        content=patch.get("title", "") + "\n\n" + patch.get("content", ""),
+                                    )
+                                    if result:
+                                        st.session_state[patch_key] = result
+                                        ch = get_content_hash(patch)
+                                        global_db.add_classification(
                                             game=selected_game,
-                                            version=patch.get("version", ""),
-                                            date=patch.get("date", ""),
-                                            content=f"{patch.get('title', '')}\n\n{patch.get('content', '')}",
+                                            content_hash=ch,
+                                            content_preview=patch.get("content", "")[:200] if patch.get("content") else patch.get("title", "")[:200],
+                                            patch_date=patch.get("date", ""),
+                                            patch_title=patch.get("title", ""),
+                                            classification_type="混合",
+                                            mechanics=result.get("mechanic_tags", []),
+                                            balance_impact="中",
+                                            summary=result.get("competitive_impact", result.get("exact_change", ""))[:500],
+                                            is_multiplayer_related=any(t in result.get("mechanic_tags", []) for t in ["PvP", "PvE", "2v2"]),
                                         )
-                                        if result:
-                                            # 保存到 session_state
-                                            st.session_state[patch_key] = result
-                                            # 保存到数据库
-                                            ch = get_content_hash(patch)
-                                            global_db.add_classification(
-                                                game=selected_game,
-                                                content_hash=ch,
-                                                content_preview=patch.get("content", "")[:200] if patch.get("content") else patch.get("title", "")[:200],
-                                                patch_date=patch.get("date", ""),
-                                                patch_title=patch.get("title", ""),
-                                                classification_type="混合",
-                                                mechanics=result.get("mechanic_tags", []),
-                                                balance_impact="中",
-                                                summary=result.get("competitive_impact", result.get("exact_change", ""))[:500],
-                                                is_multiplayer_related=any(t in result.get("mechanic_tags", []) for t in ["PvP", "PvE", "2v2"]),
-                                            )
-                                            st.rerun()
-                                        else:
-                                            st.warning("分析未能返回结果，请稍后重试")
-                                    except Exception as e:
-                                        st.error(f"分析失败: {str(e)}")
+                                        st.rerun()
+                                    else:
+                                        st.warning("分析未能返回结果，请稍后重试")
+                                except Exception as e:
+                                    st.error("分析失败: " + str(e))
                     else:
-                        # 无 LLM 配置
                         st.warning("请先在侧边栏配置 LLM API Key 以启用 AI 分析")
-
-                # 原文链接
-                if patch.get("url"):
-                    st.markdown(f"[查看官方原文]({patch.get('url')})")
+                st.markdown(f"[查看官方原文]({patch.get('url')})")
 
 
 # ==================== Tab 2: 机制时间轴 ====================
@@ -1128,7 +1114,7 @@ with tab2:
 
         fig.update_yaxes(autorange="reversed")
 
-        st.plotly_chart(fig, width="stretch")
+        st.plotly_chart(fig, width="stretch", key="timeline_chart")
     else:
         st.info("请选择至少一个游戏来显示时间轴")
 
@@ -1154,7 +1140,7 @@ with tab3:
     st.markdown("""
     <div class="insight-box">
     利用大语言模型分析游戏版本更新背后的设计意图。
-    从 Steam 获取真实更新日志，让 AI 深入分析。
+    数据来自预采集的本地更新日志，无需网络请求。
     </div>
     """, unsafe_allow_html=True)
 
@@ -1183,13 +1169,50 @@ with tab3:
                 format_func=lambda x: next((opt[1] for opt in analysis_options if opt[0] == x), ""),
             )
 
-            if selected_indices and st.button("开始 AI 分析", type="primary"):
-                analyzer = get_analyzer()
+            tab3_results_key = f"_tab3_results_{selected_game}_{generation}"
 
+            # 渲染已有结果（点击按钮后第二次 rerun 时）
+            if tab3_results_key in st.session_state:
+                results = st.session_state.pop(tab3_results_key)
+                st.success(f"分析完成，共 {len(results)} 条结果")
+                for i, result in enumerate(results):
+                    with st.expander(f"{result.get('original_title', '')[:50]}...", expanded=i < 2):
+                        st.markdown(f"**原始标题**: {result.get('original_title', '')}")
+                        st.markdown(f"**具体改动**: {result.get('exact_change', result.get('intent_summary', 'N/A'))}")
+                        st.markdown(f"**竞技影响**: {result.get('competitive_impact', 'N/A')}")
+                        st.markdown(f"**设计理由**: {result.get('design_rationale', result.get('problem_solved', 'N/A'))}")
+                        tags = result.get("mechanic_tags", [])
+                        if tags:
+                            st.markdown("**涉及机制**: " + " ".join([f"`{t}`" for t in tags]))
+                        st.markdown(f"**平衡评估**: {result.get('balance_assessment', result.get('design_pattern', 'N/A'))}")
+                        similar = result.get("similar_historical_cases", [])
+                        if similar:
+                            st.markdown("**历史参照**: " + "；".join([str(s) if isinstance(s, str) else s.get('description', '') for s in similar[:2]]))
+                        try:
+                            db = SQLiteStore()
+                            db.add_analysis_result(result)
+                        except Exception:
+                            pass
+
+            # 提示 + 按钮
+            if selected_indices:
+                st.info("开始分析将调用 AI 分析所选更新，预计需等待 10-30 秒。")
+
+            if selected_indices and st.button("开始 AI 分析", type="primary"):
+                # 立即设置状态并 rerun，spinner 在第二次渲染时出现
+                st.session_state["_tab3_analyzing"] = True
+                st.session_state["_tab3_indices"] = selected_indices
+                st.rerun()
+
+            # 执行分析（第二次 rerun 时）
+            if st.session_state.get("_tab3_analyzing"):
+                st.session_state["_tab3_analyzing"] = False
+                indices = st.session_state.pop("_tab3_indices", [])
+                analyzer = get_analyzer()
                 results = []
                 progress_bar = st.progress(0)
 
-                for i, idx in enumerate(selected_indices):
+                for i, idx in enumerate(indices):
                     patch = patches[idx]
                     with st.spinner(f"正在分析: {patch.get('title', '')[:30]}..."):
                         result = analyzer.analyze_intent(
@@ -1198,40 +1221,15 @@ with tab3:
                             date=patch.get("date", ""),
                             content=f"{patch.get('title', '')}\n\n{patch.get('content', '')}",
                         )
-
                         if result:
                             result["original_title"] = patch.get("title", "")
                             result["original_content"] = patch.get("content", "")[:200]
                             results.append(result)
+                        progress_bar.progress((i + 1) / len(indices))
 
-                        progress_bar.progress((i + 1) / len(selected_indices))
-
-                # 显示结果
-                st.success(f"分析完成，共 {len(results)} 条结果")
-
-                for i, result in enumerate(results):
-                    with st.expander(f"{result.get('original_title', '')[:50]}...", expanded=i < 2):
-                        st.markdown(f"**原始标题**: {result.get('original_title', '')}")
-                        st.markdown(f"**具体改动**: {result.get('exact_change', result.get('intent_summary', 'N/A'))}")
-                        st.markdown(f"**竞技影响**: {result.get('competitive_impact', 'N/A')}")
-                        st.markdown(f"**设计理由**: {result.get('design_rationale', result.get('problem_solved', 'N/A'))}")
-
-                        tags = result.get("mechanic_tags", [])
-                        if tags:
-                            st.markdown("**涉及机制**: " + " ".join([f"`{t}`" for t in tags]))
-
-                        st.markdown(f"**平衡评估**: {result.get('balance_assessment', result.get('design_pattern', 'N/A'))}")
-
-                        similar = result.get("similar_historical_cases", [])
-                        if similar:
-                            st.markdown("**历史参照**: " + "；".join([str(s) if isinstance(s, str) else s.get('description', '') for s in similar[:2]]))
-
-                        # 保存到数据库
-                        try:
-                            db = SQLiteStore()
-                            db.add_analysis_result(result)
-                        except Exception as e:
-                            pass
+                # 保存结果，触发第三次 rerun 显示
+                st.session_state[tab3_results_key] = results
+                st.rerun()
 
         else:
             # 语义搜索
@@ -1423,107 +1421,40 @@ with tab4:
                         st.session_state["selected_topic_idx"] = None
                         st.rerun()
                 else:
-                    # 未生成报告：显示主按钮
+                    # 未生成报告：使用 EvolutionReportGenerator 生成
                     st.divider()
-                    st.info("💡 生成演进报告将综合分析历代相关更新，内容较详细，预计需等待 20-60 秒。")
-                    if st.button("生成演进报告", type="primary", key="btn_gen_v2", width="stretch"):
-                        topic_keywords = topic.get("matched_preview", [])
-                        matched = [p for p in patches if any(
-                            kw in (p.get("title", "") + " " + p.get("content", ""))
-                            for kw in topic_keywords
-                        )]
-                        if not matched:
-                            matched = patches[:10]
 
-                        # 构建完整的更新内容供 AI 参考
-                        matched_text = "\n".join(
-                            f"### [{p.get('version', '')}] {p.get('title', '')}\n日期: {p.get('date', 'N/A')}\n\n{p.get('content', '')}"
-                            for p in matched[:30]
-                        )
+                    # 即时反馈：用 placeholder 在点击时立即显示提示
+                    feedback_placeholder = st.empty()
 
-                        # 强制深度输出的 prompt（Markdown 格式，不限长度）
-                        prompt = f"""你是宝可梦-like 游戏多人对战设计演进研究专家，专注于深度分析游戏设计演进的"前因后果"。
+                    # 检查是否刚触发了生成
+                    if st.session_state.get(f"_generating_{report_key}"):
+                        # 立即显示提示，不需要等 spinner
+                        feedback_placeholder.info("正在调用 AI 生成演进报告（内容较丰富，请耐心等待）...")
+                        # 清理触发标记，进入生成流程
+                        del st.session_state[f"_generating_{report_key}"]
 
-## 研究目标
-主题：{topic['name']}
-研究问题：{topic.get('description', '')}
-核心意义：{topic.get('why_important', '帮助理解历代设计师如何解决同类问题')}
+                        with st.spinner("正在调用 AI 生成演进报告（内容较丰富，请耐心等待）..."):
+                            try:
+                                analyzer = get_analyzer()
+                                generator = EvolutionReportGenerator(analyzer)
+                                report = generator.generate_report(topic, patches)
 
-## 数据基础
-以下是从真实更新日志中提取的 {len(matched)} 条相关更新，请基于这些数据进行分析：
-{matched_text}
-
-## 输出要求（强制，务必遵守）
-
-**【字数要求】输出必须达到 2500 中文字符以上。如果数据不足，请明确说明"基于现有 {len(matched)} 条数据的分析如下"，然后基于这 {len(matched)} 条数据尽力展开分析。**
-
-**【格式要求】直接输出 Markdown 格式的完整报告，不要用 JSON，不要用代码块包裹整个报告。**
-
-**【深度要求】这是研究型报告，不是摘要。要说清楚：**
-- 这个设计问题在每一代/每一个版本中具体是怎么表现的？
-- 设计师尝试了哪些不同的解法？
-- 每种解法为什么有效或无效？
-- 玩家社区对每种解法的真实反馈是什么？
-- 设计师在后续版本中是如何基于之前的经验迭代的？
-- 这个问题的本质是什么？有没有根本性的解决方案？
-- 跨游戏的比较：其他宝可梦-like 游戏（如 Temtem、Cassette Beasts、Palworld）有没有类似的设计尝试？效果如何？
-
-**【报告结构】按以下框架输出：**
-
-# {topic['name']}——设计演进深度分析报告
-
-## 一、研究问题的本质
-（深度阐述这个设计问题的核心矛盾是什么，为什么它困扰了设计师这么多年）
-
-## 二、历代解决方案的深度拆解
-### 2.1 [世代/版本区间]
-- **具体机制**：用了什么机制来解决这个问题？
-- **设计意图**：设计师当时想达到什么目标？
-- **实际效果**：玩家社区的反馈如何？数据表现如何？
-- **局限性**：为什么这个方案最终不够好？
-- **后续演进**：设计师从这个方案中学到了什么，用到了下一代？
-
-（对每一个世代/版本重复上述分析，如果有数据的话）
-
-## 三、设计师的决策逻辑演变
-（从历代方案中，提炼设计师思路的变化——他们对这个问题的认知是如何加深的？）
-
-## 四、跨游戏对比
-（如果有数据，对比其他宝可梦-like 游戏在类似问题上的解法）
-
-## 五、问题的本质与未来方向
-（这个问题的根本矛盾在哪里？理想状态下应该怎么设计？现实中有什么约束？）
-
-## 六、关键设计洞察
-（总结 3-5 条可指导未来设计的原则）
-
----
-
-**现在请基于上述 {len(matched)} 条真实更新数据，生成 2500+ 字的深度分析报告：**
-"""
-
-                        analyzer = get_analyzer()
-                        llm = analyzer._get_llm()
-                        if llm is None:
-                            st.error("LLM 不可用，请检查 API 配置")
-                        else:
-                            with st.spinner("正在调用 AI 生成演进报告（内容较丰富，请耐心等待 20-60 秒）..."):
-                                try:
-                                    response = llm.invoke(prompt)
-                                    text = response.content if hasattr(response, "content") else str(response)
-                                    # 去掉可能的 JSON code block 包裹
-                                    import re
-                                    md_match = re.search(r"```(?:markdown)?\s*([\s\S]*?)\s*```", text)
-                                    if md_match:
-                                        text = md_match.group(1).strip()
-                                    else:
-                                        # 如果不是 code block，直接使用，可能是 AI 直接输出 Markdown
-                                        text = text.strip()
-                                    # 直接存储 Markdown 文本
-                                    st.session_state[report_key] = text
+                                if report and not report.get("_error"):
+                                    st.session_state[report_key] = report.get("_markdown", "")
                                     st.rerun()
-                                except Exception as e:
-                                    st.error(f"报告生成失败: {e}")
+                                else:
+                                    error_msg = report.get("_message", "生成失败") if report else "未知错误"
+                                    feedback_placeholder.error(f"报告生成失败: {error_msg}")
+                            except Exception as e:
+                                feedback_placeholder.error(f"报告生成失败: {str(e)}")
+                    else:
+                        feedback_placeholder.info("生成演进报告将综合分析历代相关更新，内容较详细，预计需等待 30-120 秒。如遇超时，请稍后重试。")
+
+                    if st.button("生成演进报告", type="primary", key="btn_gen_v2", width="stretch"):
+                        # 立即设置触发标记，触发 rerun
+                        st.session_state[f"_generating_{report_key}"] = True
+                        st.rerun()
 
 
 # ==================== Tab 5: 版本对比 ====================
@@ -1538,7 +1469,8 @@ with tab5:
         st.markdown("### 版本/游戏 1")
         game1 = st.selectbox(
             "游戏",
-            options=config.SUPPORTED_GAMES,
+            options=list(config.SUPPORTED_GAMES.keys()),
+            format_func=lambda x: config.SUPPORTED_GAMES[x],
             key="game1",
         )
         # 获取该游戏的版本列表
@@ -1560,7 +1492,8 @@ with tab5:
         st.markdown("### 版本/游戏 2")
         game2 = st.selectbox(
             "游戏",
-            options=config.SUPPORTED_GAMES,
+            options=list(config.SUPPORTED_GAMES.keys()),
+            format_func=lambda x: config.SUPPORTED_GAMES[x],
             key="game2",
         )
         try:
@@ -1620,7 +1553,7 @@ with tab5:
 st.divider()
 st.markdown(f"""
 <div style="text-align: center; color: #888; font-size: 0.9rem;">
-    <p>宝可梦Like游戏多人机制设计演进研究工具 | v0.2 实时数据版</p>
-    <p>数据来源: Steam News API | PokeAPI | Bulbapedia | Smogon</p>
+    <p>宝可梦Like游戏多人机制设计演进研究工具 | v1.5.0 动态主题发现版</p>
+    <p>数据来源: 本地 data/ 目录（预采集）| PokeAPI | Bulbapedia | Smogon</p>
 </div>
 """, unsafe_allow_html=True)

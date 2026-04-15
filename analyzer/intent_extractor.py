@@ -30,26 +30,12 @@ class IntentExtractor:
         self._model = model
         self._llm = None
         self._embedding = None
-        self._setup_proxy()
-
-    def _setup_proxy(self):
-        """配置代理（读取系统代理或环境变量）"""
-        http_proxy = os.getenv("HTTP_PROXY") or os.getenv("http_proxy")
-        https_proxy = os.getenv("HTTPS_PROXY") or os.getenv("https_proxy")
-
-        if not http_proxy and not https_proxy:
-            try:
-                import winreg
-                hkey = winreg.OpenKey(winreg.HKEY_CURRENT_USER,
-                    r"Software\Microsoft\Windows\CurrentVersion\Internet Settings")
-                proxy_enable, _ = winreg.QueryValueEx(hkey, "ProxyEnable")
-                if proxy_enable:
-                    proxy_server, _ = winreg.QueryValueEx(hkey, "ProxyServer")
-                    if proxy_server:
-                        os.environ["HTTP_PROXY"] = f"http://{proxy_server}"
-                        os.environ["HTTPS_PROXY"] = f"http://{proxy_server}"
-            except Exception:
-                pass
+        # 禁用自动代理检测，避免代理认证问题
+        # 如果需要使用代理，请在 .env 中手动配置 HTTP_PROXY / HTTPS_PROXY
+        os.environ.pop("HTTP_PROXY", None)
+        os.environ.pop("HTTPS_PROXY", None)
+        os.environ.pop("http_proxy", None)
+        os.environ.pop("https_proxy", None)
 
     def _get_llm(self):
         """延迟初始化 LLM（节省 API 调用）"""
@@ -92,7 +78,8 @@ class IntentExtractor:
                 from langchain_openai import ChatOpenAI
                 model_kwargs = {
                     "temperature": 0.7,
-                    "request_timeout": 60,
+                    "request_timeout": 180,
+                    "max_retries": 3,
                     "default_headers": {"api-version": "2024-01-01"},
                 }
                 if base:
@@ -224,10 +211,22 @@ class IntentExtractor:
         elif "增强" in content_lower or "buff" in content_lower:
             problem = "提升某机制/宝可梦的竞争力"
 
+        # Infer player sentiment from keywords
+        if any(kw in content_lower for kw in ["bug", "修复", "崩溃", "错误"]):
+            sentiment = "修复类改动通常获得正面或中性反应——取决于修复的严重程度"
+        elif any(kw in content_lower for kw in ["削弱", "限制", "禁止", "ban", "负面"]):
+            sentiment = "削弱类改动通常引发竞技玩家负面反应，休闲玩家可能无感知或正面"
+        elif any(kw in content_lower for kw in ["新增", "添加", "扩展", "免费"]):
+            sentiment = "新增内容通常获得正面反应"
+        else:
+            sentiment = "无明显情感倾向的改动，玩家反应取决于具体内容"
+
         return {
-            "intent_summary": f"[降级分析] {content[:50]}...",
-            "problem_solved": problem,
-            "affected_players": ["所有玩家"],
+            "exact_change": f"[降级分析] {content[:50]}...",
+            "competitive_impact": "无法评估（LLM 不可用）",
+            "design_rationale": problem,
+            "player_feedback": sentiment,
+            "player_impact": ["所有玩家"],
             "mechanic_tags": tags if tags else ["其他"],
             "design_pattern": "优化性设计",
             "risk_assessment": "无法评估（LLM 不可用）",
@@ -362,7 +361,8 @@ class IntentExtractor:
             from langchain_openai import ChatOpenAI
             model_kwargs = {
                 "temperature": 0,
-                "request_timeout": 30,
+                "request_timeout": 60,
+                "max_retries": 2,
             }
             if base:
                 model_kwargs["base_url"] = base

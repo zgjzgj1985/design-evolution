@@ -1,7 +1,10 @@
 """
 Steam 官方 API 和页面爬虫
-数据源: Steam Store API + Steam Community News API
-支持: 宝可梦剑/盾, Temtem, Cassette Beasts, 幻兽帕鲁
+
+架构说明：
+- Steam 游戏（Temtem, Cassette Beasts, Palworld）的更新日志优先从本地 data/ 目录读取
+- 本地数据通过 fetch_all_data.py 脚本提前采集
+- 仅当本地数据不存在时，才访问 Steam API（降级方案）
 """
 
 import re
@@ -9,9 +12,19 @@ import time
 import json
 import requests
 from datetime import datetime
+from pathlib import Path
 from typing import Optional, List, Dict
+from requests.adapters import HTTPAdapter
+from urllib3.util.retry import Retry
 from bs4 import BeautifulSoup
 from utils.config import config
+
+# 本地数据管理器（优先）
+try:
+    from data_manager import DataManager
+    _data_manager = DataManager()
+except ImportError:
+    _data_manager = None
 
 
 class SteamScraper:
@@ -29,7 +42,7 @@ class SteamScraper:
         },
         "Temtem": {
             "name": "Temtem",
-            "id": "1179580",
+            "id": "745920",
             "name_localized": "Temtem",
         },
         "Cassette Beasts": {
@@ -53,6 +66,18 @@ class SteamScraper:
         self.game_name = self.APP_IDS[game]["name"]
         self.session = requests.Session()
         self.session.headers.update({"User-Agent": config.USER_AGENT})
+        # 保持代理设置启用（trust_env=True），确保能通过代理访问 Steam API
+
+        # 配置重试策略和超时
+        retry_strategy = Retry(
+            total=3,  # 最多重试3次
+            backoff_factor=0.5,  # 重试间隔：0.5秒、1秒、2秒
+            status_forcelist=[429, 500, 502, 503, 504],
+            allowed_methods=["HEAD", "GET", "OPTIONS"],
+        )
+        adapter = HTTPAdapter(max_retries=retry_strategy)
+        self.session.mount("https://", adapter)
+        self.session.mount("http://", adapter)
 
     def _fetch_steam_api(self, endpoint: str, params: dict = None) -> Optional[dict]:
         """调用 Steam API"""
@@ -60,7 +85,7 @@ class SteamScraper:
             response = self.session.get(
                 endpoint,
                 params=params,
-                timeout=config.REQUEST_TIMEOUT,
+                timeout=60,  # 增加到60秒超时
             )
             response.raise_for_status()
             return response.json()
@@ -71,7 +96,7 @@ class SteamScraper:
     def _fetch_html(self, url: str) -> Optional[BeautifulSoup]:
         """获取 HTML 页面"""
         try:
-            response = self.session.get(url, timeout=config.REQUEST_TIMEOUT)
+            response = self.session.get(url, timeout=60)  # 增加到60秒超时
             response.raise_for_status()
             return BeautifulSoup(response.content, "lxml")
         except requests.RequestException as e:
@@ -83,8 +108,15 @@ class SteamScraper:
     def get_news(self, count: int = 50) -> List[dict]:
         """
         获取 Steam 新闻（更新日志）
-        这是最可靠的数据源，包含所有官方公告
+        优先从本地 data/ 目录读取，本地不存在时访问 Steam API
         """
+        # 优先使用本地数据
+        if _data_manager is not None:
+            local_news = _data_manager.get_news(self.game, count)
+            if local_news:
+                return local_news
+
+        # 降级：访问 Steam API
         data = self._fetch_steam_api(
             self.STEAM_NEWS_API,
             params={
@@ -116,7 +148,15 @@ class SteamScraper:
         """
         获取版本更新日志
         自动过滤只保留与玩法相关的更新
+        优先从本地读取，API 仅降级
         """
+        # 优先使用本地数据（DataManager 已完成过滤+分类）
+        if _data_manager is not None:
+            local_patches = _data_manager.get_patches(self.game, count)
+            if local_patches:
+                return local_patches
+
+        # 降级：自己从 API 数据中过滤+分类
         news = self.get_news(count)
         patches = []
 
@@ -124,7 +164,6 @@ class SteamScraper:
             content = item["contents"]
             title = item["title"]
 
-            # 过滤关键词
             if self._is_gameplay_related(title, content):
                 categories = self._categorize(title, content)
 
@@ -132,7 +171,7 @@ class SteamScraper:
                     "title": title,
                     "date": item["date"],
                     "url": item["url"],
-                    "content": content[:5000],  # 限制长度
+                    "content": content[:5000],
                     "categories": categories,
                     "game": self.game,
                 })
@@ -260,7 +299,15 @@ class SteamScraper:
     def get_multiplayer_patches(self, count: int = 100) -> List[dict]:
         """
         只获取与多人对战相关的更新
+        优先从本地数据读取
         """
+        # 优先使用本地数据
+        if _data_manager is not None:
+            local_mp = _data_manager.get_multiplayer_patches(self.game, count)
+            if local_mp:
+                return local_mp
+
+        # 降级：自己过滤
         all_patches = self.get_patch_notes(count)
         multiplayer_patches = []
 

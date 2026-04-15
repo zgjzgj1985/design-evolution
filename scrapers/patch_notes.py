@@ -21,8 +21,8 @@ class PatchNotesScraper:
         },
         "Temtem": {
             "name": "Temtem",
-            "id": "1179580",
-            "url": "https://store.steampowered.com/news/app/1179580",
+            "id": "745920",
+            "url": "https://store.steampowered.com/news/app/745920",
         },
         "Cassette Beasts": {
             "name": "Cassette Beasts",
@@ -40,6 +40,7 @@ class PatchNotesScraper:
         self.game = game
         self.session = requests.Session()
         self.session.headers.update({"User-Agent": config.USER_AGENT})
+        # 保持代理设置启用，确保能通过代理访问 Steam API
 
         if game in self.STEAM_APP_IDS:
             self.steam_info = self.STEAM_APP_IDS[game]
@@ -163,7 +164,7 @@ class PatchNotesScraper:
         Temtem 每两周发布一次更新
         """
         # TODO: 爬取 https://crema.gg/temtem/temtem-roadmap/
-        # 或 https://store.steampowered.com/news/app/1179580
+        # 或 https://store.steampowered.com/news/app/745920
         patches = [
             {
                 "version": "1.0",
