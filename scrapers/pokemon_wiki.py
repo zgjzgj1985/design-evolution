@@ -133,6 +133,437 @@ class PokemonWikiScraper:
             return _PATCH_NOTES_CACHE[generation]
 
         patches_db = {
+            1: [
+                {
+                    "version": "1.0",
+                    "date": "1996-02-27",
+                    "game": "红/绿",
+                    "source_url": "https://bulbapedia.bulbagarden.net/wiki/Version_history",
+                    "official_notes": "Pokemon Red and Green released in Japan.",
+                    "changes": [
+                        {
+                            "category": "PvP",
+                            "content": "首个宝可梦正式版本发布，双打对战作为隐藏模式存在",
+                            "intent": "开创回合制对战RPG品类，建立核心对战机制",
+                            "detail": "红绿版建立了宝可梦对战的基础框架，包括属性克制、招式PP、道具携带等核心机制。",
+                        },
+                    ],
+                },
+                {
+                    "version": "1.1",
+                    "date": "1996-10-15",
+                    "game": "蓝",
+                    "source_url": "https://bulbapedia.bulbagarden.net/wiki/Version_history",
+                    "official_notes": "Pokemon Blue released as a bug fix version in Japan.",
+                    "changes": [
+                        {
+                            "category": "平衡性",
+                            "content": "大量Bug修复，改善游戏稳定性",
+                            "intent": "修正首发版本的程序问题，提升游戏体验",
+                            "detail": "蓝版作为红绿的修正版发布，修复了众多影响游戏正常进行的bug。",
+                        },
+                    ],
+                },
+                {
+                    "version": "1.0",
+                    "date": "1998-09-30",
+                    "game": "红/蓝",
+                    "source_url": "https://bulbapedia.bulbagarden.net/wiki/Version_history",
+                    "official_notes": "Pokemon Red and Blue released in North America.",
+                    "changes": [
+                        {
+                            "category": "PvP",
+                            "content": "宝可梦正式登陆西方市场，引入Cable Link双打对战",
+                            "intent": "全球化推广，建立双打对战的联机基础",
+                            "detail": "红蓝版是首个西方发行的版本，Game Boy Link Cable使双打对战成为可能。",
+                        },
+                    ],
+                },
+                {
+                    "version": "1.0",
+                    "date": "1999-09-30",
+                    "game": "黄",
+                    "source_url": "https://bulbapedia.bulbagarden.net/wiki/Version_history",
+                    "official_notes": "Pokemon Yellow released, featuring Pikachu as a companion.",
+                    "changes": [
+                        {
+                            "category": "机制",
+                            "content": "皮卡丘同行系统上线，对战画面改为跟随式",
+                            "intent": "增强叙事体验，皮卡丘作为同伴改变游戏节奏",
+                            "detail": "黄版是首个以动画风格设计的版本，皮卡丘会在世界地图上跟随玩家。",
+                        },
+                        {
+                            "category": "PvP",
+                            "content": "添加动画版宝可梦头像到战斗画面",
+                            "intent": "提升对战视觉体验，为未来电竞观赏性奠定基础",
+                            "detail": "黄版首次引入动画风格的宝可梦头像，增加了对战的观赏性。",
+                        },
+                    ],
+                },
+            ],
+            2: [
+                {
+                    "version": "1.0",
+                    "date": "1999-11-21",
+                    "game": "金/银",
+                    "source_url": "https://bulbapedia.bulbagarden.net/wiki/Version_history",
+                    "official_notes": "Pokemon Gold and Silver released in Japan.",
+                    "changes": [
+                        {
+                            "category": "机制",
+                            "content": "特性(Ability)系统上线，约80种特性提供被动战术效果",
+                            "intent": "增加宝可梦个体差异化，为战术多样性奠定基础",
+                            "detail": "特性系统是第二世代最重要的机制创新，约80种特性为每只宝可梦提供独特被动能力，如压迫感、同步等。",
+                        },
+                        {
+                            "category": "机制",
+                            "content": "携带道具系统上线，宝可梦可携带道具参与战斗",
+                            "intent": "增加配装战术深度，丰富对战策略选择",
+                            "detail": "道具系统使玩家可以为宝可梦装备道具，在战斗中产生各种效果，如剩饭回血、焦点镜先制等。",
+                        },
+                        {
+                            "category": "PvP",
+                            "content": "电话对战功能开放，可与NPC约战",
+                            "intent": "建立异步PVP的早期形态，为线上对战做铺垫",
+                            "detail": "通过电话系统，玩家可以约NPC训练师进行对战，这是宝可梦异步对战的雏形。",
+                        },
+                    ],
+                },
+                {
+                    "version": "1.0",
+                    "date": "2000-12-14",
+                    "game": "水晶版",
+                    "source_url": "https://bulbapedia.bulbagarden.net/wiki/Version_history",
+                    "official_notes": "Pokemon Crystal released, featuring animated sprites.",
+                    "changes": [
+                        {
+                            "category": "PvP",
+                            "content": "战斗画面全面动画化，宝可梦动作更丰富",
+                            "intent": "提升对战观赏性，为电竞化发展奠定视觉基础",
+                            "detail": "水晶版是首个全部宝可梦使用动画Sprite的版本，对战过程更具动感。",
+                        },
+                        {
+                            "category": "PvP",
+                            "content": "Wifi对战功能测试版上线（仅日本）",
+                            "intent": "探索无线网络联机对战的可能性",
+                            "detail": "水晶版试水性引入了无线通信对战功能，为未来的WIFI对战时代做技术铺垫。",
+                        },
+                    ],
+                },
+            ],
+            3: [
+                {
+                    "version": "1.0",
+                    "date": "2002-03-29",
+                    "game": "红宝石/蓝宝石",
+                    "source_url": "https://bulbapedia.bulbagarden.net/wiki/Version_history",
+                    "official_notes": "Pokemon Ruby and Sapphire released in Japan.",
+                    "changes": [
+                        {
+                            "category": "PvP",
+                            "content": "双打对战正式确立为VGC标准规则，4v4选2出战",
+                            "intent": "建立VGC官方赛制的核心框架",
+                            "detail": " RSE是首个明确将双打作为官方对战格式的世代，4v4选2出战规则沿用至今。",
+                        },
+                        {
+                            "category": "机制",
+                            "content": "天气系统全面上线，晴/雨/沙/冰雹影响战斗",
+                            "intent": "增加环境战术维度，天气队成为重要战术流派",
+                            "detail": "天气系统是第三世代最重要的机制创新，雨队、沙暴队、晴天队成为长期活跃的战术体系。",
+                        },
+                        {
+                            "category": "机制",
+                            "content": "性格值决定努力值分配方式",
+                            "intent": "增加培育深度，区分休闲玩家和竞技玩家",
+                            "detail": "性格与努力值系统使宝可梦培育成为竞技对战的重要环节。",
+                        },
+                    ],
+                },
+                {
+                    "version": "1.0",
+                    "date": "2004-01-29",
+                    "game": "绿宝石",
+                    "source_url": "https://bulbapedia.bulbagarden.net/wiki/Version_history",
+                    "official_notes": "Pokemon Emerald released, featuring the Battle Frontier.",
+                    "changes": [
+                        {
+                            "category": "PvP",
+                            "content": "战斗边疆(Battle Frontier)上线，提供5种对战设施",
+                            "intent": "为高阶玩家提供长期对战目标，丰富PVP内容",
+                            "detail": "战斗边疆包含对战塔、双打塔、轮盘战、连接战、谜问答5种设施，为竞技玩家提供离线对战挑战。",
+                        },
+                        {
+                            "category": "PvP",
+                            "content": "VGC 2005规则确立，红蓝绿宝石正式纳入官方赛制",
+                            "intent": "建立完整的官方竞技体系",
+                            "detail": "绿宝石版成为VGC首个正式比赛用游戏，标志着宝可梦电竞体系的正式确立。",
+                        },
+                    ],
+                },
+                {
+                    "version": "1.2",
+                    "date": "2006-09-28",
+                    "game": "火红/叶绿",
+                    "source_url": "https://bulbapedia.bulbagarden.net/wiki/Version_history",
+                    "official_notes": "Pokemon FireRed and LeafGreen QoL improvements.",
+                    "changes": [
+                        {
+                            "category": "机制",
+                            "content": "秘传招式限制解除，可遗忘任意秘传",
+                            "intent": "优化对战配置自由度，提升竞技体验",
+                            "detail": "允许遗忘秘传招式是重要的对战便利化改进，解决了对战配置中秘传招式占位的问题。",
+                        },
+                    ],
+                },
+            ],
+            4: [
+                {
+                    "version": "1.0",
+                    "date": "2006-09-28",
+                    "game": "钻石/珍珠",
+                    "source_url": "https://bulbapedia.bulbagarden.net/wiki/Version_history",
+                    "official_notes": "Pokemon Diamond and Pearl released.",
+                    "changes": [
+                        {
+                            "category": "PvP",
+                            "content": "Wi-Fi对战正式上线，全球玩家可进行在线双打对战",
+                            "intent": "开启宝可梦线上竞技时代，建立全球化VGC生态",
+                            "detail": "Wi-Fi对战使全球玩家可以不受地域限制进行双打对战，标志着宝可梦电竞进入全球化时代。",
+                        },
+                        {
+                            "category": "机制",
+                            "content": "物理/特殊招式分类改革，按招式属性而非类型决定",
+                            "intent": "打破原有平衡格局，增加战术多样性",
+                            "detail": "改革后水/火/草/电/冰/超六系变为特殊，其他为物理，极大扩展了可用招式的战术价值。",
+                        },
+                    ],
+                },
+                {
+                    "version": "1.0",
+                    "date": "2008-09-13",
+                    "game": "白金",
+                    "source_url": "https://bulbapedia.bulbagarden.net/wiki/Version_history",
+                    "official_notes": "Pokemon Platinum released as third version.",
+                    "changes": [
+                        {
+                            "category": "PvP",
+                            "content": "新增PBR(宝可梦世界锦标赛)观战模式",
+                            "intent": "为电竞观赏性提供技术基础",
+                            "detail": "PBR模式让玩家可以观看宝可梦自动对战，为未来的电竞观战系统奠定基础。",
+                        },
+                        {
+                            "category": "平衡性",
+                            "content": "大量宝可梦种族值和招式平衡调整",
+                            "intent": "修正第四世代初期的数值失衡问题",
+                            "detail": "白金版作为红蓝的修正版，对环境中的强力宝可梦进行了平衡调整。",
+                        },
+                    ],
+                },
+                {
+                    "version": "1.1",
+                    "date": "2009-03-22",
+                    "game": "钻石/珍珠/白金",
+                    "source_url": "https://bulbapedia.bulbagarden.net/wiki/Version_history",
+                    "official_notes": "Battle Tower improvements and bug fixes.",
+                    "changes": [
+                        {
+                            "category": "PvP",
+                            "content": "战斗塔AI优化，高级CPU更难对付",
+                            "intent": "为竞技玩家提供更接近真人对战的离线训练体验",
+                            "detail": "战斗塔AI的改进使离线对战训练更有价值，部分玩家依靠战斗塔准备VGC。",
+                        },
+                    ],
+                },
+            ],
+            5: [
+                {
+                    "version": "1.0",
+                    "date": "2011-03-06",
+                    "game": "黑/白",
+                    "source_url": "https://bulbapedia.bulbagarden.net/wiki/Version_history",
+                    "official_notes": "Pokemon Black and White released in Japan.",
+                    "changes": [
+                        {
+                            "category": "PvP",
+                            "content": "Seasonal Tournament赛季制正式引入VGC",
+                            "intent": "建立常态化竞技赛历，增加全年参与点",
+                            "detail": "赛季制将VGC分为春夏秋冬四季，每季有不同的对战规则，保持竞技环境的新鲜感。",
+                        },
+                        {
+                            "category": "PvP",
+                            "content": "2011年举办首个VGC世界锦标赛，标志电竞化成熟",
+                            "intent": "建立全球最高级别宝可梦赛事体系",
+                            "detail": "Pokemon World Championships成为宝可梦电竞的最高舞台。",
+                        },
+                        {
+                            "category": "机制",
+                            "content": "天气启动机特性上线，雨队/沙暴队成为环境核心",
+                            "intent": "通过天气机制构建长期战术体系",
+                            "detail": "降雨(Call of Rain)、沙尘暴(Sand Stream)特性使天气队成为第五世代最具标志性的战术。",
+                        },
+                    ],
+                },
+                {
+                    "version": "1.0",
+                    "date": "2012-06-23",
+                    "game": "黑2/白2",
+                    "source_url": "https://bulbapedia.bulbagarden.net/wiki/Version_history",
+                    "official_notes": "Pokemon Black 2 and White 2 released.",
+                    "changes": [
+                        {
+                            "category": "PvP",
+                            "content": "世界锦标赛首次在华盛顿举办，规模扩大",
+                            "intent": "扩大VGC全球影响力，吸引更多观众和参与者",
+                            "detail": "BW2赛季的世界锦标赛标志着VGC进入快速增长期。",
+                        },
+                        {
+                            "category": "平衡性",
+                            "content": "新增PWT(宝可梦世界锦标赛)专用道具和规则",
+                            "intent": "为顶级赛事提供独特的对战内容",
+                            "detail": "PWT引入了只能在世界赛中使用的传说宝可梦，丰富了顶级赛事的多样性。",
+                        },
+                    ],
+                },
+            ],
+            6: [
+                {
+                    "version": "1.0",
+                    "date": "2013-10-12",
+                    "game": "X/Y",
+                    "source_url": "https://bulbapedia.bulbagarden.net/wiki/Version_history",
+                    "official_notes": "Pokemon X and Y released, introducing Mega Evolution.",
+                    "changes": [
+                        {
+                            "category": "机制",
+                            "content": "Mega进化系统上线，特定宝可梦可进化为更强形态",
+                            "intent": "为经典宝可梦注入竞技活力，建立跨世代强化机制",
+                            "detail": "Mega进化是首个跨世代的宝可梦强化机制，让喷火龙、妙蛙花等经典角色重新成为对战焦点。",
+                        },
+                        {
+                            "category": "PvP",
+                            "content": "超级特别团体战(Super Multi-Use)上线",
+                            "intent": "提供更丰富的多人PvE合作体验",
+                            "detail": "超级团体战为4人合作提供了更完善的内容和奖励。",
+                        },
+                    ],
+                },
+                {
+                    "version": "1.0",
+                    "date": "2014-11-21",
+                    "game": "欧米伽红宝石/阿尔法蓝宝石",
+                    "source_url": "https://bulbapedia.bulbagarden.net/wiki/Version_history",
+                    "official_notes": "Pokemon Omega Ruby and Alpha Sapphire released.",
+                    "changes": [
+                        {
+                            "category": "PvP",
+                            "content": "三打对战(3v3)模式上线，新增战术维度",
+                            "intent": "增加竞技模式多样性，为VGC提供新赛制选择",
+                            "detail": "三打对战需要同时控制3只宝可梦，轮换机制带来不同于双打的战术深度。",
+                        },
+                        {
+                            "category": "平衡性",
+                            "content": "Mega进化平衡调整，新增多只Mega宝可梦",
+                            "intent": "保持Mega进化系统的竞技新鲜感",
+                            "detail": "ORAS新增了多只Mega进化宝可梦，并对已有Mega的强度进行了调整。",
+                        },
+                    ],
+                },
+                {
+                    "version": "1.4",
+                    "date": "2015-09-26",
+                    "game": "X/Y",
+                    "source_url": "https://bulbapedia.bulbagarden.net/wiki/Version_history",
+                    "official_notes": "Various battle improvements.",
+                    "changes": [
+                        {
+                            "category": "平衡性",
+                            "content": "对战规则调整，Mega妙蛙花和Mega耿鬼被Ban",
+                            "intent": "维护VGC环境多样性，防止特定Mega统治环境",
+                            "detail": "官方Banlist机制开始更频繁地调整，确保对战环境健康。",
+                        },
+                    ],
+                },
+            ],
+            7: [
+                {
+                    "version": "1.0",
+                    "date": "2016-11-18",
+                    "game": "太阳/月亮",
+                    "source_url": "https://bulbapedia.bulbagarden.net/wiki/Version_history",
+                    "official_notes": "Pokemon Sun and Moon released.",
+                    "changes": [
+                        {
+                            "category": "机制",
+                            "content": "Z招式系统上线，取代Mega进化的强化体系",
+                            "intent": "建立新的对战强化机制，提供全玩家可用的强化手段",
+                            "detail": "Z招式是首个对所有宝可梦开放的强化机制，每只宝可梦都有专属Z招式，增加了对战的策略深度。",
+                        },
+                        {
+                            "category": "PvP",
+                            "content": "首次实现跨平台跨世代宝可梦传递(Pokemon Bank)",
+                            "intent": "建立跨世代生态，延长玩家投资价值",
+                            "detail": "Pokemon Bank允许宝可梦在不同世代间传递，使玩家在旧世代培养的宝可梦可以在新世代继续使用。",
+                        },
+                    ],
+                },
+                {
+                    "version": "1.2",
+                    "date": "2017-06-19",
+                    "game": "太阳/月亮",
+                    "source_url": "https://bulbapedia.bulbagarden.net/wiki/Version_history",
+                    "official_notes": "Balance patches and new Alola forms.",
+                    "changes": [
+                        {
+                            "category": "平衡性",
+                            "content": "大量宝可梦种族值调整和招式平衡",
+                            "intent": "优化对战环境，减少特定宝可梦的统治性",
+                            "detail": "官方开始更频繁地使用补丁调整平衡，体现电竞化运营的成熟。",
+                        },
+                        {
+                            "category": "内容",
+                            "content": "究极之日/究极之月DLC内容预览",
+                            "intent": "为DLC做宣传准备",
+                            "detail": "为究极日月做预热，引入了部分究极异兽数据。",
+                        },
+                    ],
+                },
+                {
+                    "version": "1.0",
+                    "date": "2017-11-17",
+                    "game": "究极之日/究极之月",
+                    "source_url": "https://bulbapedia.bulbagarden.net/wiki/Version_history",
+                    "official_notes": "Pokemon Ultra Sun and Ultra Moon released.",
+                    "changes": [
+                        {
+                            "category": "PvP",
+                            "content": "究极异兽(UB)系列加入VGC可用池，丰富对战精灵库",
+                            "intent": "通过异星宝可梦引入新的战术变量",
+                            "detail": "UB系列有着独特的设计和种族值分配，如UB-Adhesive的弱策战术成为环境亮点。",
+                        },
+                        {
+                            "category": "机制",
+                            "content": "新增四驱团对战和跨世代联动内容",
+                            "intent": "丰富游戏内容，增加重复游玩价值",
+                            "detail": "追加了新的对战内容和异兽捕捉内容。",
+                        },
+                    ],
+                },
+                {
+                    "version": "1.3",
+                    "date": "2018-04-18",
+                    "game": "究极之日/究极之月",
+                    "source_url": "https://bulbapedia.bulbagarden.net/wiki/Version_history",
+                    "official_notes": "Bug fixes and tournament adjustments.",
+                    "changes": [
+                        {
+                            "category": "平衡性",
+                            "content": "调整部分宝可梦的种族值和招式威力",
+                            "intent": "优化VGC 2018规则环境",
+                            "detail": "为当年的世界锦标赛做最后的环境调整。",
+                        },
+                    ],
+                },
+            ],
             8: [
                 {
                     "version": "1.0.0",

@@ -1,0 +1,216 @@
+{
+  "description": "VGC (Video Game Championships) 历史规则数据",
+  "source": "Serebii.net",
+  "fetched_at": "2026-04-16T14:47:09.842165",
+  "total_seasons": 13,
+  "seasons": [
+    {
+      "version": "2009",
+      "date": "2009-01-01",
+      "game": "钻石/珍珠/白金",
+      "source_url": "https://www.serebii.net/vgc/2009.shtml",
+      "generation": 4,
+      "official_notes": "VGC 2009 Series - 钻石/珍珠/白金",
+      "changes": [
+        {
+          "category": "PvP",
+          "content": "2009年VGC赛季规则：对战类型: Double Battle | 图鉴限制: National图鉴 | 禁用宝可梦: Mewtwo、Mew、Lugia、Ho-Oh、Kyogre、Groudon、Rayquaza、Jirachi、Deoxys、Dialga等24只 | 特殊条款: Same Pokémon Clause、Same Item Clause | 世界冠军: Stephen Silvestro",
+          "intent": "记录第4世代VGC赛季规则变更，包括图鉴限制、禁用列表和特殊条款",
+          "detail": "规则详情: {\"Battle Type\": \"Double Battle\", \"Clauses?\": \"No same Pokémon, No same item\", \"Pokédex Restriction\": \"National\"}\n禁用宝可梦: Mewtwo, Mew, Lugia, Ho-Oh, Kyogre, Groudon, Rayquaza, Jirachi, Deoxys, Dialga, Palkia, Giratina, Manaphy, Darkrai, Shaymin, Arceus, Victini, Zekrom, Kyurem, Meloetta, Genesect, Diancie, Hoopa, Volcanion\n特殊条款: Same Pokémon Clause, Same Item Clause\n世界冠军: Stephen Silvestro"
+        }
+      ]
+    },
+    {
+      "version": "2010",
+      "date": "2010-01-01",
+      "game": "心金/魂银/黑/白",
+      "source_url": "https://www.serebii.net/vgc/2010.shtml",
+      "generation": 5,
+      "official_notes": "VGC 2010 Series - 心金/魂银/黑/白",
+      "changes": [
+        {
+          "category": "PvP",
+          "content": "2010年VGC赛季规则：对战类型: Double Battle | 图鉴限制: National图鉴 | 禁用宝可梦: Mewtwo、Mew、Lugia、Ho-Oh、Kyogre、Groudon、Rayquaza、Jirachi、Deoxys、Dialga等24只 | 特殊条款: Same Pokémon Clause、Same Item Clause | 世界冠军: Yuta Komatsuda",
+          "intent": "记录第5世代VGC赛季规则变更，包括图鉴限制、禁用列表和特殊条款",
+          "detail": "规则详情: {\"Battle Type\": \"Double Battle\", \"Clauses?\": \"No same Pokémon, No same item\", \"Pokédex Restriction\": \"National\"}\n禁用宝可梦: Mewtwo, Mew, Lugia, Ho-Oh, Kyogre, Groudon, Rayquaza, Jirachi, Deoxys, Dialga, Palkia, Giratina, Manaphy, Darkrai, Shaymin, Arceus, Victini, Zekrom, Kyurem, Meloetta, Genesect, Diancie, Hoopa, Volcanion\n特殊条款: Same Pokémon Clause, Same Item Clause\n世界冠军: Yuta Komatsuda"
+        }
+      ]
+    },
+    {
+      "version": "2011",
+      "date": "2011-01-01",
+      "game": "黑/白",
+      "source_url": "https://www.serebii.net/vgc/2011.shtml",
+      "generation": 5,
+      "official_notes": "VGC 2011 Series - 黑/白",
+      "changes": [
+        {
+          "category": "PvP",
+          "content": "2011年VGC赛季规则：对战类型: Double Battle | 图鉴限制: Unova图鉴 | 禁用宝可梦: Mewtwo、Mew、Jirachi、Deoxys、Giratina、Darkrai、Arceus、Victini、Reshiram、Zekrom等17只 | 特殊条款: Same Pokémon Clause、Same Item Clause | 世界冠军: Ray Rizzo",
+          "intent": "记录第5世代VGC赛季规则变更，包括图鉴限制、禁用列表和特殊条款",
+          "detail": "规则详情: {\"Battle Type\": \"Double Battle\", \"Clauses?\": \"No same Pokémon, No same item\", \"Pokédex Restriction\": \"Unova\"}\n禁用宝可梦: Mewtwo, Mew, Jirachi, Deoxys, Giratina, Darkrai, Arceus, Victini, Reshiram, Zekrom, Kyurem, Keldeo, Meloetta, Genesect, Diancie, Hoopa, Volcanion\n特殊条款: Same Pokémon Clause, Same Item Clause\n世界冠军: Ray Rizzo"
+        }
+      ]
+    },
+    {
+      "version": "2012",
+      "date": "2012-01-01",
+      "game": "黑2/白2",
+      "source_url": "https://www.serebii.net/vgc/2012.shtml",
+      "generation": 5,
+      "official_notes": "VGC 2012 Series - 黑2/白2",
+      "changes": [
+        {
+          "category": "PvP",
+          "content": "2012年VGC赛季规则：对战类型: Double Battle | 图鉴限制: National图鉴 | 禁用宝可梦: Mewtwo、Mew、Lugia、Ho-Oh、Kyogre、Groudon、Rayquaza、Jirachi、Deoxys、Dialga等26只 | 特殊条款: Same Pokémon Clause、Same Item Clause | 世界冠军: Ray Rizzo",
+          "intent": "记录第5世代VGC赛季规则变更，包括图鉴限制、禁用列表和特殊条款",
+          "detail": "规则详情: {\"Battle Type\": \"Double Battle\", \"Clauses?\": \"No same Pokémon, No same item\", \"Pokédex Restriction\": \"National\"}\n禁用宝可梦: Mewtwo, Mew, Lugia, Ho-Oh, Kyogre, Groudon, Rayquaza, Jirachi, Deoxys, Dialga, Palkia, Giratina, Manaphy, Darkrai, Shaymin, Arceus, Victini, Reshiram, Zekrom, Kyurem, Keldeo, Meloetta, Genesect, Diancie, Hoopa, Volcanion\n特殊条款: Same Pokémon Clause, Same Item Clause\n世界冠军: Ray Rizzo"
+        }
+      ]
+    },
+    {
+      "version": "2013",
+      "date": "2013-01-01",
+      "game": "黑2/白2",
+      "source_url": "https://www.serebii.net/vgc/2013.shtml",
+      "generation": 5,
+      "official_notes": "VGC 2013 Series - 黑2/白2",
+      "changes": [
+        {
+          "category": "PvP",
+          "content": "2013年VGC赛季规则：对战类型: Double Battle | 图鉴限制: National图鉴 | 禁用宝可梦: Mewtwo、Mew、Lugia、Ho-Oh、Kyogre、Groudon、Rayquaza、Jirachi、Deoxys、Dialga等26只 | 特殊条款: Same Pokémon Clause、Same Item Clause | 世界冠军: Arash Ommati",
+          "intent": "记录第5世代VGC赛季规则变更，包括图鉴限制、禁用列表和特殊条款",
+          "detail": "规则详情: {\"Battle Type\": \"Double Battle\", \"Clauses?\": \"No same Pokémon, No same item\", \"Pokédex Restriction\": \"National\"}\n禁用宝可梦: Mewtwo, Mew, Lugia, Ho-Oh, Kyogre, Groudon, Rayquaza, Jirachi, Deoxys, Dialga, Palkia, Giratina, Manaphy, Darkrai, Shaymin, Arceus, Victini, Reshiram, Zekrom, Kyurem, Keldeo, Meloetta, Genesect, Diancie, Hoopa, Volcanion\n特殊条款: Same Pokémon Clause, Same Item Clause\n世界冠军: Arash Ommati"
+        }
+      ]
+    },
+    {
+      "version": "2014",
+      "date": "2014-01-01",
+      "game": "X/Y",
+      "source_url": "https://www.serebii.net/vgc/2014.shtml",
+      "generation": 6,
+      "official_notes": "VGC 2014 Series - X/Y",
+      "changes": [
+        {
+          "category": "PvP",
+          "content": "2014年VGC赛季规则：对战类型: Double Battle | 图鉴限制: Kalos图鉴 | 禁用宝可梦: Zygarde、Mewtwo、Mew、Jirachi、Deoxys、Giratina、Darkrai、Arceus、Victini、Zekrom等18只 | 特殊条款: Same Pokémon Clause、Same Item Clause、Players | 世界冠军: Se Jun Park",
+          "intent": "记录第6世代VGC赛季规则变更，包括图鉴限制、禁用列表和特殊条款",
+          "detail": "规则详情: {\"Battle Type\": \"Double Battle\", \"Clauses?\": \"No same Pokémon, No same itemPlayers may only use Pokémon with items or moves obtained in Pokémon X or Y\", \"Pokédex Restriction\": \"Kalos\"}\n禁用宝可梦: Zygarde, Mewtwo, Mew, Jirachi, Deoxys, Giratina, Darkrai, Arceus, Victini, Zekrom, Kyurem, Meloetta, Genesect, Xerneas, Yveltal, Diancie, Hoopa, Volcanion\n特殊条款: Same Pokémon Clause, Same Item Clause, Players\n世界冠军: Se Jun Park"
+        }
+      ]
+    },
+    {
+      "version": "2015",
+      "date": "2015-01-01",
+      "game": "X/Y/欧米茄红宝石/阿尔法蓝宝石",
+      "source_url": "https://www.serebii.net/vgc/2015.shtml",
+      "generation": 6,
+      "official_notes": "VGC 2015 Series - X/Y/欧米茄红宝石/阿尔法蓝宝石",
+      "changes": [
+        {
+          "category": "PvP",
+          "content": "2015年VGC赛季规则：对战类型: Double Battle | 图鉴限制: National图鉴 | 禁用宝可梦: Zygarde、Mewtwo、Mew、Lugia、Ho-Oh、Kyogre、Groudon、Rayquaza、Jirachi、Deoxys等29只 | 特殊条款: Same Pokémon Clause、Same Item Clause、Players、Omega Ruby、Alpha Sapphire | 世界冠军: Shoma Honami",
+          "intent": "记录第6世代VGC赛季规则变更，包括图鉴限制、禁用列表和特殊条款",
+          "detail": "规则详情: {\"Battle Type\": \"Double Battle\", \"Clauses?\": \"No same Pokémon, No same itemPlayers may only use Pokémon with items or moves obtained in Pokémon X, Y, Omega Ruby or Alpha Sapphire\", \"Pokédex Restriction\": \"National\"}\n禁用宝可梦: Zygarde, Mewtwo, Mew, Lugia, Ho-Oh, Kyogre, Groudon, Rayquaza, Jirachi, Deoxys, Dialga, Palkia, Giratina, Manaphy, Darkrai, Shaymin, Arceus, Victini, Reshiram, Zekrom, Kyurem, Keldeo, Meloetta, Genesect, Xerneas, Yveltal, Diancie, Hoopa, Volcanion\n特殊条款: Same Pokémon Clause, Same Item Clause, Players, Omega Ruby, Alpha Sapphire\n世界冠军: Shoma Honami"
+        }
+      ]
+    },
+    {
+      "version": "2016",
+      "date": "2016-01-01",
+      "game": "欧米茄红宝石/阿尔法蓝宝石",
+      "source_url": "https://www.serebii.net/vgc/2016.shtml",
+      "generation": 6,
+      "official_notes": "VGC 2016 Series - 欧米茄红宝石/阿尔法蓝宝石",
+      "changes": [
+        {
+          "category": "PvP",
+          "content": "2016年VGC赛季规则：对战类型: Double Battle | 图鉴限制: National图鉴 | 禁用宝可梦: Zygarde、Mewtwo、Mew、Lugia、Ho-Oh、Kyogre、Groudon、Rayquaza、Jirachi、Deoxys等29只 | 特殊条款: Same Pokémon Clause、Same Item Clause、Players、Omega Ruby、Alpha Sapphire | 世界冠军: Wolfe Glick",
+          "intent": "记录第6世代VGC赛季规则变更，包括图鉴限制、禁用列表和特殊条款",
+          "detail": "规则详情: {\"Battle Type\": \"Double Battle\", \"Clauses?\": \"No same Pokémon, No same itemPlayers may only use Pokémon with items or moves obtained in Pokémon X, Y, Omega Ruby or Alpha Sapphire\", \"Pokédex Restriction\": \"National\"}\n禁用宝可梦: Zygarde, Mewtwo, Mew, Lugia, Ho-Oh, Kyogre, Groudon, Rayquaza, Jirachi, Deoxys, Dialga, Palkia, Giratina, Manaphy, Darkrai, Shaymin, Arceus, Victini, Reshiram, Zekrom, Kyurem, Keldeo, Meloetta, Genesect, Xerneas, Yveltal, Diancie, Hoopa, Volcanion\n特殊条款: Same Pokémon Clause, Same Item Clause, Players, Omega Ruby, Alpha Sapphire\n世界冠军: Wolfe Glick"
+        }
+      ]
+    },
+    {
+      "version": "2017",
+      "date": "2017-01-01",
+      "game": "太阳/月亮",
+      "source_url": "https://www.serebii.net/vgc/2017.shtml",
+      "generation": 7,
+      "official_notes": "VGC 2017 Series - 太阳/月亮",
+      "changes": [
+        {
+          "category": "PvP",
+          "content": "2017年VGC赛季规则：对战类型: Double Battle | 图鉴限制: Alola图鉴 | 禁用宝可梦: Cosmog、Cosmoem、Solgaleo、Lunala、Necrozma、Magearna、Zygarde、Ash-Greninja、Mewtwo、Mew等23只 | 特殊条款: Same Pokémon Clause、Same Item Clause、Players、Moon | 世界冠军: Ryota Otsubo",
+          "intent": "记录第7世代VGC赛季规则变更，包括图鉴限制、禁用列表和特殊条款",
+          "detail": "规则详情: {\"Battle Type\": \"Double Battle\", \"Clauses?\": \"No same Pokémon, No same itemPlayers may only use Pokémon with items or moves obtained in Pokémon Sun & Moon\", \"Pokédex Restriction\": \"Alola\"}\n禁用宝可梦: Cosmog, Cosmoem, Solgaleo, Lunala, Necrozma, Magearna, Zygarde, Ash-Greninja, Mewtwo, Mew, Jirachi, Deoxys, Giratina, Darkrai, Arceus, Victini, Zekrom, Kyurem, Meloetta, Genesect, Diancie, Hoopa, Volcanion\n特殊条款: Same Pokémon Clause, Same Item Clause, Players, Moon\n世界冠军: Ryota Otsubo"
+        }
+      ]
+    },
+    {
+      "version": "2018",
+      "date": "2018-01-01",
+      "game": "究极之日/究极之月",
+      "source_url": "https://www.serebii.net/vgc/2018.shtml",
+      "generation": 7,
+      "official_notes": "VGC 2018 Series - 究极之日/究极之月",
+      "changes": [
+        {
+          "category": "PvP",
+          "content": "2018年VGC赛季规则：对战类型: Double Battle | 图鉴限制: National图鉴 | 禁用宝可梦: Cosmog、Cosmoem、Solgaleo、Lunala、Necrozma、Magearna、Zygarde、Ash-Greninja、Mewtwo、Mew等30只 | 特殊条款: Same Pokémon Clause、Same Item Clause、Players、Moon、Ultra Sun | 世界冠军: Paul Ruiz",
+          "intent": "记录第7世代VGC赛季规则变更，包括图鉴限制、禁用列表和特殊条款",
+          "detail": "规则详情: {\"Battle Type\": \"Double Battle\", \"Clauses?\": \"No same Pokémon, No same itemPlayers may only use Pokémon with items or moves obtained in Pokémon Sun, Moon, Ultra Sun & Ultra Moon Player Time: 5 Minutes\", \"Pokédex Restriction\": \"National\"}\n禁用宝可梦: Cosmog, Cosmoem, Solgaleo, Lunala, Necrozma, Magearna, Zygarde, Ash-Greninja, Mewtwo, Mew, Lugia, Ho-Oh, Kyogre, Groudon, Rayquaza, Jirachi, Deoxys, Dialga, Palkia, Giratina, Manaphy, Darkrai, Shaymin, Arceus, Victini, Reshiram, Zekrom, Kyurem, Keldeo, Meloetta\n特殊条款: Same Pokémon Clause, Same Item Clause, Players, Moon, Ultra Sun, Ultra Moon Player Time, Minutes\n世界冠军: Paul Ruiz"
+        }
+      ]
+    },
+    {
+      "version": "2019",
+      "date": "2019-01-01",
+      "game": "究极之日/究极之月",
+      "source_url": "https://www.serebii.net/vgc/2019.shtml",
+      "generation": 7,
+      "official_notes": "VGC 2019 Series - 究极之日/究极之月",
+      "changes": [
+        {
+          "category": "PvP",
+          "content": "2019年VGC赛季规则：对战类型: Double Battle | 图鉴限制: National图鉴 | 禁用宝可梦: Cosmog、Cosmoem、Solgaleo、Lunala、Necrozma、Magearna、Zygarde、Ash-Greninja、Mewtwo、Mew等30只 | 世界冠军: Naoto Mizobuchi",
+          "intent": "记录第7世代VGC赛季规则变更，包括图鉴限制、禁用列表和特殊条款",
+          "detail": "规则详情: {\"Battle Type\": \"Double Battle\", \"Pokédex Restriction\": \"National\"}\n禁用宝可梦: Cosmog, Cosmoem, Solgaleo, Lunala, Necrozma, Magearna, Zygarde, Ash-Greninja, Mewtwo, Mew, Lugia, Ho-Oh, Kyogre, Groudon, Rayquaza, Jirachi, Deoxys, Dialga, Palkia, Giratina, Manaphy, Darkrai, Shaymin, Arceus, Victini, Reshiram, Zekrom, Kyurem, Keldeo, Meloetta\n特殊条款: \n世界冠军: Naoto Mizobuchi"
+        }
+      ]
+    },
+    {
+      "version": "2020",
+      "date": "2020-01-01",
+      "game": "剑/盾",
+      "source_url": "https://www.serebii.net/vgc/2020.shtml",
+      "generation": 8,
+      "official_notes": "VGC 2020 Series - 剑/盾",
+      "changes": [
+        {
+          "category": "PvP",
+          "content": "2020年VGC赛季规则：对战类型: Double Battle | 图鉴限制: National图鉴 | 禁用宝可梦: Mewtwo、Mew、Jirachi、Deoxys、Giratina、Darkrai、Arceus、Victini、Zekrom、Kyurem等15只 | 特殊条款: Same Pokémon Clause、Same Item Clause、Players、Sword、Shield",
+          "intent": "记录第8世代VGC赛季规则变更，包括图鉴限制、禁用列表和特殊条款",
+          "detail": "规则详情: {\"Battle Type\": \"Double Battle\", \"Clauses?\": \"No same Pokémon, No same itemPlayers may only use Pokémon with items or moves obtained in Pokémon Sword & ShieldMatch Time: 15 MinutesYour Time: 7 minutes\", \"Pokédex Restriction\": \"National\"}\n禁用宝可梦: Mewtwo, Mew, Jirachi, Deoxys, Giratina, Darkrai, Arceus, Victini, Zekrom, Kyurem, Meloetta, Genesect, Diancie, Hoopa, Volcanion\n特殊条款: Same Pokémon Clause, Same Item Clause, Players, Sword, Shield, Match Time, Minutes, Your Time\n世界冠军: "
+        }
+      ]
+    },
+    {
+      "version": "2021",
+      "date": "2021-01-01",
+      "game": "剑/盾",
+      "source_url": "https://www.serebii.net/vgc/2021.shtml",
+      "generation": 8,
+      "official_notes": "VGC 2021 Series - 剑/盾",
+      "changes": [
+        {
+          "category": "PvP",
+          "content": "2021年VGC赛季规则：对战类型: Double Battle | 禁用宝可梦: Mewtwo、Mew、Jirachi、Deoxys、Giratina、Darkrai、Arceus、Victini、Zekrom、Kyurem等15只 | 特殊条款: Same Pokémon Clause、Same Item Clause、Players、Sword、Shield",
+          "intent": "记录第8世代VGC赛季规则变更，包括图鉴限制、禁用列表和特殊条款",
+          "detail": "规则详情: {\"Clauses?\": \"No same Pokémon, No same itemPlayers may only use Pokémon with items or moves obtained in Pokémon Sword & ShieldMatch Time: 15 MinutesYour Time: 7 minutes\", \"Battle Type\": \"Double Battle\"}\n禁用宝可梦: Mewtwo, Mew, Jirachi, Deoxys, Giratina, Darkrai, Arceus, Victini, Zekrom, Kyurem, Meloetta, Genesect, Diancie, Hoopa, Volcanion\n特殊条款: Same Pokémon Clause, Same Item Clause, Players, Sword, Shield, Match Time, Minutes, Your Time\n世界冠军: "
+        }
+      ]
+    }
+  ]
+}

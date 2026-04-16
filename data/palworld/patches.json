@@ -1,0 +1,1008 @@
+{
+  "game": "Palworld",
+  "app_id": "1623730",
+  "fetched_at": "2026-04-16T19:44:01.109883",
+  "total_count": 100,
+  "patches": [
+    {
+      "gid": "1828894815564607",
+      "title": "v0.7.3: Balance adjustments and bug fixes",
+      "url": "https://steamstore-a.akamaihd.net/news/externalpost/steam_community_announcements/1828894815564607",
+      "date": "2026-04-06",
+      "timestamp": 1775444933,
+      "author": "pocketpair_dev",
+      "feed_label": "Community Announcements",
+      "content": "[p]\\[Patch Notice][/p][p]Palworld version v0.7.3 has been released! [/p][p][/p][p]＝＝＝ [/p][p][/p][p]▼Balance Adjustments[/p][p]・Blueprints stored in chests at the base can now actually be used in crafting.[/p][p][/p][p]▼Bug Fixes[/p][p]・Fixed an issue where using non-foundation structures such as pillars would cause roofs and other structures to float in mid-air.[/p][p][/p][p]＝＝＝ [/p][p][/p][p]Thank you for your continued support of Palworld.[/p]"
+    },
+    {
+      "gid": "1827626365754432",
+      "title": "Palworld x Enshrouded bundle available on Steam!",
+      "url": "https://steamstore-a.akamaihd.net/news/externalpost/steam_community_announcements/1827626365754432",
+      "date": "2026-03-20",
+      "timestamp": 1773939649,
+      "author": "pocketpair_dev",
+      "feed_label": "Community Announcements",
+      "content": "[p]Pal Tamers, the Flameborn call for aid![/p][p][/p][p]Awaken the ancient Flame, and reclaim the lost beauty of your kingdom in a co-op survival action RPG set in a vast world with diverse biomes![/p][p][/p][p]Now available in a bundle for 10% off![/p][p][/p][p]Check it out![/p][p][dynamiclink href=\"https://store.steampowered.com/bundle/68744/Palworld__Enshrouded/\"][/dynamiclink][/p][p][img src=\"{STEAM_CLAN_IMAGE}/40671762/5b150363e39704db62acb466a7add42eafbc1ad7.png\"][/img][/p]"
+    },
+    {
+      "gid": "1826992588596420",
+      "title": "Palworld's Bucky got off a plane to find 'about 8,000 Discord messages from Palworld fans' who really wanted him to know about Pickmon: 'God bless their little hearts'",
+      "url": "https://steamstore-a.akamaihd.net/news/externalpost/PC Gamer/1826992588596420",
+      "date": "2026-03-14",
+      "timestamp": 1773424915,
+      "author": "Andrea Shearon",
+      "feed_label": "PC Gamer",
+      "content": "Being highly active with the community for a videogame must mean your DMs are a perpetual nightmare of notifications, but that's doubly so if you've ever stared down the barrel of a particularly litigious industry powerhouse. When we're talking about a game like\nPalworld\n, I reckon that's just a Monday...\nRead more."
+    },
+    {
+      "gid": "1824644522844567",
+      "title": "v0.7.2: Balance adjustments and bug fixes",
+      "url": "https://steamstore-a.akamaihd.net/news/externalpost/steam_community_announcements/1824644522844567",
+      "date": "2026-02-16",
+      "timestamp": 1771218125,
+      "author": "pocketpair_dev",
+      "feed_label": "Community Announcements",
+      "content": "[p]\\[Patch Notice] [/p][p]Palworld version v0.7.2 has been released! [/p][p][/p][p]＝＝＝ [/p][p][/p][p]▼Balance Adjustments[/p][p]・Added rarity variations for melee weapons (swords, katanas, beam swords, Lily's Spear).[/p][p]・\\[Steam] Added a Debug Mod that allows constant updates for mod development. [/p][p][/p][p]▼Bug Fixes[/p][p]・Fixed an issue where the display would appear misaligned when placing Japanese-style buildings in certain placements.[/p][p]・Fixed an issue where Pal Boxes could be placed on top of some buildings under certain conditions. [/p][p]・Fixed an issue where some raid bosses would appear stuck underground in the raid batlefield and still be able to attack. [/p][p]・\\[Steam] Fixed an issue where some mods would not work properly on Wine/Proton. [/p][p]・Other minor bug fixes. [/p][p][/p][p]＝＝＝ [/p][p][/p][p]Thank you for your continued support of Palworld.[/p]"
+    },
+    {
+      "gid": "1822556746162475",
+      "title": "Palworld developer Pocketpair requires job applicants prove their gamer credentials: 'If the number of Steam games played is 0, we basically pass on them'",
+      "url": "https://steamstore-a.akamaihd.net/news/externalpost/PC Gamer/1822556746162475",
+      "date": "2026-01-24",
+      "timestamp": 1769189427,
+      "author": "Rory Norris",
+      "feed_label": "PC Gamer",
+      "content": "It's not uncommon to sugarcoat things in a job interview. Perhaps you've even told a little white lie about how much you love what the company does—it's not like it ever comes back to bite you in the arse, right?..\nRead more."
+    },
+    {
+      "gid": "1822556746159649",
+      "title": "Palworld shows off concept art for new pals as part of its 2-year anniversary celebration as Pocketpair's CEO promises fans 'we will do everything we can to meet your expectations'",
+      "url": "https://steamstore-a.akamaihd.net/news/externalpost/PC Gamer/1822556746159649",
+      "date": "2026-01-23",
+      "timestamp": 1769102405,
+      "author": "Elie Gould",
+      "feed_label": "PC Gamer",
+      "content": "Palworld's\n1.0 release is coming up soon. Well that could be wishful thinking: it'll be available to play sometime this year. But after two years in early access there's nothing but excitement for this next step. And to celebrate the lead up to 1.0 and the two-year anniversary Pocketpair has released some concept art of new pals...\nRead more."
+    },
+    {
+      "gid": "1822556746155818",
+      "title": "v0.7.1: Balance adjustments and bug fixes",
+      "url": "https://steamstore-a.akamaihd.net/news/externalpost/steam_community_announcements/1822556746155818",
+      "date": "2026-01-21",
+      "timestamp": 1768964692,
+      "author": "pocketpair_admin",
+      "feed_label": "Community Announcements",
+      "content": "[p]\\[Patch Notice] [/p][p]Palworld version v0.7.1 has been released! [/p][p][/p][p]＝＝＝ [/p][p][/p][p]▼Balance Adjustments[/p][p]・In PvP, the on-screen raid log will now continue to be displayed while your base is under attack from other players.[/p][p]・The Summoning Altar at your base will no longer be destroyed at the end of the raids inside the raid area. [/p][p]・Reduce the recovery time between swings for melee weapons (Swords, Katana, Beam Swords).[/p][p]・Increased the attack range of melee weapons (Swords, Katana, Beam Swords). [/p][p][/p][p]▼Bug Fixes[/p][p]・Fixed an issue where mods would still function when enabled in their individual settings even when \"Allow Mod Use\" was turned off in the Mod Management menu.[/p][p]・Fixed an issue where attack notifications would not appear when another player approached your base while riding a Pal in PvP.[/p][p]・Fixed an issue where Hartalis \"Sacred Barrier\" was not properly blocking the Oil Rig's anti-aircraft laser.[/p][p]・Fixed an issue where working Pals would sometimes freeze in combat mode during raid boss battles and not engage in combat.[/p][p]・Fixed an issue where Life Fruit, Power Fruit and Stout Fruit would not be rewarded when clearing the Hartalis raid boss on \"Extreme\" difficulty.[/p][p]・Fixed an issue where players would die while on water after leaving a dungeon and before landing, causing their inventory and Pals to be dropped back into the dungeon.[/p][p]・Fixed an issue where Pals consumed in a Pal Essence Condenser would disappear after a short time had passed since being restored from the Global Pal Box.[/p][p]・Fixed an issue where Wall Signs would be placed embedded into certain buildings when constructed on them.[/p][p]・Fixed an issue where the graphics of some building materials and equipment would not be rendered correctly.[/p][p]・Fixed an issue where some background music and sound effects would continue to play or would play in the wrong place.[/p][p]・\\[Steam] Fixed an issue where the achievement \"Alpha Pal Slayer\" would not be unlocked correctly.[/p][p]・Other minor bugs fixes.[/p][p][/p][p]＝＝＝ [/p][p][/p][p]Thank you for your continued support of Palworld.[/p]"
+    },
+    {
+      "gid": "1821922921821052",
+      "title": "【2nd Anniversary】 Special Video Unveiled Ahead of 2026 Official Release!!",
+      "url": "https://steamstore-a.akamaihd.net/news/externalpost/steam_community_announcements/1821922921821052",
+      "date": "2026-01-19",
+      "timestamp": 1768827608,
+      "author": "pocketpair_dev",
+      "feed_label": "Community Announcements",
+      "content": "[previewyoutube=\"a0M82qgvIxE;full\"][/previewyoutube][p][/p][p]Hello everyone![/p][p][/p][p]Today marks 2 years since Palworld entered early access! Thank you, everyone!![/p][p][/p][p]We're working hard on Palworld 1.0, which is coming this year! [/p][p]Here is a sneak peek at just some of the upcoming Pals![/p][p][/p][p]Please look forward to our biggest update yet![/p][p][/p][p][img src=\"{STEAM_CLAN_IMAGE}/40671762/6183990e949f95dca5b4757c0b290d28dc928771.png\"][/img][/p][p][img src=\"{STEAM_CLAN_IMAGE}/40671762/e1c7b3d8c6ef9a194b1ad9c32fc7651f9a4272a3.png\"][/img][/p][p][img src=\"{STEAM_CLAN_IMAGE}/40671762/a8b33bc9a5159bd95c928423c0df8a55ebd9e472.png\"][/img][/p][p][img src=\"{STEAM_CLAN_IMAGE}/40671762/a3154df8161f3aa2e5ee3076af9ff4a74366c95c.png\"][/img][/p][p][/p][p][img src=\"{STEAM_CLAN_IMAGE}/40671762/9b5eac3c779b1300bf7bd895a8e14da45b8ea692.png\"][/img][/p]"
+    },
+    {
+      "gid": "1821288646586165",
+      "title": "Palworld takes the 'red rag to a bull' approach to its Nintendo lawsuit, announces 'a 2-player competitive card game'",
+      "url": "https://steamstore-a.akamaihd.net/news/externalpost/PC Gamer/1821288646586165",
+      "date": "2026-01-13",
+      "timestamp": 1768233611,
+      "author": "Joshua Wolens",
+      "feed_label": "PC Gamer",
+      "content": "In a move that future legal scholars will surely brand 'the matador approach,' Palworld—currently embroiled in a lawsuit with Nintendo over its various similarities to the Pokémon series—is launching a trading card game...\nRead more."
+    },
+    {
+      "gid": "1821288646585660",
+      "title": "The new Palworld game isn't what I expected, but a TCG actually makes a lot of sense",
+      "url": "https://steamstore-a.akamaihd.net/news/externalpost/PCGamesN/1821288646585660",
+      "date": "2026-01-12",
+      "timestamp": 1768218174,
+      "author": "editor@pcgamesn.com",
+      "feed_label": "PCGamesN",
+      "content": "Some things feel inevitable. Multiple GTA 6 delays. Half-Life 3 (let me dream).\nPalworld\nupsetting Nintendo. In its latest endeavor, Pocketpair has confirmed that it's making a Palworld TCG inspired by its hit\nsurvival game\n; y'know, the one that\nNintendo has sued over\n? There's having balls, then there's having\nballs\n(pun intended).\nRead the rest of the story...\nRELATED LINKS:\nBest Palworld mods and how to install\nEx Resident Evil dev says Palworld \"crosses lines that should not be crossed\"\nPalworld joins hands with free-to-play survival rival Once Human in new collab"
+    },
+    {
+      "gid": "1819386365125817",
+      "title": "'Not bad for a dead game': Palworld managed to get four nominations in Steam's Best of 2025 Awards, including 2nd place for most played game",
+      "url": "https://steamstore-a.akamaihd.net/news/externalpost/PC Gamer/1819386365125817",
+      "date": "2026-01-06",
+      "timestamp": 1767710298,
+      "author": "Elie Gould",
+      "feed_label": "PC Gamer",
+      "content": "The end of the year doesn't just bring some much-needed time off, awkward family gatherings, and a wave of New Year's resolutions that'll only be kept for a day or so. It is also the time for celebrating some of the best games of the last year, namely through the fan-voted\nSteam Awards\n...\nRead more."
+    },
+    {
+      "gid": "1819386365087675",
+      "title": "The Home Sweet Home update for Palworld with the ULTRAKILL crossover is out now",
+      "url": "https://steamstore-a.akamaihd.net/news/externalpost/GamingOnLinux/1819386365087675",
+      "date": "2025-12-18",
+      "timestamp": 1765996089,
+      "author": "",
+      "feed_label": "GamingOnLinux",
+      "content": "Palworld just levelled up with a big new free Home Sweet Home update as Pocketpair work towards finishing up the game for a full release next year.\nRead the full article here: https://www.gamingonlinux.com/2025/12/the-home-sweet-home-update-for-palworld-with-the-ultrakill-crossover-is-out-now/"
+    },
+    {
+      "gid": "1819386365085520",
+      "title": "Palworld v0.7 - Home Sweet Home",
+      "url": "https://steamstore-a.akamaihd.net/news/externalpost/steam_community_announcements/1819386365085520",
+      "date": "2025-12-17",
+      "timestamp": 1765940666,
+      "author": "pocketpair_dev",
+      "feed_label": "Community Announcements",
+      "content": "[previewyoutube=\"Vn4-gKzJr0A;full\"][/previewyoutube][p][/p][h3]2025 has been an incredible year for Palworld, and we’re excited to end the year with v0.7, Home Sweet Home! The purpose of this update is to begin improving existing features, and while this update may not be as content-rich as previous ones, we hope players understand that it’s necessary for us to begin laying the groundwork now as we work on the development of Palworld 1.0. [/h3][p][/p][h3]You can find more info about this in our Palworld 1.0 video here:[/h3][h2][dynamiclink href=\"https://youtu.be/tEVIBHP37eM?si=K33bxXJNwmQWgnYX\"][/dynamiclink][/h2][h1][b]Palworld v0.7 - Home Sweet Home! [/b][/h1][h2][b]▼ ULTRAKILL Collaboration![/b][/h2][p]Palworld’s second collab, ULTRAKILL, finally arrives! [/p][p]This update adds several iconic weapons and armour, as well as a V1’s infamous coin toss! Thank you to New Blood and Hakita for allowing us to play with their incredible game, and we hope our fans will enjoy taking on battles in a fresh, stylish way with this special equipment![/p][p][img src=\"{STEAM_CLAN_IMAGE}/40671762/9aeaf159f1fbb7960102a107fcc5d9c3ab109512.jpg\"][/img][/p][p][/p][h2][b]▼ Improvements to Building[/b][/h2][p]A big part of the Home Sweet Home update is, as the name suggests, your home! [/p][p]We have been blown away by all the incredible builds that you guys have been sending us, and we know that you have been eagerly waiting for more freedom in how you design your base. This update brings a large number of new building parts, including the much-requested triangular pieces!\n[img src=\"{STEAM_CLAN_IMAGE}/40671762/938144c1a50616e9963aeb0b4a85f7cb5032b2d1.jpg\"][/img][/p][p]Another new addition to the building system in this update is the ability to change the colour of building pieces! Express yourself in any way you feel like by adding a splash of your favourite colour to your home!\n[img src=\"{STEAM_CLAN_IMAGE}/40671762/e097712a303304068e3c99d7843406a42bd72031.jpg\"][/img][/p][p]The building menu UI has been redesigned and reformatted into a list. You can now select the structures and parts you need more intuitively, which should result in an overall smoother building experience!\n[img src=\"{STEAM_CLAN_IMAGE}/40671762/abf103c9e78de775fb1017254e9b088213efef99.jpg\"][/img][/p][h2][b]▼ Raid Battlefields![/b][/h2][p]When summoning a raid boss at the Summoning Altar, players can now choose to either fight at their base as before, or take on the raid boss in a special “Raid Area”.\nThese Raid Areas allow you to fight with all your might, without risking any damage to your base. You can build temporary structures and take items into these special Raid Areas. [i]\n[/i][b] [/b][img src=\"{STEAM_CLAN_IMAGE}/40671762/944e272e2785ae34f2431654e900f18b6407d617.jpg\"][/img][/p][p]That’s not all… A new raid boss has also appeared! Team up with your Pals and allies to take on this new formidable foe![/p][p][img src=\"{STEAM_CLAN_IMAGE}/40671762/f6dd1bb7cda1e429f27d5339bd465d32abaad389.jpg\"][/img][/p][h2][b]▼ Improved Melee Combat[/b][/h2][p]Melee is often overlooked in the late game, so we wanted to start improving the system to make it more viable and fun for players. To that end, we have made improvements to the melee gameplay!\nThe basic attack actions for swords, katanas, and beam swords have been changed. You can now perform attacks consecutively by repeatedly pressing left click (right trigger on controller). In addition, special attacks have been added to katanas and beam swords. You can activate a special attack by holding down right click (left trigger on controller) and left click (right trigger on controller). Take your melee gameplay to the next level![/p][p]This is our first pass at improving the melee combat, and we have even more improvements planned to the melee system for 1.0! [/p][p][/p][previewyoutube=\"hLUWtTwER28;full\"][/previewyoutube][p][/p][h2][b]▼ Steam Workshop[/b][/h2][p]We would like to express our deepest thanks to the Palworld modding community, who, since day 1 have been passionately making so many fun mods for Palworld. We have now added Steam Workshop to the game, allowing players to try out a variety of mods and discover new ways to play with greater ease! If you are interested in modding, please head over to the Steam Workshop for more details!\nPlease note that Steam Workshop is only available for the Steam version of Palworld.\nPlease also note that some servers, including official servers, prohibit the use of mods in order to ensure fair play. To that end, we recommend only using mods in single-player or with your friends.\nA special thank you to Primarinabee and Okaetsu for their help and assistance with this feature![/p][p][/p][p]For more information about modding and how to mod, please see the guidelines and documentation provided on our Steam Workshop or visit the Palworld modding GitHub: [/p][p][url=\"https://github.com/pocketpairjp/PalworldModUploader/tree/main\"]https://github.com/pocketpairjp/PalworldModUploader/tree/main[/url]\n[img src=\"{STEAM_CLAN_IMAGE}/40671762/7bbd72cfec9a1e584014f66986961b24074f4af1.jpg\"][/img][/p][p][/p][h2][b]▼ PvP (Experimental) [/b][/h2][p]PvP has been a topic of discussion in the Palworld community for a long time, and although it’s hard to fully integrate PvP into the game, we are releasing all the necessary tools for players to set up their own PvP rules on their own terms.\nShow off your skills and compete with other Pal Tamers!\nPlease note that PvP is experimental, and as such, there may be some balancing issues. [/p][p][/p][p]For more information on how to enable and set PvP parameters on your server, please see the new PvP guidelines in our server documentation: [url=\"https://docs.palworldgame.com\"]https://docs.palworldgame.com[/url][/p][p][img src=\"{STEAM_CLAN_IMAGE}/40671762/6e8171bc0143fdbca61618de0c0f400a2b312fb9.jpg\"][/img][/p][h2][b]▼ Palworld x Makeship Merch![/b][/h2][p]We're excited to announce 8 brand new plushies, made in partnership with Makeship![/p][p]Starting today, you can pre-order Zoe or some of your favorite Pals![/p][p]These plushies are available exclusively at Makeship, and only while stocks last.\n[/p][p][url=\"https://www.makeship.com/shop/creator/palworld\"]https://www.makeship.com/shop/creator/palworld[/url][/p][p][url=\"https://www.makeship.com/shop/creator/palworld\"]\n[/url][img src=\"{STEAM_CLAN_IMAGE}/40671762/98489d6b80cbd12bcfa7cfccdf1ef275cef15179.png\"][/img][b]\n[/b]Thank you again to all of our fans and players for your continued support for Palworld. [/p][p]We’re hard at work on Palworld 1.0, and are so excited for you to get your hands on the full version of the game in 2026! [b]\n[/b][/p][h1][b]▼ Full Patch Notes[/b]\n[/h1][p][b]\\[Patch Notice][/b][/p][p][b]Palworld version v0.7.0 has been released![/b][/p][p]\n[b]＝＝＝[/b][/p][p]\n[b]▼ULTRAKILL Collab![/b][/p][p][b]・Added V1 and V2 armor sets! Terrorize the Palpagos Islands as your favorite blood-fueled robot![/b][/p][p][b]・Added a pair of iconic weapons from ULTRAKILL![/b][/p][p][b]・Unique Mechanic - Coin Toss[/b][/p][p][b]⤷Throw coins while using the Marksman Revolver to perform a Ricoshot! Bullets will ricochet off the thrown coin and deal devastating damage to nearby targets![/b][/p][p][/p][p][b]▼Base Building Improvements[/b][/p][p][b]・Added 48 new building parts, including triangular pieces![/b][/p][p][b]・Added the ability to change the color of some buildings and foundations![/b][/p][p][b]・Changed the building UI to a list-based system.[/b][/p][p][/p][p][b]▼Raid Boss Improvements[/b][/p][p][b]・Added a new raid boss![/b][/p][p][b]・Added a new battlefield for raid bosses. Players can now choose to challenge raid bosses in their base or in a new separate battlefield. [/b][/p][p][/p][p][b]▼Melee Combat Improvements[/b][/p][p][b]・Improved the melee gameplay for swords, katanas and beam swords. Pressing left click (right trigger) will perform a new consecutive combo attack. [/b][/p][p][b]・Special attacks have been added to the katana and beam sword. Holding either left or right click (left or right trigger) will activate these abilities. [/b][/p][p][/p][p][b]▼New Features[/b][/p][p][b]・Added PvP functionality (Experimental!).[/b][/p][p][b]・\\[PC - Steam Only] Added Steam Workshop, allowing players to download and use mods. [/b][/p][p][/p][p][b]▼Mechanic Adjustments[/b][/p][p][b]・When placing a building, an arrow indicating the building's orientation will now be displayed.[/b][/p][p][b]・When placing a building, buildings with a set work location will now display a Cattiva icon indicating the work location.[/b][/p][p][b]・Adjusted the Palbox so it can be aligned with foundations and roofs. [/b][/p][p][b]・\\[Keyboard & Mouse Controls] Building controls have been made more intuitive, and continuous building has been changed to the default setting.[/b][/p][p][/p][p][b]▼Balance Adjustments[/b][/p][p][b]・Added new implants to the surgery table:[/b][/p][p][b]⤷Implant: Mine Foreman[/b][/p][p][b]⤷Implant: Logging Foreman[/b][/p][p][b]⤷Implant: Fine Furs[/b][/p][p][b]⤷Implant: Sleek Stroke[/b][/p][p][b]⤷Implant: Work Slave[/b][/p][p][/p][p][b]・You can now get a Little Kinship Peach from a Pal when freeing them from an enemy camp.[/b][/p][p][b]・The last hit done to an enemy while using mercy will now display \"\"MERCY HIT\"\" to indicate that no damage was done.[/b][/p][p][b]・Changed specifications so that all Pals will no longer lose SAN when taking damage.[/b][/p][p][/p][p][b]・Reduced the impact of bad status effects:[/b][/p][p][b]⤷Hungry... Attack, Defense, Work Speed ​​-20% → -10%[/b][/p][p][b]⤷Starving... Attack, Defense, Work Speed ​​-50% → -20%[/b][/p][p][b]⤷Cold... Work Speed ​​-10% → -5%[/b][/p][p][b]⤷Sprain... Movement Speed ​​-10% → -5%[/b][/p][p][b]⤷Overfull... Increased hunger loss rate by 100% → +50%[/b][/p][p][b]⤷Ulcer... Work Speed ​​-20%, Movement Speed ​​-10% → Work Speed ​​-10%, Movement Speed ​​-5%[/b][/p][p][b]⤷Fracture... Work Speed ​​-10%, Movement Speed ​​-20% → Work Speed ​​-5%, Movement Speed ​​-10%[/b][/p][p][b]⤷Weakened... Work Speed ​​-20%, Movement Speed ​​-30% → Work Speed ​​-10%, Movement Speed ​​-20%[/b][/p][p][b]⤷Depressed... -30% Work Speed, -20% Movement Speed ​​→ -20% Work Speed, -10% Movement Speed[/b][/p][p][/p][p][b]・Changed the attribute of the Broncherry's unique skill \"\"Body Smash\"\" from neutral to the grass.[/b][/p][p][b]・Changed the attribute of Rushoar's unique skill \"Heavy Charge\" from neutral to earth.[/b][/p][p][b]・Added \"Item Decay Speed ​​Multiplier\" to the Options Settings.[/b][/p][p][b]・\\[Dedicated Servers] Police NPCs targeting players who have committed crimes will now only deal damage to the target player and their guild.[/b][/p][p][b]・The appearance of the work aptitude icon has been changed.[/b][/p][p][/p][p][b]▼Bug Fixes [/b][/p][p][b]・Fixed an issue where Flopie would not collect dropped items in the field while her partner skill \"Helper Bunny\" was active. [/b][/p][p][b]・Improved Pal pathfinding AI ​​to make it easier to reach the target location within the base.[/b][/p][p][b]・Fixed an issue where summoned Pals would attack visitors when set to \"attack aggressively.\"[/b][/p][p][b]・Fixed an issue where attacking visitors in your base would not result in the correct attacking state. [/b][/p][p][b]・Many other minor bug fixes.[/b][/p][p]\n[b]＝＝＝ [/b][/p][p]\n[b]Thank you for your continued support of Palworld.[/b][/p][p][/p][p]\n[/p]"
+    },
+    {
+      "gid": "1817483467043818",
+      "title": "Palworld publishing boss says 'I haven't really touched so-called AAA titles', adding that they tend to be 'overwhelmingly about graphic quality and fidelity'",
+      "url": "https://steamstore-a.akamaihd.net/news/externalpost/PC Gamer/1817483467043818",
+      "date": "2025-12-01",
+      "timestamp": 1764538657,
+      "author": "Justin Wagner",
+      "feed_label": "PC Gamer",
+      "content": "When it's not equipping little critters with assault rifles or\nfending off lawsuits\nfor those critters' resemblance to Pokémon, Palworld studio Pocketpair is stepping in to publish small-scale indies. It's got a host of upcoming games on the docket, such as pixelated fishing game\nNormal Fishing\nand the Hollow Knight-esque\nNever Grave\n. The studio's publishing manager, John Buckley, said that's no coincidence—indie games are his foremost passion...\nRead more."
+    },
+    {
+      "gid": "1816849002022962",
+      "title": "Nominate Palworld for the Labor of Love Award! Steam Awards 2025.",
+      "url": "https://steamstore-a.akamaihd.net/news/externalpost/steam_community_announcements/1816849002022962",
+      "date": "2025-11-25",
+      "timestamp": 1764065272,
+      "author": "pocketpair_admin",
+      "feed_label": "Community Announcements",
+      "content": "[p]Hello everyone![/p][p][/p][p]Another year has already passed, and once again we would like to ask for your support by voting for Palworld in the 2025 Steam Awards![/p][p][/p][p]This time, we would be honored if you considered voting for Palworld in the \"Labor of Love\" category.[/p][p][/p][p]Thanks to our players, we've received countless incredible suggestions for new content, as well as invaluable feedback on how to improve the game. With the help of our community, we've shipped 18 patches full of improvements and bug fixes, along with two major updates, and a third arriving this December![/p][p][/p][p]We're also hard at work on Palworld 1.0, scheduled for release next year, and we hope you'll continue to support us as we work toward this milestone together.[/p][p][/p][p]Thank you for your continued support of Palworld![/p]"
+    },
+    {
+      "gid": "1816849002020151",
+      "title": "Palworld update 'Home Sweet Home' arrives December 17 with an ULTRAKILL collab",
+      "url": "https://steamstore-a.akamaihd.net/news/externalpost/GamingOnLinux/1816849002020151",
+      "date": "2025-11-24",
+      "timestamp": 1763991708,
+      "author": "",
+      "feed_label": "GamingOnLinux",
+      "content": "Home Sweet Home huh? The name of the next Palworld update that's been confirmed to arrive on December 17th.\nRead the full article here: https://www.gamingonlinux.com/2025/11/palworld-update-home-sweet-home-arrives-december-17-with-an-ultrakill-collab/"
+    },
+    {
+      "gid": "1816849002017502",
+      "title": "Palworld’s “Home Sweet Home” Update arrives December 17!",
+      "url": "https://steamstore-a.akamaihd.net/news/externalpost/steam_community_announcements/1816849002017502",
+      "date": "2025-11-23",
+      "timestamp": 1763843432,
+      "author": "pocketpair_dev",
+      "feed_label": "Community Announcements",
+      "content": "[p]We're excited to announce that Palworld's next major update will arrive on December 17!\nThe \"Home Sweet Home\" update includes a collab with the popular FPS ULTRAKILL, as well as new features for customizing bases.\nCheck out the trailer released today for more details!\n[dynamiclink href=\"https://youtu.be/rq8ey7cKfYo\"][/dynamiclink][/p]"
+    },
+    {
+      "gid": "1815580768377452",
+      "title": "v0.6.9.82911: Multiplayer connectivity improvements",
+      "url": "https://steamstore-a.akamaihd.net/news/externalpost/steam_community_announcements/1815580768377452",
+      "date": "2025-11-10",
+      "timestamp": 1762744038,
+      "author": "pocketpair_dev",
+      "feed_label": "Community Announcements",
+      "content": "[p]\\[Patch Notice]  [/p][p]Palworld version v0.6.9.82911 has been released! [/p][p]＝＝＝ [/p][p]▼Multiplayer[/p][p]・\\[PC] Fixed an issue where multiplayer connectivity was not working correctly in some cases. [/p][p]=== [/p][p]Thank you for your continued support of Palworld![/p]"
+    },
+    {
+      "gid": "1814942955087349",
+      "title": "v0.6.9: Bug Fixes",
+      "url": "https://steamstore-a.akamaihd.net/news/externalpost/steam_community_announcements/1814942955087349",
+      "date": "2025-10-29",
+      "timestamp": 1761707888,
+      "author": "pocketpair_dev",
+      "feed_label": "Community Announcements",
+      "content": "[p]\\[Patch Notice] [/p][p]Palworld version v0.6.9 has been released! [/p][p]＝＝＝ [/p][p]▼Bug Fixes[/p][p]・Fixed a bug that caused the game to freeze when in combat with the Terraprism and the Free Pal Alliance.[/p][p]・Fixed a bug where the map icon for supply crates would not disappear even after it was collected.[/p][p]=== [/p][p]Thank you for your continued support of Palworld![/p]"
+    },
+    {
+      "gid": "1814309641429890",
+      "title": "Update v0.6.8: Halloween! Zoe's Halloween costume and Depresso suit!",
+      "url": "https://steamstore-a.akamaihd.net/news/externalpost/steam_community_announcements/1814309641429890",
+      "date": "2025-10-23",
+      "timestamp": 1761188707,
+      "author": "pocketpair_admin",
+      "feed_label": "Community Announcements",
+      "content": "[p][img src=\"{STEAM_CLAN_IMAGE}/40671762/2c2d4e1baa506e8a3306e4861708dccf794efa36.png\"][/img][/p][p][/p][p]\\[Patch Notice][/p][p]Palworld version v0.6.8 has been released![/p][p]＝＝＝[/p][p]▼New Content[/p][p]・Added a new \"Halloween Mission\"![/p][p]Complete the mission to unlock Zoe's Halloween costume and a Depresso armor set for players! [/p][p]▼Mechanic Adjustments[/p][p]・Added the \"Zoe's Sphere\" mission, which allows the player to obtain Zoe & Grizzbolt! [/p][p]・Adjusted chat notifications to now display when players join or leave a server.[/p][p]===[/p][p]Thank you for your continued support of Palworld![/p][p][/p][p][img src=\"{STEAM_CLAN_IMAGE}/40671762/60ad61df7315ea90e85ee4596b0f444cbb7c7001.png\"][/img][/p][p][/p][p][img src=\"{STEAM_CLAN_IMAGE}/40671762/d127959916263f6038b2036659bd3200c4c65840.png\"][/img][/p]"
+    },
+    {
+      "gid": "1814309641417000",
+      "title": "Palworld dev Pocketpair, famous for making wholly original games, won't publish your game if it uses generative AI",
+      "url": "https://steamstore-a.akamaihd.net/news/externalpost/rps/1814309641417000",
+      "date": "2025-10-23",
+      "timestamp": 1761152518,
+      "author": "",
+      "feed_label": "Rock, Paper, Shotgun",
+      "content": "Earlier this year,\nPalworld\ndeveloper Pocketpair used its newfound success to\nstart a publishing arm\n. This, I think, is generally a net good, even if I have some feelings about the studio as a whole, which we'll dig into shortly. Nobody has money in this industry except for the few who do, so when a few of the few who do decide to put some of that money into much smaller games, that is somewhat of a win. But heed this warning from Pocketpair's communications director and publishing manager John Buckley: they won't publish your game if you use generative AI.\nRead more"
+    },
+    {
+      "gid": "1813674389100470",
+      "title": "Depresso Found Something He Actually Likes",
+      "url": "https://steamstore-a.akamaihd.net/news/externalpost/steam_community_announcements/1813674389100470",
+      "date": "2025-10-21",
+      "timestamp": 1761051630,
+      "author": "pocketpair_admin",
+      "feed_label": "Community Announcements",
+      "content": "[p][img src=\"https://a.slack-edge.com/production-standard-emoji-assets/14.0/google-medium/2615.png\"][/img]The one thing Depresso actually likes has arrived![/p][p][/p][p]We’ve teamed up with @Madrinas to bring you the Palworld Limited Edition Collector’s Box —[/p][p][/p][p]featuring a Palworld shaker cup and Depresso Chocolate Espresso Cold Brew Coffee. There are 4[/p][p]unique Depresso labels to collect, so yes… you’re going to want them all.[/p][p][/p][p]Fuel your adventure (or just your next long mining session) with the only brew bleak enough for[/p][p]Depresso himself.[/p][p][/p][p][img src=\"https://a.slack-edge.com/production-standard-emoji-assets/14.0/google-medium/1f449.png\"][/img] Pre-order now at: [url=\"https://madrinas.coffee/4gRN63i\"]https://madrinas.coffee/4gRN63i[/url][/p][p][/p][previewyoutube=\"G3D_aRehszA;full\"][/previewyoutube][p][img src=\"{STEAM_CLAN_IMAGE}/40671762/5009bb091625b0997267730e41b446bd786958d1.jpg\"][/img][/p][p][img src=\"{STEAM_CLAN_IMAGE}/40671762/60a7ef53e4a8b6c9b61294da10ef2e48f1c9a2fb.gif\"][/img][/p]"
+    },
+    {
+      "gid": "1813674389084126",
+      "title": "Something mysterious is lurking in the shadows..October 23rd!",
+      "url": "https://steamstore-a.akamaihd.net/news/externalpost/steam_community_announcements/1813674389084126",
+      "date": "2025-10-21",
+      "timestamp": 1761008453,
+      "author": "pocketpair_dev",
+      "feed_label": "Community Announcements",
+      "content": "[p][img src=\"{STEAM_CLAN_IMAGE}/40671762/0b17fa55ef584236016e2e4c4c14de6e2448c809.jpg\"][/img][/p][p]Zoey and...Depresso...?[/p][p][/p][p]Something festive is brewing![/p]"
+    },
+    {
+      "gid": "1811772772481261",
+      "title": "'Now you've got no excuses': Palworld is teaming up with Core Keeper for a Steam Autumn sale bundle because the folks over at Pocketpair are 'just big fans'",
+      "url": "https://steamstore-a.akamaihd.net/news/externalpost/PC Gamer/1811772772481261",
+      "date": "2025-10-03",
+      "timestamp": 1759423154,
+      "author": "Elie Gould",
+      "feed_label": "PC Gamer",
+      "content": "Palworld\ndeveloper Pocketpair has proved time and again that it's no stranger to supporting other indie games, whether that be by\nsetting up shop as a publisher\nto help struggling devs or by simply giving others the shout-out that they deserve...\nRead more."
+    },
+    {
+      "gid": "1811772772479780",
+      "title": "Capcom legend tackles Palworld-Nintendo battle and manages to annoy almost everyone: 'It's a game that transcends the boundaries of war'",
+      "url": "https://steamstore-a.akamaihd.net/news/externalpost/PC Gamer/1811772772479780",
+      "date": "2025-10-02",
+      "timestamp": 1759419160,
+      "author": "Rich Stanton",
+      "feed_label": "PC Gamer",
+      "content": "Pocketpair’s Palworld has certainly found an audience since release: even if, unfortunately, those interested include Nintendo's lawyers. The ongoing copyright lawsuit between the indie studio and the most venerable company in gaming is the subject of great interest worldwide, but of particular fascination in Japan, where the suit is filed and where both companies are based...\nRead more."
+    },
+    {
+      "gid": "1811772772477310",
+      "title": "Ex Resident Evil dev says Palworld \"crosses lines that should not be crossed\"",
+      "url": "https://steamstore-a.akamaihd.net/news/externalpost/PCGamesN/1811772772477310",
+      "date": "2025-10-02",
+      "timestamp": 1759408269,
+      "author": "editor@pcgamesn.com",
+      "feed_label": "PCGamesN",
+      "content": "As\nPalworld\ndeveloper Pocketpair handles legal challenges from Nintendo over patented game mechanics, it's also come under fire from ex-Capcom developer Yoshiki Okamoto in a new YouTube video that accuses it of breaking boundaries that should be considered sacred. Since becoming one of Steam's most popular games ever at launch, Palworld has done a good job of establishing its own, standalone brand among the\nbest survival games\n, setting it apart from the Pokemon-like designs that initially gave it notoriety. However, former Street Fighter 2 producer Okamoto, who also worked on the likes of Resident Evil, Dino Crisis, and Devil May Cry, isn't happy with it.\nRead the rest of the story...\nRELATED LINKS:\nPalworld joins hands with free-to-play survival rival Once Human in new collab\nAll Palworld bosses in order and how to beat them\nBest Palworld mods and how to install"
+    },
+    {
+      "gid": "1811772772399563",
+      "title": "Pocketpair Steam Autumn Sale!",
+      "url": "https://steamstore-a.akamaihd.net/news/externalpost/steam_community_announcements/1811772772399563",
+      "date": "2025-09-30",
+      "timestamp": 1759212822,
+      "author": "pocketpair_dev",
+      "feed_label": "Community Announcements",
+      "content": "[url=https://clan.fastly.steamstatic.com/images/41648656/ce6f4d2489e0c42fbc689061d3cb46fea5734341.png][img]https://clan.fastly.steamstatic.com/images/41648656/40db9d8da860184bea69259335f4f733fdbd9fe0.png[/img][/url]\n[h1]Autumn is here! Time to cosy up inside with some great games up to 50% off![/h1]\n[b]Palworld & Core Keeper Steam Bundle[/b]\nThis great value bundle (10% OFF) includes two popular crafting games: Palworld, where you adventure with Pal across a vast world, and Core Keeper, where you explore an ancient world deep underground.\nThis bundle is a \"Complete the Set\" bundle, so if you already own one of the games, you can purchase the other game at an even greater discount.\n[h1] Games on Sale[/h1]\n[h2]Palworld (25% OFF)[/h2]\nhttps://store.steampowered.com/app/1623730/Palworld/\n[h2]Craftopia (40% OFF)[/h2]\nhttps://store.steampowered.com/app/1307550/Craftopia/\n[h2]Overdungeon (50% OFF)[/h2]\nhttps://store.steampowered.com/app/919370/Overdungeon/\n[h2]Dead Take (20% OFF)[/h2]\nhttps://store.steampowered.com/app/3352690/Dead_Take/"
+    },
+    {
+      "gid": "1811772772360578",
+      "title": "v0.6.7: Dungeon Entry Bug Fix",
+      "url": "https://steamstore-a.akamaihd.net/news/externalpost/steam_community_announcements/1811772772360578",
+      "date": "2025-09-29",
+      "timestamp": 1759115064,
+      "author": "pocketpair_admin",
+      "feed_label": "Community Announcements",
+      "content": "[p]Palworld version v0.6.7 has been released![/p][p]＝＝＝[/p][p]▼ Bug Fixes[/p][p]・Fixed an issue where the game would crash when re-entering a dungeon after summoning a Mimog and saving inside the dungeon.[/p][p]▼ Mechanic Adjustments[/p][p]・\\[PS5/Xbox] The warning that appears when the world settings are set too high for the system playing the game will now shows once every 15 minutes.[/p][p]＝＝＝[/p][p]Thank you for your continued support of Palworld![/p]"
+    },
+    {
+      "gid": "1811772772249730",
+      "title": "Palworld joins hands with free-to-play survival rival Once Human in new collab",
+      "url": "https://steamstore-a.akamaihd.net/news/externalpost/PCGamesN/1811772772249730",
+      "date": "2025-09-26",
+      "timestamp": 1758818787,
+      "author": "editor@pcgamesn.com",
+      "feed_label": "PCGamesN",
+      "content": "Palworld\nis showing no signs of slowing down. Fresh off the announcement of farming-themed spinoff Palfarm, Pocketpair's signature critters are invading the world of one of its biggest survival rivals from 2024. The new\nOnce Human\ncollaboration event will bring together elements of both games, letting you control Pals for yourself on a special map that also features many of the Deviants and Deviations from Starry Studio's universe.\nRead the rest of the story...\nRELATED LINKS:\nOnce Human codes and how to redeem\nThe best new MMOs worth playing in 2025\nOnce Human system requirements"
+    },
+    {
+      "gid": "1811138915562319",
+      "title": "A week after saying it was going quiet for the rest of the year, Palworld announces a crossover with the brilliant and bloodstained shooter Ultrakill",
+      "url": "https://steamstore-a.akamaihd.net/news/externalpost/PC Gamer/1811138915562319",
+      "date": "2025-09-24",
+      "timestamp": 1758650898,
+      "author": "Rich Stanton",
+      "feed_label": "PC Gamer",
+      "content": "Only last week, Palworld developer Pocketpair announced that the hit survival game, which remains in early access, would be going quiet as it\nprepared for a full launch in 2026\n. Well well well… it looks like someone had a surprise up their sleeve, because today brought\nthe announcement\nof an unexpected crossover, albeit with scant detail...\nRead more."
+    },
+    {
+      "gid": "1811138915552735",
+      "title": "The Palworld devs are making their very own Pal-filled Stardew Valley",
+      "url": "https://steamstore-a.akamaihd.net/news/externalpost/Rock, Paper, Shotgun/1811138915552735",
+      "date": "2025-09-23",
+      "timestamp": 1758626228,
+      "author": "",
+      "feed_label": "Rock, Paper, Shotgun",
+      "content": "Palworld\ndevelopers Pocketpair have revealed Palfarm, a new farming spin-off whose cheeky compound title implies the possibility of countless other Palspin-offs, from Pal\ntrain Simulator\nto Pal\nnetenverteidigungskanonenkommandant\n.\nIt appears to be a Palworld version of\nStardew Valley\n, with players alternating between tending crops, mining the caves, battling wildlife, and bonding with the local NPCs. As in vanilla Palworld, you can capture Pals with different abilities and set them to work on tasks like sowing and watering. Here's a trailer.\nRead more"
+    },
+    {
+      "gid": "1811138915538284",
+      "title": "ULTRAKILL x Palworld! Collab coming later this year!",
+      "url": "https://steamstore-a.akamaihd.net/news/externalpost/steam_community_announcements/1811138915538284",
+      "date": "2025-09-23",
+      "timestamp": 1758589236,
+      "author": "pocketpair_admin",
+      "feed_label": "Community Announcements",
+      "content": "[p]Collaboration gear and weapons from the cult-hit game ULTRAKILL (developed by Arsi \"Hakita\" Patala, published by New Blood Interactive) are coming to Palworld! [/p][p]ULTRAKILL is an ultra-violent retro FPS that embodies its tagline: “Mankind is dead. Blood is fuel. Hell is full.” Players take control of the combat machine “V1,” using blood harvested from enemies as energy to stylishly and swiftly annihilate the legions of Hell.[/p][p]A collab no one saw coming. [/p][p]Will blood rain upon the Palpagos Islands? Please look forward to this unprecedented encounter![/p]"
+    },
+    {
+      "gid": "1811138915404855",
+      "title": "Nintendo reportedly gets even more obnoxious about patent law by taking a 'mods aren't real games' stance against a Dark Souls 3 mod that could invalidate its Palworld lawsuit",
+      "url": "https://steamstore-a.akamaihd.net/news/externalpost/PC Gamer/1811138915404855",
+      "date": "2025-09-19",
+      "timestamp": 1758232154,
+      "author": "Lincoln Carpenter",
+      "feed_label": "PC Gamer",
+      "content": "Last year,\nNintendo initiated a patent lawsuit\nagainst Palworld developer Pocketpair, and in the months since the Pokemon publisher has seemingly decided to double down on\nmoustache-twirling IP law villainy\nat every opportunity. The latest development in the Pocketpair proceedings might be Nintendo's worst look yet, because the company has reportedly decided that modders' ideas don't count. Cool!..\nRead more."
+    },
+    {
+      "gid": "1811138915345083",
+      "title": "v0.6.6: Balance adjustments and bug fixes",
+      "url": "https://steamstore-a.akamaihd.net/news/externalpost/steam_community_announcements/1811138915345083",
+      "date": "2025-09-17",
+      "timestamp": 1758078374,
+      "author": "pocketpair_admin",
+      "feed_label": "Community Announcements",
+      "content": "[p]Palworld version v0.6.6 has been released![/p][p]＝＝＝[/p][p]▼Balance Adjustments & System Changes[/p][p]・A warning will now be displayed on screen if the world settings are set too high for the system playing the game.[/p][p]・Changed Herbil Pulse so that players will be invincible for a short time when getting up.[/p][p]・Slightly expanded the hit detection of Excalibur’s shockwave.[/p][p]・Fixed an issue where the hit detection and visual effects of Terra Blade were misaligned.[/p][p]・\\[Controller] Easy Bulk Storage control adjustment: pressing the LS button now applies immediately.[/p][p]・Changed the appearance of Pal's rank-up items.[/p][p]・Adjust NPC trust modifiers to be in line with the implementation of NPC passive skills. [/p][p]・Added \"Item Decay Speed\" options to the world settings. [/p][p]▼Bug Fixes[/p][p]・Implemented countermeasures for save data bloating and rollback issues.[/p][p]・Fixed a bug where passive skill effects were not applied to human NPCs.[/p][p]・Fixed a bug that allowed climbing on spheres during capture.[/p][p]・Fixed an issue where the sorting order of Key Items appeared to shuffle randomly.[/p][p]・Fixed a bug where treasure chests would sometimes not appear at the end of random dungeons.[/p][p]・Fixed a bug where Zoe’s Assault Rifle would continue to fire after defeating an enemy.[/p][p]・Fixed a bug where shooting Boost Gun / Mega Boost Gun at base Pals while mounted would not increase their stats.[/p][p]・Fixed a bug in multiplayer where equipping a waist lantern and entering a dungeon would turn the entire screen yellow.[/p][p]・Fixed a bug where using High Breach with Whalaska or Whalaska Ignis could sometimes cause the player to fall through the floor.[/p][p]・Fixed a bug where if Herbil was used just before the player became incapacitated, Herbil Pulse would not activate and progression could become impossible.[/p][p]・Fixed a bug where NPCs would not retaliate when attacked.[/p][p]・Fixed a bug that allowed construction near towers.[/p][p]・Fixed a bug where battle BGM would sometimes continue playing after the player died.[/p][p]・Fixed a bug where aim assist would not function properly during the Moonlord battle.[/p][p]・Fixed a bug where certain Pal skills would fail when used over water.[/p][p]・Fixed a bug in the Arena where using “Huggy Fire” would cause enemies to become stuck.[/p][p]・Fixed a bug where Hallowed Plate Mail was not reducing damage taken from Extreme Moonlord.[/p][p]・Fixed a bug where unreleased items were being displayed in the flea market. [/p][p]・Fixed an issue where DualSense input was not supported on Windows (Win64).[/p][p]＝＝＝[/p][p]Thank you for your continued support of Palworld.[/p]"
+    },
+    {
+      "gid": "1810503566577204",
+      "title": "Palworld developer planning a \"massive update\" for v1.0, which is coming soon",
+      "url": "https://steamstore-a.akamaihd.net/news/externalpost/PCGamesN/1810503566577204",
+      "date": "2025-09-16",
+      "timestamp": 1758020854,
+      "author": "editor@pcgamesn.com",
+      "feed_label": "PCGamesN",
+      "content": "Remember that brief period of time when\nPalworld\nwas purported as a 'Pokemon killer,' despite the fact that it shares far more similarities with the likes of Valheim than any Nintendo game? I'm surprised some of the monster designs weren't involved in the game's legal proceedings, but developer Pocketpair created a game that captured the hearts of the gaming world. With over two million players logging in at its peak, it put Pocketpair on the map. 18 months after its storming launch, Pocketpair has announced that the game is leaving early access, and v1.0 is on the horizon.\nRead the rest of the story...\nRELATED LINKS:\nBest Palworld mods and how to install\nHuge new Palworld update makes Terraria inspired raid boss even more powerful\nBest Palworld settings for PC and Steam Deck"
+    },
+    {
+      "gid": "1810503566576152",
+      "title": "Palworld is going quiet as Pocketpair takes an iron to its 'quirks and jank,' with full release planned for 2026",
+      "url": "https://steamstore-a.akamaihd.net/news/externalpost/PC Gamer/1810503566576152",
+      "date": "2025-09-16",
+      "timestamp": 1758019380,
+      "author": "Joshua Wolens",
+      "feed_label": "PC Gamer",
+      "content": "It's easy to forget amid the enormous success,\nNintendo court cases\n, and that time its dev\nstarted a publisher\n, but Palworld isn't even really\nout\nyet. The game's been in early access since its release almost two years ago—1.0 remaining eternally on the horizon...\nRead more."
+    },
+    {
+      "gid": "1810503566577194",
+      "title": "Palworld will emerge from early access in 2026, with a \"truly massive\" amount of stuff planned for 1.0 update",
+      "url": "https://steamstore-a.akamaihd.net/news/externalpost/Rock, Paper, Shotgun/1810503566577194",
+      "date": "2025-09-16",
+      "timestamp": 1758018473,
+      "author": "",
+      "feed_label": "Rock, Paper, Shotgun",
+      "content": "Palworld\nis set to finally emerge from early access in 2026, developers Pocketpair have announced. There's a lot of work the game about not-Pokémon, guns, and maunfacturing will need prior to that point, say the studio who've been busy\nstaring down Lionel Hutzes who probably know the DK rap off by heart.\nThey've also teased that a bunch of new additions are in the works for the 1.0 update.\nRead more"
+    },
+    {
+      "gid": "1810503566576118",
+      "title": "Palworld 1.0 arrives next year with a huge update and plans to fix all the jank",
+      "url": "https://steamstore-a.akamaihd.net/news/externalpost/GamingOnLinux/1810503566576118",
+      "date": "2025-09-16",
+      "timestamp": 1758018119,
+      "author": "",
+      "feed_label": "GamingOnLinux",
+      "content": "Pocketpair have revealed that Palworld 1.0 will arrive next year, with updates being quieter for the rest of the year while they fix all the quirks and jank.\nRead the full article here: https://www.gamingonlinux.com/2025/09/palworld-1-0-arrives-next-year-with-a-huge-update-and-plans-to-fix-all-the-jank/"
+    },
+    {
+      "gid": "1810503566562934",
+      "title": "Palworld to exit early access and officially release (Ver 1.0) in 2026!",
+      "url": "https://steamstore-a.akamaihd.net/news/externalpost/steam_community_announcements/1810503566562934",
+      "date": "2025-09-16",
+      "timestamp": 1757984415,
+      "author": "pocketpair_admin",
+      "feed_label": "Community Announcements",
+      "content": "[p][img src=\"{STEAM_CLAN_IMAGE}/40671762/b35266b7983a3288de8e4263fbf896f53e305c8a.png\"][/img][/p][h3][b]Official Release set for 2026! Several surprises planned for 2025![/b][/h3][p] For Palworld, which is currently in early access, the official release version, Ver. 1.0, is set to mark a major milestone. We are planning a massive update to mark this occasion. [/p][p]\nOf course, we have several surprises in store for you this year, so stay tuned for further updates![/p][h3]\n[b]Message to our Fans[/b][/h3][p] Once again, we would like to express our sincere gratitude to all the fans who continue to support Palworld and Pocketpair. Your support encourages us to continue doing our best, and motivates us to make the game even better! [/p][p] We will continue to do our utmost, communicating more openly with you all, to deliver the best gaming experience possible. We hope you will look forward to the things we are working on for Palworld and Pocketpair. [/p]"
+    },
+    {
+      "gid": "1807966710827095",
+      "title": "In what was likely a karmic inevitability, Palworld now has its own shameless imitator on the Switch",
+      "url": "https://steamstore-a.akamaihd.net/news/externalpost/PC Gamer/1807966710827095",
+      "date": "2025-08-14",
+      "timestamp": 1755120654,
+      "author": "Lincoln Carpenter",
+      "feed_label": "PC Gamer",
+      "content": "While Nintendo might've found a way to\nbring Pocketpair to court over patents\nit arguably shouldn't have been awarded in the first place, it's telling that even its military-grade legal hit squad didn't try to nail Palworld for its Pokemon knockoffery. But while I'll defend Palworld's legal right to pretend\nDinossom\nisn't just\nLilligant\n's flower and\nMeganium\n's face stapled to a green\nGoodra\nbody, that doesn't make it any less grimy...\nRead more."
+    },
+    {
+      "gid": "1807332909718795",
+      "title": "v0.6.5：Mission Bug Fixes",
+      "url": "https://steamstore-a.akamaihd.net/news/externalpost/steam_community_announcements/1807332909718795",
+      "date": "2025-08-12",
+      "timestamp": 1754968018,
+      "author": "pocketpair_admin",
+      "feed_label": "Community Announcements",
+      "content": "[p]\\[Patch Notice][/p][p]Palworld version v0.6.5 has been released![/p][p][/p][p]＝＝＝[/p][p][/p][p]▼Bug Fixes[/p][p]・Fixed an issue where missions would unintentionally pop up when playing as the host in single player or co-op mode. [/p][p][/p][p]＝＝[/p][p][/p][p]Thank you for your continued support of Palworld.[/p]"
+    },
+    {
+      "gid": "1807332909642154",
+      "title": "Polish Price Adjustment!",
+      "url": "https://steamstore-a.akamaihd.net/news/externalpost/steam_community_announcements/1807332909642154",
+      "date": "2025-08-10",
+      "timestamp": 1754759846,
+      "author": "pocketpair_admin",
+      "feed_label": "Community Announcements",
+      "content": "[p]Hello everyone![/p][p][/p][p]We have received a lot of feedback from our fans in Poland about the current state of regional pricing. After investigating the issue, we have decided to adjust the price of the game to something more suitable.[/p][p][/p][p][strike]Old price:  138,99 zł[/strike][/p][p][b]New price:  99,99 zł[/b][/p][p][/p][p]As always, thank you for your feedback and support. We will continue to work hard to make a game everyone can enjoy![/p][p][/p][p]Thank you for your continued support of Palworld.[/p]"
+    },
+    {
+      "gid": "1806698490659105",
+      "title": "Huge new Palworld update makes Terraria inspired raid boss even more powerful",
+      "url": "https://steamstore-a.akamaihd.net/news/externalpost/PCGamesN/1806698490659105",
+      "date": "2025-07-31",
+      "timestamp": 1753894859,
+      "author": "editor@pcgamesn.com",
+      "feed_label": "PCGamesN",
+      "content": "There's just something about collectables in videogames that scratches an itch for me. Whether it's monsters, mascots, or mates, I can't help but spend hours unearthing hidden characters or unseen achievements. Pocketpair's popular\nPalworld\nis just one of many games that's effectively captured the buzz of creature collecting, because there really is no better feeling than farming with your Pals. Except for fighting alongside them, of course, and Palworld's latest patch has just made one boss fight even harder.\nRead the rest of the story...\nRELATED LINKS:\nBest Palworld mods and how to install\nBest Palworld settings for PC and Steam Deck\nPalworld system requirements"
+    },
+    {
+      "gid": "1806698490636537",
+      "title": "v0.6.4：Moon Lord [Master] and bug fixes!",
+      "url": "https://steamstore-a.akamaihd.net/news/externalpost/steam_community_announcements/1806698490636537",
+      "date": "2025-07-30",
+      "timestamp": 1753848235,
+      "author": "pocketpair_admin",
+      "feed_label": "Community Announcements",
+      "content": "[p]\\[Patch Notice][/p][p]Palworld version v0.6.4 has been released![/p][p][/p][p]＝＝＝[/p][p][/p][p]▼New Content[/p][p]・Added a more powerful version of Moon Lord! Moon Lord \\[Master]![/p][p]⤷ Gather new Celestial Sigil \\[Master] to face this terrifying foe![/p][p][/p][p]▼Mechanic Adjustments[/p][p]・Summoned Pals no longer deal damage when bumping into neutral, non-hostile Pals.[/p][p]・Sending an overpowered Pal team on an expedition no longer reduces the expedition time, but instead increases the quantity of rewards.[/p][p]・Summoned Pals are returned to the player's party upon player death.[/p][p]・Enemies will no longer respawn when their bases are cleared (Enemy-built bases – Not static camps).[/p][p]・Death markers on the map will now be displayed above base icons.[/p][p]・The amount of fish shadows at a fishing spot will now persist even if the player leaves.[/p][p]・Additional fishing spots have been added around the world.[/p][p]・Adjusted the UI messaging for when the player can't afford to buy Pals from NPCs.[/p][p]・Adjusted the interaction logic for opening and closing cages in enemy bases, which was sometimes unresponsive depending on the camera angle.[/p][p]・Adjusted the building restriction radius around the expedition station.[/p][p]・Items bought from the Flea Market can no longer exceed one stack per purchase.[/p][p]・Fixed the behavior of the Homing Sphere Launcher.[/p][p][/p][p]▼Balance Adjustments[/p][p]・Fixed an issue where the partner skill \"Trigger Happy\" had unintendedly high power.[/p][p]・Increased the drop rate of legendary blueprints from the chests at the end of the Terraria dungeon.[/p][p]・Adjusted the selling price of the Terraria monsters.[/p][p]・Added Heat Resistance Lv1 / Cold Resistance Lv1 to Hallowed Plate Mail.[/p][p]・Adjusted the breeding results when using Eye of Cthulhu.[/p][p]・Changed the raid boss reward logic so that players can receive rewards even if they didn't deal direct damage to the boss.[/p][p]・Increased the drop quantity of \"Ancient Civilization Parts\" from certain Alpha Pals.[/p][p]・Increased the amount of Overheat Rifle ammo crafted from 5 to 10.[/p][p]・Increased swimming speed for some Pals.[/p][p]・Adjusted the map placement of certain mission NPCs so that they can be accessed by players at more appropriate levels.[/p][p][/p][p]▼Major Bug Fixes[/p][p]・Fixed an issue where mission progress was lost or would not progress.[/p][p]・Fixed an issue where Pals in dimensional storage would disappear.[/p][p]・Upon dying inside the Terraria Dungeon, the player's items and Pals are now dropped in front of the dungeon entrance.[/p][p][/p][p]▼Bug Fixes[/p][p]・Fixed an issue in the Moon Lord raid where Pals would continue to attack already-destroyed body parts.[/p][p]・Fixed a bug where defeating Moon Lord would unlock the wrong achievements.[/p][p]・Fixed a bug where using Herbil's partner skill during a tower boss battle could cause the player to get trapped inside.[/p][p]・Fixed a bug where Herbil's partner skill in combination with certain enemy skills could cause the game to soft lock.[/p][p]・Fixed a crash that occurred when switching input methods while using the chat.[/p][p]・Fixed a bug that prevented players from handing over Pals in missions when using a controller.[/p][p]・Fixed a bug that caused missions to duplicate when logging in to dedicated servers.[/p][p]・Fixed inconsistencies in NPC dialogue and mission dialogue.[/p][p]・Fixed a bug where capturing a target during a mission would incorrectly count it as two kills.[/p][p]・Fixed a bug where detailed info for owned Pals was not being displayed in the Pal delivery mission UI.[/p][p]・Fixed a bug where descriptions for some missions were not being displayed correctly in the mission list.[/p][p]・Fixed a bug where some missions continued to be displayed as in progress even after completion.[/p][p]・Fixed a localization bug where some text was appearing in Japanese even when the game was set to another language.[/p][p]・Fixed a bug that was causing sound effects to play over and over after finishing a mission.[/p][p]・Fixed a bug where the cursor would not appear or scroll when opening the mission menu with a controller.[/p][p]・Fixed a bug where some skills used while mounted would unintentionally go through walls.[/p][p]・Fixed a bug where some skills would target players from the same guild.[/p][p]・Fixed a bug where the fishing minigame would start with a smaller capture gauge under certain conditions.[/p][p]・Fixed a bug where the fishing guide would sometimes stop being displayed.[/p][p]・Fixed a bug where players could fish through walls or floors.[/p][p]・Fixed a bug where fishing and salvaging sound effects could be heard from far away in multiplayer.[/p][p]・Fixed a bug with the fishing pond that was not correctly reducing the fishing time with certain work suitability items etc.[/p][p]・Fixed a bug that prevented Jelliette and Jellroy partner skills from activating.[/p][p]・Fixed a bug where items dropped underwater wouldn't float to the surface.[/p][p]・Fixed an exploit where certain NPC visitors to the base could be captured repeatedly for infinite rewards.[/p][p]・Adjusted Frostplume's behavior so that their partner skill doesn't activate in the arena if they aren't the primary opponent.[/p][p]・\"Mercy\" will no longer apply inside the arena.[/p][p]・Fixed spawn location discrepancies for certain Pals.[/p][p]・Fixed missing partner skill icons.[/p][p]・Fixed the sorting order for some food items.[/p][p]・Various other minor bug fixes.[/p][p][/p][p]＝＝＝[/p][p][/p][p]Thank you for your continued support of Palworld.[/p]"
+    },
+    {
+      "gid": "1803527891947286",
+      "title": "v0.6.2: Dimensional storage and graphics bug fixes",
+      "url": "https://steamstore-a.akamaihd.net/news/externalpost/steam_community_announcements/1803527891947286",
+      "date": "2025-07-10",
+      "timestamp": 1752116703,
+      "author": "pocketpair_admin",
+      "feed_label": "Community Announcements",
+      "content": "[p]\\[Patch Notice][/p][p]Palworld version v0.6.2 has been released![/p][p][/p][p]＝＝[/p][p][/p][p]▼Fixes[/p][p]・Fixed an issue where Pals in a Dimensional Pal Storage would disappear under certain conditions.[/p][p]・Optimised the memory usage to reduce the likelihood of crashes when playing for a long time.[/p][p][/p][p]＝＝[/p][p][/p][p]Thank you for your continued support of Palworld.[/p]"
+    },
+    {
+      "gid": "1803527891869324",
+      "title": "Palworld is now Steam Deck Verified and SteamOS Compatible",
+      "url": "https://steamstore-a.akamaihd.net/news/externalpost/GamingOnLinux/1803527891869324",
+      "date": "2025-07-08",
+      "timestamp": 1751907591,
+      "author": "",
+      "feed_label": "GamingOnLinux",
+      "content": "With the latest updates to the popular Palworld, Valve have now bumped it up to Steam Deck Verified and SteamOS Compatible.\nRead the full article here: https://www.gamingonlinux.com/2025/07/palworld-is-now-steam-deck-verified-and-steamos-compatible/"
+    },
+    {
+      "gid": "1803527891708734",
+      "title": "Palworld's Terraria update lands it back in Steam's Top 10 with over 120,000 players coming back, but its community manager is just waiting for people to brand it a 'dead game' again",
+      "url": "https://steamstore-a.akamaihd.net/news/externalpost/PC Gamer/1803527891708734",
+      "date": "2025-07-03",
+      "timestamp": 1751473039,
+      "author": "Elie Gould",
+      "feed_label": "PC Gamer",
+      "content": "Palworld's latest Terraria-themed update\nbrought a ton of new equipment, dungeons, enemies, and even a fishing mini-game for players to check out. So it's not that surprising to see\nPalword\njump back into Steam's Top 10 most-played games...\nRead more."
+    },
+    {
+      "gid": "1803527891679732",
+      "title": "Palworld guide—Exploring the Terraria update, breeding combos, and crafting",
+      "url": "https://steamstore-a.akamaihd.net/news/externalpost/PC Gamer/1803527891679732",
+      "date": "2025-07-02",
+      "timestamp": 1751395936,
+      "author": "Andrea Shearon",
+      "feed_label": "PC Gamer",
+      "content": "Palworld starts pretty light-hearted, then throws you into its rather twisted survival-crafting deep end with its grim production stations and Pal breeding. And if you want to dominate the end game, you'll need to do more than just breeze on by some of Palworld's unsettling fundamentals...\nRead more."
+    },
+    {
+      "gid": "1803527891676529",
+      "title": "Where to find the Terraria dungeon in Palworld, plus the new Pals and items you'll find inside",
+      "url": "https://steamstore-a.akamaihd.net/news/externalpost/PC Gamer/1803527891676529",
+      "date": "2025-07-02",
+      "timestamp": 1751388020,
+      "author": "Andrea Shearon",
+      "feed_label": "PC Gamer",
+      "content": "The\nPalworld\ncrossover with Terraria is finally upon us, but to dive into the update's biggest offerings, you'll first need to map out its new islands. It's not a difficult journey, but if you've been away for a while the map may look a bit different, so Palworld's Terraria dungeon location isn't immediately obvious...\nRead more."
+    },
+    {
+      "gid": "1803527891649254",
+      "title": "Palworld just got a huge Terraria-themed update, which as it turns out is a lot less ridiculous than Silent Bob in Warzone",
+      "url": "https://steamstore-a.akamaihd.net/news/externalpost/PC Gamer/1803527891649254",
+      "date": "2025-07-01",
+      "timestamp": 1751315640,
+      "author": "Justin Wagner",
+      "feed_label": "PC Gamer",
+      "content": "You might know\nPalworld\nfor its\njaw-dropping player counts\n, its uncanny\nresemblance\nto the world's biggest media franchise, or its\nlegal battle\nwith Nintendo over that last thing I mentioned. Despite all the hubbub, it's just a\npretty alright\nsurvival crafting game full of cute monster buddies parodying (or ripping off, depending on how cynical you are) Pokémon. They say imitation is the sincerest form of flattery, I suppose, and now it's doing its best Terraria impression—though it's a collaborative effort this time...\nRead more."
+    },
+    {
+      "gid": "1803527891528964",
+      "title": "v0.6.1：Pal team preset bug fix",
+      "url": "https://steamstore-a.akamaihd.net/news/externalpost/steam_community_announcements/1803527891528964",
+      "date": "2025-06-27",
+      "timestamp": 1750993623,
+      "author": "pocketpair_admin",
+      "feed_label": "Community Announcements",
+      "content": "[p]\\[Patch Notice] [/p][p]Palworld version v0.6.1 has been released! [/p][p][/p][p]== [/p][p][/p][p]▼Bug Fixes[/p][p]・Fixed an issue where an error would occur when overwriting the Pal team presets in the Pal Box and then returning to the title screen when there were blank spaces in the player's Pal team.[/p][p][/p][p]== [/p][p][/p][p]Thank you for your continued support of Palworld.[/p]"
+    },
+    {
+      "gid": "1803527891474403",
+      "title": "New Palworld Terraria update arrives with more than just a simple crossover",
+      "url": "https://steamstore-a.akamaihd.net/news/externalpost/PCGamesN/1803527891474403",
+      "date": "2025-06-25",
+      "timestamp": 1750853945,
+      "author": "editor@pcgamesn.com",
+      "feed_label": "PCGamesN",
+      "content": "If you stepped away from\nPalworld\n, now's the time to come back. Pocketpair's creature catcher has been going from strength to strength since it launched last year, and today marks a huge leap forward. The\nPalworld Terraria update\nhas arrived, and it marries the two games in a way I'd never quite expected. The patch also introduces a slew of new mechanics to the base game, giving you more places to explore and even more Pals to catch.\nRead the rest of the story...\nRELATED LINKS:\nPalworld map - all locations, regions, and points of interest\nAll Palworld bosses in order and how to beat them\nThe Palworld Terraria crossover is already much bigger than a typical update"
+    },
+    {
+      "gid": "1803527891472542",
+      "title": "Palworld - Tides of Terraria crossover update is out with fishing, new islands, a new Pal trust mechanic and more",
+      "url": "https://steamstore-a.akamaihd.net/news/externalpost/GamingOnLinux/1803527891472542",
+      "date": "2025-06-25",
+      "timestamp": 1750851087,
+      "author": "",
+      "feed_label": "GamingOnLinux",
+      "content": "A huge update for Palworld has arrived with the Tides of Terraria crossover. It's a lot more than just adding bits of Terraria though.\nRead the full article here: https://www.gamingonlinux.com/2025/06/palworld-tides-of-terraria-crossover-update-is-out-with-fishing-new-islands-a-new-pal-trust-mechanic-and-more/"
+    },
+    {
+      "gid": "1803527891461091",
+      "title": "Palworld v0.6.0: Tides of Terraria has been released!",
+      "url": "https://steamstore-a.akamaihd.net/news/externalpost/steam_community_announcements/1803527891461091",
+      "date": "2025-06-25",
+      "timestamp": 1750820692,
+      "author": "pocketpair_admin",
+      "feed_label": "Community Announcements",
+      "content": "[h2][b]\\[Tides of Terraria Update Notice] [/b][/h2][p]Update v0.6.0 has been released.[/p][p][/p][previewyoutube=\"cIfw_RUnjR8;full\"][/previewyoutube][p][/p][p]＝＝＝[/p][p]\n[/p][p][b]▼Terraria Collab! [/b][/p][p]・Terraria Dungeon[/p][p]⤷ A unique dungeon featuring enemies from Terraria has been added! Collect materials in the dungeon to create equipment from the world of Terraria![/p][p]\n[/p][p]・Terraria Equipment [/p][p]⤷ 6 new weapons and 7 new armour pieces from Terraria have been added![/p][p]\n[/p][p]・The terrifying \"Moon Lord\" raid boss has appeared! [/p][p]⤷ The Moon Lord has invaded Palworld! Work together with your friends and Pals to defeat the greatest threat the islands have faced![/p][p]\n[/p][p][b]▼New Content[/b][/p][p]・PS5 Dedicated Servers![/p][p]\n[/p][p]・Fishing![/p][p]⤷ Craft a fishing rod and bait to catch new Pals! To start fishing, cast your rod in water where you can see fish shadows. [/p][p]\n[/p][p]・Salvage System![/p][p]⤷ Ride on water Pals and use the fishing rod to salvage supplies at sea! Collect new ores salvaged from the ocean floor to strengthen your weapons.[/p][p]\n[/p][p]・New Islands![/p][p]⤷ Three new types of islands have been added to the world: Tropical Islands, Iceberg Island, and Shipwreck Island! Find new Pals that live on each of these new islands![/p][p]\n[/p][p]・Mission System! [/p][p]⤷ You can now find and accept missions around the Palpagos Islands. Help the islanders and get rewards![/p][p]\n[/p][p]・Zoe's Special Mission! [/p][p]⤷ By completing missions for Zoe, you can earn her trust and recruit her as an ally![/p][p]\n[/p][p]・Pal Trust Mechanic![/p][p]⤷ The more time you spend with your Pal, the more trust you will gain, and stats will be increased. The weaker a Pal's original stats are, the greater the trust adjustment will be, so even weaker Pals will be able to shine![/p][p]\n[/p][p]・Sleep together with your Pals![/p][p]⤷ After a hard day of farming and battling bosses, you and your Pals can take a hard-earned rest together! [/p][p]\n[/p][p]・Treasure Maps![/p][p]⤷ Use treasure maps to find the location of the hidden treasure and obtain valuable items![/p][p]\n[/p][p]・Enemy Bases?![/p][p]⤷ Enemy factions now build bases just like players! They are on high alert and will defend it with their lives, but if you manage to raid them successfully, you can obtain new blueprints for buildings related to that faction.[/p][p]\n[/p][p]・Settlement Overhaul![/p][p]⤷ We've made the settlements larger and feel more lived-in! There are also many mission NPCs now to meet. [/p][p]\n[/p][p]・Player level cap raised from 60 to 65! [/p][p]\n[/p][p]・New Buildings![/p][p]⤷ Pal Surgery Table - By using various implants, you can overwrite your Pal’s passives! You can also change the gender of your Pals here![/p][p]⤷ Fishing Pond - Relax and catch some fish in the comfort of your base.[/p][p]⤷ Hexolite Quartz Mine - Well, you knew we would add this one eventually! [/p][p]⤷ Large Incubator - Hatch multiple eggs at the same time! [/p][p]⤷ Palbox Control Device - A terminal that allows you to access your Pal Box from anywhere in the base. It makes Pal swapping during raid battles more efficient.[/p][p]\n[/p][p]・ New Building Material -  \\[Clean][/p][p]⤷ Decorate your base with futuristic floors and walls with this new building set![/p][p]\n[/p][p]・New Mechanic - Turbulence [/p][p]⤷ Find unusual air turbulence around the world and use it to jump high into the sky! [/p][p]\n[/p][p]・New Weapons![/p][p]⤷ Charge Rifle[/p][p]⤷ Energy Shotgun[/p][p]⤷ Overheat Rifle[/p][p]\n[/p][p]⤷ Boost Gun[/p][p]⤷ Pal Recovery Grenade[/p][p](These two are weapons for tamers who want to support their Pal!)[/p][p]\n[/p][p]・New Item Types![/p][p]⤷ Whistles and Growth Acceleration Bell have been added![/p][p]⤷ New food recipes.[/p][p]\n[/p][p][b]▼Arena[/b][/p][p]・A single-player challenge mode has been added! [/p][p]⤷ Raise your rank by facing off against the fierce warriors of Palpagos Island! Get various rewards with the battle tickets you receive when you win![/p][p]\n[/p][p]・You can now set rules in the arena, such as banning certain pals.[/p][p]・A public Pal Box has been added at the entrance to the arena that all players can use. [/p][p]・An arena spectator function has been added in multiplayer![/p][p]\n[/p][p][b]▼Mechanic Adjustments[/b][/p][p]・Added equipment durability to the game settings.[/p][p]・When a cooling Pal is assigned to the flea market, food spoilage rate is now reduced.[/p][p]・Lyleen’s ability “Bountiful Protection” now recovers HP for all allies within range.[/p][p]\n[/p][p][b]▼Balance Adjustments [/b][/p][p]・Some aggressive enemies have been made friendly. [/p][p]・Pal skill cooldowns will tick down even if they are not summoned. [/p][p]・The speed and stamina of Pals that can be mounted have been adjusted, and the speed of some Pals that were too slow has been improved. [/p][p]・The lineup of bounty hunters has been expanded. [/p][p]・With the implementation of the mission system, the rewards obtained from NPCs have been adjusted. To maintain fairness, conversation logs with all NPCs have been reset so that rewards can be received again. [/p][p]・Pal Condensation is considered end-game content, so the strength of Axel, Marcus, and Victor on normal difficulty has been reduced to reduce its necessity. [/p][p]・The power of some active skills, such as Pal Blast, has been increased. [/p][p]・The probability of getting books that enhance Pal's work aptitude from attribute treasure chests has been increased.[/p][p]\n[/p][p][b]▼Pals[/b][/p][p]・New Skins!! [/p][p]The results of the 1st year anniversary popularity poll have been decided, and three new skins have been added to celebrate these results![/p][p](※You must own the Pal to equip the skin) [/p][p]⤷ Crown Chillet[/p][p]⤷ Cyber Jetragon[/p][p]⤷ Desert King Anubis [/p][p]\n[/p][p]・Pals can now swim![/p][p]⤷ Swimming motions and animations have been added for Pals, and their speed in the water has been adjusted. [/p][p]\n[/p][p]・New Water Skills[/p][p]⤷ Geyser Gush[/p][p]⤷ Aqua Surge[/p][p]⤷ Torrential Blast[/p][p]⤷ Hydro Slicer[/p][p]\n[/p][p]・New Grass Skills[/p][p]⤷ Crosswind[/p][p]⤷ Reflect Leaf[/p][p]\n[/p][p]・New Ice Skill[/p][p]⤷ Freeze Wall[/p][p]\n[/p][p]・New Unique Skills[/p][p]⤷ Hydro Spin[/p][p]⤷ Thalasonic Laser[/p][p]⤷ High Breach[/p][p]⤷ Lantern Sweep[/p][p]⤷ Scorching Lantern Sweep[/p][p]⤷ Smoke Jet[/p][p]⤷ Trigger Happy[/p][p]⤷ Chaotic Spray[/p][p]⤷ Konoha Flip[/p][p]⤷ Deep Breath[/p][p]⤷ Dash Kick[/p][p]⤷ Thunderslide[/p][p]\n[/p][p]・New passive skills have been added![/p][p]\n[/p][p][b]▼UI[/b][/p][p]・Implemented \"Easy Bulk Storage\" feature! Conveniently store all materials in any chest around your base with the click of one button![/p][p]・Changed specifications to automatically select materials in bulk in the Pal Condensation UI.[/p][p]・You can now set and quickly select your current Pal presets from the Pal Box UI.[/p][p]・All neutral enemies now have green HP gauges, and only aggressive or hostile enemies have red HP gauges.[/p][p]\n[/p][p][b]▼Multiplayer[/b][/p][p]・Fixed a bug where the option to display servers with matching versions was not working.[/p][p]\n[/p][p][b]▼World[/b][/p][p]・Added more patterns to random dungeons.[/p][p]・Fishing spots where fish shadows appear have been placed all around the world. [/p][p]・Salvage spots have been placed out at sea.[/p][p]\n[/p][p][b]▼Achievements[/b][/p][p]・Several new achievements have been added.[/p][p]\n[/p][p][b]▼Bug fixes[/b][/p][p]・Fixed a bug where Jetragon would jump too high when jumping.[/p][p]・Many many other minor issues have been fixed.[/p][p]\n[/p][p]＝＝＝[/p][p]\n[/p][p]Thank you for your continued support of Palworld.[/p][p]\n[/p]"
+    },
+    {
+      "gid": "1802893906846063",
+      "title": "Six new languages ​​will be added to Palworld: Tides of Terraria!",
+      "url": "https://steamstore-a.akamaihd.net/news/externalpost/steam_community_announcements/1802893906846063",
+      "date": "2025-06-23",
+      "timestamp": 1750651229,
+      "author": "pocketpair_admin",
+      "feed_label": "Community Announcements",
+      "content": "[p][img src=\"{STEAM_CLAN_IMAGE}/40671762/92e3ec1aba3a26cd867f166d503d237d5b27ac79.png\"][/img][/p][h3][b]･New Languages[/b][/h3][p]Six new languages ​​will be added to Palworld: Tides of Terraria in a major update scheduled for release on Wednesday, June 25, 2025.[/p][p][/p][p]･Spanish - Latin America[/p][p]･Indonesian[/p][p]･Vietnamese[/p][p]･Turkish[/p][p]･Polish[/p][p]･Thai[/p][p]\n[/p][h3][b]･About the Palworld “Tides of Terraria” update:[/b][/h3][p]\"Palworld: Tides of Terraria\" is a major update that introduces a collaboration with the adventure game \"Terraria\", which has sold over 60 million copies worldwide.[/p][p][/p][p]Trailer:[/p][previewyoutube=\"sFVJVWVDIMg;full\"][/previewyoutube][p][/p][p]The world of Terraria collides with Palworld![/p][p]Capture, train, fight, and work monsters from Terraria just like Pals...?\n[/p][p]A large update that can be enjoyed by fans of Palworld and Terraria!\n[/p][p]In addition to the collaboration content, further new content will be added, including new Pals and new islands.[/p][p]The contents of the update will be announced across official Palworld social media channels over the next few weeks, so please follow!\n[/p][p]Palworld is currently on sale at 25% off on Steam and the PS Store. Don't miss this chance to get your hands on it![/p]"
+    },
+    {
+      "gid": "1802893906765574",
+      "title": "Palworld Tides of Terraria Revealed as Pocketpair’s First Collaboration",
+      "url": "https://steamstore-a.akamaihd.net/news/externalpost/CGMagazine/1802893906765574",
+      "date": "2025-06-20",
+      "timestamp": 1750403687,
+      "author": "Philip Watson",
+      "feed_label": "CGMagazine",
+      "content": "A major crossover between Pocketpair’s\nPalworld\nand\nTerraria\nhas been announced, called\nTides of Terraria\n, and it brings new pals, mechanics and a Raid Boss.\nThe past year has been a series of ups and downs for Pocketpair’s\nPalworld\n, from\nNintendo issuing a lawsuit\nthat has resulted in gameplay changes to\nPalworld\nsince September 2024 (since the lawsuit, Pal Spheres have been removed and gliding creatures have been ‘fixed’), to KRAFTON helping Pocketpair drop the title on mobile, and the big\nFeybreak\nexpansion\nthat fans flocked back to Palpagos Island in droves for. Pocketpair\nhas revealed a new trailer\ntoday showcasing its first major collaboration event,\nTides of Terraria\n. The animated trailer can be seen below.\nWhile the trailer is very brief, the\nTides of Terraria\ntrailer embodies the spirit of both indie titles, although the crossover event is only happening on the\nPalworld\nside of things. There has been no announcement on whether\nTerraria\n...\nRead more"
+    },
+    {
+      "gid": "1802893906745703",
+      "title": "Palworld: Tides of Terraria will be released on Wednesday, June 25, 2025!",
+      "url": "https://steamstore-a.akamaihd.net/news/externalpost/steam_community_announcements/1802893906745703",
+      "date": "2025-06-20",
+      "timestamp": 1750381244,
+      "author": "pocketpair_admin",
+      "feed_label": "Community Announcements",
+      "content": "[h3]･Latest Video: Palworld: Tides of Terraria Animated Trailer[/h3][p]In the collaboration animated trailer, Palworld characters explore a dungeon and obtain the Terraria weapon, the Terra Blade. Also appearing are the Eye of Cthulhu and a silhouette that appears to be the final boss, the Moon Lord. The footage suggests that deadly enemies await at the end of this exciting adventure in the world of Terraria.[/p][p][/p][previewyoutube=\"sFVJVWVDIMg;full\"][/previewyoutube][p][img src=\"{STEAM_CLAN_IMAGE}/40671762/da885945581b2cfcfa8e393374d8a9a66ffa4fbb.png\"][/img][img src=\"{STEAM_CLAN_IMAGE}/40671762/1e1551d1fe7bdd61de3fe438f369062c4fa3c6e4.png\"][/img][img src=\"{STEAM_CLAN_IMAGE}/40671762/b8bb14232941bed6b24322a64e2d525ff9fc222e.png\"][/img][img src=\"{STEAM_CLAN_IMAGE}/40671762/f978bb679643b35824f7bd359595c31e8f3598ca.png\"][/img][img src=\"{STEAM_CLAN_IMAGE}/40671762/b78938fba8a5d2bf8102874233ec7f22ea77bdbf.png\"][/img][img src=\"{STEAM_CLAN_IMAGE}/40671762/4f57d3df20d740081d297c74456eea8a8b67a6c9.png\"][/img][/p][h3]･About the Palworld “Tides of Terraria” update:[/h3][p]\"Palworld: Tides of Terraria\" is a major update that introduces a collaboration with the adventure game \"Terraria\", which has sold over 60 million copies worldwide.[/p][p]The world of Terraria collides with Palworld![/p][p]Capture, train, fight, and work monsters from Terraria just like Pals...?[/p][p]A large update that can be enjoyed by fans of Palworld and Terraria![/p][p]In addition to the collaboration content, further new content will be added, including new Pals and new islands.[/p][p]The contents of the update will be announced across official Palworld social media channels over the next few weeks, so please follow![/p][p][/p][p][img src=\"{STEAM_CLAN_IMAGE}/40671762/fd7eb7ac1c833f21a2dbb0c5b659b8cfdd0568fd.png\"][/img][/p][p][img src=\"{STEAM_CLAN_IMAGE}/40671762/e480b90f2bc8fa199892bb15a80d09f768b48b9b.png\"][/img][/p][p][img src=\"{STEAM_CLAN_IMAGE}/40671762/b7f890bec27deb3a43ae99080a2e7039a00392cd.png\"][/img][/p][p][img src=\"{STEAM_CLAN_IMAGE}/40671762/c2a4f51505ef03c7c313691268042e06cb6bc0a2.png\"][/img][/p][p][/p]"
+    },
+    {
+      "gid": "1799088287996770",
+      "title": "Nintendo's lawsuit isn't slowing Palworld down as it prepares for a summer collab with Terraria",
+      "url": "https://steamstore-a.akamaihd.net/news/externalpost/PC Gamer/1799088287996770",
+      "date": "2025-05-14",
+      "timestamp": 1747161834,
+      "author": "Tyler Colp",
+      "feed_label": "PC Gamer",
+      "content": "little legal jousting with Nintendo hasn't stopped Palworld from making new stuff. This summer, the survival game with totally-not-Pokémon will have a collab with eternally popular indie crafting game\nTerraria\nin its Tides of Terraria update...\nRead more."
+    },
+    {
+      "gid": "1799088287990436",
+      "title": "The Palworld Terraria crossover is already much bigger than a typical update",
+      "url": "https://steamstore-a.akamaihd.net/news/externalpost/PCGamesN/1799088287990436",
+      "date": "2025-05-13",
+      "timestamp": 1747139350,
+      "author": "editor@pcgamesn.com",
+      "feed_label": "PCGamesN",
+      "content": "The\nPalworld\nTerraria crossover is almost here. Bringing together two of the biggest survival games of all time, we'll soon be catching all-new mobs and creatures in Pocketpair's smash hit. That's not all, however, as a new update from the team finally showcases the event itself, revealing that it'll have new Pals, islands, and more. If all of this has piqued your interest, but you haven't gotten around to adding Pocketpair's creature catcher to your Steam library just yet, then I have good news: you can grab it at 25% off right now.\nRead the rest of the story...\nRELATED LINKS:\nPalworld is changing several key gameplay systems amid Pokemon Company lawsuit\nBest Palworld mods and how to install\nPalworld system requirements"
+    },
+    {
+      "gid": "1799088287974274",
+      "title": "Palworld v0.6: \"Tides of Terraria\" coming this summer! Worlds will collide!",
+      "url": "https://steamstore-a.akamaihd.net/news/externalpost/steam_community_announcements/1799088287974274",
+      "date": "2025-05-13",
+      "timestamp": 1747098983,
+      "author": "pocketpair_admin",
+      "feed_label": "Community Announcements",
+      "content": "Hello everyone!\n[img]{STEAM_CLAN_IMAGE}/40671762/bbda331bf3731b90e96308dec011cc5b13619de6.png[/img]\n[h3]･About the Palworld “Tides of Terraria” update:[/h3]\n\"Palworld: Tides of Terraria\" is a major update that introduces a collaboration with the adventure game \"Terraria\", which has sold over 60 million copies worldwide.\nThe world of Terraria collides with Palworld!\nCatch, train, fight, and work monsters from Terraria just like Pals...?\nA large update that can be enjoyed by fans of Palworld and Terraria!\nIn addition to the collaboration content, further new content will be added, including new Pals and new islands.\nThe contents of the update will be announced across official Palworld social media channels over the next few weeks, so please follow!\n[img]{STEAM_CLAN_IMAGE}/40671762/e480b90f2bc8fa199892bb15a80d09f768b48b9b.png[/img]\n[img]{STEAM_CLAN_IMAGE}/40671762/b7f890bec27deb3a43ae99080a2e7039a00392cd.png[/img]\n[img]{STEAM_CLAN_IMAGE}/40671762/c2a4f51505ef03c7c313691268042e06cb6bc0a2.png[/img]\nThank you for your continued support of Palworld.\nPalworld Development Team"
+    },
+    {
+      "gid": "1799088287838282",
+      "title": "Palworld devs 'disappointed' as they patch out a game mechanic to appease Nintendo, but 'the alternative would have led to an even greater deterioration'",
+      "url": "https://steamstore-a.akamaihd.net/news/externalpost/PC Gamer/1799088287838282",
+      "date": "2025-05-09",
+      "timestamp": 1746724366,
+      "author": "Lincoln Carpenter",
+      "feed_label": "PC Gamer",
+      "content": "Today, Palworld received a new patch. Update v0.5.5 doesn't add any new features, Pals, or environments. It doesn't fix any bugs or offer any optimization improvements. Instead, the accompanying\nSteam news post\nfrom developer Pocketpair only includes one patch note:..\nRead more."
+    },
+    {
+      "gid": "1799088287836792",
+      "title": "Palworld's newest patch stops you from gliding with your Pals, and yes, it is because of Nintendo's lawsuit",
+      "url": "https://steamstore-a.akamaihd.net/news/externalpost/Rock, Paper, Shotgun/1799088287836792",
+      "date": "2025-05-08",
+      "timestamp": 1746719911,
+      "author": "",
+      "feed_label": "Rock, Paper, Shotgun",
+      "content": "We all know that\nPalworld\ndeveloper\nPocketpair\nare currently dealing with a lawsuit from Mario maker\nNintendo\n. Specifically, it's over\npatent rights\n, rather than something like copyright infringement which everyone was expecting given the liberties that Palword takes with its Pal designs. In November it was confirmed\nwhat those patents are\n, partially relating to the fact you could throw out your Pals from a ball and they'd appear, similar to Pokemon Legends Arceus. That feature was patched out from Palworld though, and in a new post Pocketpair has confirmed that this is because of the ongoing lawsuit.\nRead more"
+    },
+    {
+      "gid": "1799088287831112",
+      "title": "Palworld is changing several key gameplay systems amid Pokemon Company lawsuit",
+      "url": "https://steamstore-a.akamaihd.net/news/externalpost/PCGamesN/1799088287831112",
+      "date": "2025-05-08",
+      "timestamp": 1746704780,
+      "author": "editor@pcgamesn.com",
+      "feed_label": "PCGamesN",
+      "content": "Palworld\n, oh, how I've missed you. Blasting onto the scene in January of last year, topping the charts and upsetting parents everywhere, Pocketpair's colossal survival game has been quiet as of late, possibly a result of ongoing legal troubles with Nintendo. Several of Palworld's game mechanics have been compared to the Switch maker's classic creature catcher, Pokemon, with various models also allegedly plagiarized from Nintendo's game. While aspects and mechanics of Palworld have already been removed or adjusted in response to the lawsuit, Pocketpair has now confirmed that more \"disappointing\" changes are on the way.\nRead the rest of the story...\nRELATED LINKS:\nBest Palworld mods and how to install\nPalworld system requirements\nBest Palworld settings for PC"
+    },
+    {
+      "gid": "1799088287826816",
+      "title": "Palworld devs confirm game changes due to the Nintendo / Pokemon lawsuit",
+      "url": "https://steamstore-a.akamaihd.net/news/externalpost/GamingOnLinux/1799088287826816",
+      "date": "2025-05-08",
+      "timestamp": 1746695579,
+      "author": "",
+      "feed_label": "GamingOnLinux",
+      "content": "As we all suspected, recent changes to Palworld game mechanics were as a direct result of the ongoing lawsuit filed against developer Pocketpair from Nintendo / The Pokemon Company.\nRead the full article here: https://www.gamingonlinux.com/2025/05/palworld-devs-confirm-game-changes-due-to-the-nintendo-pokemon-lawsuit/"
+    },
+    {
+      "gid": "1799088287822734",
+      "title": "Update v0.5.5: Changes to glider Pals",
+      "url": "https://steamstore-a.akamaihd.net/news/externalpost/steam_community_announcements/1799088287822734",
+      "date": "2025-05-08",
+      "timestamp": 1746684398,
+      "author": "pocketpair_admin",
+      "feed_label": "Community Announcements",
+      "content": "[Patch Notice]\nPalworld version v0.5.5 has been released!\n==\n▼Mechanics Adjustment\n・The mechanics for gliding with a Pal have been changed.\n→ Until now, you could use certain Pals as a glider, however from this patch you will only be able to glide by using a glider.\n※ Glider Pals will now provide a new passive partner skill effect while gliding, but the player must have a glider equipped to actually glide.\n==\nThank you for your continued support of Palworld"
+    },
+    {
+      "gid": "1797185861594685",
+      "title": "v0.5.4: Fixed minor bugs",
+      "url": "https://steamstore-a.akamaihd.net/news/externalpost/steam_community_announcements/1797185861594685",
+      "date": "2025-04-16",
+      "timestamp": 1744779610,
+      "author": "pocketpair_admin",
+      "feed_label": "Community Announcements",
+      "content": "Palworld v0.5.4 has been released.\n＝＝＝\n▼Bug Fixes\n・Fixed minor bugs\n＝＝\nThank you for your continued support of Palworld."
+    },
+    {
+      "gid": "1796551539172669",
+      "title": "v0.5.3: Autosave and server bug fixes",
+      "url": "https://steamstore-a.akamaihd.net/news/externalpost/steam_community_announcements/1796551539172669",
+      "date": "2025-04-09",
+      "timestamp": 1744167986,
+      "author": "pocketpair_admin",
+      "feed_label": "Community Announcements",
+      "content": "Palworld v0.5.3 has been released.\n＝＝＝\n▼Bug Fixes\n・Implemented a fix for the PS5 autosave bug\n・Fixed a bug where dedicated server save data rolled back under certain settings\n・Fixed a memory leak on dedicated servers\n・Fixed other minor bugs\n＝＝\nThank you for your continued support of Palworld."
+    },
+    {
+      "gid": "1795917897311462",
+      "title": "Update v0.5.2: Console autosave and dedicated server bug fixes",
+      "url": "https://steamstore-a.akamaihd.net/news/externalpost/steam_community_announcements/1795917897311462",
+      "date": "2025-04-03",
+      "timestamp": 1743649442,
+      "author": "pocketpair_admin",
+      "feed_label": "Community Announcements",
+      "content": "Update v0.5.2 has been released.\n(Disclaimer: This patch is primarily for console players, but must be applied to all versions of the game)\n＝＝＝\n▼Bug Fixes\n・Implemented measures to resolve the autosave error on PS5\n・Fixed a bug that caused chat text on dedicated servers to be displayed incorrectly on Xbox\n・Fixed a bug that caused achievements on Xbox/PS5 to not work properly\n・Fixed other minor bugs\n＝＝\nRegarding the autosave issue on PS5, it is possible that it has not yet been fully resolved in some situations, but we will continue to monitor and resolve the issue completely.\nIf the bug persists on your system, please submit a bug report with all the necessary information.\nWe sincerely apologize for any inconvenience caused.\nThank you for your continued support of Palworld"
+    },
+    {
+      "gid": "1795283637953606",
+      "title": "Palworld decides it wasn't April fooling after all, is actually making a visual novel dating sim where you can, uh, 'dismember and eat' some of its cast",
+      "url": "https://steamstore-a.akamaihd.net/news/externalpost/PC Gamer/1795283637953606",
+      "date": "2025-04-01",
+      "timestamp": 1743439318,
+      "author": "Harvey Randall",
+      "feed_label": "PC Gamer",
+      "content": "round this time last year, on the day of the April fool, Palworld made a funny little jest towards the gaming public—what if we do an extremely original joke and say we're making a visual novel?\nHe he, ho ho, wouldn't that be a laugh\n...\nRead more."
+    },
+    {
+      "gid": "1795283637948223",
+      "title": "Palworld's dating sim \"Pal♡world! ~More Than Just Pals~\"! Wishlist now!",
+      "url": "https://steamstore-a.akamaihd.net/news/externalpost/steam_community_announcements/1795283637948223",
+      "date": "2025-03-31",
+      "timestamp": 1743426462,
+      "author": "pocketpair_admin",
+      "feed_label": "Community Announcements",
+      "content": "[h2]･Steam store page is now open! Available to wishlist![/h2]\n[url=https://store.steampowered.com/app/3620480/]https://store.steampowered.com/app/3620480/[/url]\nAhead of the release, we have made the Steam store page public. Please add it to your wishlist.\n[h2]･Latest video: \"Pal♡world! ~More Than Just Pals~ | 2nd trailer\"[/h2]\n[previewyoutube=ZUpilXM6638;full]https://youtu.be/ZUpilXM6638[/previewyoutube]\nThe second trailer introduces five characters: Chillet’s little sister Chillet Ignis, the clumsy Quivern, the school nurse Saya, the energetic Tarantriss, and the bizarre Yandere Splatterina! Look forward to exciting developments as daily life at Palpagos Private Academy becomes even more lively.\n[h2]･Lovander Body Pillow Giveaway is Now Underway![/h2]\nTo celebrate the release of the Steam store page, a Lovander Body Pillow Giveaway Campaign is being held on Palworld Official X.\nPlease check the applicable post for details on how to apply.\n[url=https://x.com/Palworld_EN/status/1906688298925633793]https://x.com/Palworld_EN/status/1906688298925633793[/url]\n[img]{STEAM_CLAN_IMAGE}/40671762/75079d8b51bd193f0203cb3f18998182a1980104.png[/img]"
+    },
+    {
+      "gid": "1795283637773203",
+      "title": "Hotfix v0.5.1: Fixed Pals disappearing from the Dimensional Pal Storage",
+      "url": "https://steamstore-a.akamaihd.net/news/externalpost/steam_community_announcements/1795283637773203",
+      "date": "2025-03-26",
+      "timestamp": 1742958352,
+      "author": "pocketpair_admin",
+      "feed_label": "Community Announcements",
+      "content": "Palworld v0.5.1 has been released.\n==\n・Fixed a bug where repeatedly using Quick Retrieve on the same Pal in the Dimensional Pal Storage could cause the Pal to disappear\n==\nThank you for your continued support of Palworld"
+    },
+    {
+      "gid": "1794830911044917",
+      "title": "From Palworld movies to Palworld TV shows: 'Everyone under the sun pitched us every idea you can imagine,' says Pocketpair's communications director",
+      "url": "https://steamstore-a.akamaihd.net/news/externalpost/PC Gamer/1794830911044917",
+      "date": "2025-03-26",
+      "timestamp": 1742937403,
+      "author": "Christopher Livingston",
+      "feed_label": "PC Gamer",
+      "content": "Palworld blew up big in 2024, becoming only the second game in Steam history to hit more than 2 million concurrent players (along with PUBG and, later that same year, Black Myth: Wukong). That kind of success put a big target on developer Pocketpair, drawing fraudulent claims of AI use and plagiarism,\nheaps of abuse from gamers\n, and a\npatent lawsuit from Nintendo\n...\nRead more."
+    },
+    {
+      "gid": "1794830910888213",
+      "title": "Palworld Global Popularity Poll Results are in!",
+      "url": "https://steamstore-a.akamaihd.net/news/externalpost/steam_community_announcements/1794830910888213",
+      "date": "2025-03-21",
+      "timestamp": 1742518959,
+      "author": "pocketpair_admin",
+      "feed_label": "Community Announcements",
+      "content": "Hello everyone!\n[img]{STEAM_CLAN_IMAGE}/40671762/78b67af3dffec7157904fc28cca5f1919fa26c54.png[/img]\n[h2]･About the Palworld Global Popularity Poll[/h2]\nTo celebrate Palworld’s first anniversary, a Global Popularity Poll was held where players from around the world voted for their favorite characters. The poll included over 180 Pals and the seven leaders of the enemy factions.\nIn the Overall Ranking, the top three spots were claimed by human characters: Zoe, Saya, and Lily.\nMeanwhile, the Favorite Pal Ranking saw Chillet, Jetragon, and Anubis take the top spots.\n[img]{STEAM_CLAN_IMAGE}/40671762/0eeb47c103a6f065caa5f9d9f2398ee132f11f30.png[/img]\nYou can view the full results, including the rankings up to the 194th place and region-specific rankings, on the event’s dedicated website.\nCheck it out here:\n[url=https://palworld-vote.com/]https://palworld-vote.com/[/url]\n[h2]･Zoe will become a Recruitable Ally![/h2]\nFollowing her victory in the Overall Ranking, Zoe will become a recruitable ally in a future update to Palworld!\nThis update is planned for release within the year. Stay tuned for more details!\n[img]{STEAM_CLAN_IMAGE}/40671762/0350054ec1c281241b327b9bea1a679684703808.png[/img]\n[h2]･Commemorative Skins for Chillet, Jetragon and Anubis are coming soon![/h2]\nTo celebrate their top 3 spots in the Favorite Pal Ranking, special commemorative skins for Chillet, Jetragon and Anubis are in the works!\nThey’re set to be released later this year — stay tuned!\n[img]{STEAM_CLAN_IMAGE}/40671762/511dd184e7f3ea0bd56c493b32076f98d1a24d5a.png[/img]\nThank you for your continued support of Palworld.\nPalworld Development Team"
+    },
+    {
+      "gid": "1794102528273866",
+      "title": "Palworld's Crossplay Update does far more than let you play with console buddies, adding photo mode, a drafting table and 'dimensional Pal Storage'",
+      "url": "https://steamstore-a.akamaihd.net/news/externalpost/PC Gamer/1794102528273866",
+      "date": "2025-03-20",
+      "timestamp": 1742400853,
+      "author": "Rick Lane",
+      "feed_label": "PC Gamer",
+      "content": "Pocketpair's survival megahit\nPalworld\nreceived a new update earlier today. Titled the Crossplay Update, its main addition is, unsurprisingly, the ability to farm and shoot the game's Pokémon-like \"Pals\" with players from all other platforms...\nRead more."
+    },
+    {
+      "gid": "1794102528265604",
+      "title": "Palworld is back bigger than ever, with crossplay and highly requested features",
+      "url": "https://steamstore-a.akamaihd.net/news/externalpost/PCGamesN/1794102528265604",
+      "date": "2025-03-19",
+      "timestamp": 1742380876,
+      "author": "editor@pcgamesn.com",
+      "feed_label": "PCGamesN",
+      "content": "If you and your friends have been waiting for the perfect time to dive back into\nPalworld\n, this is it. Pocketpair's flagship title finally has crossplay between platforms, making it easier to play the biggest survival game of 2024 with everyone. That's not all, though, because the Palworld update also comes with a slate of new, highly requested features and bug fixes. Palworld's Steam Early Access journey continues, and there's a lot to see if you jump back in now.\nRead the rest of the story...\nRELATED LINKS:\nIs Palworld crossplay?\nThe 30 best Palworld mods and how to install\nAll Palworld bosses in order and how to beat them"
+    },
+    {
+      "gid": "1794102528265580",
+      "title": "Palworld cross-play has arrived along with a new cosmetic system and Pal transfers between worlds",
+      "url": "https://steamstore-a.akamaihd.net/news/externalpost/GamingOnLinux/1794102528265580",
+      "date": "2025-03-19",
+      "timestamp": 1742380092,
+      "author": "",
+      "feed_label": "GamingOnLinux",
+      "content": "Pocketpair have released the latest update for their smash-hit monster catching game Palworld, bringing cross-play for all platforms along with other features and bug fixes.\nRead the full article here: https://www.gamingonlinux.com/2025/03/palworld-cross-play-has-arrived-along-with-a-new-cosmetic-system-and-pal-transfers-between-worlds/"
+    },
+    {
+      "gid": "1794102528265096",
+      "title": "New Palworld update adds crossplay, Photo Mode, new drafting table feature and cosmetic armour",
+      "url": "https://steamstore-a.akamaihd.net/news/externalpost/Rock, Paper, Shotgun/1794102528265096",
+      "date": "2025-03-19",
+      "timestamp": 1742379153,
+      "author": "",
+      "feed_label": "Rock, Paper, Shotgun",
+      "content": "You've\ncrossbred Pokénots\nin\nPalworld\n, now get ready to crossbreed... players! Pocketpair have taken a break from their packed schedule of\nsaloon brawls with Mario's lawyers\nto update their monster-catching\nsurvival\ngame with a new Crossplay mode, together with new storage options, a Photo Mode, a cosmetic armour system, and a new Drafting Table feature. That and a multitude of smaller tweaks and fixes.\nWitness the crossplaying in the below trailer, in which a base-vandalising Astegon gets its bell rung by a group of visitors presumably running foreign hardware. That'll learn 'em to step on my Lamballs.\nRead more"
+    },
+    {
+      "gid": "1794102528264654",
+      "title": "Make sure you're sitting down: Palworld's crossplay update is now live, also bringing photo mode and the ability to use chairs like they aren't dodgy public toilets",
+      "url": "https://steamstore-a.akamaihd.net/news/externalpost/VG247/1794102528264654",
+      "date": "2025-03-19",
+      "timestamp": 1742378637,
+      "author": "",
+      "feed_label": "VG247",
+      "content": "Palworld\nnow has crossplay, thanks to a fresh update that's just dropped and brought with it a pretty beefy list of other additions and changes - including a photo mode and the ability to sit down in a way that seemingly won't risk your character ending up floating in mid-air.\nRead more"
+    },
+    {
+      "gid": "1794102528255788",
+      "title": "Crossplay Update v0.5.0: Play across all platforms, Global Palbox and more!",
+      "url": "https://steamstore-a.akamaihd.net/news/externalpost/steam_community_announcements/1794102528255788",
+      "date": "2025-03-19",
+      "timestamp": 1742353720,
+      "author": "pocketpair_admin",
+      "feed_label": "Community Announcements",
+      "content": "[previewyoutube=gWjKPwcuIOg;full][/previewyoutube]\n[Crossplay Update Notice]\nUpdate v0.5.0 has been released.\n＝＝＝\n▼New Content\n・Crossplay!\n⤷ Cross-play is now available across all platforms.\n・Global Palbox\n⤷ Store Pal data in the Global Palbox and transfer Pals between worlds!\n・Dimensional Pal Storage\n⤷ A new storage system with 10 times the capacity of a regular Palbox! Guild members can access it, and it can also be used as a personal storage with private settings.\n・Cosmetic Armour System!\n⤷ You can now equip armour cosmetically in the Antique Dresser. Change your character’s appearance without affecting armour stats!\n・Photo Mode\n⤷ Accessible from the Pal Command Wheel. Hide the UI and move the camera around to take stunning screenshots.\n・Drafting Table\n⤷ Combine low-rarity blueprints to create higher-rarity ones!\n・Dedicated Servers for Mac\n▼Specification Adjustments\n・Buildings can now be placed even if they overlap with a Pal\n・When connecting foundations or roofs, the connected pieces will now automatically align in the same direction\n・Assigning an Ice Pal to the Flea Market will slow down item decay in storage and sales\n・Added torches at the entrances of random dungeons for better visibility\n・Players can now sit on chairs and cushions\n・Some weapons that dealt ultra-high damage to trees will no longer drop items upon destruction\n・Added new NPCs and improved NPC behaviour during conversations\n▼Balance Adjustments\n・Adjusted elemental chest rewards. Dog Coins will always drop from these chests and they also have a small chance of containing work suitability books. (Existing chests in current worlds will retain old drop tables; new ones will follow the updated table.)\n・Increased EXP gained from defeating the Attack Chopper\n・Increased the DPS of Flamethrowers\n・Adjusted the default attack used by Electric and Dark Pals when all active skills are on cooldown, making them more in line with the other elements\n・Some human NPCs now have work suitability and work animations when assigned tasks at a base\n・Summoned raid bosses can no longer damage other bases\n・Added Water attribute to Dumud\n・NPC event rewards have been adjusted. To maintain fairness, all NPC conversation logs have been reset, allowing players to claim rewards again!\n▼UI\n・Favourites have been categorised into Favourite 1, 2, and 3 groups\n・Holding the +/- button in the Pal Soul Enhancement UI will now continuously increase/decrease values\n・Added a new sorting option for Pal Box: Sort by Work Suitability Level\n・Added a \"Extra Large\" text size option\n・Added Fullscreen Mode\n▼Achievements\n・Added several new achievements\n▼ Bug Fixes\n・Fixed an issue where players could get launched into space while climbing\n・Fixed a bug where getting stunned by an enemy while riding a flying Pal over water would send the player flying into the sky\n・Fixed an issue where commanding a summoned Pal to attack would also target the Black Marketeer and Medal Merchant\n・Fixed a bug where Bounty Tokens with identical passive effects did not stack properly\n・Fixed an issue where players would sometimes get launched upward when dismounting Azurmane\n・Fixed an issue on dedicated servers where Pals could get stuck on top of feed boxes\n・Fixed an issue where raiding NPCs could attack players through walls if they couldn't reach them\n・Fixed a bug on dedicated servers where Bounty Token effects were not applied upon login\n・Fixed an issue where attacking some NPCs did not add to the player's crime level\n・Various many other minor bug fixes\n===\nThank you for your continued support of Palworld"
+    },
+    {
+      "gid": "1794102528231817",
+      "title": "\"It changed a lot of things for us\" Palworld community manager says that Nintendo lawsuit was a \"shock\" to Pocketpair, because \"no one even considered\" patent infringement",
+      "url": "https://steamstore-a.akamaihd.net/news/externalpost/VG247/1794102528231817",
+      "date": "2025-03-18",
+      "timestamp": 1742291351,
+      "author": "",
+      "feed_label": "VG247",
+      "content": "Palworld\ndeveloper Pocketpair didn't see the ongoing legal action between it and the combination of Nintendo and The Pokemon Company coming, according to the game's community manager, who says news of the suit came as a \"shock\" because patent infringement was \"something that no one even considered\".\nRead more"
+    },
+    {
+      "gid": "1794102528220646",
+      "title": "It was 'super popular to hate Palworld' after launch, says community manager: 'A lot of companies might crumble under the threats, under the pressure'",
+      "url": "https://steamstore-a.akamaihd.net/news/externalpost/PC Gamer/1794102528220646",
+      "date": "2025-03-18",
+      "timestamp": 1742260789,
+      "author": "Kat Bailey",
+      "feed_label": "PC Gamer",
+      "content": "Palworld\n, the survival game often referred to as \"Pokémon with guns\"—sometimes affectionately, sometimes derisively—drew mixed reactions from critics when it first launched in January 2024...\nRead more."
+    },
+    {
+      "gid": "1794102528220213",
+      "title": "'It was a very depressing day': Palworld community manager reveals studio's reaction to Nintendo lawsuit",
+      "url": "https://steamstore-a.akamaihd.net/news/externalpost/PC Gamer/1794102528220213",
+      "date": "2025-03-18",
+      "timestamp": 1742259422,
+      "author": "Kat Bailey",
+      "feed_label": "PC Gamer",
+      "content": "Nintendo's announcement that it was\nsuing Pocketpair\n, the developer of the massively successful\nPalworld\n, came as a shock last year, not the least to Pocketpair itself. The lawsuit stunned the games industry, and internally, it sent Pocketpair scrambling for answers...\nRead more."
+    },
+    {
+      "gid": "1794102528072863",
+      "title": "Palworld is getting crossplay in 'late March'",
+      "url": "https://steamstore-a.akamaihd.net/news/externalpost/GamingOnLinux/1794102528072863",
+      "date": "2025-03-13",
+      "timestamp": 1741870087,
+      "author": "",
+      "feed_label": "GamingOnLinux",
+      "content": "Pocketpair have announced that sometime real soon you'll be able to team up with players across different platforms in the popular monster catcher Palworld.\nRead the full article here: https://www.gamingonlinux.com/2025/03/palworld-is-getting-crossplay-in-late-march/"
+    },
+    {
+      "gid": "1794014851389694",
+      "title": "Palworld: Crossplay Update to be released in late March!",
+      "url": "https://steamstore-a.akamaihd.net/news/externalpost/steam_community_announcements/1794014851389694",
+      "date": "2025-03-12",
+      "timestamp": 1741784433,
+      "author": "pocketpair_admin",
+      "feed_label": "Community Announcements",
+      "content": "[img]{STEAM_CLAN_IMAGE}/40671762/e829a69a3cb2b34668f7278a412074412a738ffe.png[/img]\n[h2]･About the Crossplay Update[/h2]\nThis update will implement multiplayer between different platforms and the ability to move Pals between worlds.\nCrossplay is supported between all currently released platforms, including Steam, Xbox, PS5 and Mac. Please enjoy crossplay with your family and friends!\nFor more details, please check the release notes that will be published on the day of the update.\nThank you for your continued support of Palworld.\nPalworld Development Team"
+    },
+    {
+      "gid": "1792116353343997",
+      "title": "Hotfix v0.4.15.66880: Fast travel fix on dedicated servers",
+      "url": "https://steamstore-a.akamaihd.net/news/externalpost/steam_community_announcements/1792116353343997",
+      "date": "2025-02-25",
+      "timestamp": 1740456363,
+      "author": "pocketpair_admin",
+      "feed_label": "Community Announcements",
+      "content": "Palworld v0.4.15.66880 has been released.\n==\n・Fixed a bug that caused freezing and server timeouts when fast traveling on dedicated servers\n==\nThank you for your continued support of Palworld"
+    },
+    {
+      "gid": "1792116353194116",
+      "title": "A year later, Palworld hits 32m players while continuing to fight off Nintendo",
+      "url": "https://steamstore-a.akamaihd.net/news/externalpost/GamingOnLinux/1792116353194116",
+      "date": "2025-02-20",
+      "timestamp": 1740058004,
+      "author": "",
+      "feed_label": "GamingOnLinux",
+      "content": "It's been a little bit over a year now since Palworld arrived in Early Access, with developer Pocketpair announcing how well it's done along with another patch out now.\nRead the full article here: https://www.gamingonlinux.com/2025/02/a-year-later-palworld-hits-32m-players-while-continuing-to-fight-off-nintendo/"
+    },
+    {
+      "gid": "1792116353179971",
+      "title": "Update v0.4.15: Random Pal mode rework! Bug fixes!",
+      "url": "https://steamstore-a.akamaihd.net/news/externalpost/steam_community_announcements/1792116353179971",
+      "date": "2025-02-20",
+      "timestamp": 1740021350,
+      "author": "pocketpair_admin",
+      "feed_label": "Community Announcements",
+      "content": "Palworld version v0.4.15 has been released!\n==\n▼Major Bug Fixes\n・Implemented a workaround for a bug that caused map data to reset.\n・Fixed several Xbox and SteamDeck crashes.\n▼Mechanics Rework\n・Reworked Random Pal mode. The level of wild pals that appear has been fixed for each region. This means that the strength of enemies will gradually increase as you progress, and only the pals that appear will be random.\n▼Balance Adjustments\n・Adjusted the elemental chest rewards. They are now guaranteed to drop Dog Coins and also have a low chance of dropping work suitability books too.\n▼Network\n・Added measures to address the player rubberbanding issues in multiplayer.\n▼Optimization\n・Optimized save data file sizes.\n▼Bug Fixes\n・Fixed an issue where Pals at bases would get stuck on each other on dedicated servers\n・Fixed an issue where some naturally occurring map objects, such as mushrooms, were not spawning after being destroyed by player construction\n・Fixed an issue where neutral NPCs spawned in random events would not become criminal when attacked\n・Fixed an issue where Pals would not work if summoned too close to a tree\n・Fixed an issue where NPCs would sometimes shake when firing their guns\n・Fixed minor bugs such as texture issues\n・Fixed an issue where anti-aircraft missile launchers would occasionally respawn\n・Fixed an issue where some buildings would not align properly\n・Fixed an issue where Pals would not enter caves\n==\nThank you for your continued support of Palworld\n-------------\nThe following changes in the v0.4.15 patch were not applied correctly and accidentally left out of the patch:\n・Adjusted the elemental chest rewards. They are now guaranteed to drop Dog Coins and also have a low chance of dropping work suitability books too.\nWe're currently working to correct the issue.\nWe apologize for the inconvenience and thank you for your continued support of Palworld."
+    },
+    {
+      "gid": "1791580426098849",
+      "title": "Japanese patent attorney, burdened with a party pooper's knowledge, says Nintendo having 22 out of 23 Palworld-targeting claims 'rejected' in the US is business as usual",
+      "url": "https://steamstore-a.akamaihd.net/news/externalpost/PC Gamer/1791580426098849",
+      "date": "2025-02-18",
+      "timestamp": 1739812934,
+      "author": "Harvey Randall",
+      "feed_label": "PC Gamer",
+      "content": "Nintendo's suing of Palworld\nhas, as one might imagine, set the internet on fire. Primarily because most people like a good underdog story, and also because Nintendo has built a reputation for being\nvery, very litigious\n...\nRead more."
+    },
+    {
+      "gid": "1790214123178920",
+      "title": "Palworld developer 'blown away' by the response to its new publishing arm, which has received 150 game pitches just one week after opening",
+      "url": "https://steamstore-a.akamaihd.net/news/externalpost/PC Gamer/1790214123178920",
+      "date": "2025-02-02",
+      "timestamp": 1738501200,
+      "author": "Rick Lane",
+      "feed_label": "PC Gamer",
+      "content": "Palworld\ndeveloper Pocketpair launched a new publishing business last week, following the gargantuan success of its Pokémon-inspired survival game. The response was, shall we say, enthusiastic, with Pocketpair's comms director and publishing manager John Buckley stating he received\n1,500 LinkedIn requests\nwithin 24 hours...\nRead more."
+    },
+    {
+      "gid": "1789580505433454",
+      "title": "Swamped with 1,500+ LinkedIn invitations in 24 hours, the manager at Palworld's new publishing arm 'underestimated how much interest there would be'",
+      "url": "https://steamstore-a.akamaihd.net/news/externalpost/PC Gamer/1789580505433454",
+      "date": "2025-01-27",
+      "timestamp": 1737978237,
+      "author": "Harvey Randall",
+      "feed_label": "PC Gamer",
+      "content": "Palworld's developer Pocketpair, not being slowed down by\nNintendo's lawsuit\n, has gone and opened a\npublishing arm\n. Pocketpair Publishing, which already has a horror game made by Surgent Studios in the works, is up, running, and taking inquiries...\nRead more."
+    },
+    {
+      "gid": "1789580505336384",
+      "title": "Palworld gets a roadmap including co-op crossplay, world transfers for Pals and an ending",
+      "url": "https://steamstore-a.akamaihd.net/news/externalpost/GamingOnLinux/1789580505336384",
+      "date": "2025-01-24",
+      "timestamp": 1737717215,
+      "author": "",
+      "feed_label": "GamingOnLinux",
+      "content": "Palworld developer Pocketpair have recently revealed a fresh roadmap of what's to come for the popular monster catching survival game.\nRead the full article here: https://www.gamingonlinux.com/2025/01/palworld-gets-a-roadmap-including-co-op-crossplay-world-transfers-for-pals-and-an-ending/"
+    },
+    {
+      "gid": "1789580505325561",
+      "title": "Update v0.4.14: Spring Festival skins! Balance adjustments and bug fixes!",
+      "url": "https://steamstore-a.akamaihd.net/news/externalpost/steam_community_announcements/1789580505325561",
+      "date": "2025-01-24",
+      "timestamp": 1737688382,
+      "author": "pocketpair_admin",
+      "feed_label": "Community Announcements",
+      "content": "[Patch Notice]\nPalworld version v0.4.14 has been released!\n[img]{STEAM_CLAN_IMAGE}/40671762/89ceab3aa28aebd485fc307aaba458795728ab7f.png[/img]\n==\n▼Spring Festival Skins!\nFive Spring Festival skins have been added for all players!\n(※You must have the corresponding Pal to equip the skin)\n・Lucky Cattiva\n・Fortune-Bringer Lyleen\n・Fortune-Bringer Lyleen Noct\n・Lion-Dancer Chillet\n・Lion-Dancer Chillet Ignis\n▼Specification Adjustments\n・Pals will now target the nearest enemy after being summoned\n・Changed the behaviour of large Pals at bases to be the same as small Pals. This allows them to pass through narrow passages and they will be less likely to collide with ceilings and such\n・Added earth element to Mammorest and Mammorest Cryst\n・Added water element and the work suitability \"watering\" to Killamari\n▼Balance Adjustments\n・Reduced the amount of power required by the large electric egg incubator and significantly increased the amount of power stored in the battery\n・Expanded the range of the target area near the reticle when targeting the same enemy\n・Fixed a bug where the stamina of some Pals was different between normal Pals and Alpha Pals\n・Adjusted the rewards from large oil rig treasure chest and removed the uncommon plasma cannon blueprint\n・Extended the distance at which the Advanced Bow damage begins to drop off by 1.5\n・Reduced the amount of plasteel required when crafting weapons and armor\n・Increased the production speed of crude oil from the crude oil extractor\n・Increased the rate at which crude oil extraction speed increases at the Pal Labor Research Laboratory\n・Increased the durability of weapons and armor that can be created with some blueprints (durability of already created equipment will remain unchanged, so it will appear that the durability has decreased at first)\n▼Bug Fixes\n・Fixed a bug that caused the game to crash when a Pal with four negative passive skills was put through surgery by Dr. Brawn\n・Fixed a bug that caused the NEW display in the building UI to not disappear when starting a new save data\n・Fixed an issue that caused the treasure chest in the Oil Rig to not respawn\n・Fixed a bug that sometimes caused the workbench effect to remain\n・Fixed a bug that caused the PS5 players to be able to join Xbox games. This feature is currently under development and was released unintentionally\n・Fixed an issue where some terrain was disappearing\n==\nThank you for your continued support of Palworld"
+    },
+    {
+      "gid": "1789039014437815",
+      "title": "To celebrate Palworld's first anniversary, Pocketpair has shared a roadmap for future updates, even if it doesn't say when any of it might be coming",
+      "url": "https://steamstore-a.akamaihd.net/news/externalpost/VG247/1789039014437815",
+      "date": "2025-01-20",
+      "timestamp": 1737307087,
+      "author": "",
+      "feed_label": "VG247",
+      "content": "It's been a year since\nPalworld\nlaunched into early access, and today a roadmap showing off plans for future updates has been revealed.\nRead more"
+    },
+    {
+      "gid": "1789039014431643",
+      "title": "Celebrating Palworld’s first anniversary! Future roadmap revealed!",
+      "url": "https://steamstore-a.akamaihd.net/news/externalpost/steam_community_announcements/1789039014431643",
+      "date": "2025-01-19",
+      "timestamp": 1737291650,
+      "author": "pocketpair_admin",
+      "feed_label": "Community Announcements",
+      "content": "Hello everyone!\n[img]{STEAM_CLAN_IMAGE}/40671762/8fab0bbe7cef72817388ed5679204b3e19e5e4c8.png[/img]\n[h2]･Worldwide Pal Popularity Poll[/h2]\nWe'll be holding a popularity vote for the over 180 Pals that have appeared so far, as well as the seven leaders of the enemy factions. We invite all players and fans to take part.\nVoting Site\nhttps://vote.pocketpair.jp/\n[h2]･Future Updates[/h2]\nWe've been updating the game since the start of Early Access, and we'll continue to update Palworld as we prepare for the official release!\nThe future roadmap includes the following:\n-CO-OP Crossplay\n-World Transfers for Pals\n-World Tree / Ending Scenario\n-Further ways to strengthen and improve Pals\n-Various new content such as new Pals and technologies\n-Game Collaborations (Including Terraria)\n-Improvements to world object placement\n-Improvements to base Pals\n-Improvements to optimization\n-Improvements to UX\nWe look forward to your continued support for Palworld in its second year.\n[img]{STEAM_CLAN_IMAGE}/40671762/4e483ed163c262e7411cead6612ca65cb5e6ca38.png[/img]\n[h2]･Soundtrack Released for Free![/h2]\nThe soundtrack is available for free on the Pocketpair official YouTube channel. Enjoy the music of Palworld, a mysterious world of adventure and action, and enjoy a unique video featuring over 50 different Pals!\n[previewyoutube=k-ywFLxwu-k;full][/previewyoutube]\nThank you for your continued support of Palworld.\nPalworld Development Team"
+    },
+    {
+      "gid": "1788945554743214",
+      "title": "Update v0.4.13: Feybreak balance adjustments and bug fixes!",
+      "url": "https://steamstore-a.akamaihd.net/news/externalpost/steam_community_announcements/1788945554743214",
+      "date": "2025-01-15",
+      "timestamp": 1736912159,
+      "author": "pocketpair_admin",
+      "feed_label": "Community Announcements",
+      "content": "Palworld version v0.4.13 has been released!\n==\n・Increased the turning speed of Xenolord and Frostallion while in the air\n・Increased the drop rate of legendary blueprints from the large chests on the Large Oil Rig, and removed uncommon blueprints from the large chest loot table.\n・Fixed a bug that would cause characters to fall under the terrain when logging in, etc.\n・Fixed a bug that would cause autosaving and saving when returning to the title screen to not work properly\n・Fixed a bug that would cause Pals to stop generating power when there are no players at the base\n・Fixed a bug that would cause Pals at the base to stop moving on dedicated servers\n・Fixed a bug that would cause tower bosses to stop moving\n・Fixed a bug that would cause the attack chopper to fly too high\n・Expanded the weak spots on the attack chopper\n・Summoned Pals will now run back to the player if they get too far away during combat\n・Summoned Pals will no longer move out of the way if the player is aiming in their vicinity\n・Fixed the grappling gun behavior while mounted\n・Fixed a bug that allowed players to feed unintended items to Pals\n・Fixed a bug where players could go all the way to the end of a dungeon without defeating the boss\n・Fixed a bug where the boss of the desert dungeon would appear in strange positions\n・Fixed a bug where Pals working on a Human-Powered Generator would face in the wrong direction\n・Fixed a bug that allowed foundations to be built on top of the Pal Expedition Station\n・Fixed a bug that prevented oil from being sold at the Flea Market\n・Fixed a bug that prevented players from interacting with chests while riding a Pal\n・Fixed a bug where there was a hole at the base of Royal Frostallion's tail\n・Fixed a bug where the player would sometimes not move for a while when starting multiplayer\n・Fixed a bug that allowed players do damage other player's base by using Meowmere\n・Fixed several bugs related to Xenolord's active skills\n・Fixed a bug that caused warping or going through walls when using Bolt Blink\n・Fixed a bug that caused Pals to continue moving in the Spider Raid even when near death\n・Fixed the behavior of Stone Beat while mounted\n・Fixed a bug that caused some active skills to be interrupted when attacked\n・Fixed a bug that sometimes prevented Tarantriss' partner skill \"Tarantriss' Web\" from being activated\n・Fixed a bug that caused the screen to not shake when using Grizzbolt's partner skill\n・Fixed a bug that caused the gun to be distorted when using Lifmunk's partner skill\n・Fixed a bug where damage from Nyafia's partner skill was lower than expected\n・Fixed a bug where the work speed displayed on the Pal Details screen was different between the host and client\n・Fixed a bug where the description for technologies with prerequisites could disappear\n・Fixed some terrain bugs\n・Fixed a bug where some trees and flowers were not rendered properly\n・Fixed a bug where some NPCs would not sell items\n・Fixed the spawn positions of some NPCs\n・Fixed a bug that caused the work speed buff from food to be lower than expected\n・Fixed several crashes\n・Fixed save backup data when overwriting the Xbox version backup\n・Many other minor bug fixes\n==\nThank you for your continued support of Palworld"
+    },
+    {
+      "gid": "1788311419175028",
+      "title": "'He was trying his best'—Palworld had a lone server guy trying to keep the game afloat during its 2 million player launch",
+      "url": "https://steamstore-a.akamaihd.net/news/externalpost/PC Gamer/1788311419175028",
+      "date": "2025-01-14",
+      "timestamp": 1736856315,
+      "author": "Harvey Randall",
+      "feed_label": "PC Gamer",
+      "content": "While Palworld's player count has calmed down in the time since its release, it's still carved a cosy little niche for itself on Steam.\nSteamDB\nhas it hovering between 20,000 and 50,000 players over the past few months, with a big bump to around 200,000 in December 2024 due to the release of a\nmajor update, Feybreak\n...\nRead more."
+    },
+    {
+      "gid": "1787858252755523",
+      "title": "Valve set Palworld back as Steam Deck Playable but with multiple listed problems",
+      "url": "https://steamstore-a.akamaihd.net/news/externalpost/GamingOnLinux/1787858252755523",
+      "date": "2025-01-04",
+      "timestamp": 1735929257,
+      "author": "",
+      "feed_label": "GamingOnLinux",
+      "content": "It's been a strange few days for Palworld on Steam Deck. Originally it was rated Steam Deck Playable, then after the major Feybreak update Valve set it as Steam Deck Unsupported and now it's back to Steam Deck Playable again.\nRead the full article here: https://www.gamingonlinux.com/2025/01/valve-set-palworld-back-as-steam-deck-playable-but-with-multiple-listed-problems"
+    },
+    {
+      "gid": "1788311419052231",
+      "title": "Valve set Palworld back as Steam Deck Playable but with multiple listed problems",
+      "url": "https://steamstore-a.akamaihd.net/news/externalpost/GamingOnLinux/1788311419052231",
+      "date": "2025-01-04",
+      "timestamp": 1735929257,
+      "author": "",
+      "feed_label": "GamingOnLinux",
+      "content": "It's been a strange few days for Palworld on Steam Deck. Originally it was rated Steam Deck Playable, then after the major Feybreak update Valve set it as Steam Deck Unsupported and now it's back to Steam Deck Playable again.\nRead the full article here: https://www.gamingonlinux.com/2025/01/valve-set-palworld-back-as-steam-deck-playable-but-with-multiple-listed-problems/"
+    },
+    {
+      "gid": "1786573931066959",
+      "title": "While Palworld enjoys a resurgence Valve dropped the rating to Steam Deck Unsupported",
+      "url": "https://steamstore-a.akamaihd.net/news/externalpost/GamingOnLinux/1786573931066959",
+      "date": "2025-01-02",
+      "timestamp": 1735822736,
+      "author": "",
+      "feed_label": "GamingOnLinux",
+      "content": "Palworld is enjoying a nice resurgence after the release of the Feybreak major update with a huge increase in players. Going from around a regular 45,000 players online to around 200,000 concurrent players. However, Valve have dropped the rating the Steam Deck Unsupported.\nRead the full article here: https://www.gamingonlinux.com/2025/01/while-palworld-enjoys-a-resurgence-valve-dropped-the-rating-to-steam-deck-unsupported"
+    },
+    {
+      "gid": "1786573931003634",
+      "title": "Huge new Palworld update sends Steam players skyrocketing",
+      "url": "https://steamstore-a.akamaihd.net/news/externalpost/PCGamesN/1786573931003634",
+      "date": "2024-12-31",
+      "timestamp": 1735644577,
+      "author": "editor@pcgamesn.com",
+      "feed_label": "PCGamesN",
+      "content": "It's only appropriate that\nPalworld\nends 2024 on a high. The survival-collect-'em-up with guns made huge waves at the start of the year, attracting millions of players on Steam, and now it's roared back up the charts thanks to a substantial update.\nRead the rest of the story...\nRELATED LINKS:\nAll Palworld bosses in order and how to beat them\nPalworld Feybreak adds a big new island to the Steam hit, and it's out now\nThe 26 best Palworld mods and how to install"
+    }
+  ]
+}

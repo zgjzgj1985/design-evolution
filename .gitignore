@@ -21,10 +21,12 @@ node_modules/
 *.swp
 *.swo
 
-# Database
-*.db
-*.sqlite
+# Byte-compiled
+*.pyc
+
+# Data files (keep .gitkeep for directory structure)
 data/
+!data/.gitkeep
 
 # OS
 .DS_Store
