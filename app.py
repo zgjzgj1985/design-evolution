@@ -1,4 +1,4 @@
-"""
+﻿"""
 宝可梦Like游戏多人机制设计演进研究工具
 主应用入口 - Streamlit Web UI
 
@@ -518,17 +518,40 @@ with st.sidebar:
 st.markdown('<h1 class="main-header">游戏设计演进研究工具</h1>', unsafe_allow_html=True)
 st.markdown('<p class="sub-header">宝可梦Like游戏多人对战（PvP/PvE）设计迭代分析 | 本地静态数据</p>', unsafe_allow_html=True)
 
-# 获取数据 - 优化：用 session_state 缓存，避免每次 rerun 都重新请求
-# 缓存 key 包含游戏和世代，只有切换时才重新获取
+# 获取数据 - 世代/游戏切换时同步重新加载，避免依赖 st.rerun() 导致的状态残留
 cache_data_key = f"_cached_patches_{selected_game}_{generation}"
-cache_time_key = f"_cached_patches_time_{selected_game}_{generation}"
 
-if cache_data_key not in st.session_state:
-    with st.spinner("正在从数据源获取信息..."):
+# 检测是否切换了游戏或世代
+current_game_key = "_current_game"
+current_gen_key = "_current_gen"
+prev_game = st.session_state.get(current_game_key)
+prev_gen = st.session_state.get(current_gen_key)
+
+# 首次加载或切换了游戏/世代：同步更新状态，直接重新加载数据
+# 重要：必须同时清除 patch 分析相关的 session_state，否则旧状态会残留导致 DOM 混乱
+if prev_game is None or prev_game != selected_game or prev_gen != generation:
+    # 清除所有旧缓存（包括 patch 数据和分析结果）
+    keys_to_clear = [k for k in list(st.session_state.keys()) 
+                     if k.startswith("_cached_patches_") or k.startswith("patch_analysis_") 
+                     or k.startswith("show_reanalysis_result_") or k.startswith("reanalysis_triggered_")]
+    for k in keys_to_clear:
+        if k in st.session_state:
+            del st.session_state[k]
+    # 更新选择状态
+    st.session_state[current_game_key] = selected_game
+    st.session_state[current_gen_key] = generation
+    # 直接加载新数据（不使用缓存，避免残留）
+    with st.spinner("正在加载数据..."):
         patches, features, fetch_stats = fetch_game_data(selected_game, generation)
     st.session_state[cache_data_key] = (patches, features, fetch_stats)
-else:
+elif cache_data_key in st.session_state:
+    # 未切换世代，使用缓存
     patches, features, fetch_stats = st.session_state[cache_data_key]
+else:
+    # 首次加载且无缓存
+    with st.spinner("正在加载数据..."):
+        patches, features, fetch_stats = fetch_game_data(selected_game, generation)
+    st.session_state[cache_data_key] = (patches, features, fetch_stats)
 
 # 统计信息
 col1, col2, col3, col4 = st.columns(4)
@@ -538,9 +561,9 @@ with col2:
     st.metric("更新日志", len(patches))
 with col3:
     st.metric("世代", f"第{generation}世代" if selected_game == "Pokemon" else "N/A")
-    with col4:
-        source_label = "Wiki 结构化数据" if fetch_stats["source"] == "wiki" else "本地 data/ 目录"
-        st.caption(f"数据来源：{source_label}")
+with col4:
+    source_label = "Wiki 结构化数据" if fetch_stats["source"] == "wiki" else "本地 data/ 目录"
+    st.caption(f"数据来源：{source_label}")
 
 # 显示错误信息（如果有）
 if fetch_stats.get("errors"):
@@ -578,19 +601,25 @@ with tab1:
 
         请稍后重试或检查网络连接。""")
     else:
-        # 筛选控件
+        # 筛选控件 - 必须绑定 key 且包含世代信息，切换世代时自动重置
         col_filter1, col_filter2 = st.columns([3, 1])
         with col_filter1:
-            search_term = st.text_input("搜索更新内容", placeholder="输入关键词搜索...")
+            search_term = st.text_input(
+                "搜索更新内容",
+                placeholder="输入关键词搜索...",
+                key=f"search_term_{selected_game}_{generation}"
+            )
 
         with col_filter2:
             all_categories = set()
             for p in patches:
                 all_categories.update(p.get("categories", []))
             category_filter = st.multiselect(
-                "筛选类别",
+                "筛选类别（留空为全部显示）",
                 options=sorted(list(all_categories)),
-                default=sorted(list(all_categories))[:3] if all_categories else [],
+                default=[],  # 默认不筛选，让用户看到所有记录
+                placeholder="选择类别筛选...",
+                key=f"category_filter_{selected_game}_{generation}",
             )
 
         # 筛选数据
@@ -623,373 +652,356 @@ with tab1:
         # ========== 展示数据 ==========
         st.info(f"共 {len(filtered_patches)} 条更新记录")
 
-        # 展开区域样式
-        st.markdown("""
-        <style>
-        .patch-detail-card {
-            border: 1px solid #e0e0e0;
-            border-radius: 8px;
-            padding: 16px;
-            margin-bottom: 16px;
-            background: #fafafa;
-        }
-        .patch-detail-header {
-            font-size: 0.85rem;
-            color: #666;
-            margin-bottom: 12px;
-            padding-bottom: 10px;
-            border-bottom: 1px dashed #ddd;
-        }
-        .patch-ai-section {
-            border-radius: 8px;
-            padding: 14px;
-            margin: 12px 0;
-        }
-        .patch-ai-section h5 {
-            color: #1f77b4;
-            margin: 0 0 10px 0;
-            font-size: 0.95rem;
-        }
-        .patch-meta-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 8px;
-            margin: 10px 0;
-        }
-        .patch-meta-item {
-            background: white;
-            padding: 8px 12px;
-            border-radius: 6px;
-            border: 1px solid #e0e0e0;
-        }
-        .patch-meta-label {
-            font-size: 0.75rem;
-            color: #888;
-            text-transform: uppercase;
-            margin-bottom: 2px;
-        }
-        .patch-meta-value {
-            font-size: 0.9rem;
-            color: #333;
-            font-weight: 500;
-        }
-        .patch-full-content {
-            background: white;
-            padding: 14px;
-            border-radius: 6px;
-            border: 1px solid #e0e0e0;
-            margin-top: 12px;
-            line-height: 1.7;
-            font-size: 0.9rem;
-        }
-        .patch-tag {
-            display: inline-block;
-            padding: 3px 10px;
-            border-radius: 12px;
-            font-size: 0.8rem;
-            margin: 2px;
-        }
-        .patch-tag-pvp { background: #ff6b6b; color: white; }
-        .patch-tag-pve { background: #4ecdc4; color: white; }
-        .patch-tag-mechanic { background: #45b7d1; color: white; }
-        .patch-tag-balance { background: #96ceb4; color: white; }
-        .patch-tag-other { background: #ddd; color: #666; }
-        </style>
-        """, unsafe_allow_html=True)
+        # 补丁列表渲染占位符
+        # 策略：使用 st.empty() 作为固定锚点，每次切换世代时先清空再重建，
+        # 配合动态 key 确保 Streamlit 完全替换 DOM，彻底解决列表长度收缩时的残留问题
+        patch_list_placeholder = st.empty()
+        patch_list_key = f"patch_list_{selected_game}_{generation}_{len(filtered_patches)}"
+        with patch_list_placeholder.container(key=patch_list_key):
+            # 展开区域样式
+            st.markdown("""
+            <style>
+            .patch-detail-card {
+                border: 1px solid #e0e0e0;
+                border-radius: 8px;
+                padding: 16px;
+                margin-bottom: 16px;
+                background: #fafafa;
+            }
+            .patch-detail-header {
+                font-size: 0.85rem;
+                color: #666;
+                margin-bottom: 12px;
+                padding-bottom: 10px;
+                border-bottom: 1px dashed #ddd;
+            }
+            .patch-ai-section {
+                border-radius: 8px;
+                padding: 14px;
+                margin: 12px 0;
+            }
+            .patch-ai-section h5 {
+                color: #1f77b4;
+                margin: 0 0 10px 0;
+                font-size: 0.95rem;
+            }
+            .patch-meta-grid {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 8px;
+                margin: 10px 0;
+            }
+            .patch-meta-item {
+                background: white;
+                padding: 8px 12px;
+                border-radius: 6px;
+                border: 1px solid #e0e0e0;
+            }
+            .patch-meta-label {
+                font-size: 0.75rem;
+                color: #888;
+                text-transform: uppercase;
+                margin-bottom: 2px;
+            }
+            .patch-meta-value {
+                font-size: 0.9rem;
+                color: #333;
+                font-weight: 500;
+            }
+            .patch-full-content {
+                background: white;
+                padding: 14px;
+                border-radius: 6px;
+                border: 1px solid #e0e0e0;
+                margin-top: 12px;
+                line-height: 1.7;
+                font-size: 0.9rem;
+            }
+            .patch-tag {
+                display: inline-block;
+                padding: 3px 10px;
+                border-radius: 12px;
+                font-size: 0.8rem;
+                margin: 2px;
+            }
+            .patch-tag-pvp { background: #ff6b6b; color: white; }
+            .patch-tag-pve { background: #4ecdc4; color: white; }
+            .patch-tag-mechanic { background: #45b7d1; color: white; }
+            .patch-tag-balance { background: #96ceb4; color: white; }
+            .patch-tag-other { background: #ddd; color: #666; }
+            </style>
+            """, unsafe_allow_html=True)
 
-        for idx_patch, patch in enumerate(filtered_patches[:20]):
-            # 从数据库读取已缓存的分析结果（如果有）
-            ch = get_content_hash(patch)
-            cached_cls = global_db.get_classification(selected_game, ch)
-            cls = cached_cls
+            for idx_patch, patch in enumerate(filtered_patches[:20]):
+                # 从数据库读取已缓存的分析结果（如果有）
+                ch = get_content_hash(patch)
+                cached_cls = global_db.get_classification(selected_game, ch)
+                cls = cached_cls
 
-            # 从内容关键词实时判断是否和研究方向相关，不依赖缓存
-            # 精确匹配：多人对战机制设计演进的6个研究方向
-            raw = (patch.get("title", "") + patch.get("content", "")).lower()
-            research_keywords = [
-                # 集火/保排
-                "集火", "保排", "保护", "守住", "看我嘛", "愤怒粉", "双击",
-                "2v2", "双打", "单打",
-                # 团体战
-                "raid", "团体战", "极巨团体", "太晶团体", "集体", "多人",
-                # 爆发资源机制
-                "mega", "极巨化", "太晶化", "z招式", "z招",
-                # 速度博弈
-                "先制", "速度", "顺风", "高速", "优先度",
-                # VGC/规则
-                "vgc", "规则", "ban", "禁止", "分级", "赛季",
-                "规则表", "pvp", "pve", "对战",
-                # 平衡性（需配合具体对象）
-                "削弱", "增强", " buff", "nerf",
-            ]
-            pvp_related = any(k in raw for k in research_keywords)
+                # 从内容关键词实时判断是否和研究方向相关，不依赖缓存
+                raw = (patch.get("title", "") + patch.get("content", "")).lower()
+                research_keywords = [
+                    "集火", "保排", "保护", "守住", "看我嘛", "愤怒粉", "双击",
+                    "2v2", "双打", "单打",
+                    "raid", "团体战", "极巨团体", "太晶团体", "集体", "多人",
+                    "mega", "极巨化", "太晶化", "z招式", "z招",
+                    "先制", "速度", "顺风", "高速", "优先度",
+                    "vgc", "规则", "ban", "禁止", "分级", "赛季",
+                    "规则表", "pvp", "pve", "对战",
+                    "削弱", "增强", " buff", "nerf",
+                ]
+                pvp_related = any(k in raw for k in research_keywords)
 
-            highlight_border = "#ff6b6b" if pvp_related else "#1f77b4"
-            highlight_bg = "#fff5f5" if pvp_related else "#ffffff"
-            badge_icon = "[研究相关]" if pvp_related else "[更新]"
+                highlight_border = "#ff6b6b" if pvp_related else "#1f77b4"
+                highlight_bg = "#fff5f5" if pvp_related else "#ffffff"
+                badge_icon = "[研究相关]" if pvp_related else "[更新]"
 
-            # 实时推断分类类型，不依赖缓存
-            type_val = ""
-            if any(k in raw for k in ["raid", "团体战", "极巨团体", "太晶团体", "多人", "pve", "合作"]):
-                type_val = "PvE"
-            elif any(k in raw for k in ["vgc", "pvp", "对战", "双打", "单打", "规则", "ban", "赛季", "分级", "削弱", "增强", "极巨化", "太晶化", "mega", "z招"]):
-                type_val = "PvP"
-            if type_val:
-                color = "#4ecdc4" if type_val == "PvE" else "#96ceb4"
-                type_label = f'<span style="background:{color};color:white;padding:2px 8px;border-radius:8px;font-size:10px;margin-left:6px">{type_val}</span>'
-            else:
-                type_label = ""
-
-            pvp_badge = '<span style="background:#ff6b6b;color:white;padding:2px 8px;border-radius:10px;font-size:11px;margin-left:6px">多人对战相关</span>' if pvp_related else ''
-
-            content_preview = patch.get("content", "")
-            content_line = f'<div style="font-size:0.82rem;color:#555;margin-top:6px;line-height:1.5">{content_preview[:100]}{"..." if len(content_preview) > 100 else ""}</div>' if content_preview else ""
-
-            card_html_with_preview = (
-                f'<div style="border-left: 4px solid {highlight_border}; background: {highlight_bg};'
-                f'padding: 12px 16px; margin-bottom: 8px; border-radius: 4px;">'
-                f'<div style="font-weight: 600; margin-bottom: 4px;">'
-                f'{badge_icon} <b>{patch.get("date", "N/A")}</b> — {patch.get("title", "N/A")[:60]}{type_label}{pvp_badge}'
-                f'</div>'
-                f'<div style="font-size: 0.82rem; color: #666;">'
-                f'版本: {patch.get("version", "N/A")}　类别: {" / ".join(patch.get("categories", [])[:3])}'
-                f'</div>'
-                f'{content_line}'
-                f'</div>'
-            )
-            st.markdown(card_html_with_preview, unsafe_allow_html=True)
-
-            with st.expander("查看详情", expanded=False):
-                # 使用 session_state 管理每条更新的分析状态
-                patch_key = f"patch_analysis_{get_content_hash(patch)}"
-                if patch_key not in st.session_state:
-                    st.session_state[patch_key] = None
-
-                # 元信息行
-                col_m1, col_m2, col_m3 = st.columns(3)
-                with col_m1:
-                    st.markdown("**日期**: " + patch.get('date', 'N/A'))
-                with col_m2:
-                    st.markdown("**版本**: " + patch.get('version', 'N/A'))
-                with col_m3:
-                    categories = patch.get('categories', [])
-                    if categories:
-                        cat_tags = " ".join([f'<span class="patch-tag patch-tag-other">{c}</span>' for c in categories[:3]])
-                        st.markdown(f"**类别**: {cat_tags}", unsafe_allow_html=True)
-
-                # 完整更新内容
-                content = patch.get("content", "")
-                detail_content = patch.get("detail", "")
-                if content:
-                    st.markdown("**更新摘要**:")
-                    st.markdown(f'<div class="patch-full-content">{content}</div>', unsafe_allow_html=True)
-
-                # 详细改动（如果有）
-                if detail_content:
-                    st.markdown("**详细改动**:")
-                    st.markdown(f'<div style="background:#fffef0;padding:12px;border-radius:6px;border-left:3px solid #f0ad4e;margin:10px 0;font-size:0.9rem;line-height:1.7">{detail_content}</div>', unsafe_allow_html=True)
-
-                # 详细背景信息
-                full_context = patch.get("full_context", "")
-                impact = patch.get("impact", "")
-                vgc_relevance = patch.get("vgc_relevance", "")
-                balance_changes = patch.get("balance_changes", {})
-
-                if full_context or impact or vgc_relevance or balance_changes:
-                    st.markdown("#### 详细背景")
-                    with st.expander("点击展开详细背景信息"):
-                        if full_context:
-                            st.markdown("**背景说明**:")
-                            st.markdown(f'<div style="background:#f8f9fa;padding:12px;border-radius:6px;margin:6px 0;font-size:0.88rem;line-height:1.7">{full_context}</div>', unsafe_allow_html=True)
-
-                        if balance_changes:
-                            st.markdown("**数值改动详情**:")
-                            for name, changes in balance_changes.items():
-                                change_str = ", ".join([f"{k}: {v}" for k, v in changes.items()])
-                                st.markdown(f"- **{name}**: {change_str}")
-
-                        if impact:
-                            st.markdown("**影响分析**:")
-                            st.markdown(f'<div style="background:#e8f4fd;padding:10px;border-radius:6px;margin:6px 0;font-size:0.88rem">{impact}</div>', unsafe_allow_html=True)
-
-                        if vgc_relevance:
-                            st.markdown("**VGC相关说明**:")
-                            st.markdown(f'<div style="background:#f0f8ff;padding:10px;border-radius:6px;margin:6px 0;font-size:0.88rem">{vgc_relevance}</div>', unsafe_allow_html=True)
-
-                # 官方更新日志原文（内嵌显示）
-                official_notes = patch.get("official_notes", "")
-                if official_notes:
-                    st.markdown("#### 官方更新日志原文")
-                    st.markdown(f"""
-                    <div style="background:#1a1a2e;color:#eee;font-family:monospace;padding:16px;border-radius:8px;margin:10px 0;max-height:400px;overflow-y:auto;font-size:0.85rem;line-height:1.6">
-                    {official_notes.replace(chr(10), '<br>')}
-                    </div>
-                    """, unsafe_allow_html=True)
-
-                # 设计意图
-                if patch.get("intent"):
-                    st.markdown("**设计意图**:")
-                    st.info(patch.get("intent"))
-
-
-                # =============================================
-                # 检查是否已有分析结果
-                # 优先级：session_state（新分析） > DB缓存（可能旧格式）
-                if st.session_state.get(f"show_reanalysis_result_{patch_key}"):
-                    st.session_state[f"show_reanalysis_result_{patch_key}"] = False
-                    existing_analysis = st.session_state.get(patch_key)
-                    result_source = "新分析"
-                elif st.session_state.get(patch_key):
-                    existing_analysis = st.session_state.get(patch_key)
-                    result_source = "新分析"
-                elif cls:
-                    existing_analysis = cls
-                    has_new_fields = bool(cls.get("research_direction") or cls.get("mechanic_tags"))
-                    result_source = "旧缓存" if not has_new_fields else "DB缓存"
+                type_val = ""
+                if any(k in raw for k in ["raid", "团体战", "极巨团体", "太晶团体", "多人", "pve", "合作"]):
+                    type_val = "PvE"
+                elif any(k in raw for k in ["vgc", "pvp", "对战", "双打", "单打", "规则", "ban", "赛季", "分级", "削弱", "增强", "极巨化", "太晶化", "mega", "z招"]):
+                    type_val = "PvP"
+                if type_val:
+                    color = "#4ecdc4" if type_val == "PvE" else "#96ceb4"
+                    type_label = f'<span style="background:{color};color:white;padding:2px 8px;border-radius:8px;font-size:10px;margin-left:6px">{type_val}</span>'
                 else:
-                    existing_analysis = None
-                    result_source = ""
-                analysis_result = existing_analysis
+                    type_label = ""
 
-                # AI 分析区域
-                st.markdown("---")
+                pvp_badge = '<span style="background:#ff6b6b;color:white;padding:2px 8px;border-radius:10px;font-size:11px;margin-left:6px">多人对战相关</span>' if pvp_related else ''
 
-                # 重新分析优先处理（放在外面，不受 if/else 影响）
-                if st.session_state.get(f"reanalysis_triggered_{patch_key}"):
-                    st.session_state[f"reanalysis_triggered_{patch_key}"] = False
-                    with st.spinner("AI 正在分析中（需等待10-30秒），请稍候..."):
-                        try:
-                            extractor = get_analyzer()
-                            result = extractor.analyze_intent(
-                                game=selected_game,
-                                version=patch.get("version", ""),
-                                date=patch.get("date", ""),
-                                content=patch.get("title", "") + "\n\n" + patch.get("content", ""),
-                            )
-                            if result:
-                                st.session_state[patch_key] = result
-                                ch = get_content_hash(patch)
-                                global_db.add_classification(
-                                    game=selected_game,
-                                    content_hash=ch,
-                                    content_preview=patch.get("content", "")[:200] if patch.get("content") else patch.get("title", "")[:200],
-                                    patch_date=patch.get("date", ""),
-                                    patch_title=patch.get("title", ""),
-                                    classification_type="混合",
-                                    mechanics=result.get("mechanic_tags", []),
-                                    balance_impact="中",
-                                    summary=result.get("competitive_impact", result.get("exact_change", ""))[:500],
-                                    is_multiplayer_related=any(t in result.get("mechanic_tags", []) for t in ["PvP", "PvE", "2v2"]),
-                                )
-                                st.session_state[f"show_reanalysis_result_{patch_key}"] = True
-                                st.rerun()
-                            else:
-                                st.error("分析未能返回结果，请稍后重试")
-                        except Exception as e:
-                            st.error("分析失败: " + str(e))
+                content_preview = patch.get("content", "")
+                content_line = f'<div style="font-size:0.82rem;color:#555;margin-top:6px;line-height:1.5">{content_preview[:100]}{"..." if len(content_preview) > 100 else ""}</div>' if content_preview else ""
 
-                if analysis_result and (
-                    analysis_result.get("exact_change")
-                    or analysis_result.get("competitive_impact")
-                    or analysis_result.get("design_rationale")
-                    or analysis_result.get("research_direction")
-                    or analysis_result.get("intent_summary")
-                    or analysis_result.get("summary")
-                ):
-                    # 已有分析结果，展示详细卡片
-                    ai_border = "#ff6b6b" if pvp_related else "#1f77b4"
-                    ai_bg = "#fff5f5" if pvp_related else "#f0f7ff"
-                    pvp_badge_ai = '<span style="background:#ff6b6b;color:white;padding:2px 8px;border-radius:10px;font-size:11px;margin-left:8px">多人对战相关</span>' if pvp_related else ""
-                    result_color = "#52c41a" if "新" in result_source else "#888"
-                    source_tag = '<span style="background:' + result_color + ';color:white;padding:1px 6px;border-radius:6px;font-size:10px;margin-left:8px">' + result_source + '</span>' if result_source else ""
+                card_html_with_preview = (
+                    f'<div style="border-left: 4px solid {highlight_border}; background: {highlight_bg};'
+                    f'padding: 12px 16px; margin-bottom: 8px; border-radius: 4px;">'
+                    f'<div style="font-weight: 600; margin-bottom: 4px;">'
+                    f'{badge_icon} <b>{patch.get("date", "N/A")}</b> — {patch.get("title", "N/A")[:60]}{type_label}{pvp_badge}'
+                    f'</div>'
+                    f'<div style="font-size: 0.82rem; color: #666;">'
+                    f'版本: {patch.get("version", "N/A")}　类别: {" / ".join(patch.get("categories", [])[:3])}'
+                    f'</div>'
+                    f'{content_line}'
+                    f'</div>'
+                )
+                st.markdown(card_html_with_preview, unsafe_allow_html=True)
 
-                    st.markdown('<div style="background:linear-gradient(135deg,' + ai_bg + ' 0%,#e8f4fd 100%);border-left:4px solid ' + ai_border + ';border-radius:8px;padding:14px;margin:12px 0;">', unsafe_allow_html=True)
-                    st.markdown('<div style="font-size:1rem;font-weight:700;margin-bottom:10px">AI 分析结果' + pvp_badge_ai + source_tag + '</div>', unsafe_allow_html=True)
+                with st.expander("查看详情", expanded=False):
+                    patch_key = f"patch_analysis_{get_content_hash(patch)}"
+                    if patch_key not in st.session_state:
+                        st.session_state[patch_key] = None
 
-                    exact = analysis_result.get("exact_change", "")
-                    if exact:
-                        st.markdown("**具体改动**: " + exact)
+                    col_m1, col_m2, col_m3 = st.columns(3)
+                    with col_m1:
+                        st.markdown("**日期**: " + patch.get('date', 'N/A'))
+                    with col_m2:
+                        st.markdown("**版本**: " + patch.get('version', 'N/A'))
+                    with col_m3:
+                        categories = patch.get('categories', [])
+                        if categories:
+                            cat_tags = " ".join([f'<span class="patch-tag patch-tag-other">{c}</span>' for c in categories[:3]])
+                            st.markdown(f"**类别**: {cat_tags}", unsafe_allow_html=True)
 
-                    impact = analysis_result.get("competitive_impact", analysis_result.get("intent_summary", ""))
-                    if impact:
-                        st.markdown("**竞技影响**: " + impact)
+                    content = patch.get("content", "")
+                    detail_content = patch.get("detail", "")
+                    if content:
+                        st.markdown("**更新摘要**:")
+                        st.markdown(f'<div class="patch-full-content">{content}</div>', unsafe_allow_html=True)
 
-                    rationale = analysis_result.get("design_rationale", analysis_result.get("problem_solved", ""))
-                    if rationale:
-                        st.markdown("**设计理由**: " + rationale)
+                    if detail_content:
+                        st.markdown("**详细改动**:")
+                        st.markdown(f'<div style="background:#fffef0;padding:12px;border-radius:6px;border-left:3px solid #f0ad4e;margin:10px 0;font-size:0.9rem;line-height:1.7">{detail_content}</div>', unsafe_allow_html=True)
 
-                    direction = analysis_result.get("research_direction", "")
-                    if direction:
-                        st.markdown("**研究方向**: " + direction)
+                    full_context = patch.get("full_context", "")
+                    impact = patch.get("impact", "")
+                    vgc_relevance = patch.get("vgc_relevance", "")
+                    balance_changes = patch.get("balance_changes", {})
 
-                    mechanics = analysis_result.get("mechanic_tags", analysis_result.get("mechanics", []))
-                    if mechanics:
-                        mech_list = mechanics if isinstance(mechanics, list) else [mechanics]
-                        st.markdown("**涉及机制**: " + " ".join(['<span class="patch-tag patch-tag-mechanic">' + m + '</span>' for m in mech_list[:6]]), unsafe_allow_html=True)
+                    if full_context or impact or vgc_relevance or balance_changes:
+                        st.markdown("#### 详细背景")
+                        with st.expander("点击展开详细背景信息"):
+                            if full_context:
+                                st.markdown("**背景说明**:")
+                                st.markdown(f'<div style="background:#f8f9fa;padding:12px;border-radius:6px;margin:6px 0;font-size:0.88rem;line-height:1.7">{full_context}</div>', unsafe_allow_html=True)
 
-                    players = analysis_result.get("player_impact", analysis_result.get("affected_players", ""))
-                    if players:
-                        if isinstance(players, list):
-                            players = "、".join(players)
-                        st.markdown("**受影响玩家**: " + players)
+                            if balance_changes:
+                                st.markdown("**数值改动详情**:")
+                                for name, changes in balance_changes.items():
+                                    change_str = ", ".join([f"{k}: {v}" for k, v in changes.items()])
+                                    st.markdown(f"- **{name}**: {change_str}")
 
-                    balance = analysis_result.get("balance_assessment", analysis_result.get("design_pattern", ""))
-                    if balance:
-                        st.markdown("**平衡评估**: " + balance)
+                            if impact:
+                                st.markdown("**影响分析**:")
+                                st.markdown(f'<div style="background:#e8f4fd;padding:10px;border-radius:6px;margin:6px 0;font-size:0.88rem">{impact}</div>', unsafe_allow_html=True)
 
-                    similar = analysis_result.get("similar_historical_cases", [])
-                    if similar and isinstance(similar, list):
-                        st.markdown("**历史参照**:")
-                        for r in similar[:3]:
-                            if isinstance(r, dict):
-                                st.markdown("- " + str(r.get("description", r)))
-                            else:
-                                st.markdown("- " + str(r))
+                            if vgc_relevance:
+                                st.markdown("**VGC相关说明**:")
+                                st.markdown(f'<div style="background:#f0f8ff;padding:10px;border-radius:6px;margin:6px 0;font-size:0.88rem">{vgc_relevance}</div>', unsafe_allow_html=True)
 
-                    st.markdown('</div>', unsafe_allow_html=True)
+                    official_notes = patch.get("official_notes", "")
+                    if official_notes:
+                        st.markdown("#### 官方更新日志原文")
+                        st.markdown(f"""
+                        <div style="background:#1a1a2e;color:#eee;font-family:monospace;padding:16px;border-radius:8px;margin:10px 0;max-height:400px;overflow-y:auto;font-size:0.85rem;line-height:1.6">
+                        {official_notes.replace(chr(10), '<br>')}
+                        </div>
+                        """, unsafe_allow_html=True)
 
-                    if st.button("重新分析", key="reanalysis_" + patch_key):
-                        st.session_state["reanalysis_triggered_" + patch_key] = True
-                        st.rerun()
+                    if patch.get("intent"):
+                        st.markdown("**设计意图**:")
+                        st.info(patch.get("intent"))
 
-                else:
-                    # 没有分析结果，显示分析按钮
-                    st.markdown('<div style="font-size:1rem;font-weight:700;margin-bottom:4px">AI 分析</div>', unsafe_allow_html=True)
-
-                    if llm_ready:
-                        if st.button("深度分析", type="primary", key="analyze_" + patch_key):
-                            with st.spinner("AI 正在分析中（需等待10-30秒），请稍候..."):
-                                try:
-                                    extractor = get_analyzer()
-                                    result = extractor.analyze_intent(
-                                        game=selected_game,
-                                        version=patch.get("version", ""),
-                                        date=patch.get("date", ""),
-                                        content=patch.get("title", "") + "\n\n" + patch.get("content", ""),
-                                    )
-                                    if result:
-                                        st.session_state[patch_key] = result
-                                        ch = get_content_hash(patch)
-                                        global_db.add_classification(
-                                            game=selected_game,
-                                            content_hash=ch,
-                                            content_preview=patch.get("content", "")[:200] if patch.get("content") else patch.get("title", "")[:200],
-                                            patch_date=patch.get("date", ""),
-                                            patch_title=patch.get("title", ""),
-                                            classification_type="混合",
-                                            mechanics=result.get("mechanic_tags", []),
-                                            balance_impact="中",
-                                            summary=result.get("competitive_impact", result.get("exact_change", ""))[:500],
-                                            is_multiplayer_related=any(t in result.get("mechanic_tags", []) for t in ["PvP", "PvE", "2v2"]),
-                                        )
-                                        st.rerun()
-                                    else:
-                                        st.warning("分析未能返回结果，请稍后重试")
-                                except Exception as e:
-                                    st.error("分析失败: " + str(e))
+                    if st.session_state.get(f"show_reanalysis_result_{patch_key}"):
+                        st.session_state[f"show_reanalysis_result_{patch_key}"] = False
+                        existing_analysis = st.session_state.get(patch_key)
+                        result_source = "新分析"
+                    elif st.session_state.get(patch_key):
+                        existing_analysis = st.session_state.get(patch_key)
+                        result_source = "新分析"
+                    elif cls:
+                        existing_analysis = cls
+                        has_new_fields = bool(cls.get("research_direction") or cls.get("mechanic_tags"))
+                        result_source = "旧缓存" if not has_new_fields else "DB缓存"
                     else:
-                        st.warning("请先在侧边栏配置 LLM API Key 以启用 AI 分析")
-                st.markdown(f"[查看官方原文]({patch.get('url')})")
+                        existing_analysis = None
+                        result_source = ""
+                    analysis_result = existing_analysis
+
+                    st.markdown("---")
+
+                    if st.session_state.get(f"reanalysis_triggered_{patch_key}"):
+                        st.session_state[f"reanalysis_triggered_{patch_key}"] = False
+                        with st.spinner("AI 正在分析中（需等待10-30秒），请稍候..."):
+                            try:
+                                extractor = get_analyzer()
+                                result = extractor.analyze_intent(
+                                    game=selected_game,
+                                    version=patch.get("version", ""),
+                                    date=patch.get("date", ""),
+                                    content=patch.get("title", "") + "\n\n" + patch.get("content", ""),
+                                )
+                                if result:
+                                    st.session_state[patch_key] = result
+                                    ch = get_content_hash(patch)
+                                    global_db.add_classification(
+                                        game=selected_game,
+                                        content_hash=ch,
+                                        content_preview=patch.get("content", "")[:200] if patch.get("content") else patch.get("title", "")[:200],
+                                        patch_date=patch.get("date", ""),
+                                        patch_title=patch.get("title", ""),
+                                        classification_type="混合",
+                                        mechanics=result.get("mechanic_tags", []),
+                                        balance_impact="中",
+                                        summary=result.get("competitive_impact", result.get("exact_change", ""))[:500],
+                                        is_multiplayer_related=any(t in result.get("mechanic_tags", []) for t in ["PvP", "PvE", "2v2"]),
+                                    )
+                                    st.session_state[f"show_reanalysis_result_{patch_key}"] = True
+                                    st.rerun()
+                                else:
+                                    st.error("分析未能返回结果，请稍后重试")
+                            except Exception as e:
+                                st.error("分析失败: " + str(e))
+
+                    if analysis_result and (
+                        analysis_result.get("exact_change")
+                        or analysis_result.get("competitive_impact")
+                        or analysis_result.get("design_rationale")
+                        or analysis_result.get("research_direction")
+                        or analysis_result.get("intent_summary")
+                        or analysis_result.get("summary")
+                    ):
+                        ai_border = "#ff6b6b" if pvp_related else "#1f77b4"
+                        ai_bg = "#fff5f5" if pvp_related else "#f0f7ff"
+                        pvp_badge_ai = '<span style="background:#ff6b6b;color:white;padding:2px 8px;border-radius:10px;font-size:11px;margin-left:8px">多人对战相关</span>' if pvp_related else ""
+                        result_color = "#52c41a" if "新" in result_source else "#888"
+                        source_tag = '<span style="background:' + result_color + ';color:white;padding:1px 6px;border-radius:6px;font-size:10px;margin-left:8px">' + result_source + '</span>' if result_source else ""
+
+                        st.markdown('<div style="background:linear-gradient(135deg,' + ai_bg + ' 0%,#e8f4fd 100%);border-left:4px solid ' + ai_border + ';border-radius:8px;padding:14px;margin:12px 0;">', unsafe_allow_html=True)
+                        st.markdown('<div style="font-size:1rem;font-weight:700;margin-bottom:10px">AI 分析结果' + pvp_badge_ai + source_tag + '</div>', unsafe_allow_html=True)
+
+                        exact = analysis_result.get("exact_change", "")
+                        if exact:
+                            st.markdown("**具体改动**: " + exact)
+
+                        impact_res = analysis_result.get("competitive_impact", analysis_result.get("intent_summary", ""))
+                        if impact_res:
+                            st.markdown("**竞技影响**: " + impact_res)
+
+                        rationale = analysis_result.get("design_rationale", analysis_result.get("problem_solved", ""))
+                        if rationale:
+                            st.markdown("**设计理由**: " + rationale)
+
+                        direction = analysis_result.get("research_direction", "")
+                        if direction:
+                            st.markdown("**研究方向**: " + direction)
+
+                        mechanics = analysis_result.get("mechanic_tags", analysis_result.get("mechanics", []))
+                        if mechanics:
+                            mech_list = mechanics if isinstance(mechanics, list) else [mechanics]
+                            st.markdown("**涉及机制**: " + " ".join(['<span class="patch-tag patch-tag-mechanic">' + m + '</span>' for m in mech_list[:6]]), unsafe_allow_html=True)
+
+                        players = analysis_result.get("player_impact", analysis_result.get("affected_players", ""))
+                        if players:
+                            if isinstance(players, list):
+                                players = "、".join(players)
+                            st.markdown("**受影响玩家**: " + players)
+
+                        balance = analysis_result.get("balance_assessment", analysis_result.get("design_pattern", ""))
+                        if balance:
+                            st.markdown("**平衡评估**: " + balance)
+
+                        similar = analysis_result.get("similar_historical_cases", [])
+                        if similar and isinstance(similar, list):
+                            st.markdown("**历史参照**:")
+                            for r in similar[:3]:
+                                if isinstance(r, dict):
+                                    st.markdown("- " + str(r.get("description", r)))
+                                else:
+                                    st.markdown("- " + str(r))
+
+                        st.markdown('</div>', unsafe_allow_html=True)
+
+                        if st.button("重新分析", key="reanalysis_" + patch_key):
+                            st.session_state["reanalysis_triggered_" + patch_key] = True
+                            st.rerun()
+
+                    else:
+                        st.markdown('<div style="font-size:1rem;font-weight:700;margin-bottom:4px">AI 分析</div>', unsafe_allow_html=True)
+
+                        if llm_ready:
+                            if st.button("深度分析", type="primary", key="analyze_" + patch_key):
+                                with st.spinner("AI 正在分析中（需等待10-30秒），请稍候..."):
+                                    try:
+                                        extractor = get_analyzer()
+                                        result = extractor.analyze_intent(
+                                            game=selected_game,
+                                            version=patch.get("version", ""),
+                                            date=patch.get("date", ""),
+                                            content=patch.get("title", "") + "\n\n" + patch.get("content", ""),
+                                        )
+                                        if result:
+                                            st.session_state[patch_key] = result
+                                            ch = get_content_hash(patch)
+                                            global_db.add_classification(
+                                                game=selected_game,
+                                                content_hash=ch,
+                                                content_preview=patch.get("content", "")[:200] if patch.get("content") else patch.get("title", "")[:200],
+                                                patch_date=patch.get("date", ""),
+                                                patch_title=patch.get("title", ""),
+                                                classification_type="混合",
+                                                mechanics=result.get("mechanic_tags", []),
+                                                balance_impact="中",
+                                                summary=result.get("competitive_impact", result.get("exact_change", ""))[:500],
+                                                is_multiplayer_related=any(t in result.get("mechanic_tags", []) for t in ["PvP", "PvE", "2v2"]),
+                                            )
+                                            st.rerun()
+                                        else:
+                                            st.warning("分析未能返回结果，请稍后重试")
+                                    except Exception as e:
+                                        st.error("分析失败: " + str(e))
+                        else:
+                            st.warning("请先在侧边栏配置 LLM API Key 以启用 AI 分析")
+                    st.markdown(f"[查看官方原文]({patch.get('source_url', '#')})")
 
 
 # ==================== Tab 2: 机制时间轴 ====================

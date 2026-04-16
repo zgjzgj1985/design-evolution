@@ -2,6 +2,17 @@
 
 所有版本变更记录遵循 [Keep a Changelog](https://keepachangelog.com/) 规范。
 
+## [Unreleased]
+
+### Fixed
+
+- **版本编年史世代切换 Bug 修复**
+  - 修复切换世代时第 11-20 条更新残留显示的问题
+  - 为搜索框和类别筛选器添加带世代信息的 key，切换世代时自动重置
+  - 修复统计信息区域 col4 缩进错误
+  - 修复 `patch.get('url')` 字段引用错误，改为 `source_url`
+  - 切换世代时同步清除 patch 分析相关的 session_state
+
 ## [1.5.0] - 2026-04-15
 
 ### Added
