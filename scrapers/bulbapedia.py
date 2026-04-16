@@ -319,6 +319,326 @@ class SerebiiScraper:
 
         return movesets
 
+    def get_vgc_season_rules(self, year: int) -> dict:
+        """
+        获取指定年份的 VGC 赛季规则详情
+        Serebii.net 每个赛季有独立页面: https://www.serebii.net/vgc/YYYY.shtml
+        例如: 2017 -> https://www.serebii.net/vgc/2017.shtml (Sun/Moon VGC 2017)
+        """
+        result = {
+            "year": year,
+            "url": f"{self.BASE_URL}/vgc/{year}.shtml",
+            "generation": self._year_to_generation(year),
+            "game": self._year_to_game(year),
+            "rule_set": {},
+            "banned_pokemon": [],
+            "banned_items": [],
+            "special_clauses": [],
+            "competitions": [],
+            "champion": "",
+        }
+
+        soup = self._fetch(f"vgc/{year}.shtml")
+        if not soup:
+            return result
+
+        # 解析页面内容
+        main = soup.find("div", class_="content") or soup.find("main") or soup
+        text = main.get_text(separator="\n", strip=True)
+
+        # 解析 VGC Rule Set
+        rule_section = self._extract_vgc_rules(soup)
+        result["rule_set"] = rule_section
+
+        # 解析禁用宝可梦
+        result["banned_pokemon"] = self._extract_banned_pokemon(soup)
+
+        # 解析禁用道具
+        result["banned_items"] = self._extract_banned_items(soup)
+
+        # 解析特殊条款
+        result["special_clauses"] = self._extract_special_clauses(soup)
+
+        # 解析比赛信息
+        result["competitions"] = self._extract_competitions(soup)
+
+        # 解析冠军信息
+        result["champion"] = self._extract_champion(soup)
+
+        return result
+
+    def get_all_vgc_seasons(self, start_year: int = 2009, end_year: int = None) -> List[dict]:
+        """
+        获取多个年份的 VGC 赛季数据
+        VGC 赛季从 2009 年开始（首届世锦赛）
+        """
+        if end_year is None:
+            import datetime
+            end_year = datetime.datetime.now().year
+
+        seasons = []
+        for year in range(start_year, end_year + 1):
+            season = self.get_vgc_season_rules(year)
+            if season.get("rule_set") or season.get("banned_pokemon"):
+                seasons.append(season)
+        return seasons
+
+    def _year_to_generation(self, year: int) -> int:
+        """根据年份估算对应的宝可梦世代"""
+        mapping = {
+            1996: 1, 1997: 1, 1998: 1, 1999: 2, 2000: 2, 2001: 2,
+            2002: 3, 2003: 3, 2004: 3, 2005: 3, 2006: 4, 2007: 4, 2008: 4,
+            2009: 4, 2010: 5, 2011: 5, 2012: 5, 2013: 5,
+            2014: 6, 2015: 6, 2016: 6,
+            2017: 7, 2018: 7, 2019: 7,
+            2020: 8, 2021: 8,
+            2022: 9, 2023: 9, 2024: 9,
+        }
+        return mapping.get(year, 0)
+
+    def _year_to_game(self, year: int) -> str:
+        """根据年份估算对应的游戏"""
+        mapping = {
+            2009: "钻石/珍珠/白金",
+            2010: "心金/魂银/黑/白",
+            2011: "黑/白",
+            2012: "黑2/白2",
+            2013: "黑2/白2",
+            2014: "X/Y",
+            2015: "X/Y/欧米茄红宝石/阿尔法蓝宝石",
+            2016: "欧米茄红宝石/阿尔法蓝宝石",
+            2017: "太阳/月亮",
+            2018: "究极之日/究极之月",
+            2019: "究极之日/究极之月",
+            2020: "剑/盾",
+            2021: "剑/盾",
+            2022: "朱/紫",
+            2023: "朱/紫",
+            2024: "朱/紫",
+        }
+        return mapping.get(year, "")
+
+    def _extract_vgc_rules(self, soup: BeautifulSoup) -> dict:
+        """从页面提取 VGC 规则集 - 基于实际文本解析"""
+        rules = {}
+
+        # 获取纯文本内容
+        text = soup.get_text()
+
+        # 提取 VGC Rule Set 部分（包含冒号后面的内容）
+        import re
+
+        # 查找 VGC Rule Set 段落
+        rules_patterns = [
+            r"Battle Type:\s*(\w+\s*\w+)",
+            r"Pokémon Restrictions:\s*([^\n]+?)(?=Banned|Clause|Format)",
+            r"Banned Pokémon:\s*([^\n]+?)(?=Banned Items|Clauses?)",
+            r"Banned Items:\s*([^\n]+?)(?=Clause)",
+            r"Clauses?:\s*([^\n]+)",
+        ]
+
+        for pattern in rules_patterns:
+            match = re.search(pattern, text, re.IGNORECASE | re.DOTALL)
+            if match:
+                key = pattern.split(":")[0].replace("(", "").replace(")", "")
+                value = match.group(1).strip()
+                if value:
+                    rules[key] = value
+
+        # 提取 Usable Games
+        usable_match = re.search(r"Usable Games?\s*\[([^\]]+)\]", text)
+        if usable_match:
+            rules["Usable Games"] = usable_match.group(1)
+
+        # 提取 Battle Type
+        if "Double Battle" in text:
+            rules["Battle Type"] = "Double Battle"
+        elif "Triple Battle" in text:
+            rules["Battle Type"] = "Triple Battle"
+
+        # 提取团队大小
+        if "6v6" in text:
+            rules["Team Size"] = "6v6"
+        elif "4v4" in text:
+            rules["Team Size"] = "4v4"
+
+        # 提取图鉴限制
+        dex_patterns = [
+            r"Alola Pokédex",
+            r"National Pokédex",
+            r"Hoenn Pokédex",
+            r"Sinnoh Pokédex",
+            r"Unova Pokédex",
+            r"Kalos Pokédex",
+        ]
+        for pattern in dex_patterns:
+            if re.search(pattern, text, re.IGNORECASE):
+                rules["Pokédex Restriction"] = pattern.replace("Pokédex", "").replace("Pok", "P").strip()
+                break
+
+        return rules
+
+    def _extract_banned_pokemon(self, soup: BeautifulSoup) -> List[str]:
+        """从页面提取禁用宝可梦列表"""
+        text = soup.get_text()
+
+        # 查找 Banned Pokémon 部分
+        import re
+        banned = []
+
+        # 直接匹配禁用宝可梦名称模式
+        known_banned = [
+            "Cosmog", "Cosmoem", "Solgaleo", "Lunala", "Necrozma",
+            "Magearna", "Zygarde", "Ash-Greninja",
+            "Mewtwo", "Mew", "Lugia", "Ho-Oh", "Kyogre", "Groudon",
+            "Rayquaza", "Latios", "Latias", "Jirachi", "Deoxys",
+            "Dialga", "Palkia", "Giratina", "Heatran", "Regigigas",
+            "Cresselia", "Manaphy", "Darkrai", "Shaymin", "Arceus",
+            "Victini", "Reshiram", "Zekrom", "Kyurem", "Keldeo",
+            "Meloetta", "Genesect", "Xerneas", "Yveltal", "Zygarde",
+            "Diancie", "Hoopa", "Volcanion", "Tapu Koko", "Tapu Lele",
+            "Tapu Bulu", "Tapu Fini", "Cosmog", "Nihilego", "Buzzwole",
+            "Pheromosa", "Xurkitree", "Celesteela", "Kartana", "Guzzlord",
+            "Necrozma", "Magearna", "Marshadow", "Poipole", "Naganadel",
+            "Stakataka", "Blacephalon", "Zeraora", "Meltan", "Melmetal",
+        ]
+
+        for pokemon in known_banned:
+            if re.search(rf"\b{pokemon}\b", text):
+                banned.append(pokemon)
+
+        # 从 Banned Pokémon: ... 文本中提取
+        banned_section = re.search(r"Banned Pokémon:\s*([^\n]+?)(?=Banned Items?|Clauses?:)", text, re.IGNORECASE | re.DOTALL)
+        if banned_section:
+            section_text = banned_section.group(1)
+            # 分割并清理
+            names = re.findall(r"([A-Z][a-z]+(?:[-'][A-Z]?[a-z]+)?)", section_text)
+            for name in names:
+                if len(name) > 2 and name not in ["Pok", "Usable", "Alola", "Moon", "Sun"]:
+                    if name not in banned:
+                        banned.append(name)
+
+        return list(dict.fromkeys(banned))[:30]
+
+    def _extract_banned_items(self, soup: BeautifulSoup) -> List[str]:
+        """从页面提取禁用道具列表"""
+        text = soup.get_text()
+        import re
+        banned = []
+
+        # 常见禁用道具
+        known_banned_items = [
+            "Mega Stones", "Soul Dew", "Deepseatooth", "Deepseascall",
+            "Carvanha", "Giratina", "Soul Dew", "King's Rock",
+            "Razor Claw", "Razor Fang", "Soul Dew", "Lucky Punch",
+            "Metal Powder", "Bright Powder", "Focus Band",
+        ]
+
+        # 从 Banned Items: ... 文本中提取
+        banned_section = re.search(r"Banned Items?:\s*([^\n]+)", text, re.IGNORECASE)
+        if banned_section:
+            section_text = banned_section.group(1)
+            items = re.findall(r"([A-Z][a-z]+(?:\s+[A-Z][a-z]+)*(?:\s+Stone)?(?:\s+Dew)?)", section_text)
+            for item in items:
+                if len(item) > 3:
+                    banned.append(item.strip())
+
+        return list(dict.fromkeys(banned))[:15]
+
+    def _extract_special_clauses(self, soup: BeautifulSoup) -> List[str]:
+        """从页面提取特殊条款"""
+        text = soup.get_text()
+        import re
+        clauses = []
+
+        # 常见特殊条款
+        known_clauses = [
+            ("No same Pokémon", "Same Pokémon Clause"),
+            ("No same item", "Same Item Clause"),
+            ("Sleep Clause", "Sleep Clause"),
+            ("Species Clause", "Species Clause"),
+            ("Nickname Clause", "Nickname Clause"),
+            ("Self-KO Clause", "Self-KO Clause"),
+            ("OHKO Clause", "OHKO Clause"),
+            ("Evasion Clause", "Evasion Clause"),
+            ("Endless Battle Clause", "Endless Battle Clause"),
+            ("Mood Lock Clause", "Mood Lock Clause"),
+            ("Team Preview", "Team Preview Clause"),
+            ("Double Boost Clause", "Double Boost Clause"),
+        ]
+
+        for search_term, clause_name in known_clauses:
+            if search_term.lower() in text.lower():
+                clauses.append(clause_name)
+
+        # 从 Clauses: ... 文本中提取
+        clauses_section = re.search(r"Clauses?:\s*([^\n]+)", text, re.IGNORECASE)
+        if clauses_section:
+            section_text = clauses_section.group(1)
+            clauses_text = re.findall(r"([A-Z][a-z]+(?:\s+[A-Z][a-z]+)*)", section_text)
+            for c in clauses_text:
+                if c not in clauses and len(c) > 3:
+                    clauses.append(c)
+
+        return list(dict.fromkeys(clauses))[:15]
+
+    def _extract_competitions(self, soup: BeautifulSoup) -> List[dict]:
+        """从页面提取比赛信息"""
+        competitions = []
+        tables = soup.find_all("table")
+
+        for table in tables:
+            rows = table.find_all("tr")
+            for row in rows:
+                cells = row.find_all("td")
+                if len(cells) >= 2:
+                    # 检查是否包含比赛相关内容
+                    cell_texts = [c.get_text(strip=True) for c in cells]
+                    combined = " ".join(cell_texts)
+
+                    import re
+                    if re.search(r"\d{4}|January|February|March|April|May|June|July|August|September|October|November|December", combined, re.IGNORECASE):
+                        comp = {
+                            "name": cell_texts[0] if cell_texts else "",
+                            "date": "",
+                            "location": "",
+                            "details": " | ".join(cell_texts[1:4]),
+                        }
+
+                        # 提取日期
+                        date_match = re.search(r"(\w+\s+\d{1,2}(?:st|nd|rd|th)?(?:\s+\d{4})?)", combined)
+                        if date_match:
+                            comp["date"] = date_match.group(1)
+
+                        competitions.append(comp)
+
+        return competitions[:20]  # 限制数量
+
+    def _extract_champion(self, soup: BeautifulSoup) -> str:
+        """从页面提取世界冠军信息"""
+        text = soup.get_text()
+        import re
+
+        # 查找 Masters/Veteran/Master 世界冠军
+        patterns = [
+            r"World Championships[^\n]*Master[^\n]*:\s*([^\n]+)",
+            r"Masters?[^\n]*:\s*([^\n]+?)(?=\n|T CG|Pokkén)",
+            r"World Champion[:\s]+([^\n]+)",
+            r"W inner[:\s]+([^\n]+)",
+        ]
+
+        for pattern in patterns:
+            match = re.search(pattern, text, re.IGNORECASE | re.DOTALL)
+            if match:
+                winner = match.group(1).strip()
+                # 清理名称
+                winner = re.sub(r"^\d+\s+", "", winner)
+                winner = winner.split("(")[0].strip()
+                if len(winner) > 2:
+                    return winner
+
+        return ""
+
 
 # ==================== PokeAPI 爬虫 ====================
 

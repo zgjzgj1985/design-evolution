@@ -59,8 +59,15 @@ class Config:
 
     # 宝可梦各世代信息
     POKEMON_GENERATIONS: dict = {
-        8: {"name": "第八世代", "games": ["剑/盾", "盾/剑"], "years": "2019-2022"},
-        9: {"name": "第九世代", "games": ["朱/紫"], "years": "2022-2024"},
+        1: {"name": "第一世代", "games": ["红/绿/蓝/黄"], "years": "1996-1999", "region": "关都", "pvp_intro": " Stadium 提供首个官方双打对战平台"},
+        2: {"name": "第二世代", "games": ["金/银/水晶"], "years": "1999-2001", "region": "城都", "pvp_intro": "水晶版开放电话对战功能"},
+        3: {"name": "第三世代", "games": ["红宝石/蓝宝石/绿宝石"], "years": "2002-2006", "region": "丰缘", "pvp_intro": "RS为VGC双打确立了标准规则"},
+        4: {"name": "第四世代", "games": ["钻石/珍珠/白金"], "years": "2006-2010", "region": "神奥", "pvp_intro": "Wi-Fi对战正式上线，开启线上竞技时代"},
+        5: {"name": "第五世代", "games": ["黑/白/黑2/白2"], "years": "2011-2016", "region": "合众", "pvp_intro": "Seasonal Tournament将VGC带入赛季制时代"},
+        6: {"name": "第六世代", "games": ["X/Y/欧米伽红宝石/阿尔法蓝宝石"], "years": "2013-2016", "region": "卡洛斯", "pvp_intro": "Mega进化成为首个跨世代双打强化机制"},
+        7: {"name": "第七世代", "games": ["太阳/月亮/究极之日/究极之月"], "years": "2016-2019", "region": "阿罗拉", "pvp_intro": "首次实现跨平台跨世代宝可梦传递"},
+        8: {"name": "第八世代", "games": ["剑/盾", "盾/剑"], "years": "2019-2022", "region": "伽勒尔", "pvp_intro": "极巨化成为VGC核心机制"},
+        9: {"name": "第九世代", "games": ["朱/紫"], "years": "2022-2024", "region": "帕底亚", "pvp_intro": "太晶化替代极巨化，全宠可强化"},
     }
 
     # Reddit API 配置（用于社区反应采集）

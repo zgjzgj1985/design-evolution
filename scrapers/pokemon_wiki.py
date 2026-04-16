@@ -7,6 +7,11 @@ import requests
 from bs4 import BeautifulSoup
 from utils.config import config
 
+# 模块级缓存，避免每次实例化都重新加载
+_PATCH_NOTES_CACHE = {}
+_DETAILED_PATCH_NOTES_CACHE = None
+_MULTIPLAYER_FEATURES_CACHE = {}
+
 
 class PokemonWikiScraper:
     """宝可梦 Wiki 爬虫基类"""
@@ -58,6 +63,9 @@ class PokemonWikiScraper:
         返回: [{"feature": "极巨化", "type": "PvP/PvE", "intro": "第八世代",
                 "description": "可将宝可梦巨大化，获得强力招式..."}, ...]
         """
+        if generation in _MULTIPLAYER_FEATURES_CACHE:
+            return _MULTIPLAYER_FEATURES_CACHE[generation]
+
         features_db = {
             8: [
                 {
@@ -110,7 +118,10 @@ class PokemonWikiScraper:
                 },
             ],
         }
-        return features_db.get(generation, [])
+
+        result = features_db.get(generation, [])
+        _MULTIPLAYER_FEATURES_CACHE[generation] = result
+        return result
 
     def get_patch_notes_sample(self, generation: int) -> list:
         """
@@ -118,6 +129,9 @@ class PokemonWikiScraper:
         包含 Gen 8/Gen 9 宝可梦完整更新记录（内置结构化数据 + Wayback Machine 存档链接）
         返回格式化的更新记录
         """
+        if generation in _PATCH_NOTES_CACHE:
+            return _PATCH_NOTES_CACHE[generation]
+
         patches_db = {
             8: [
                 {
@@ -637,7 +651,10 @@ Notes: This update is required for your game to go online.""",
                 },
             ],
         }
-        return self._enrich_changes_with_feedback(patches_db.get(generation, []))
+
+        result = self._enrich_changes_with_feedback(patches_db.get(generation, []))
+        _PATCH_NOTES_CACHE[generation] = result
+        return result
 
     def get_detailed_patch_notes(self) -> dict:
         """
@@ -646,6 +663,10 @@ Notes: This update is required for your game to go online.""",
         数据来源: Serebii.net (https://serebii.net/scarletviolet/patch.shtml)
         包含宝可梦朱紫所有版本的官方更新日志内容
         """
+        global _DETAILED_PATCH_NOTES_CACHE
+        if _DETAILED_PATCH_NOTES_CACHE is not None:
+            return _DETAILED_PATCH_NOTES_CACHE
+
         detailed_db = {
             "朱/紫": {
                 "1.0.1": {
@@ -1074,6 +1095,8 @@ Notes: This update is required for your game to go online.""",
                 },
             },
         }
+
+        _DETAILED_PATCH_NOTES_CACHE = detailed_db
         return detailed_db
 
     def _enrich_changes_with_feedback(self, patches: list) -> list:

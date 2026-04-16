@@ -2,16 +2,35 @@
 
 所有版本变更记录遵循 [Keep a Changelog](https://keepachangelog.com/) 规范。
 
-## [1.5.1] - 2026-04-16
+## [1.6.0] - 2026-04-16
+
+### Added
+
+- **VGC 历史数据采集脚本**
+  - 新增 `scrapers/bulbapedia.py` 中 `SerebiiScraper.get_vgc_season_rules()` 方法：从 Serebii.net 采集 VGC 赛季规则
+  - 新增 `fetch_vgc_history.py` 脚本：批量采集 2009-2021 年共 13 个 VGC 赛季数据
+  - 新增 `data/pokemon/vgc_history.json` 数据文件：包含完整的 VGC 历史规则（禁用宝可梦列表、特殊条款、世界冠军等）
+  - 覆盖 Gen 4-7 的 VGC 赛季历史：2009(Gen4)、2010-2013(Gen5)、2014-2016(Gen6)、2017-2019(Gen7)
+
+- **宝可梦第1-7世代全面支持**
+  - 新增第1世代（1996-1999）数据：红/绿/蓝/黄基础双打对战、招式学习系统、能力值系统
+  - 新增第2世代（1999-2001）数据：特性系统引入、道具有效化、电话对战系统
+  - 新增第3世代（2002-2006）数据：双打正式确立为VGC基础、天气系统引入
+  - 新增第4-7世代 VGC 赛季数据：Wi-Fi对战、赛季制、世界锦标赛、规则迭代等
+  - 新增第6世代数据：Mega进化系统、Prankster特性
+  - 新增第7世代数据：Z招式系统、究极异兽系列
+  - 各世代多人对战机制演进数据（20+条时间轴节点）
 
 ### Changed
 
-- **重构版本编年史分析渲染逻辑为独立辅助函数**
-  - 新增 `get_content_hash()` 函数：使用 MD5 哈希生成内容唯一标识
-  - 新增 `_render_analysis_result()` 函数：将 AI 分析结果卡片的渲染逻辑独立出来，支持 PvP 相关标记和来源标签
-  - 新增 `_render_patch_detail()` 函数：将补丁详情区域（分析结果/分析按钮）的渲染逻辑封装，支持 session_state 管理和重分析触发
-  - 新增 `_render_patch_card()` 函数：将补丁卡片（列表项+详情展开）的渲染逻辑封装，整合 PvP 相关检测、类型标签和背景信息折叠区
-  - 大量内联代码（约 120 行）提取为独立函数，提升代码可维护性
+- **世代选择器扩展**
+  - 侧边栏世代选择器从 [8, 9] 扩展为 [1, 2, 3, 4, 5, 6, 7, 8, 9]，覆盖全部9个世代
+  - 时间轴图表高度从500px扩展至600px，y轴标签清晰标注 Gen 1-9
+  - 机制演进时间轴新增第1-7世代关键节点
+
+- **数据加载架构优化**
+  - `pokemon_wiki.py` 新增 VGC 历史数据懒加载机制，运行时按需加载
+  - `pokemon_wiki.py` 新增 `_get_vgc_history_for_generation()` 方法，自动整合 VGC 赛季数据到各世代
 
 ### Fixed
 
@@ -68,6 +87,15 @@
   - `scrapers/pokemon_wiki.py` 大幅扩展内置版本数据
   - 新增朱紫 4.0.0（Switch 2 兼容更新）等最新版本
   - 完善细节注释和 VGC 相关性说明
+
+- **世代切换性能优化**
+  - `scrapers/pokemon_wiki.py` 新增模块级缓存：`_PATCH_NOTES_CACHE`、`_DETAILED_PATCH_NOTES_CACHE`、`_MULTIPLAYER_FEATURES_CACHE`
+  - `get_patch_notes_sample()` 添加缓存，世代切换时避免重复数据处理
+  - `get_detailed_patch_notes()` 添加缓存，避免重复加载大字典
+  - `get_multiplayer_features()` 添加缓存，避免每次调用都遍历整个 features 数据库
+  - `app.py` Tab 2 PokeAPI 请求添加 `session_state` 缓存
+  - 移除 `fetch_game_data()` 中未使用的 `get_multiplayer_features()` 调用
+  - 世代切换时间从秒级降至毫秒级
 
 - **UI 交互优化**
   - Tab 4「演进报告」的流程优化：主题发现 → 选择 → 生成报告，三步状态指示更清晰

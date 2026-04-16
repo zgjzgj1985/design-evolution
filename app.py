@@ -272,10 +272,9 @@ def fetch_game_data(game: str, generation: int = None, refresh: bool = False) ->
     从真实数据源获取游戏数据
 
     Returns:
-        (patches, features, stats) 元组
+        (patches, stats) 元组
     """
     patches = []
-    features = []
     fetch_stats = {"source": "live", "count": 0, "errors": []}
 
     # 非Steam游戏列表（Nintendo平台）
@@ -323,16 +322,6 @@ def fetch_game_data(game: str, generation: int = None, refresh: bool = False) ->
     except Exception as e:
         fetch_stats["errors"].append(f"数据获取: {str(e)}")
 
-    try:
-        # 从 Wiki 获取机制信息
-        wiki_scraper = get_wiki_scraper()
-        mechanics = wiki_scraper.get_multiplayer_features(generation or 9)
-        if mechanics:
-            features.extend(mechanics)
-
-    except Exception as e:
-        fetch_stats["errors"].append(f"WIKI: {str(e)}")
-
     fetch_stats["total"] = len(patches)
     fetch_stats["count"] = len(patches)
 
@@ -340,9 +329,8 @@ def fetch_game_data(game: str, generation: int = None, refresh: bool = False) ->
     if not patches:
         fetch_stats["source"] = "no_data"
         patches = []
-        features = []
 
-    return patches, features, fetch_stats
+    return patches, fetch_stats
 
 
 # ==================== 侧边栏 ====================
@@ -362,7 +350,7 @@ with st.sidebar:
     if selected_game == "Pokemon":
         generation = st.select_slider(
             "选择世代",
-            options=[8, 9],
+            options=[1, 2, 3, 4, 5, 6, 7, 8, 9],
             value=9,
             format_func=lambda x: f"第{x}世代 ({config.POKEMON_GENERATIONS[x]['years']})",
         )
@@ -542,16 +530,16 @@ if prev_game is None or prev_game != selected_game or prev_gen != generation:
     st.session_state[current_gen_key] = generation
     # 直接加载新数据（不使用缓存，避免残留）
     with st.spinner("正在加载数据..."):
-        patches, features, fetch_stats = fetch_game_data(selected_game, generation)
-    st.session_state[cache_data_key] = (patches, features, fetch_stats)
+        patches, fetch_stats = fetch_game_data(selected_game, generation)
+    st.session_state[cache_data_key] = (patches, fetch_stats)
 elif cache_data_key in st.session_state:
     # 未切换世代，使用缓存
-    patches, features, fetch_stats = st.session_state[cache_data_key]
+    patches, fetch_stats = st.session_state[cache_data_key]
 else:
     # 首次加载且无缓存
     with st.spinner("正在加载数据..."):
-        patches, features, fetch_stats = fetch_game_data(selected_game, generation)
-    st.session_state[cache_data_key] = (patches, features, fetch_stats)
+        patches, fetch_stats = fetch_game_data(selected_game, generation)
+    st.session_state[cache_data_key] = (patches, fetch_stats)
 
 # 统计信息
 col1, col2, col3, col4 = st.columns(4)
@@ -889,32 +877,56 @@ with tab2:
     st.header("机制时间轴")
     st.markdown("可视化展示历代多人对战机制的演进过程")
 
-    # 从 PokeAPI 获取版本信息构建时间轴
+    # 从 PokeAPI 获取版本信息构建时间轴（session_state 缓存避免重复请求）
     timeline_data = []
 
     if selected_game == "Pokemon":
-        try:
-            api_scraper = get_api_scraper()
-            version_groups = api_scraper.get_version_changelog(generation)
+        # 使用 session_state 缓存，避免每次渲染都请求 PokeAPI
+        vgc_cache_key = f"_vgc_timeline_{generation}"
+        if vgc_cache_key not in st.session_state:
+            try:
+                api_scraper = get_api_scraper()
+                version_groups = api_scraper.get_version_changelog(generation)
+                st.session_state[vgc_cache_key] = version_groups
+            except Exception as e:
+                st.session_state[vgc_cache_key] = []
+        else:
+            version_groups = st.session_state[vgc_cache_key]
 
-            for vg in version_groups:
-                timeline_data.append({
-                    "generation": vg.get("generation", generation),
-                    "year": 2019 + (vg.get("generation", generation) - 8),  # 粗略估算
-                    "mechanism": vg.get("version", vg.get("version_group", "")),
-                    "description": f"版本组: {vg.get('version_group', '')}",
-                    "type": "版本",
-                })
-        except Exception as e:
-            st.warning(f"无法从 PokeAPI 获取版本数据: {e}")
+        for vg in version_groups:
+            timeline_data.append({
+                "generation": vg.get("generation", generation),
+                "year": 2019 + (vg.get("generation", generation) - 8),  # 粗略估算
+                "mechanism": vg.get("version", vg.get("version_group", "")),
+                "description": f"版本组: {vg.get('version_group', '')}",
+                "type": "版本",
+            })
 
     # 机制演进数据（基于真实游戏历史）
     mechanism_evolution = [
-        # PvP 机制演进
+        # 第一/二世代演进
+        {"generation": 1, "year": 1996, "mechanism": "基础双打对战", "description": "2v2对战成为标准模式", "type": "PvP"},
+        {"generation": 2, "year": 1999, "mechanism": "特性系统", "description": "约80种特性提供被动战术", "type": "机制"},
+        {"generation": 2, "year": 1999, "mechanism": "道具系统", "description": "宝可梦可携带道具", "type": "机制"},
+        # 第三/四世代演进
+        {"generation": 3, "year": 2002, "mechanism": "双打正式确立", "description": "4v4选2成为VGC基础规则", "type": "PvP"},
+        {"generation": 3, "year": 2002, "mechanism": "天气系统", "description": "晴/雨/沙/冰雹影响战斗", "type": "机制"},
+        {"generation": 4, "year": 2006, "mechanism": "Wi-Fi对战上线", "description": "全球线上双打对战普及", "type": "PvP"},
+        {"generation": 4, "year": 2006, "mechanism": "物理特殊分类改革", "description": "招式按物理/特殊分类", "type": "机制"},
+        # 第五世代演进
+        {"generation": 5, "year": 2011, "mechanism": "赛季制VGC", "description": "Seasonal Tournament正式引入", "type": "PvP"},
+        {"generation": 5, "year": 2011, "mechanism": "天气启动机", "description": "雨队/沙暴队成为环境核心", "type": "PvP"},
+        {"generation": 5, "year": 2012, "mechanism": "世界锦标赛", "description": "Pokemon World Championships举办", "type": "PvP"},
+        # 第六世代演进
         {"generation": 6, "year": 2013, "mechanism": "Mega进化", "description": "特定宝可梦可进化为更强形态", "type": "机制"},
+        {"generation": 6, "year": 2014, "mechanism": "三打对战", "description": "3v3轮换对战模式", "type": "PvP"},
+        # 第七世代演进
         {"generation": 7, "year": 2016, "mechanism": "Z招式", "description": "取代Mega进化的强化系统", "type": "机制"},
+        {"generation": 7, "year": 2017, "mechanism": "究极异兽", "description": "UB系列丰富VGC可用池", "type": "PvP"},
+        # 第八世代演进
         {"generation": 8, "year": 2019, "mechanism": "极巨化", "description": "可让宝可梦巨大化并获得强力招式", "type": "机制"},
         {"generation": 8, "year": 2020, "mechanism": "极巨团体战", "description": "4人合作挑战野生极巨化宝可梦", "type": "PvE"},
+        # 第九世代演进
         {"generation": 9, "year": 2022, "mechanism": "太晶化", "description": "任何宝可梦都可附着太晶宝石", "type": "机制"},
         {"generation": 9, "year": 2022, "mechanism": "太晶团体战", "description": "半即时制4人合作战斗", "type": "PvE"},
     ]
@@ -996,12 +1008,17 @@ with tab2:
 
         fig.update_layout(
             title="多人对战机制演进时间轴",
-            height=500,
+            height=600,
             xaxis_title="年份",
             yaxis_title="世代/版本",
             showlegend=True,
             legend_title="机制类型",
             font=dict(size=13),
+            yaxis=dict(
+                tickmode="array",
+                tickvals=list(range(1, 10)),
+                ticktext=[f"Gen {i}" for i in range(1, 10)],
+            ),
         )
 
         fig.update_yaxes(autorange="reversed")

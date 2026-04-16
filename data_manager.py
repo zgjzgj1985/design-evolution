@@ -25,6 +25,11 @@ GAME_DATA_MAP = {
     "Palworld": "palworld",
 }
 
+# Pokemon 专用数据文件
+POKEMON_DATA_FILES = {
+    "vgc_history": "pokemon/vgc_history.json",
+}
+
 
 class DataManager:
     """本地数据管理器"""
