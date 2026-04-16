@@ -2,6 +2,23 @@
 
 所有版本变更记录遵循 [Keep a Changelog](https://keepachangelog.com/) 规范。
 
+## [1.6.1] - 2026-04-16
+
+### Added
+
+- **世代1-7补丁数据代码实现**
+  - `scrapers/pokemon_wiki.py` 新增 Gen 1-7 版本补丁数据，覆盖1996-2019年重要版本记录
+  - 包含：特性系统、天气系统、Wi-Fi对战、Mega进化、Z招式等关键机制演进数据
+- **Steam游戏数据采集**
+  - 采集 Temtem、Cassette Beasts、Palworld 的 Steam 更新日志到 `data/` 目录
+  - `data/temtem/patches.json`、`data/palworld/patches.json` 等数据文件
+
+### Changed
+
+- **`.gitignore` 更新**
+  - 移除 `data/` 整体忽略规则，改为保留 `.gitkeep` 的同时允许数据文件版本控制
+  - 新增 `data/` 的强制跟踪 (`!data/.gitkeep`)
+
 ## [1.6.0] - 2026-04-16
 
 ### Added
