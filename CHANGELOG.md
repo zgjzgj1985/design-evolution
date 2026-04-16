@@ -2,7 +2,16 @@
 
 所有版本变更记录遵循 [Keep a Changelog](https://keepachangelog.com/) 规范。
 
-## [Unreleased]
+## [1.5.1] - 2026-04-16
+
+### Changed
+
+- **重构版本编年史分析渲染逻辑为独立辅助函数**
+  - 新增 `get_content_hash()` 函数：使用 MD5 哈希生成内容唯一标识
+  - 新增 `_render_analysis_result()` 函数：将 AI 分析结果卡片的渲染逻辑独立出来，支持 PvP 相关标记和来源标签
+  - 新增 `_render_patch_detail()` 函数：将补丁详情区域（分析结果/分析按钮）的渲染逻辑封装，支持 session_state 管理和重分析触发
+  - 新增 `_render_patch_card()` 函数：将补丁卡片（列表项+详情展开）的渲染逻辑封装，整合 PvP 相关检测、类型标签和背景信息折叠区
+  - 大量内联代码（约 120 行）提取为独立函数，提升代码可维护性
 
 ### Fixed
 
