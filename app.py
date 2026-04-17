@@ -184,6 +184,37 @@ st.markdown("""
         font-size: 0.85rem;
         color: #1565c0;
     }
+    .patch-tag {
+        display: inline-block;
+        padding: 2px 8px;
+        border-radius: 10px;
+        font-size: 0.78rem;
+        font-weight: 500;
+        margin-right: 4px;
+    }
+    .patch-tag-mechanic { background-color: #45b7d1; color: white; }
+    .patch-tag-other { background-color: #96ceb4; color: white; }
+    .patch-tag-pvp { background-color: #ff6b6b; color: white; }
+    .patch-tag-pve { background-color: #4ecdc4; color: white; }
+    .patch-tag-balance { background-color: #f0ad4e; color: white; }
+    .patch-full-content {
+        background-color: #f8f9fa;
+        padding: 12px;
+        border-radius: 6px;
+        font-size: 0.88rem;
+        line-height: 1.7;
+        color: #333;
+    }
+    .insight-box {
+        background: linear-gradient(135deg, #e8f4fd 0%, #f0f7ff 100%);
+        border-left: 4px solid #1f77b4;
+        border-radius: 8px;
+        padding: 16px 20px;
+        margin: 12px 0;
+        font-size: 0.9rem;
+        color: #333;
+        line-height: 1.6;
+    }
     /* Tab 标签页按钮化样式 */
     [data-testid="stTabList"] {
         gap: 4px;
@@ -351,8 +382,9 @@ with st.sidebar:
         generation = st.select_slider(
             "选择世代",
             options=[1, 2, 3, 4, 5, 6, 7, 8, 9],
-            value=9,
+            value=st.session_state.get("_generation_slider", 1),
             format_func=lambda x: f"第{x}世代 ({config.POKEMON_GENERATIONS[x]['years']})",
+            key="_generation_slider",
         )
 
     # 数据刷新（仅清除 session 缓存，不重新抓取网络）
@@ -360,9 +392,12 @@ with st.sidebar:
     st.info("更新日志已预采集到本地 data/ 目录，应用启动时直接读取，不访问网络。如需采集最新数据，请运行 `python fetch_all_data.py` 后重启应用。")
     if st.button("清除缓存", width="stretch"):
         st.cache_resource.clear()
-        keys_to_delete = [k for k in st.session_state.keys() if k.startswith("_cached_patches_")]
-        for k in keys_to_delete:
-            del st.session_state[k]
+        # 保留 LLM 配置和世代选择状态
+        keys_to_preserve = {"llm_provider", "llm_model", "llm_base_url", "llm_api_key", "_generation_slider"}
+        # 清除所有 session_state（包括数据和分析结果）
+        for k in list(st.session_state.keys()):
+            if k not in keys_to_preserve:
+                del st.session_state[k]
         st.rerun()
 
     # 显示数据源信息
@@ -506,8 +541,26 @@ with st.sidebar:
 st.markdown('<h1 class="main-header">游戏设计演进研究工具</h1>', unsafe_allow_html=True)
 st.markdown('<p class="sub-header">宝可梦Like游戏多人对战（PvP/PvE）设计迭代分析 | 本地静态数据</p>', unsafe_allow_html=True)
 
-# 获取数据 - 世代/游戏切换时同步重新加载，避免依赖 st.rerun() 导致的状态残留
-cache_data_key = f"_cached_patches_{selected_game}_{generation}"
+# 获取数据 - 使用稳定的缓存机制
+# 每个 (game, generation) 组合独立缓存，切换时代只驱逐旧世代缓存
+
+def _get_gen_cache_key(game: str, gen: int) -> str:
+    return f"_patches_{game}_{gen}"
+
+def _evict_old_gen_caches(game: str, current_gen: int):
+    """驱逐同一游戏下旧世代的缓存，只保留当前世代"""
+    prefix = f"_patches_{game}_"
+    for k in list(st.session_state.keys()):
+        if k.startswith(prefix):
+            # 解析世代号
+            try:
+                cached_gen = int(k.replace(prefix, ""))
+                if cached_gen != current_gen:
+                    del st.session_state[k]
+            except ValueError:
+                pass
+
+cache_data_key = _get_gen_cache_key(selected_game, generation)
 
 # 检测是否切换了游戏或世代
 current_game_key = "_current_game"
@@ -515,31 +568,25 @@ current_gen_key = "_current_gen"
 prev_game = st.session_state.get(current_game_key)
 prev_gen = st.session_state.get(current_gen_key)
 
-# 首次加载或切换了游戏/世代：同步更新状态，直接重新加载数据
-# 重要：必须同时清除 patch 分析相关的 session_state，否则旧状态会残留导致 DOM 混乱
-if prev_game is None or prev_game != selected_game or prev_gen != generation:
-    # 清除所有旧缓存（包括 patch 数据和分析结果）
-    keys_to_clear = [k for k in list(st.session_state.keys()) 
-                     if k.startswith("_cached_patches_") or k.startswith("patch_analysis_") 
-                     or k.startswith("show_reanalysis_result_") or k.startswith("reanalysis_triggered_")]
-    for k in keys_to_clear:
-        if k in st.session_state:
-            del st.session_state[k]
-    # 更新选择状态
+# 切换游戏/世代时：清除旧世代缓存，保留其他数据
+if prev_game is not None and (prev_game != selected_game or prev_gen != generation):
+    # 驱逐同一游戏下旧世代的缓存
+    _evict_old_gen_caches(selected_game, generation)
+    # 更新当前游戏/世代记录
     st.session_state[current_game_key] = selected_game
     st.session_state[current_gen_key] = generation
-    # 直接加载新数据（不使用缓存，避免残留）
-    with st.spinner("正在加载数据..."):
-        patches, fetch_stats = fetch_game_data(selected_game, generation)
-    st.session_state[cache_data_key] = (patches, fetch_stats)
-elif cache_data_key in st.session_state:
-    # 未切换世代，使用缓存
+
+if cache_data_key in st.session_state:
+    # 使用缓存
     patches, fetch_stats = st.session_state[cache_data_key]
 else:
-    # 首次加载且无缓存
+    # 首次加载或缓存被驱逐，加载数据
     with st.spinner("正在加载数据..."):
         patches, fetch_stats = fetch_game_data(selected_game, generation)
     st.session_state[cache_data_key] = (patches, fetch_stats)
+    # 更新当前游戏/世代记录
+    st.session_state[current_game_key] = selected_game
+    st.session_state[current_gen_key] = generation
 
 # 统计信息
 col1, col2, col3, col4 = st.columns(4)
@@ -882,7 +929,8 @@ with tab2:
 
     if selected_game == "Pokemon":
         # 使用 session_state 缓存，避免每次渲染都请求 PokeAPI
-        vgc_cache_key = f"_vgc_timeline_{generation}"
+        # 注意：Pokemon 不同世代的数据不同，但 Pokemon 游戏只有一个，不需要加游戏名
+        vgc_cache_key = f"_vgc_timeline_{selected_game}_{generation}"
         if vgc_cache_key not in st.session_state:
             try:
                 api_scraper = get_api_scraper()
@@ -1061,6 +1109,7 @@ with tab3:
             "选择分析模式",
             options=["分析已有数据", "语义搜索"],
             horizontal=True,
+            key=f"analysis_mode_{selected_game}_{generation}",
         )
 
         if analysis_mode == "分析已有数据":
@@ -1068,7 +1117,7 @@ with tab3:
             st.subheader("待分析更新列表")
 
             analysis_options = []
-            for i, patch in enumerate(patches[:10]):
+            for i, patch in enumerate(patches):
                 label = f"{patch.get('date', 'N/A')} - {patch.get('title', 'N/A')[:40]}..."
                 analysis_options.append((i, label))
 
@@ -1076,6 +1125,7 @@ with tab3:
                 "选择要分析的更新",
                 options=[opt[0] for opt in analysis_options],
                 format_func=lambda x: next((opt[1] for opt in analysis_options if opt[0] == x), ""),
+                key=f"analysis_indices_{selected_game}_{generation}",
             )
 
             tab3_results_key = f"_tab3_results_{selected_game}_{generation}"
@@ -1147,6 +1197,7 @@ with tab3:
             query = st.text_input(
                 "输入研究问题",
                 placeholder="例如：如何防止AOE在双打中过于强势？",
+                key=f"semantic_query_{selected_game}_{generation}",
             )
 
             if query:
@@ -1380,7 +1431,7 @@ with tab5:
             "游戏",
             options=list(config.SUPPORTED_GAMES.keys()),
             format_func=lambda x: config.SUPPORTED_GAMES[x],
-            key="game1",
+            key="game1_selector",
         )
         # 获取该游戏的版本列表
         try:
@@ -1391,7 +1442,7 @@ with tab5:
                 "版本",
                 options=[v[0] for v in version_options1],
                 format_func=lambda x: next((v[1] for v in version_options1 if v[0] == x), ""),
-                key="version1",
+                key=f"version1_{game1}",
             )
         except Exception as e:
             st.warning(f"无法获取 {game1} 数据")
@@ -1403,7 +1454,7 @@ with tab5:
             "游戏",
             options=list(config.SUPPORTED_GAMES.keys()),
             format_func=lambda x: config.SUPPORTED_GAMES[x],
-            key="game2",
+            key="game2_selector",
         )
         try:
             scraper2 = get_steam_scraper(game2)
@@ -1413,7 +1464,7 @@ with tab5:
                 "版本",
                 options=[v[0] for v in version_options2],
                 format_func=lambda x: next((v[1] for v in version_options2 if v[0] == x), ""),
-                key="version2",
+                key=f"version2_{game2}",
             )
         except Exception as e:
             st.warning(f"无法获取 {game2} 数据")
@@ -1459,10 +1510,12 @@ with tab5:
 
 
 # ==================== 底部信息 ====================
+render_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 st.divider()
 st.markdown(f"""
 <div style="text-align: center; color: #888; font-size: 0.9rem;">
     <p>宝可梦Like游戏多人机制设计演进研究工具 | v1.5.0 动态主题发现版</p>
     <p>数据来源: 本地 data/ 目录（预采集）| PokeAPI | Bulbapedia | Smogon</p>
+    <p style="font-size: 0.75rem; color: #aaa;">渲染时间: {render_time}</p>
 </div>
 """, unsafe_allow_html=True)
