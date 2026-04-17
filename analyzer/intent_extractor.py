@@ -166,6 +166,13 @@ class IntentExtractor:
             result = self._parse_json_response(text)
             if result is None:
                 print(f"[analyze_intent] 解析 LLM 响应失败 | text[:100]={text[:100]}")
+            else:
+                # 幻觉防护：标注置信度和事实核查提示
+                result["_disclaimer"] = (
+                    "以下分析由 AI 生成，其中历史案例引用可能存在误差，"
+                    "建议通过 Serebii.net 等权威来源交叉验证。"
+                )
+                result["_data_confidence"] = self._estimate_confidence(result, content)
             return result
         except Exception as e:
             print(f"[analyze_intent] LLM 调用失败: {e}")
@@ -190,6 +197,39 @@ class IntentExtractor:
                     pass
             print("JSON 解析失败，原始响应:", text[:200])
             return None
+
+    def _estimate_confidence(self, result: dict, content: str) -> str:
+        """
+        估算分析结果的置信度等级（高/中/低）
+
+        基于以下信号综合评估：
+        - historical_cases 是否提供了具体历史引用
+        - design_rationale 是否有实质内容
+        - content 原文长度（信息量越多置信度越高）
+        """
+        high_signals = 0
+        total_signals = 3
+
+        # 信号1：有无历史案例引用（LLM 能给出具体历史案例通常置信度较高）
+        cases = result.get("similar_historical_cases", "")
+        if cases and cases not in ("无历史参考", "信息不足以推断", ""):
+            high_signals += 1
+
+        # 信号2：design_rationale 是否有实质内容（短文本通常置信度低）
+        rationale = result.get("design_rationale", "")
+        if rationale and len(rationale) > 30 and "信息不足以推断" not in rationale:
+            high_signals += 1
+
+        # 信号3：原始内容信息量（内容越长，LLM 有更多参考信息）
+        if len(content) > 200:
+            high_signals += 1
+
+        if high_signals >= 2:
+            return "高"
+        elif high_signals == 1:
+            return "中"
+        else:
+            return "低"
 
     def _fallback_analysis(self, game: str, version: str, content: str) -> dict:
         """当 LLM 不可用时的降级分析"""
@@ -272,10 +312,14 @@ class IntentExtractor:
         self,
         updates: list,
         game: str = "Pokemon",
+        max_workers: int = 5,
     ) -> list:
-        """批量分析多条更新日志"""
-        results = []
-        for update in updates:
+        """批量分析多条更新日志（并发执行）"""
+        import concurrent.futures
+
+        def _analyze_single(update: dict) -> list:
+            """在子线程中分析单条更新"""
+            results = []
             if "changes" in update:
                 for change in update["changes"]:
                     result = self.analyze_intent(
@@ -298,13 +342,34 @@ class IntentExtractor:
                 if result:
                     result["original_content"] = update.get("content", "")
                     results.append(result)
+            return results
+
+        if not updates:
+            return []
+
+        # 小批量时直接串行，减少线程开销
+        if len(updates) <= 3:
+            results = []
+            for update in updates:
+                results.extend(_analyze_single(update))
+            return results
+
+        # 大批量时使用线程池并发（I/O 密集型，线程池优于进程池）
+        results = []
+        with concurrent.futures.ThreadPoolExecutor(max_workers=max_workers) as executor:
+            futures = [executor.submit(_analyze_single, update) for update in updates]
+            for future in concurrent.futures.as_completed(futures):
+                try:
+                    results.extend(future.result())
+                except Exception as e:
+                    print(f"批量分析子任务失败: {e}")
         return results
 
     def get_vector_store(self):
-        """获取向量存储（用于语义搜索）"""
+        """获取向量存储（单例模式，全局复用同一连接）"""
         try:
             from db.vector_store import VectorStore
-            return VectorStore()
+            return VectorStore.get_instance()
         except Exception as e:
             print(f"向量存储初始化失败: {e}")
             return None

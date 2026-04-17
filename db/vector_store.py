@@ -10,7 +10,16 @@ from utils.config import config
 
 
 class VectorStore:
-    """向量数据库管理类"""
+    """向量数据库管理类（单例模式，全局复用同一连接）"""
+
+    _instance = None
+
+    @classmethod
+    def get_instance(cls, persist_dir=None):
+        """获取单例实例，避免重复初始化 ChromaDB 连接"""
+        if cls._instance is None:
+            cls._instance = cls(persist_dir=persist_dir)
+        return cls._instance
 
     def __init__(self, persist_dir: Path = None):
         self.persist_dir = persist_dir or config.CHROMA_PERSIST_DIR

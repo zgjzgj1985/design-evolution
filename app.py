@@ -1,5 +1,5 @@
 ﻿"""
-宝可梦Like游戏多人机制设计演进研究工具
+多人对战游戏设计演进研究工具
 主应用入口 - Streamlit Web UI
 
 使用方法:
@@ -346,7 +346,8 @@ def fetch_game_data(game: str, generation: int = None, refresh: bool = False) ->
                         "balance_changes": detail.get("balance_changes", {}),
                         "impact": detail.get("impact", ""),
                         "vgc_relevance": detail.get("vgc_relevance", ""),
-                        "official_notes": detail.get("official_notes", ""),  # 官方更新日志原文
+                        "official_notes": detail.get("official_notes", patch.get("official_notes", "")),
+                        # official_notes 优先从 detailed_db 取，若缺失则降级从 patches_db 取
                     })
             fetch_stats["source"] = "wiki"
 
@@ -376,7 +377,38 @@ with st.sidebar:
         index=0,
     )
 
-    # 世代选择（仅宝可梦）
+    # 游戏数据量展示
+    import json as _json
+    from pathlib import Path as _Path
+
+    def _get_game_data_count(game_name: str) -> tuple:
+        """返回 (总记录数, 多人相关数, 最新日期)"""
+        if game_name == "Pokemon":
+            # Pokemon 数据来自内置，直接用当前已加载的 patches
+            return None, None, None
+        _folder = {"Temtem": "temtem", "Palworld": "palworld"}.get(game_name)
+        if not _folder:
+            return 0, 0, None
+        _df = _Path(__file__).parent / "data" / _folder / "patches.json"
+        if not _df.exists():
+            return 0, 0, None
+        try:
+            with open(_df, "r", encoding="utf-8") as _f:
+                _d = _json.load(_f)
+            _patches = _d.get("patches", [])
+            _mp_keywords = ["battle", "pvp", "pve", "multiplayer", "raid", "coop", "versus", "match", "team", "balance", "nerf", "buff", "fix", "patch", "update"]
+            _mp_count = 0
+            for _p in _patches:
+                _raw = (_p.get("title", "") + _p.get("contents", "")).lower()
+                if any(_k in _raw for _k in _mp_keywords):
+                    _mp_count += 1
+            _dates = [p.get("date", "") for p in _patches if p.get("date")]
+            _latest = sorted(_dates)[-1] if _dates else None
+            return len(_patches), _mp_count, _latest
+        except Exception:
+            return 0, 0, None
+
+    # 世代选择（仅 Pokemon）
     generation = 9
     if selected_game == "Pokemon":
         generation = st.select_slider(
@@ -400,14 +432,59 @@ with st.sidebar:
                 del st.session_state[k]
         st.rerun()
 
-    # 显示数据源信息
-    st.markdown('<p class="data-source-badge">本地静态数据</p>', unsafe_allow_html=True)
-    st.caption("""
-    - **本地 data/ 目录**: 已采集的更新日志 JSON（不访问网络）
-    - **PokeAPI**: 宝可梦版本数据
-    - **Bulbapedia**: Wiki 机制信息
-    - 如需更新数据，运行 `python fetch_all_data.py`
-    """)
+    # 数据来源权威性与新鲜度展示
+    st.subheader("数据概览")
+
+    _GAME_SOURCE_INFO = {
+        "Pokemon": {"source": "Serebii.net + 内置数据", "type": "结构化内置"},
+        "Temtem": {"source": "Steam News API（预采集）", "type": "JSON 静态文件"},
+        "Palworld": {"source": "Steam News API（预采集）", "type": "JSON 静态文件"},
+        "Cassette Beasts": {"source": "Steam（无公开公告）", "type": "数据暂缺"},
+    }
+
+    source_info = _GAME_SOURCE_INFO.get(selected_game, {"source": "未知", "type": "未知"})
+    st.caption(f"**数据来源**: {source_info['source']}")
+    st.caption(f"**存储类型**: {source_info['type']}")
+
+    if source_info["type"] == "数据暂缺":
+        st.warning("该游戏暂无公开更新日志数据")
+    elif source_info["type"] == "JSON 静态文件":
+        _total_count, _mp_count, _latest_date = _get_game_data_count(selected_game)
+        if _total_count is not None and _total_count > 0:
+            st.caption(f"**本地记录数**: {_total_count} 条")
+            if _mp_count is not None and _mp_count > 0:
+                _ratio = _mp_count / _total_count * 100
+                st.caption(f"**多人相关**: {_mp_count} 条（{_ratio:.0f}%）")
+            if _latest_date:
+                st.caption(f"**最新记录**: {_latest_date}")
+
+    st.divider()
+
+    # 免责声明
+    st.warning(
+        "AI 分析结论可能存在偏差，"
+        "历史案例引用建议通过权威来源交叉验证。"
+    )
+
+    # LLM 连接状态指示（放在设置 expander 外部，每次渲染都可见）
+    _llm_init_ok = False
+    try:
+        _test_ext = IntentExtractor(
+            provider="openrouter",
+            model=st.session_state.get("llm_model", ""),
+            base_url=st.session_state.get("llm_base_url", ""),
+            api_key=st.session_state.get("llm_api_key", ""),
+        )
+        _llm_init_ok = _test_ext._get_llm() is not None
+    except Exception:
+        pass
+    _has_key = bool(st.session_state.get("llm_api_key", ""))
+    if _has_key and _llm_init_ok:
+        st.caption("**AI 分析**: 已就绪")
+    elif _has_key:
+        st.caption("**AI 分析**: 连接异常")
+    else:
+        st.caption("**AI 分析**: 未配置")
 
     # LLM 配置 - 折叠式按钮（默认折叠，配置已迁移至 Zeabur 环境变量）
     with st.expander("LLM 设置", expanded=False):
@@ -539,7 +616,7 @@ with st.sidebar:
 
 # ==================== 主界面 ====================
 st.markdown('<h1 class="main-header">游戏设计演进研究工具</h1>', unsafe_allow_html=True)
-st.markdown('<p class="sub-header">宝可梦Like游戏多人对战（PvP/PvE）设计迭代分析 | 本地静态数据</p>', unsafe_allow_html=True)
+st.markdown('<p class="sub-header">多人对战游戏设计演进研究 | 本地静态数据</p>', unsafe_allow_html=True)
 
 # 获取数据 - 使用稳定的缓存机制
 # 每个 (game, generation) 组合独立缓存，切换时代只驱逐旧世代缓存
@@ -609,12 +686,11 @@ if fetch_stats.get("errors"):
 st.divider()
 
 # Tab 界面
-tab1, tab2, tab3, tab4, tab5 = st.tabs([
+tab1, tab2, tab3, tab4 = st.tabs([
     "版本编年史",
     "机制时间轴",
     "设计意图分析",
     "演进报告",
-    "版本对比",
 ])
 
 
@@ -623,6 +699,45 @@ def get_content_hash(patch: dict) -> str:
     import hashlib
     raw = f"{patch.get('content', '')}:{patch.get('title', '')}"
     return hashlib.md5(raw.encode("utf-8")).hexdigest()
+
+
+def _show_report_error(error_msg: str):
+    """渲染演进报告生成失败的友好提示"""
+    error_lower = error_msg.lower()
+    if "timeout" in error_lower or "timed out" in error_lower:
+        st.error(
+            "**报告生成超时**\n\n"
+            "网络连接不稳定或 AI 响应较慢。建议：\n"
+            "1. 点击下方按钮重试\n"
+            "2. 切换到其他演进枝尝试\n"
+            "3. 稍后网络较好时再试"
+        )
+    elif "rate limit" in error_lower or "429" in error_lower:
+        st.error(
+            "**请求频率超限**\n\n"
+            "AI API 调用频率受限。请等待 10 秒后重试。"
+        )
+    elif "invalid" in error_lower and "api" in error_lower:
+        st.error(
+            "**API 配置异常**\n\n"
+            "API Key 可能无效或已过期。请在侧边栏重新配置。"
+        )
+    elif "llm" in error_lower and ("不可用" in error_msg or "未配置" in error_msg):
+        st.error(
+            "**AI 未连接**\n\n"
+            "请先在侧边栏「LLM 设置」中配置并测试 API 连接。"
+        )
+    elif "none" in error_lower or "null" in error_lower:
+        st.error(
+            "**生成中断**\n\n"
+            "报告生成过程中断，建议重试。"
+        )
+    else:
+        st.error(
+            f"**报告生成失败**\n\n"
+            f"原因：{error_msg}\n\n"
+            f"建议重试，或切换到其他演进枝。如问题持续，请在社区反馈。"
+        )
 
 
 def _render_analysis_result(analysis, pvp_related, source, patch_key, extractor):
@@ -669,12 +784,36 @@ def _render_analysis_result(analysis, pvp_related, source, patch_key, extractor)
             players = "、".join(players)
         st.markdown(f"**受影响玩家**: {players}")
 
+    # balance_assessment 直观标签映射
+    _ASSESSMENT_LABELS = {
+        "恰到好处": ("[力度适中]", "#52c41a"),
+        "力度不足": ("[调整不足]", "#faad14"),
+        "过犹不及": ("[矫枉过正]", "#ff4d4f"),
+        "治标不治本": ("[治标不治本]", "#fa8c16"),
+    }
+
     balance = analysis.get("balance_assessment") or analysis.get("design_pattern", "")
     if balance:
-        st.markdown(f"**平衡评估**: {balance}")
+        label, color = next(
+            ((lbl, col) for key, (lbl, col) in _ASSESSMENT_LABELS.items() if key in balance),
+            (f"[{balance}]", "#666"),
+        )
+        st.markdown(f"**平衡评估**: <span style='background:{color};color:white;padding:2px 10px;border-radius:12px;font-size:12px'>{label}</span>", unsafe_allow_html=True)
+
+    # 数据置信度展示
+    confidence = analysis.get("_data_confidence", "")
+    if confidence:
+        conf_color = {"高": "#52c41a", "中": "#faad14", "低": "#ff4d4f"}.get(confidence, "#666")
+        st.markdown(f"**分析置信度**: <span style='color:{conf_color};font-weight:bold'>[{confidence}]</span>", unsafe_allow_html=True)
+
+    # 免责声明
+    disclaimer = analysis.get("_disclaimer", "")
+    if disclaimer:
+        st.caption(f"⚠️ {disclaimer}")
 
     similar = analysis.get("similar_historical_cases", [])
     if similar and isinstance(similar, list):
+        st.warning("以下历史案例由 AI 推断生成，建议通过 Serebii.net 等权威来源交叉验证")
         st.markdown("**历史参照**:")
         for r in similar[:3]:
             desc = r.get("description", r) if isinstance(r, dict) else str(r)
@@ -830,9 +969,9 @@ def _render_patch_card(patch, selected_game, generation, llm_ready, extractor, d
         if patch.get("official_notes"):
             st.markdown("#### 官方更新日志原文")
             st.markdown(
-                f'<div style="background:#1a1a2e;color:#eee;font-family:monospace;'
+                f'<div style="background:#f5f5f5;color:#333;'
                 f'padding:16px;border-radius:8px;margin:10px 0;max-height:400px;'
-                f'overflow-y:auto;font-size:0.85rem;line-height:1.6">'
+                f'overflow-y:auto;font-size:0.85rem;line-height:1.7">'
                 f'{patch.get("official_notes","").replace(chr(10),"<br>")}</div>',
                 unsafe_allow_html=True
             )
@@ -858,6 +997,32 @@ with tab1:
         st.info("已加载结构化版本数据，可通过侧边栏筛选世代查看详细更新记录。" if selected_game == "Pokemon"
                 else "未能从数据源获取更新日志，请检查网络或数据配置。")
     else:
+        # ── 排序与筛选（必须在渲染前）──────────────
+        # 排序切换器
+        sort_key = f"sort_{selected_game}_{generation}"
+        sort_mode = st.radio(
+            "排序方式",
+            options=["研究价值", "时间顺序"],
+            horizontal=True,
+            key=sort_key,
+        )
+
+        def _patch_research_priority(patch: dict) -> int:
+            """研究价值优先级：数字越小越重要"""
+            raw = (patch.get("title", "") + patch.get("content", "")).lower()
+            if any(k in raw for k in ["集火", "保排", "vgc", "双打", "单打", "团体战", "raid", "2v2", "2v1", "对战", "规则", "ban", "分级", "赛季", "pvp", "pve"]):
+                return 0
+            if any(k in raw for k in ["削弱", "增强", "nerf", "buff", "平衡", "调整"]):
+                return 1
+            if any(k in raw for k in ["mega", "极巨化", "太晶化", "z招式", "特性", "招式", "道具", "天气"]):
+                return 2
+            return 3
+
+        if sort_mode == "研究价值":
+            filtered = sorted(patches, key=_patch_research_priority)
+        else:
+            filtered = patches
+
         col_search, col_cat = st.columns([3, 1])
         with col_search:
             search_term = st.text_input(
@@ -872,8 +1037,7 @@ with tab1:
                 placeholder="全部", key=f"cat_filter_{selected_game}_{generation}",
             )
 
-        # ── 筛选（必须在渲染前，计算结果传入 render_patch_list）──────────────
-        filtered = patches
+        # ── 筛选（必须在渲染前）──────────────
         if search_term:
             s = search_term.lower()
             filtered = [p for p in filtered
@@ -894,7 +1058,7 @@ with tab1:
         # ── 分页按钮（rerun 全页，key 包含页码，Streamlit 自动替换旧 DOM）────
         col_prev, col_page, col_next = st.columns([1, 2, 1])
         with col_prev:
-            if st.button("◀ 上一页", key=f"prev_{selected_game}_{generation}_{current_page}",
+            if st.button("上一页", key=f"prev_{selected_game}_{generation}_{current_page}",
                          disabled=(current_page <= 1)):
                 st.session_state[page_key] = current_page - 1
                 st.rerun()
@@ -902,7 +1066,7 @@ with tab1:
             st.markdown(f"<div style='text-align:center;padding-top:4px'>第 {current_page} / {total_pages_f} 页</div>",
                         unsafe_allow_html=True)
         with col_next:
-            if st.button("下一页 ▶", key=f"next_{selected_game}_{generation}_{current_page}",
+            if st.button("下一页", key=f"next_{selected_game}_{generation}_{current_page}",
                          disabled=(current_page >= total_pages_f)):
                 st.session_state[page_key] = current_page + 1
                 st.rerun()
@@ -1075,6 +1239,44 @@ with tab2:
     else:
         st.info("请选择至少一个游戏来显示时间轴")
 
+    # 已分析的 DB 条目补充展示（让图表与真实数据联动）
+    _tab2_db_key = f"_tab2_db_patches_{selected_game}_{generation}"
+    if _tab2_db_key not in st.session_state:
+        try:
+            _sdb = SQLiteStore()
+            _db_results = _sdb.get_analysis_results(game=selected_game, limit=20) or []
+            # 筛选多人相关
+            _mp_kws = ["PvP", "PvE", "2v2", "双打", "团体战", "集火", "保排", "raid", "对战", "VGC"]
+            _filtered_db = [r for r in _db_results
+                           if any(k in str(r.get("summary", "") + r.get("mechanics", "")) for k in _mp_kws)]
+            st.session_state[_tab2_db_key] = _filtered_db
+        except Exception:
+            st.session_state[_tab2_db_key] = []
+    else:
+        _filtered_db = st.session_state[_tab2_db_key]
+
+    if _filtered_db:
+        st.divider()
+        st.subheader("已分析条目（来自本地数据库）")
+        _dcols = st.columns([1, 3, 2])
+        with _dcols[0]:
+            st.caption(f"共 {len(_filtered_db)} 条")
+        with _dcols[1]:
+            _dfilter = st.text_input(
+                "筛选分析结果", placeholder="输入关键词...", key=f"_db_filter_{selected_game}_{generation}"
+            )
+        with _dcols[2]:
+            st.button("刷新", key=f"_refresh_db_{selected_game}_{generation}")
+            if _dfilter:
+                _filtered_db = [r for r in _filtered_db
+                               if _dfilter.lower() in (r.get("summary", "") + r.get("mechanics", "")).lower()]
+
+        for _r in _filtered_db[:10]:
+            with st.expander(f"{_r.get('summary', 'N/A')[:50]}...", expanded=False):
+                st.caption(f"日期: {_r.get('patch_date', 'N/A')} | 机制: {_r.get('mechanics', 'N/A')}")
+                if _r.get("summary"):
+                    st.markdown(_r.get("summary")[:200])
+
     # 防御机制演进详情
     st.divider()
     st.subheader("防御/保护机制演进对比")
@@ -1143,10 +1345,34 @@ with tab3:
                         tags = result.get("mechanic_tags", [])
                         if tags:
                             st.markdown("**涉及机制**: " + " ".join([f"`{t}`" for t in tags]))
-                        st.markdown(f"**平衡评估**: {result.get('balance_assessment', result.get('design_pattern', 'N/A'))}")
+
+                        # 平衡评估可视化
+                        _bal = result.get("balance_assessment", "") or result.get("design_pattern", "")
+                        if _bal:
+                            _AMAP = {
+                                "恰到好处": ("[力度适中]", "#52c41a"),
+                                "力度不足": ("[调整不足]", "#faad14"),
+                                "过犹不及": ("[矫枉过正]", "#ff4d4f"),
+                                "治标不治本": ("[治标不治本]", "#fa8c16"),
+                            }
+                            _albl, _acol = next(
+                                ((l, c) for k, (l, c) in _AMAP.items() if k in _bal),
+                                (f"[{_bal}]", "#666"),
+                            )
+                            st.markdown(f"**平衡评估**: <span style='background:{_acol};color:white;padding:2px 10px;border-radius:12px;font-size:12px'>{_albl}</span>", unsafe_allow_html=True)
+
+                        # 数据置信度
+                        _conf = result.get("_data_confidence", "")
+                        if _conf:
+                            _cc = {"高": "#52c41a", "中": "#faad14", "低": "#ff4d4f"}.get(_conf, "#666")
+                            st.markdown(f"**分析置信度**: <span style='color:{_cc};font-weight:bold'>[{_conf}]</span>", unsafe_allow_html=True)
+
+                        # 历史案例幻觉防护
                         similar = result.get("similar_historical_cases", [])
                         if similar:
+                            st.warning("以下历史案例由 AI 推断生成，建议通过 Serebii.net 等权威来源交叉验证")
                             st.markdown("**历史参照**: " + "；".join([str(s) if isinstance(s, str) else s.get('description', '') for s in similar[:2]]))
+
                         try:
                             db = SQLiteStore()
                             db.add_analysis_result(result)
@@ -1203,7 +1429,7 @@ with tab3:
             if query:
                 analyzer = get_analyzer()
                 try:
-                    vector_store = VectorStore()
+                    vector_store = VectorStore.get_instance()
                     results = vector_store.search(query, top_k=5, game=selected_game)
 
                     if results:
@@ -1224,31 +1450,52 @@ def _render_step(step_num, label, state):
     label_html = f'<span class="tab4-step-{state}">{step_num}. {label}</span>'
     st.markdown(label_html, unsafe_allow_html=True)
 
+
 with tab4:
     st.header("演进报告")
-    st.markdown("AI 自动扫描当前所有更新，归纳出值得研究的设计主题，选择后生成历代演进分析。")
+    st.markdown("AI 自动扫描所有更新，构建分层主题树，选择具体演进枝后生成深度分析报告。")
 
     if not patches:
         st.warning("当前没有可用数据。请先在「版本编年史」中选择游戏和世代加载数据。")
     else:
-        cache_key = f"topic_discovery_v2_{selected_game}_{generation}"
+        # v3 使用新缓存 key，避免与旧版缓存冲突
+        cache_key = f"topic_discovery_v3_{selected_game}_{generation}"
 
         if cache_key not in st.session_state:
-            st.session_state[cache_key] = None
+            # 优先尝试从 SQLite 持久化缓存读取（避免每次重新调用 AI）
+            cached = global_db.get_topic_tree_cache(selected_game, generation)
+            cached_info = global_db.get_topic_tree_cache_info(selected_game, generation)
+            if cached and cached.get("success"):
+                st.session_state[cache_key] = cached
+                st.session_state["_topic_tree_cached"] = True
+                st.session_state["_topic_tree_cached_at"] = cached_info
+            else:
+                st.session_state[cache_key] = None
+                st.session_state["_topic_tree_cached"] = False
 
         if st.session_state[cache_key] is None:
+            st.session_state["_topic_tree_cached"] = False
             try:
                 analyzer = get_analyzer()
                 from analyzer.ai_topic_discoverer import AITopicDiscoverer
                 discoverer = AITopicDiscoverer(analyzer)
-                with st.spinner("AI 正在分析所有更新，发现设计主题（需等待 10-30 秒）..."):
+                with st.spinner("AI 正在分析所有更新，构建分层主题树（需等待 15-40 秒）..."):
                     result = discoverer.discover(patches)
+
+                # 成功发现后写入 SQLite 持久化缓存
+                if result.get("success"):
+                    global_db.save_topic_tree(
+                        selected_game, generation,
+                        json.dumps(result, ensure_ascii=False),
+                    )
+
                 st.session_state[cache_key] = result
             except Exception:
                 import traceback
                 st.session_state[cache_key] = {
                     "success": False,
                     "discovered_topics": [],
+                    "topic_tree": [],
                     "error": "发现过程异常",
                     "traceback": traceback.format_exc(),
                     "total_analyzed": len(patches),
@@ -1257,23 +1504,60 @@ with tab4:
         else:
             result = st.session_state[cache_key]
 
-        # 步骤指示器
-        topics = result.get("discovered_topics", []) if result["success"] else []
-        has_topics = bool(topics)
-        selected_idx = st.session_state.get("selected_topic_idx")
-        has_selection = selected_idx is not None and selected_idx < len(topics)
-        report_key = f"report_v2_{selected_idx}_{selected_game}_{generation}"
-        has_report = st.session_state.get(report_key)
+        # 展示缓存状态
+        if st.session_state.get("_topic_tree_cached") and st.session_state.get("_topic_tree_cached_at"):
+            cached_time = st.session_state["_topic_tree_cached_at"]
+            st.caption(f"主题树已缓存（生成于 {cached_time}），切换游戏/世代或点击「重新发现」将更新缓存")
 
+        # 优先使用新格式 topic_tree，兼容旧格式 discovered_topics
+        topic_tree = result.get("topic_tree", []) if result.get("success") else []
+        flat_topics = result.get("discovered_topics", []) if result.get("success") else []
+
+        # 如果 topic_tree 为空，降级到扁平主题列表
+        use_tree = bool(topic_tree)
+        has_topics = bool(topic_tree) or bool(flat_topics)
+
+        # 步骤指示器状态
         step1_state = "done" if has_topics else ("active" if result["success"] else "waiting")
-        step2_state = "done" if has_selection else "waiting"
-        step3_state = "done" if has_report else "waiting"
+        step2_state = "waiting"
+        step3_state = "waiting"
+
+        # 获取选择状态
+        if use_tree:
+            sel_dim = st.session_state.get("sel_dimension_idx")
+            sel_branch = st.session_state.get("sel_branch_idx")
+            step2_state = "done" if (sel_dim is not None and sel_branch is not None) else (
+                "active" if sel_dim is not None else "waiting"
+            )
+            sel_dim = sel_dim if (sel_dim is not None and sel_dim < len(topic_tree)) else None
+            if sel_dim is not None and sel_branch is not None:
+                branches = topic_tree[sel_dim].get("branches", [])
+                if sel_branch < len(branches):
+                    branch_key = f"report_v3_{sel_dim}_{sel_branch}_{selected_game}_{generation}"
+                    has_report = bool(st.session_state.get(branch_key))
+                    step3_state = "done" if has_report else "active"
+                else:
+                    sel_branch = None
+                    has_report = False
+            else:
+                sel_branch = None
+                has_report = False
+        else:
+            sel_dim = None
+            sel_branch = None
+            selected_idx = st.session_state.get("selected_topic_idx")
+            has_selection = selected_idx is not None and selected_idx < len(flat_topics)
+            if has_selection:
+                step2_state = "done"
+                report_key = f"report_v2_{selected_idx}_{selected_game}_{generation}"
+                has_report = bool(st.session_state.get(report_key))
+                step3_state = "done" if has_report else "active"
 
         col_s1, col_s2, col_s3 = st.columns([1, 1, 2])
         with col_s1:
             _render_step(1, "AI 发现主题", step1_state)
         with col_s2:
-            _render_step(2, "选择主题", step2_state)
+            _render_step(2, "选择演进枝", step2_state)
         with col_s3:
             _render_step(3, "生成报告", step3_state)
 
@@ -1281,232 +1565,310 @@ with tab4:
 
         if not result["success"]:
             st.error(f"主题发现失败：{result.get('error', '未知错误')}")
-            if st.button("重新尝试"):
+            if st.button("重新尝试", key="retry_discovery"):
                 del st.session_state[cache_key]
                 st.rerun()
-        elif not topics:
+
+        elif not has_topics:
             st.info("AI 分析完成，但没有发现足够支撑研究主题的数据。可以尝试切换到 Pokemon Gen9 或其他数据更丰富的游戏/世代。")
+
         else:
-            # Step 1 完成：显示统计 + 重试入口
+            # ---- Step 1 完成 ----
             col_stat, col_redo = st.columns([4, 1])
             with col_stat:
-                st.success(f"AI 分析了 {result['total_analyzed']} 条更新，归纳出 {len(topics)} 个设计主题")
+                total_dims = len(topic_tree) if use_tree else 0
+                total_branches = sum(
+                    len(t.get("branches", [])) for t in topic_tree
+                ) if use_tree else len(flat_topics)
+                if use_tree and total_dims > 0:
+                    st.success(
+                        f"AI 分析了 {result['total_analyzed']} 条更新，构建了 "
+                        f"{total_dims} 个设计维度、共 {total_branches} 条演进枝"
+                    )
+                    if result.get("overview"):
+                        st.caption(f"整体方向：{result['overview']}")
+                else:
+                    st.success(f"AI 分析了 {result['total_analyzed']} 条更新，归纳出 {len(flat_topics)} 个设计主题")
             with col_redo:
-                if st.button("重新发现", help="清空缓存，重新调用 AI 分析"):
+                if st.button("重新发现", help="清空缓存，重新调用 AI 分析", key="redo_discovery"):
                     del st.session_state[cache_key]
+                    global_db.delete_topic_tree_cache(selected_game, generation)
                     st.rerun()
 
-            # Step 2：主题选择
-            st.markdown("**选择研究主题**")
+            st.divider()
 
-            for idx, topic in enumerate(topics):
-                count = len(topic.get("matched_preview", []))
-                is_sel = (selected_idx == idx)
-                btn_label = f"{topic.get('name', '')}  [{count}条]"
-                clicked = st.button(
-                    btn_label,
-                    key=f"topic_v2_{idx}",
-                    type="primary" if is_sel else "secondary",
-                    width="stretch",
-                )
-                if clicked:
-                    st.session_state["selected_topic_idx"] = idx
-                    st.rerun()
+            # =============================================
+            # 分支A：树形主题 UI（新版）
+            # =============================================
+            if use_tree:
+                st.markdown("**选择研究维度与演进枝**")
 
-            # Step 3：选中后生成报告
-            if has_selection:
-                idx = selected_idx
-                topic = topics[idx]
-                st.divider()
-                st.markdown(f"### {topic.get('name', '')}")
-                st.caption(topic.get("description", ""))
+                # 渲染每个顶层维度（可折叠卡片）
+                for di, dim in enumerate(topic_tree):
+                    dim_name = dim.get("name", "未命名维度")
+                    dim_desc = dim.get("description", "")
+                    dim_why = dim.get("why_important", "")
+                    branches = dim.get("branches", [])
+                    is_dim_sel = (sel_dim == di)
 
-                if topic.get("matched_preview"):
-                    with st.expander("查看相关更新列表"):
-                        for p in topic["matched_preview"]:
-                            st.markdown(f"- {p}")
+                    with st.container():
+                        dim_expanded = st.expander(
+                            f"{'▶' if is_dim_sel else '▶'} {dim_name}  ·  {dim_desc}  ·  {len(branches)}条演进枝",
+                            expanded=is_dim_sel,
+                        )
 
-                if has_report:
-                    # 已生成报告：展示内容
-                    report = st.session_state[report_key]
-                    st.divider()
+                        with dim_expanded:
+                            if dim_why:
+                                st.caption(f"提示: {dim_why}")
 
-                    # 直接渲染 Markdown 格式的报告（新的深度报告格式）
-                    if isinstance(report, str):
-                        st.markdown(report)
-                    elif isinstance(report, dict) and report.get("_markdown"):
-                        st.markdown(report["_markdown"])
-                    elif isinstance(report, dict):
-                        # 兼容旧的 JSON 格式报告
-                        def _report_section(title, content):
-                            st.markdown(f"""
-                            <div class="tab4-report-section">
-                                <h4>{title}</h4>
-                                <div class="tab4-report-field">
-                                    <p>{content}</p>
-                                </div>
-                            </div>""", unsafe_allow_html=True)
+                            if not branches:
+                                st.info("该维度下暂无演进枝数据")
+                                continue
 
-                        if report.get("evolution_summary"):
-                            _report_section("演进总览", report["evolution_summary"])
+                            for bi, branch in enumerate(branches):
+                                is_branch_sel = (
+                                    is_dim_sel and sel_branch == bi
+                                )
+                                problem = branch.get("problem", "未命名问题")
+                                stages = branch.get("evolution_stages", [])
+                                key_insight = branch.get("key_insight", "")
+                                is_one_way = branch.get("is_one_way", False)
 
-                        if report.get("generation_analysis"):
-                            st.markdown('<div class="tab4-report-section"><h4>历代解决方案</h4></div>', unsafe_allow_html=True)
-                            for stage in report["generation_analysis"]:
-                                label = stage.get("period", "")
-                                st.markdown(f"**{label}**")
-                                for k, v in [(k, v) for k, v in stage.items() if k != "period"]:
-                                    st.markdown(f"- **{k}**: {v}")
+                                stage_labels = " → ".join(
+                                    s.get("period", "?") for s in stages
+                                ) if stages else "无"
+
+                                badge = "[单向]" if is_one_way else "[演进]"
+                                branch_label = f"{badge} {problem}  [{stage_labels}]"
+
+                                col_b, col_r = st.columns([4, 1])
+                                with col_b:
+                                    st.markdown(f"**{branch_label}**")
+                                    if key_insight:
+                                        st.caption(f"洞察：{key_insight}")
+                                with col_r:
+                                    btn_key = f"branch_btn_{di}_{bi}"
+                                    if st.button(
+                                        "生成" if not is_branch_sel else "已选",
+                                        key=btn_key,
+                                        type="primary" if is_branch_sel else "secondary",
+                                    ):
+                                        st.session_state["sel_dimension_idx"] = di
+                                        st.session_state["sel_branch_idx"] = bi
+                                        st.rerun()
+
                                 st.divider()
 
-                        for key in ["key_insight", "key_insights"]:
-                            if key in report:
-                                val = report[key]
-                                _report_section(
-                                    "关键设计洞察",
-                                    val if isinstance(val, str) else "<br>".join(f"- {v}" for v in val)
+                # ---- Step 3: 选中演进枝后生成报告 ----
+                if sel_dim is not None and sel_branch is not None:
+                    dim = topic_tree[sel_dim]
+                    branch = dim["branches"][sel_branch]
+                    branch_key = f"report_v3_{sel_dim}_{sel_branch}_{selected_game}_{generation}"
+
+                    st.divider()
+                    st.markdown(f"### {branch.get('problem', '演进分析')}")
+                    st.caption(f"维度：{dim.get('name', '')}")
+
+                    # 演进时间线预览
+                    stages = branch.get("evolution_stages", [])
+                    if stages:
+                        with st.expander("查看演进时间线"):
+                            for s in stages:
+                                st.markdown(
+                                    f"**{s.get('period', '?')}**  ·  {s.get('solution', '')}"
                                 )
-                                break
+                                for pt in s.get("patch_titles", []):
+                                    st.caption(f"  · {pt}")
 
-                        if report.get("design_principle"):
-                            _report_section("可复用的设计原则", report["design_principle"])
+                    if st.session_state.get(f"_generating_{branch_key}"):
+                        del st.session_state[f"_generating_{branch_key}"]
 
-                        for k in ["unresolved_problems", "still_unsolved"]:
-                            if k in report:
-                                _report_section("仍未解决的问题", report[k])
-                                break
+                        progress_area = st.empty()
+                        progress_bar = progress_area.progress(0, text="正在准备数据...")
+                        try:
+                            analyzer = get_analyzer()
+                            from analyzer.report_generator import EvolutionReportGenerator
+                            generator = EvolutionReportGenerator(analyzer)
+                            topic_for_report = {
+                                "name": branch.get("problem", ""),
+                                "_branch": branch,
+                                "_top_level": dim,
+                                "matched_preview": [
+                                    pt
+                                    for s in stages
+                                    for pt in s.get("patch_titles", [])
+                                ],
+                            }
+                            progress_bar.progress(0.4, text="正在调用 AI 生成报告，请稍候...")
 
-                    st.divider()
-                    if st.button("换一个主题重新分析", key="btn_change_topic"):
-                        st.session_state["selected_topic_idx"] = None
+                            report = generator.generate_report(topic_for_report, patches)
+
+                            if report and not report.get("_error"):
+                                progress_bar.progress(1.0, text="完成！")
+                                import time; time.sleep(0.5)
+                                progress_area.empty()
+                                st.session_state[branch_key] = report.get("_markdown", "")
+                                st.rerun()
+                            else:
+                                progress_area.empty()
+                                error_msg = report.get("_message", "未知错误") if report else "未知错误"
+                                _show_report_error(error_msg)
+                        except Exception as e:
+                            progress_area.empty()
+                            _show_report_error(str(e))
+                    else:
+                        st.info(
+                            "生成演进报告将综合分析历代相关更新，内容较详细，"
+                            "预计需等待 30-120 秒。如遇超时，请稍后重试，或切换到其他演进枝。"
+                        )
+
+                    # 当前位置导航
+                    st.caption(
+                        f"{dim.get('name', '')} > {branch.get('problem', '')}"
+                        f"  ·  共 {len(stages)} 个演进阶段"
+                    )
+
+                    if has_report:
+                        report_content = st.session_state[branch_key]
+                        _report_dict = None
+                        if isinstance(report_content, dict):
+                            _report_dict = report_content
+                            report_content = report_content.get("_markdown", "")
+                        elif isinstance(report_content, str):
+                            pass
+                        else:
+                            report_content = ""
+
+                        if report_content:
+                            # 报告头部：数据置信度标注
+                            _rep_conf = (_report_dict or {}).get("_confidence", "")
+                            _rep_count = (_report_dict or {}).get("_matched_count", len(stages))
+                            if _rep_conf:
+                                _rc = {"高": "#52c41a", "中": "#faad14", "低": "#ff4d4f"}.get(_rep_conf, "#666")
+                                st.markdown(f"<span style='background:{_rc};color:white;padding:2px 10px;border-radius:12px;font-size:12px'>[{_rep_conf}]</span> 基于 {_rep_count} 条相关更新", unsafe_allow_html=True)
+                            st.markdown(report_content)
+
+                        st.divider()
+
+                        # P1-4: 报告导出功能
+                        _report_raw = report_content if isinstance(report_content, str) else (
+                            report_content.get("_markdown", "") if isinstance(report_content, dict) else ""
+                        )
+                        if _report_raw:
+                            col_copy, col_download = st.columns(2)
+                            with col_copy:
+                                st.code(_report_raw[:2000] + ("..." if len(_report_raw) > 2000 else ""), language="markdown")
+                                if st.button("复制报告文本", key=f"copy_report_{branch_key}"):
+                                    try:
+                                        import pyperclip
+                                        pyperclip.copy(_report_raw)
+                                        st.success("已复制到剪贴板！")
+                                    except ImportError:
+                                        st.info("剪贴板功能需要安装 pyperclip：`pip install pyperclip`")
+                            with col_download:
+                                _filename = f"演进报告_{branch.get('problem', '未知主题')}.md"
+                                st.download_button(
+                                    "下载 Markdown",
+                                    _report_raw.encode("utf-8"),
+                                    _filename,
+                                    mime="text/markdown",
+                                    key=f"download_report_{branch_key}",
+                                )
+
+                        st.divider()
+                        if st.button("换一个演进枝重新分析", key="change_branch"):
+                            st.session_state["sel_branch_idx"] = None
+                            st.rerun()
+                    else:
+                        if st.button("生成演进报告", type="primary", key="gen_branch_report", width="stretch"):
+                            st.session_state[f"_generating_{branch_key}"] = True
+                            st.rerun()
+
+            # =============================================
+            # 分支B：扁平主题 UI（旧版兼容）
+            # =============================================
+            else:
+                st.markdown("**选择研究主题**")
+                for idx, topic in enumerate(flat_topics):
+                    count = len(topic.get("matched_preview", []))
+                    is_sel = (st.session_state.get("selected_topic_idx") == idx)
+                    btn_label = f"{topic.get('name', '')}  [{count}条]"
+                    clicked = st.button(
+                        btn_label,
+                        key=f"topic_v2_{idx}",
+                        type="primary" if is_sel else "secondary",
+                        width="stretch",
+                    )
+                    if clicked:
+                        st.session_state["selected_topic_idx"] = idx
                         st.rerun()
-                else:
-                    # 未生成报告：使用 EvolutionReportGenerator 生成
+
+                selected_idx = st.session_state.get("selected_topic_idx")
+                has_selection = selected_idx is not None and selected_idx < len(flat_topics)
+                report_key = f"report_v2_{selected_idx}_{selected_game}_{generation}"
+                has_report = bool(st.session_state.get(report_key))
+
+                if has_selection:
+                    topic = flat_topics[selected_idx]
                     st.divider()
+                    st.markdown(f"### {topic.get('name', '')}")
+                    st.caption(topic.get("description", ""))
 
-                    # 即时反馈：用 placeholder 在点击时立即显示提示
-                    feedback_placeholder = st.empty()
+                    if topic.get("matched_preview"):
+                        with st.expander("查看相关更新列表"):
+                            for p in topic["matched_preview"]:
+                                st.markdown(f"- {p}")
 
-                    # 检查是否刚触发了生成
-                    if st.session_state.get(f"_generating_{report_key}"):
-                        # 立即显示提示，不需要等 spinner
-                        feedback_placeholder.info("正在调用 AI 生成演进报告（内容较丰富，请耐心等待）...")
-                        # 清理触发标记，进入生成流程
-                        del st.session_state[f"_generating_{report_key}"]
+                    if has_report:
+                        report = st.session_state[report_key]
+                        _rep_d = report if isinstance(report, dict) else None
+                        _rep_str = _rep_d.get("_markdown", "") if _rep_d else (report if isinstance(report, str) else "")
+                        if _rep_str:
+                            _rc2 = (_rep_d or {}).get("_confidence", "")
+                            if _rc2:
+                                _rc3 = {"高": "#52c41a", "中": "#faad14", "低": "#ff4d4f"}.get(_rc2, "#666")
+                                st.markdown(f"<span style='background:{_rc3};color:white;padding:2px 10px;border-radius:12px;font-size:12px'>[{_rc2}]</span> 基于 {_rep_d.get('_matched_count', '?')} 条相关更新", unsafe_allow_html=True)
+                            st.markdown(_rep_str)
+                        st.divider()
+                        if st.button("换一个主题重新分析", key="btn_change_topic"):
+                            st.session_state["selected_topic_idx"] = None
+                            st.rerun()
+                    else:
+                        feedback_placeholder = st.empty()
 
-                        with st.spinner("正在调用 AI 生成演进报告（内容较丰富，请耐心等待）..."):
+                        if st.session_state.get(f"_generating_{report_key}"):
+                            del st.session_state[f"_generating_{report_key}"]
+
+                            progress_area = st.empty()
+                            progress_bar = progress_area.progress(0, text="正在准备数据...")
                             try:
                                 analyzer = get_analyzer()
                                 generator = EvolutionReportGenerator(analyzer)
+                                progress_bar.progress(0.5, text="正在调用 AI 生成报告，请稍候...")
                                 report = generator.generate_report(topic, patches)
-
                                 if report and not report.get("_error"):
+                                    progress_bar.progress(1.0, text="完成！")
+                                    import time; time.sleep(0.5)
+                                    progress_area.empty()
                                     st.session_state[report_key] = report.get("_markdown", "")
                                     st.rerun()
                                 else:
-                                    error_msg = report.get("_message", "生成失败") if report else "未知错误"
-                                    feedback_placeholder.error(f"报告生成失败: {error_msg}")
+                                    progress_area.empty()
+                                    error_msg = report.get("_message", "未知错误") if report else "未知错误"
+                                    _show_report_error(error_msg)
                             except Exception as e:
-                                feedback_placeholder.error(f"报告生成失败: {str(e)}")
-                    else:
-                        feedback_placeholder.info("生成演进报告将综合分析历代相关更新，内容较详细，预计需等待 30-120 秒。如遇超时，请稍后重试。")
+                                progress_area.empty()
+                                _show_report_error(str(e))
+                        else:
+                            st.info(
+                                "生成演进报告将综合分析历代相关更新，内容较详细，"
+                                "预计需等待 30-120 秒。如遇超时，请稍后重试，或切换到其他主题。"
+                            )
 
-                    if st.button("生成演进报告", type="primary", key="btn_gen_v2", width="stretch"):
-                        # 立即设置触发标记，触发 rerun
-                        st.session_state[f"_generating_{report_key}"] = True
-                        st.rerun()
+                        if st.button("生成演进报告", type="primary", key="btn_gen_v2", width="stretch"):
+                            st.session_state[f"_generating_{report_key}"] = True
+                            st.rerun()
 
-
-# ==================== Tab 5: 版本对比 ====================
-with tab5:
-    st.header("版本对比")
-    st.markdown("选择不同版本或不同游戏进行设计对比分析")
-
-    # 版本/游戏选择
-    col_v1, col_v2 = st.columns(2)
-
-    with col_v1:
-        st.markdown("### 版本/游戏 1")
-        game1 = st.selectbox(
-            "游戏",
-            options=list(config.SUPPORTED_GAMES.keys()),
-            format_func=lambda x: config.SUPPORTED_GAMES[x],
-            key="game1_selector",
-        )
-        # 获取该游戏的版本列表
-        try:
-            scraper1 = get_steam_scraper(game1)
-            news1 = scraper1.get_news(count=20)
-            version_options1 = [(n.get("gid", ""), f"{n.get('date', '')} - {n.get('title', '')[:30]}") for n in news1]
-            version1 = st.selectbox(
-                "版本",
-                options=[v[0] for v in version_options1],
-                format_func=lambda x: next((v[1] for v in version_options1 if v[0] == x), ""),
-                key=f"version1_{game1}",
-            )
-        except Exception as e:
-            st.warning(f"无法获取 {game1} 数据")
-            version1 = None
-
-    with col_v2:
-        st.markdown("### 版本/游戏 2")
-        game2 = st.selectbox(
-            "游戏",
-            options=list(config.SUPPORTED_GAMES.keys()),
-            format_func=lambda x: config.SUPPORTED_GAMES[x],
-            key="game2_selector",
-        )
-        try:
-            scraper2 = get_steam_scraper(game2)
-            news2 = scraper2.get_news(count=20)
-            version_options2 = [(n.get("gid", ""), f"{n.get('date', '')} - {n.get('title', '')[:30]}") for n in news2]
-            version2 = st.selectbox(
-                "版本",
-                options=[v[0] for v in version_options2],
-                format_func=lambda x: next((v[1] for v in version_options2 if v[0] == x), ""),
-                key=f"version2_{game2}",
-            )
-        except Exception as e:
-            st.warning(f"无法获取 {game2} 数据")
-            version2 = None
-
-    # 显示对比
-    if version1 and version2:
-        col_c1, col_c2 = st.columns(2)
-
-        with col_c1:
-            news_item1 = next((n for n in news1 if n.get("gid") == version1), None)
-            if news_item1:
-                st.markdown(f"### {game1}")
-                st.markdown(f"**日期**: {news_item1.get('date', 'N/A')}")
-                st.markdown(f"**标题**: {news_item1.get('title', 'N/A')}")
-                st.markdown(f"**内容预览**:")
-                st.markdown(news_item1.get("contents", "")[:300])
-
-        with col_c2:
-            news_item2 = next((n for n in news2 if n.get("gid") == version2), None)
-            if news_item2:
-                st.markdown(f"### {game2}")
-                st.markdown(f"**日期**: {news_item2.get('date', 'N/A')}")
-                st.markdown(f"**标题**: {news_item2.get('title', 'N/A')}")
-                st.markdown(f"**内容预览**:")
-                st.markdown(news_item2.get("contents", "")[:300])
-
-    st.divider()
-
-    # 机制对比表
-    st.subheader("多人机制设计对比")
-
-    comparison_table = {
-        "维度": ["核心模式", "PvP赛制", "PvE合作", "Ban/Pick", "强化系统"],
-        "Pokemon VGC": ["回合制双打", "VGC官方赛", "团体战", "无", "极巨化/太晶化"],
-        "Temtem": ["回合制双打", "2v2竞技", "讨伐战", "有", "无（通过道具）"],
-        "Cassette Beasts": ["回合制融合", "本地合作", "融合狩猎", "无", "融合进化"],
-        "Palworld": ["动作+回合", "PVP对战", "Raid Boss", "无", "帕鲁装备"],
-    }
-
-    df_comparison = pd.DataFrame(comparison_table)
-    st.dataframe(df_comparison, width="stretch", hide_index=True)
 
 
 # ==================== 底部信息 ====================
@@ -1514,7 +1876,7 @@ render_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 st.divider()
 st.markdown(f"""
 <div style="text-align: center; color: #888; font-size: 0.9rem;">
-    <p>宝可梦Like游戏多人机制设计演进研究工具 | v1.5.0 动态主题发现版</p>
+    <p>多人对战游戏设计演进研究工具 | v1.8.0</p>
     <p>数据来源: 本地 data/ 目录（预采集）| PokeAPI | Bulbapedia | Smogon</p>
     <p style="font-size: 0.75rem; color: #aaa;">渲染时间: {render_time}</p>
 </div>

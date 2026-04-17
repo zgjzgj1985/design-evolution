@@ -39,8 +39,8 @@ class AITopicDiscoverer:
 
         return "\n".join(lines)
 
-    def _parse_json_response(self, text: str) -> Optional[list]:
-        """解析 LLM 返回的 JSON 数组"""
+    def _parse_json_response(self, text: str) -> Optional[dict]:
+        """解析 LLM 返回的 JSON（支持树形结构和旧数组格式）"""
         json_match = re.search(r"```(?:json)?\s*([\s\S]*?)\s*```", text)
         if json_match:
             json_str = json_match.group(1)
@@ -49,6 +49,18 @@ class AITopicDiscoverer:
 
         json_str = json_str.strip()
 
+        # 优先尝试树形结构
+        if not json_str.startswith("["):
+            obj_match = re.search(r"\{[\s\S]*\}", json_str)
+            if obj_match:
+                try:
+                    result = json.loads(obj_match.group(0))
+                    if isinstance(result, dict):
+                        return result
+                except json.JSONDecodeError:
+                    pass
+
+        # 降级尝试数组格式（向后兼容）
         if not json_str.startswith("["):
             arr_match = re.search(r"\[[\s\S]*\]", json_str)
             if arr_match:
@@ -57,9 +69,9 @@ class AITopicDiscoverer:
         try:
             result = json.loads(json_str)
             if isinstance(result, list):
+                return {"topic_tree": result}
+            if isinstance(result, dict):
                 return result
-            if isinstance(result, dict) and "themes" in result:
-                return result["themes"]
             return None
         except json.JSONDecodeError as e:
             print(f"JSON 解析失败: {e}，原始响应前200字: {text[:200]}")
@@ -131,29 +143,68 @@ class AITopicDiscoverer:
         patches_text = self._summarize_patches(patches)
         game_context = self._detect_game_context(patches)
 
-        system_prompt = """你是一位专业的游戏设计研究员。你的任务是分析一系列游戏版本更新日志，归纳出其中蕴含的核心设计主题。
+        system_prompt = """你是一位专业的游戏设计研究员。你的任务是分析一系列游戏版本更新日志，构建一个**分层主题树**，揭示历代设计师如何逐步迭代某个设计问题。
 
-**核心原则**：完全从数据出发，不预设任何"正确答案"。你的价值在于发现数据中真正有趣的模式，而非套用已知的框架。
+## 核心原则
 
-**你将看到的**：一批游戏更新日志，每条包含：游戏名称 | 版本号 | 标题 | 内容摘要
+完全从数据出发，不预设任何"正确答案"。你的价值在于发现数据中真正有趣的**演进路径**，而非统计频率最高的泛泛话题。
 
-**你的任务**：
-1. 仔细阅读所有更新，识别出 3~5 个最重要的设计主题
-2. 每个主题需要：
-   - 一个清晰的主题名称（10字以内）
-   - 一句话描述这个主题研究什么问题（20字以内）
-   - 至少 2 条相关的更新作为证据（按相关度排序）
-   - 该主题在数据中的出现频率评估（低/中/高）
-   - 一句话说明"为什么这个主题值得研究"
+## 你将看到的
 
-**输出格式**：直接输出 JSON 数组，不要有其他内容。
+一批游戏更新日志，每条包含：游戏名称 | 版本号 | 标题 | 内容摘要
 
-**注意事项**：
-- 主题应该是"设计问题"而非"技术实现"（比如"如何在多人战斗中平衡攻击强度"比"伤害数值调整"更好）
-- 如果某条更新涉及多个主题，可以在多个主题下都引用
-- 如果数据中没有足够支撑某个主题的更新（少于2条），不要勉强提出
-- 主题按"覆盖广度"降序排列
-- 输出 JSON 数组"""
+## 你的任务：构建分层主题树
+
+第一层（顶层主题）：识别 2~3 个**设计维度**，每个维度代表一类核心设计矛盾（如"攻击强度与生存时间的平衡"、"规则框架与玩家自由的边界"）。这些维度之间应有明显差异，共同覆盖数据中的主要设计意图。
+
+第二层（演进枝）：每个顶层主题下，展开 2~3 条**演进枝**，每条演进枝对应一个具体的设计问题在该游戏历代中的演变路径。
+
+每条演进枝必须包含：
+- **问题定义**：这个具体设计问题是什么？（5~15字，如"Mega进化强度控制"）
+- **历代解法**：按时间顺序，列出各代/版本采取的具体解法（用补丁标题原文支撑）
+- **核心洞察**：设计师在这一问题上最关键的决策是什么？背后可能的考量？
+- **相关补丁**：至少 2 条相关补丁标题（精确匹配）
+
+## 关键要求
+
+1. **演进枝必须体现"变化"**：如果某问题在所有版本中的解法都相同，那不是一条好的演进枝
+2. **演进枝之间要有区分度**：不同枝解决的问题应明显不同，避免重叠
+3. **补丁引用要精确**：使用补丁标题原文，不要自己编造补丁标题
+4. **优先挖掘独特设计尝试**：设计师在某一代做的独特实验，往往比统计数字更能揭示设计意图
+5. **如果数据不支撑演进（某问题历代解法相同），将该演进枝标记为"单向强化"并说明为何**
+
+## 输出格式
+
+输出一个 JSON 对象（不要用 JSON 数组），结构如下：
+
+```json
+{
+  "overview": "整体主题树的一句话概括",
+  "top_level": [
+    {
+      "name": "维度名称（如：爆发资源的博弈深度设计）",
+      "description": "这个维度研究什么（10~20字）",
+      "why_important": "为什么这个维度值得研究（1句话）",
+      "branches": [
+        {
+          "problem": "具体设计问题（如：Mega进化持续时间对站场收益的影响）",
+          "evolution_stages": [
+            {
+              "period": "世代/版本（如：Gen6）",
+              "solution": "当时的解法描述",
+              "patch_titles": ["补丁标题1", "补丁标题2"]
+            }
+          ],
+          "key_insight": "这一演进中最关键的决策洞察（1句话）",
+          "is_one_way": false
+        }
+      ]
+    }
+  ]
+}
+```
+
+请直接输出 JSON，不要有其他内容。"""
 
         games_str = ', '.join(game_context['games']) if game_context['games'] else '未知'
         user_prompt = f"""以下是要分析的 {total} 条版本更新：
@@ -171,16 +222,7 @@ class AITopicDiscoverer:
 
 {patches_text}
 
-请输出 JSON 数组，格式如下：
-[
-  {{
-    "name": "主题名称（10字以内）",
-    "description": "这个主题研究什么问题（20字以内）",
-    "matched_preview": ["相关更新标题1", "相关更新标题2"],
-    "frequency": "中",
-    "why_important": "为什么这个主题值得研究（1句话）"
-  }}
-]"""
+请输出 JSON 对象，格式如上述说明："""
 
         llm = self.extractor._get_llm()
         if llm is None:
@@ -203,9 +245,9 @@ class AITopicDiscoverer:
                 config=config
             )
             text = response.content if hasattr(response, "content") else str(response)
-            topics = self._parse_json_response(text)
+            parsed = self._parse_json_response(text)
 
-            if topics is None:
+            if parsed is None:
                 return {
                     "success": False,
                     "discovered_topics": [],
@@ -214,12 +256,19 @@ class AITopicDiscoverer:
                     "game_context": game_context,
                 }
 
-            topics = [t for t in topics if t.get("name") and t.get("description")]
-            topics.sort(key=lambda x: len(x.get("matched_preview", [])), reverse=True)
+            # 提取主题树
+            topic_tree = parsed.get("topic_tree", parsed.get("top_level", []))
+            if isinstance(topic_tree, dict) and "top_level" in topic_tree:
+                topic_tree = topic_tree["top_level"]
+
+            # 兼容旧格式：转换为扁平主题列表供降级使用
+            flat_topics = self._flatten_topic_tree(topic_tree) if isinstance(topic_tree, list) else []
 
             return {
                 "success": True,
-                "discovered_topics": topics,
+                "topic_tree": topic_tree if isinstance(topic_tree, list) else [],
+                "overview": parsed.get("overview", ""),
+                "discovered_topics": flat_topics,
                 "total_analyzed": total,
                 "game_context": game_context,
                 "error": None,
@@ -248,3 +297,27 @@ class AITopicDiscoverer:
                 "total_analyzed": total,
                 "game_context": game_context,
             }
+
+    def _flatten_topic_tree(self, tree: list) -> list:
+        """
+        将分层主题树扁平化为旧格式的 topic 列表（用于向后兼容）
+        每条演进枝展平为一个扁平 topic
+        """
+        flat = []
+        for top in tree:
+            branches = top.get("branches", [])
+            for branch in branches:
+                patch_titles = []
+                for stage in branch.get("evolution_stages", []):
+                    patch_titles.extend(stage.get("patch_titles", []))
+                flat.append({
+                    "name": branch.get("problem", "未命名问题"),
+                    "description": f"{top.get('name', '')} → {branch.get('problem', '')}",
+                    "matched_preview": list(dict.fromkeys(patch_titles))[:5],
+                    "frequency": "中",
+                    "why_important": top.get("why_important", ""),
+                    "_parent": top.get("name", ""),
+                    "_branch": branch,
+                    "_top_level": top,
+                })
+        return flat

@@ -114,6 +114,18 @@ class SQLiteStore:
         cursor.execute("CREATE INDEX IF NOT EXISTS idx_classifications_hash ON patch_classifications(content_hash)")
         cursor.execute("CREATE INDEX IF NOT EXISTS idx_classifications_game ON patch_classifications(game)")
 
+        # 主题树缓存表（演进报告 AI 发现结果的持久化缓存）
+        cursor.execute("""
+            CREATE TABLE IF NOT EXISTS topic_tree_cache (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                game TEXT NOT NULL,
+                generation INTEGER NOT NULL,
+                topic_tree TEXT NOT NULL,
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                UNIQUE(game, generation)
+            )
+        """)
+
         conn.commit()
         conn.close()
 
@@ -467,6 +479,63 @@ class SQLiteStore:
 
     # ========== 社区玩家反应相关方法 ==========
 
+
+
+
+    # ========== 主题树缓存相关方法 ==========
+
+    def save_topic_tree(self, game: str, generation: int, topic_tree_json: str) -> None:
+        """保存主题树到持久化缓存（首次生成后复用，避免每次重新调用 AI）"""
+        conn = sqlite3.connect(self.db_path)
+        cursor = conn.cursor()
+        cursor.execute(
+            "INSERT OR REPLACE INTO topic_tree_cache (game, generation, topic_tree) VALUES (?, ?, ?)",
+            (game, generation, topic_tree_json),
+        )
+        conn.commit()
+        conn.close()
+
+    def get_topic_tree_cache(self, game: str, generation: int) -> Optional[dict]:
+        """读取主题树缓存，不存在则返回 None"""
+        conn = sqlite3.connect(self.db_path)
+        cursor = conn.cursor()
+        cursor.execute(
+            "SELECT topic_tree, created_at FROM topic_tree_cache WHERE game = ? AND generation = ?",
+            (game, generation),
+        )
+        row = cursor.fetchone()
+        conn.close()
+        if row:
+            try:
+                result = json.loads(row[0])
+                result["_cached_at"] = row[1]
+                return result
+            except json.JSONDecodeError:
+                return None
+        return None
+
+    def get_topic_tree_cache_info(self, game: str, generation: int) -> Optional[str]:
+        """获取主题树缓存时间，无缓存返回 None"""
+        conn = sqlite3.connect(self.db_path)
+        cursor = conn.cursor()
+        cursor.execute(
+            "SELECT created_at FROM topic_tree_cache WHERE game = ? AND generation = ?",
+            (game, generation),
+        )
+        row = cursor.fetchone()
+        conn.close()
+        return row[0] if row else None
+
+    def delete_topic_tree_cache(self, game: str, generation: int) -> None:
+        """清除主题树缓存（用于用户点击「重新发现」时）"""
+        conn = sqlite3.connect(self.db_path)
+        cursor = conn.cursor()
+        cursor.execute(
+            "DELETE FROM topic_tree_cache WHERE game = ? AND generation = ?",
+            (game, generation),
+        )
+        conn.commit()
+        conn.close()
 
 
 # 全局数据库实例

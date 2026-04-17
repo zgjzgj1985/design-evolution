@@ -1,47 +1,24 @@
 """
-研究主题配置
+研究主题配置（已废弃）
 
-注意：此模块已不再使用，预置主题已被动态主题发现取代。
-保留此文件仅用于向后兼容。
+此模块已废弃，预置主题机制已被动态主题发现完全取代。
+保留此文件是为了避免残留的 import 引用报错。
 
-新版流程：
-1. AI 自动扫描所有更新，动态发现设计主题
-2. 用户选择感兴趣的主题
-3. 基于选中的主题和实际数据生成演进报告
+新版流程由 `analyzer/ai_topic_discoverer.py` 中的 AITopicDiscoverer 驱动，
+它通过 LLM 自动扫描数据动态发现主题，不再依赖预置主题列表。
 
-不再需要预置的 keywords、game_context 等硬编码知识。
+废弃说明：
+- RESEARCH_TOPICS 已清空，不再使用
+- get_topic_by_id() 已废弃，保留以防残留引用
+- filter_patches_for_topic() 已废弃，保留以防残留引用
 """
 
-from typing import TypedDict
 
-
-class ResearchTopic(TypedDict):
-    """
-    保留类型定义以确保兼容性，但不再使用此结构
-    """
-    id: str
-    name: str
-    description: str
-    keywords: list[str]
-    exclude_keywords: list[str]
-    game_context: str
-    analysis_prompt: str
-
-
-RESEARCH_TOPICS: list[ResearchTopic] = []
-
-
-def get_topic_by_id(topic_id: str) -> ResearchTopic | None:
-    """根据 ID 获取研究主题（保留兼容性）"""
-    for topic in RESEARCH_TOPICS:
-        if topic["id"] == topic_id:
-            return topic
+def get_topic_by_id(topic_id: str):
+    """已废弃，请使用 AITopicDiscoverer 进行动态主题发现"""
     return None
 
 
-def filter_patches_for_topic(patches: list, topic: ResearchTopic) -> list:
-    """
-    根据研究主题的关键词过滤更新（保留兼容性）
-    新流程中使用 match_patches_by_keywords 代替
-    """
+def filter_patches_for_topic(patches: list, topic: dict) -> list:
+    """已废弃，请使用 EvolutionReportGenerator.match_patches_by_keywords()"""
     return patches

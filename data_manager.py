@@ -54,13 +54,29 @@ class DataManager:
     ]
 
     CATEGORY_RULES = {
-        "PvP": ["battle", "vgc", "tournament", "championship", "doubles", "singles", "ranked", "对战", "竞技", "双打", "单打"],
-        "PvE": ["raid", "dungeon", "boss", "adventure", "story", "团体战", "合作", "多人", "co-op"],
+        "PvP": ["vgc", "tournament", "championship", "doubles", "singles", "ranked", "对战", "竞技", "双打", "单打"],
+        "PvE": ["raid", "dungeon", "boss", "团体战", "合作"],
         "机制": ["mechanic", "system", "feature", "ability", "特性", "move", "skill", "type", "技能", "招式", "极巨化", "太晶化", "mega", "dynamax", "tera"],
         "平衡性": ["balance", "nerf", "buff", "adjust", "modify", "调整", "削弱", "增强", "修改"],
-        "内容": ["new", "add", "introduce", "dlc", "expansion", "新增", "加入", "开放", "content"],
+        "内容": ["dlc", "expansion", "新增", "加入", "开放"],
         "修复": ["fix", "bug", "issue", "crash", "error", "修复", "错误", "问题"],
     }
+
+    # 互斥关键词：出现这些词时不判定为多人对战
+    # 解决 "battle pass" 被误判为 PvP 的问题
+    PVP_EXCLUDE = [
+        "battle pass", "battle pass:", "battle pass：",
+        "price", "sale", "discount", "打折", "降价",
+        "achievement", "steam award", "成就",
+        "localization", "language pack", "语言包",
+        "soundtrack", "ost", "音乐",
+    ]
+
+    # PvE 互斥词：排除明显的商业/社交词汇
+    PVE_EXCLUDE = [
+        "battle pass", "season", "赛季", "price", "sale",
+        "成就", "achievement", "steam",
+    ]
 
     MULTIPLAYER_KEYWORDS = [
         "raid", "battle", "doubles", "co-op", "multiplayer", "multi-player",
@@ -154,12 +170,25 @@ class DataManager:
         return has_gameplay and not is_excluded
 
     def _categorize(self, title: str, content: str) -> List[str]:
-        """为更新打标签"""
-        text = f"{title} {content}"
+        """为更新打标签（互斥逻辑防止误分类）"""
+        text = (f"{title} {content}").lower()
         categories = []
+
+        # 先检查互斥词
+        has_pvp_exclude = any(ex in text for ex in self.PVP_EXCLUDE)
+        has_pve_exclude = any(ex in text for ex in self.PVE_EXCLUDE)
+
         for cat, keywords in self.CATEGORY_RULES.items():
-            if any(kw.lower() in text.lower() for kw in keywords):
+            # PvP/PvE 分类时应用互斥逻辑
+            if cat in ("PvP", "PvE") and any(kw.lower() in text for kw in keywords):
+                if cat == "PvP" and has_pvp_exclude:
+                    continue
+                if cat == "PvE" and has_pve_exclude:
+                    continue
                 categories.append(cat)
+            elif cat not in ("PvP", "PvE") and any(kw.lower() in text for kw in keywords):
+                categories.append(cat)
+
         return categories if categories else ["其他"]
 
     # ---- 数据统计 ----
