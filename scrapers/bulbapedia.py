@@ -688,27 +688,51 @@ class PokeAPIScraper:
         """
         changelog = []
 
-        # 获取世代信息
         gen_data = self.get_generation(generation)
         if not gen_data:
             return changelog
 
-        # 获取版本组
         version_groups = gen_data.get("version_groups", [])
-        for vg in version_groups:
-            vg_name = vg["name"]
-            vg_data = self.get_version_group(vg_name)
-            if vg_data:
-                versions = vg_data.get("versions", [])
-                for version in versions:
-                    changelog.append({
-                        "generation": generation,
-                        "version_group": vg_name,
-                        "version": version["name"],
-                        "version_url": version["url"],
-                    })
+        if not version_groups:
+            return changelog
+
+        vg_names = [vg["name"] for vg in version_groups]
+
+        try:
+            from concurrent.futures import ThreadPoolExecutor, as_completed
+            with ThreadPoolExecutor(max_workers=min(len(vg_names), 8)) as executor:
+                future_to_vg = {
+                    executor.submit(self._fetch_version_group, name): name
+                    for name in vg_names
+                }
+                for future in as_completed(future_to_vg):
+                    vg_data = future.result()
+                    if vg_data:
+                        versions = vg_data.get("versions", [])
+                        for version in versions:
+                            changelog.append({
+                                "generation": generation,
+                                "version_group": vg_data.get("name", ""),
+                                "version": version["name"],
+                                "version_url": version["url"],
+                            })
+        except ImportError:
+            for vg_name in vg_names:
+                vg_data = self.get_version_group(vg_name)
+                if vg_data:
+                    for version in vg_data.get("versions", []):
+                        changelog.append({
+                            "generation": generation,
+                            "version_group": vg_name,
+                            "version": version["name"],
+                            "version_url": version["url"],
+                        })
 
         return changelog
+
+    def _fetch_version_group(self, vg_name: str) -> Optional[dict]:
+        """获取单个版本组信息（供并行调用使用）"""
+        return self.get_version_group(vg_name)
 
     def get_pokemon_by_version(self, pokemon_id: int, version_group: str) -> Optional[dict]:
         """获取特定版本中宝可梦的详细信息"""

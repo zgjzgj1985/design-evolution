@@ -652,6 +652,8 @@ if prev_game is not None and (prev_game != selected_game or prev_gen != generati
     # 更新当前游戏/世代记录
     st.session_state[current_game_key] = selected_game
     st.session_state[current_gen_key] = generation
+    # 强制重渲染，清除旧 widget 占位空白
+    st.rerun(scope="app")
 
 if cache_data_key in st.session_state:
     # 使用缓存
@@ -958,7 +960,10 @@ def _render_patch_card(patch, selected_game, generation, llm_ready, extractor, d
                 if bc:
                     st.markdown("**数值改动详情**:")
                     for name, changes in bc.items():
-                        st.markdown(f"- **{name}**: {', '.join(f'{k}:{v}' for k,v in changes.items())}")
+                        if isinstance(changes, dict):
+                            st.markdown(f"- **{name}**: {', '.join(f'{k}:{v}' for k, v in changes.items())}")
+                        else:
+                            st.markdown(f"- **{name}**: {changes}")
                 if patch.get("impact"):
                     st.markdown("**影响分析**:")
                     st.markdown(f'<div style="background:#e8f4fd;padding:10px;border-radius:6px;margin:6px 0;font-size:0.88rem">{patch.get("impact")}</div>', unsafe_allow_html=True)
@@ -1235,7 +1240,7 @@ with tab2:
 
         fig.update_yaxes(autorange="reversed")
 
-        st.plotly_chart(fig, width="stretch", key="timeline_chart")
+        st.plotly_chart(fig, use_container_width=True)
     else:
         st.info("请选择至少一个游戏来显示时间轴")
 
@@ -1277,20 +1282,19 @@ with tab2:
                 if _r.get("summary"):
                     st.markdown(_r.get("summary")[:200])
 
-    # 防御机制演进详情
-    st.divider()
-    st.subheader("防御/保护机制演进对比")
-
-    comparison_data = {
-        "特性": ["保护机制", "持续时间", "使用限制", "多人适用"],
-        "守住 (Protect)": ["完全抵挡攻击", "单回合", "可连续使用", "是"],
-        "看我嘛 (Follow Me)": ["吸引对方攻击", "持续至切换", "受威吓影响", "2v2核心"],
-        "极巨防壁": ["极巨化中自动保护", "极巨化期间", "仅极巨化中", "团体战"],
-        "太晶化": ["属性改变+招式", "1回合", "任意宝可梦", "PvP/PvE"],
-    }
-
-    df_defense = pd.DataFrame(comparison_data)
-    st.dataframe(df_defense, width="stretch", hide_index=True)
+    # 防御机制演进对比（仅游戏筛选器选中了 Pokemon 时显示）
+    if "Pokemon" in game_filter:
+        comparison_data = {
+            "特性": ["保护机制", "持续时间", "使用限制", "多人适用"],
+            "守住 (Protect)": ["完全抵挡攻击", "单回合", "可连续使用", "是"],
+            "看我嘛 (Follow Me)": ["吸引对方攻击", "持续至切换", "受威吓影响", "2v2核心"],
+            "极巨防壁": ["极巨化中自动保护", "极巨化期间", "仅极巨化中", "团体战"],
+            "太晶化": ["属性改变+招式", "1回合", "任意宝可梦", "PvP/PvE"],
+        }
+        st.divider()
+        st.subheader("防御/保护机制演进对比")
+        df_defense = pd.DataFrame(comparison_data)
+        st.dataframe(df_defense, width="stretch", hide_index=True)
 
 
 # ==================== Tab 3: 设计意图分析 ====================

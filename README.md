@@ -18,13 +18,11 @@
 
 ## 支持的游戏
 
-| 游戏 | 平台 | 数据来源 |
-|------|------|----------|
-| Pokemon 剑/盾 | 非 Steam | Wiki + 内置数据 |
-| Pokemon 朱/紫 | 非 Steam | Wiki + 内置数据 |
-| Temtem | Steam | Steam News API |
-| Cassette Beasts | Steam | Steam News API |
-| Palworld | Steam | Steam News API |
+- **Pokemon 剑/盾** — Wiki + 内置数据
+- **Pokemon 朱/紫** — Wiki + 内置数据
+- **Temtem** — Steam News API
+- **Cassette Beasts** — Steam News API
+- **Palworld** — Steam News API
 
 ## 快速开始
 

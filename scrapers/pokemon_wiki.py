@@ -1176,6 +1176,380 @@ class PokemonWikiScraper:
                     ],
                 },
             ],
+            # ====== 第八世代 (Gen 8) ======
+            8: [
+                {
+                    "version": "1.0.0",
+                    "date": "2019-11-15",
+                    "game": "剑/盾",
+                    "source_url": "https://serebii.net/swordshield/",
+                    "official_notes": "第八世代正式发布，极巨化登场。剑盾是首个没有全国图鉴的宝可梦正作，引发巨大争议。",
+                    "changes": [
+                        {
+                            "category": "机制",
+                            "content": "极巨化替代Mega进化和Z招式成为新一代强化系统",
+                            "intent": "提供全员可用的强化机制，替代只有特定宝可梦能使用的Mega进化",
+                            "detail": "极巨化允许任何宝可梦变大一圈并获得强力招式，相比Mega进化更易用，相比Z招式更具视觉冲击力",
+                            "full_context": "剑盾是首个没有全国图鉴的宝可梦正作，引发巨大争议。极巨化替代Mega进化和Z招式成为新一代强化系统。极巨化允许任何宝可梦变大一圈并获得强力招式，相比Mega进化更易用，相比Z招式更具视觉冲击力。",
+                            "impact": "极巨化成为VGC双打核心机制，其易用性和视觉冲击力获得好评",
+                            "vgc_relevance": "极巨化成为VGC双打核心机制，是历代强化机制的又一次迭代"
+                        },
+                        {
+                            "category": "PvE",
+                            "content": "新增极巨团体战，4名玩家合作挑战野生极巨化宝可梦",
+                            "intent": "解决前代「官方合作」玩法缺失的问题，提供多人PvE内容",
+                            "detail": "极巨团体战采用回合制攻击+护盾机制，4名玩家轮流攻击并削弱护盾。",
+                            "full_context": "极巨团体战是宝可梦正作首次引入的多人合作PvE内容，为朱紫的太晶团体战奠定基础。4名玩家合作挑战野生极巨化宝可梦，采用回合制攻击+护盾机制。",
+                            "impact": "首次在正作中引入多人合作PvE内容，解决「缺乏官方合作玩法」的需求",
+                            "vgc_relevance": "极巨团体战开创了正作多人PvE合作内容的先河"
+                        },
+                    ],
+                },
+                {
+                    "version": "1.1.0",
+                    "date": "2020-01-09",
+                    "game": "剑/盾",
+                    "source_url": "https://serebii.net/swordshield/",
+                    "official_notes": "新增极巨团体战，修复对战bug。",
+                    "changes": [
+                        {
+                            "category": "PvE",
+                            "content": "新增极巨团体战，可与其他玩家合作挑战野生极巨化宝可梦",
+                            "intent": "首次在正作中引入多人合作PvE内容，解决「缺乏官方合作玩法」的需求",
+                            "detail": "极巨团体战是宝可梦正作首次引入的多人合作PvE内容，为朱紫的太晶团体战奠定基础。",
+                            "full_context": "2020年1月9日发布，新增多人合作PvE内容。",
+                            "impact": "极巨团体战正式上线，丰富了游戏的多人内容体验",
+                            "vgc_relevance": "首次在正作中引入多人合作PvE内容"
+                        },
+                        {
+                            "category": "平衡性",
+                            "content": "修复Sucker Punch、Quash在只有一名对手时失效的bug",
+                            "intent": "修正影响对战公平性的bug",
+                            "detail": "修复了Sucker Punch（突袭）和Quash（发号施令）在单人对战模式中失效的问题，确保对战机制在所有模式中表现一致。",
+                            "full_context": "Sucker Punch和Quash设计为双打多目标对战招式，旧版本在单挑模式下异常失效。",
+                            "impact": "修正影响对战公平性的bug，维护竞技环境可靠性",
+                            "vgc_relevance": "对战公平性修复是VGC环境健康的基础"
+                        },
+                    ],
+                },
+                {
+                    "version": "1.2",
+                    "date": "2020-06-17",
+                    "game": "铠之孤岛",
+                    "source_url": "https://serebii.net/swordshield/expansionpass.shtml",
+                    "official_notes": "首个DLC「铠之孤岛」发布。",
+                    "changes": [
+                        {
+                            "category": "PvP",
+                            "content": "新增「铠之孤岛」DLC，添加101只回归宝可梦",
+                            "intent": "扩展VGC可用精灵池，改善因缺乏全国图鉴引发的争议",
+                            "detail": "首个DLC「铠之孤岛」引入了新的冒险区域和101只回归宝可梦。新增的传说宝可梦蕾冠王(Coronation)/蕾冠鹿成为VGC常用精灵，其「屹立于GX」机制在VGC中广泛使用。扩展了竞技构筑空间，缓解了剑盾因缺乏全国图鉴引发的精灵池过小问题。",
+                            "full_context": "2020年6月17日发布，铠之孤岛是剑盾首个付费DLC，引入伽勒尔地区新冒险区域。101只回归宝可梦中包含大量竞技常用种，极大丰富了VGC可用构筑选项。蕾冠王/蕾冠鹿因其独特的「屹立于GX」特性成为双打核心精灵。",
+                            "impact": "DLC发布后VGC环境迅速扩张，竞技构筑多样性显著提升",
+                            "vgc_relevance": "蕾冠王/蕾冠鹿成为剑盾VGC环境常青树，屹立于GX特性开创了新的战术类型"
+                        },
+                        {
+                            "category": "平衡性",
+                            "content": "修复排名对战中断线仍能获得胜利的漏洞",
+                            "intent": "维护竞技公平性",
+                            "detail": "修复了排名对战中若对手断线仍能获得胜利点的漏洞，防止利用断线获取不正当优势。",
+                            "full_context": "漏洞允许玩家在排名对战中通过故意断线来避免失败，维护了竞技环境的公平性。",
+                            "impact": "保护了正常玩家的竞技积分，维护了排位系统的公正性",
+                            "vgc_relevance": "竞技公平性维护是VGC环境健康的基础"
+                        },
+                    ],
+                },
+                {
+                    "version": "1.2.1",
+                    "date": "2020-07-08",
+                    "game": "铠之孤岛",
+                    "source_url": "https://serebii.net/swordshield/expansionpass.shtml",
+                    "official_notes": "修复极巨团体战链接码漏洞。",
+                    "changes": [
+                        {
+                            "category": "PvE",
+                            "content": "修复极巨团体战链接码只用7位数字即可匹配的漏洞",
+                            "intent": "防止利用漏洞入侵他人对战房间，保护玩家体验",
+                            "detail": "原本8位链接码允许自定义，但旧版本漏洞允许只输入前7位数字即可匹配，增加了他人在公共房间干扰正常对战的可能。",
+                            "full_context": "极巨团体战是剑盾首次引入的多人合作PvE内容，链接码机制允许玩家创建私人房间。漏洞修复后，所有房间均使用完整8位码，提升了房间隔离安全性。",
+                            "vgc_relevance": "保护了极巨团体战私人房间的私密性"
+                        },
+                    ],
+                },
+                {
+                    "version": "1.3",
+                    "date": "2020-10-23",
+                    "game": "冠之雪原",
+                    "source_url": "https://serebii.net/swordshield/expansionpass.shtml",
+                    "official_notes": "第二个DLC「冠之雪原」发布。",
+                    "changes": [
+                        {
+                            "category": "PvP",
+                            "content": "新增「冠之雪原」DLC，挑战传说宝可梦获得皇冠",
+                            "intent": "为VGC比赛提供强力宝可梦的获取途径，提升对战深度",
+                            "detail": "冠之雪原引入了「传说之路」和「挑战之路」两条故事线。「传说之路」允许玩家挑战传说宝可梦获得皇冠，提升宝可梦等级上限至100，极大丰富了VGC可用传说宝可梦池。",
+                            "full_context": "2020年10月23日发布，冠之雪原引入了「传说之路」和「挑战之路」两条故事线。传说宝可梦可参与VGC对战，大量传说宝可梦回归扩展了VGC可用精灵池。",
+                            "impact": "大量传说宝可梦回归，扩展了VGC可用精灵池",
+                            "vgc_relevance": "大量传说宝可梦回归是VGC环境多样性的重要来源"
+                        },
+                    ],
+                },
+                {
+                    "version": "1.3.1",
+                    "date": "2020-12-22",
+                    "game": "冠之雪原",
+                    "source_url": "https://serebii.net/crowntundra/",
+                    "official_notes": "修复部分对战机制bug。",
+                    "changes": [
+                        {
+                            "category": "平衡性",
+                            "content": "修复部分对战机制bug",
+                            "intent": "改善对战体验，修复影响游戏平衡的问题",
+                            "detail": "修复了冠之雪原引入的传说之路中部分对战机制的bug，确保传说宝可梦挑战的对战公平性。",
+                            "full_context": "冠之雪原引入的传说之路和挑战之路中存在部分对战机制bug，影响了玩家体验。",
+                            "impact": "改善对战体验，修复影响游戏平衡的问题",
+                            "vgc_relevance": "对战机制bug修复维护了竞技环境的可靠性"
+                        },
+                    ],
+                },
+                {
+                    "version": "1.3.2",
+                    "date": "2021-05-12",
+                    "game": "冠之雪原",
+                    "source_url": "https://serebii.net/crowntundra/",
+                    "official_notes": "修复数据不一致和公平性问题。",
+                    "changes": [
+                        {
+                            "category": "平衡性",
+                            "content": "修复古剑虎、藏饱等宝可梦数据与图鉴描述不符的问题，修复多人对战中可从精灵数据判断对手是否使用幻之宝可梦的漏洞",
+                            "intent": "统一数据标准，确保对战公平性",
+                            "detail": "修复了部分宝可梦的种族值或特性数据与官方图鉴不一致的问题，以及多人对战中可从精灵数据判断对手是否使用幻之宝可梦的信息泄露漏洞。",
+                            "full_context": "数据不一致问题影响竞技公平性，信息泄露漏洞破坏了双打对战的博弈基础。",
+                            "impact": "统一数据标准，确保对战公平性",
+                            "vgc_relevance": "信息泄露漏洞修复维护了双打对战的公平博弈"
+                        },
+                    ],
+                },
+            ],
+            # ====== 第九世代 (Gen 9) ======
+            9: [
+                {
+                    "version": "1.0.1",
+                    "date": "2022-11-11",
+                    "game": "朱/紫",
+                    "source_url": "https://serebii.net/scarletviolet/patch.shtml",
+                    "official_notes": "朱紫首发补丁，紧急削弱悖论宝可梦。",
+                    "changes": [
+                        {
+                            "category": "平衡性",
+                            "content": "首发补丁紧急削弱悖论宝可梦Chi-Yu、Chien-Pao、Wo-Chien、Cien-Pao",
+                            "intent": "修正游戏平衡性疏漏，防止测试阶段发现过强的原创宝可梦影响VGC环境",
+                            "detail": "悖论宝可梦拥有极高种族值总和被紧急削弱。这是Game Freak首次在发售前对原创宝可梦进行大规模数值削弱，体现了现代电竞化运营的谨慎态度。",
+                            "full_context": "朱紫于2022年11月18日发售，此补丁在发售前一周发布（11月11日），目的是修正游戏平衡性疏漏。悖论宝可梦（Chi-Yu、Chien-Pao、Wo-Chien、Cien-Pao）是朱紫的原创宝可梦，拥有极高的种族值总和，在测试阶段被发现过强。",
+                            "impact": "这次削弱对VGC环境产生深远影响，原本计划使用这些悖论宝可梦的选手不得不临时调整构筑",
+                            "vgc_relevance": "这是Game Freak首次在发售前对原创宝可梦进行大规模数值削弱，体现了现代电竞化运营的谨慎态度"
+                        },
+                    ],
+                },
+                {
+                    "version": "1.1.0",
+                    "date": "2022-12-02",
+                    "game": "朱/紫",
+                    "source_url": "https://serebii.net/scarletviolet/patch.shtml",
+                    "official_notes": "正式开放VGC排名对战。",
+                    "changes": [
+                        {
+                            "category": "PvP",
+                            "content": "正式开放VGC排名对战，标志着VGC 2023规则赛季正式开始",
+                            "intent": "激活竞技功能，让玩家可以进行正式排名对战",
+                            "detail": "朱紫是首个默认包含太晶化机制的VGC世代，太晶化成为双打对战的核心机制。",
+                            "full_context": "朱紫于2022年11月18日发售，排名对战功能在12月2日激活，标志着VGC 2023规则赛季正式开始。朱紫引入的太晶化系统成为历代最具变革性的强化机制——任何宝可梦都可以附着太晶宝石获得属性变化和强力招式。",
+                            "impact": "VGC 2023赛季正式启动，太晶化成为竞技环境核心机制",
+                            "vgc_relevance": "朱紫是首个默认包含太晶化机制的VGC世代，太晶化是历代强化机制中灵活性最高的"
+                        },
+                    ],
+                },
+                {
+                    "version": "1.2.0",
+                    "date": "2023-02-28",
+                    "game": "朱/紫",
+                    "source_url": "https://serebii.net/scarletviolet/patch.shtml",
+                    "official_notes": "大型更新，修复大量严重bug，新增悖论宝可梦。",
+                    "changes": [
+                        {
+                            "category": "平衡性",
+                            "content": "修复VGC结算后报错崩溃阻止继续对战的严重bug，部分悖论宝可梦数值回调",
+                            "intent": "解决阻止玩家参与排名对战的严重问题，同时适度回调之前过强削弱的悖论宝可梦",
+                            "detail": "VGC结算崩溃bug阻止了大量玩家参与排名对战。Chi-Yu和Scream Tail获得数值回调。",
+                            "full_context": "这是朱紫发售后的第一个大型更新（485MB），主要解决游戏稳定性问题，并添加了悖论宝可梦「行走椰木」和「铁哑力」。VGC结算崩溃bug是当时最严重的问题，阻止了大量玩家正常参与排名对战。",
+                            "impact": "VGC结算崩溃bug修复是VGC环境正常化的关键，悖论宝可梦回调扩展了竞技构筑选项",
+                            "vgc_relevance": "VGC结算崩溃bug阻止了大量玩家参与排名对战，此次修复是VGC环境正常化的关键"
+                        },
+                        {
+                            "category": "机制",
+                            "content": "新增悖论宝可梦「行走椰木」和「铁哑力」，新增DLC「零之秘宝」购买入口",
+                            "intent": "扩展VGC可用精灵池，提供新内容",
+                            "detail": "新增悖论宝可梦极大扩展了VGC可用精灵池，改变了Meta格局。行走椰木(Walking Wake)和铁哑力(Iron Leaves)作为朱紫独有的悖论系列，在VGC中迅速成为常用选择。",
+                            "full_context": "朱紫的悖论宝可梦分为「古代系」（如行走椰木）和「未来系」（如铁哑力），每个都有独特的属性组合和技能池，为VGC提供了全新的构筑材料。",
+                            "impact": "悖论宝可梦的加入极大丰富了VGC可用精灵池",
+                            "vgc_relevance": "悖论宝可梦成为朱紫VGC环境的标志性元素"
+                        },
+                    ],
+                },
+                {
+                    "version": "1.3.0",
+                    "date": "2023-04-20",
+                    "game": "朱/紫",
+                    "source_url": "https://serebii.net/scarletviolet/patch.shtml",
+                    "official_notes": "修复大量对战系统bug。",
+                    "changes": [
+                        {
+                            "category": "平衡性",
+                            "content": "修复大量影响双打对战公平性的显示和交互bug",
+                            "intent": "修复多打对战中影响公平性的各种显示和交互bug",
+                            "detail": "重点修复了多打对战中影响公平性的各种显示和交互bug，特别是佐�(Zarude)与太晶化的交互问题。",
+                            "full_context": "2023年4月20日发布，专注于修复影响对战的严重bug。多打对战的复杂性使得各种边缘情况容易出现bug。",
+                            "impact": "修复后双打对战体验更加稳定可靠",
+                            "vgc_relevance": "双打bug修复对VGC竞技环境的公平性至关重要"
+                        },
+                    ],
+                },
+                {
+                    "version": "1.3.1",
+                    "date": "2023-05-25",
+                    "game": "朱/紫",
+                    "source_url": "https://serebii.net/scarletviolet/patch.shtml",
+                    "official_notes": "修复邀请制在线比赛问题。",
+                    "changes": [
+                        {
+                            "category": "PvP",
+                            "content": "修复邀请制在线比赛中无法退出战斗和无法查看排名的bug",
+                            "intent": "确保线上竞技活动正常进行",
+                            "detail": "修复了玩家在邀请制在线比赛中陷入战斗无法退出的问题，以及无法正常查看排名的UI bug。",
+                            "full_context": "邀请制在线比赛是官方VGC赛事的重要组成部分，bug影响了赛事正常进行。",
+                            "impact": "修复后线上比赛功能恢复正常",
+                            "vgc_relevance": "线上比赛功能修复确保了VGC赛事正常进行"
+                        },
+                    ],
+                },
+                {
+                    "version": "1.3.2",
+                    "date": "2023-06-29",
+                    "game": "朱/紫",
+                    "source_url": "https://serebii.net/scarletviolet/patch.shtml",
+                    "official_notes": "为世锦赛准备的版本调整。",
+                    "changes": [
+                        {
+                            "category": "PvP",
+                            "content": "为Live Competition做功能调整，修改Illuminate特性描述",
+                            "intent": "为官方线上赛事做准备的版本",
+                            "detail": "为Live Competition线上赛事做准备的版本，对部分特性描述进行规范化调整，确保赛事规则清晰。",
+                            "full_context": "2023年世锦赛前夕的版本调整，为赛事进行最后的规则确认。",
+                            "impact": "确保赛事规则清晰，避免因规则歧义影响比赛结果",
+                            "vgc_relevance": "赛事规则规范化是VGC竞技公平性的基础"
+                        },
+                    ],
+                },
+                {
+                    "version": "2.0.1",
+                    "date": "2023-09-13",
+                    "game": "零之秘宝",
+                    "source_url": "https://serebii.net/scarletviolet/patch.shtml",
+                    "official_notes": "DLC第一弹「碧之假面」发布。",
+                    "changes": [
+                        {
+                            "category": "PvP",
+                            "content": "DLC「碧之假面」发布，新增101只回归宝可梦和悖论宝可梦",
+                            "intent": "扩展VGC可用精灵池，新增Ogerpon等强力对战宝可梦",
+                            "detail": "新增悖论宝可梦极大扩展了VGC可用精灵池，改变了Meta格局。Ogerpon(弃食猫)因其型态变化机制人气极高，其型态变化机制成为VGC构筑的热门话题。",
+                            "full_context": "DLC「碧之假面」是朱紫首个付费DLC，引入北上乡地区和101只回归宝可梦。Ogerpon作为封面神兽，因其独特的型态变化机制（根据佩戴道具改变形态）在VGC中广泛使用。",
+                            "impact": "DLC发布后VGC环境迅速扩张，Ogerpon成为封面神兽级别的强力对战宝可梦",
+                            "vgc_relevance": "Ogerpon的型态变化机制开创了封面神兽使用方式的新纪元"
+                        },
+                        {
+                            "category": "PvE",
+                            "content": "新增北上湖更高难度太晶团体战",
+                            "intent": "提供更具挑战性的多人合作内容",
+                            "detail": "新增北上湖地区更高难度的太晶团体战，为喜欢挑战向PvE的玩家提供内容。",
+                            "full_context": "太晶团体战是朱紫的多人合作PvE内容，北上湖高难度版本提供了更强的挑战性。",
+                            "impact": "为硬核PvE玩家提供更具挑战性的合作内容",
+                            "vgc_relevance": "PvE内容的丰富不影响VGC竞技体验"
+                        },
+                    ],
+                },
+                {
+                    "version": "2.0.2",
+                    "date": "2023-10-12",
+                    "game": "碧之假面",
+                    "source_url": "https://serebii.net/scarletviolet/patch.shtml",
+                    "official_notes": "碧之假面补丁，修复游戏进度和跨平台bug。",
+                    "changes": [
+                        {
+                            "category": "其他",
+                            "content": "修复击败300名训练家后部分任务无法推进的bug，修复Pokémon GO导入的宝可梦无法存入游戏的bug",
+                            "intent": "修复非对战类bug，改善用户体验",
+                            "detail": "修复了北上乡剧情中击败300名训练家后部分任务无法推进的进度阻塞bug，以及从Pokémon GO导入的宝可梦无法存入朱紫游戏的跨平台兼容问题。",
+                            "full_context": "跨平台数据流通是朱紫的重要功能，Pokémon GO玩家导入功能在早期版本中存在兼容性问题。",
+                            "impact": "修复后剧情体验和跨平台导入功能正常运作",
+                            "vgc_relevance": "非对战类bug修复改善了整体游戏体验"
+                        },
+                    ],
+                },
+                {
+                    "version": "3.0.0",
+                    "date": "2023-12-14",
+                    "game": "蓝之圆盘",
+                    "source_url": "https://serebii.net/scarletviolet/patch.shtml",
+                    "official_notes": "DLC第二弹「蓝之圆盘」发布，完成资料篇。",
+                    "changes": [
+                        {
+                            "category": "PvP",
+                            "content": "新增传说宝可梦「太乐巴戈斯」和悖论宝可梦，太晶化与气场特攻/原场特攻交互bug修复",
+                            "intent": "完成DLC内容更新，修复影响平衡性的特性交互bug",
+                            "detail": "太乐巴戈斯(Terapagos)的特性「最大扰乱」严重影响VGC环境平衡。新增传说宝可梦扩展了可用精灵池。太晶化与气场特攻/原场特攻的交互bug也同时修复。",
+                            "full_context": "DLC「蓝之圆盘」是朱紫第二个DLC，引入太乐巴戈斯(Terapagos)和蓝之圆盘地区。太乐巴戈斯的「最大扰乱」特性在VGC中引发广泛讨论。",
+                            "impact": "太乐巴戈斯的特性「最大扰乱」严重影响VGC环境平衡，引发了关于传说宝可梦设计尺度的讨论",
+                            "vgc_relevance": "太乐巴戈斯成为朱紫VGC环境的标志性强力宝可梦"
+                        },
+                    ],
+                },
+                {
+                    "version": "3.0.1",
+                    "date": "2024-02-01",
+                    "game": "蓝之圆盘",
+                    "source_url": "https://serebii.net/scarletviolet/patch.shtml",
+                    "official_notes": "蓝之圆盘补丁，修复龙之鼓舞bug。",
+                    "changes": [
+                        {
+                            "category": "平衡性",
+                            "content": "修复龙之鼓舞（Dragon Cheer）效果在交换后异常保留的bug",
+                            "intent": "修复对双打环境产生重大影响的特性bug",
+                            "detail": "龙之鼓舞bug修复对VGC双打环境产生重大影响，该技能是当时热门战术的关键组件。bug导致效果在宝可梦交换后异常保留，影响了对战公平性。",
+                            "full_context": "龙之鼓舞(Dragon Cheer)是蓝之圆盘引入的新招式，bug修复对使用该招式的双打战术产生了重大影响。",
+                            "impact": "龙之鼓舞bug修复对VGC双打环境产生重大影响，该技能是当时热门战术的关键组件",
+                            "vgc_relevance": "双打核心招式的bug修复对VGC竞技公平性至关重要"
+                        },
+                    ],
+                },
+                {
+                    "version": "4.0.0",
+                    "date": "2025-06-03",
+                    "game": "朱/紫",
+                    "source_url": "https://serebii.net/scarletviolet/patch.shtml",
+                    "official_notes": "Nintendo Switch 2 兼容更新。",
+                    "changes": [
+                        {
+                            "category": "其他",
+                            "content": "为Nintendo Switch 2提供优化支持，改善帧率和画面",
+                            "intent": "为新硬件平台提供支持，确保竞技功能正常运作",
+                            "detail": "朱紫升级为Nintendo Switch 2兼容版本，提供帧率和画面优化，确保在新技术平台上竞技功能正常运作。",
+                            "full_context": "Nintendo Switch 2于2025年发售，朱紫作为当时最新的宝可梦正作需要提供兼容性更新。",
+                            "impact": "新硬件平台兼容确保了竞技功能的延续性",
+                            "vgc_relevance": "硬件平台升级不影响VGC规则延续性"
+                        },
+                    ],
+                },
+            ],
         }
 
         result = self._enrich_changes_with_feedback(patches_db.get(generation, []))
