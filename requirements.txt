@@ -15,4 +15,4 @@ python-dotenv>=1.0.0
 
 # 可选依赖（用于增强社区反应数据采集）
 # praw>=7.0.0   # Reddit API 客户端，配置后采集效果更稳定
-steamreviews>=0.9.6   # Steam 评测免费采集，无需 API Key
+steamreviews>=0.9.5   # Steam 评测免费采集，无需 API Key（0.9.6+ 要求 Python>=3.12，与部分环境不兼容）

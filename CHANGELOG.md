@@ -2,6 +2,15 @@
 
 所有版本变更记录遵循 [Keep a Changelog](https://keepachangelog.com/) 规范。
 
+## [1.6.2] - 2026-04-17
+
+### Fixed
+
+- **修复 Docker 构建失败：`steamreviews` 版本要求过高**
+  - `requirements.txt` 中 `steamreviews>=0.9.6` 改为 `>=0.9.5`
+  - PyPI 上 `0.9.6` 及以上版本要求 Python >= 3.12，与部分 Docker 镜像环境不兼容
+  - 当前 PyPI 可用最高版本为 `0.9.5`，适用于所有 Python 3 环境
+
 ## [1.6.1] - 2026-04-16
 
 ### Added
