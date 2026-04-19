@@ -69,294 +69,182 @@ st.set_page_config(
 # 自定义样式
 st.markdown("""
 <style>
-/* ═══════════════════════════════════════════════════════════
-   DESIGN LANGUAGE v6 — 简洁·克制·高级
-   核心原则：信息密度优先，视觉噪音归零
-═══════════════════════════════════════════════════════════ */
-
-/* ── 全局重置与基础 ── */
-.block-container { padding-top: 1.5rem; padding-bottom: 3rem; }
-[data-testid="stAppViewContainer"] { background: #fafafa; }
-
-/* ── 主标题区 ── */
-.app-title {
-    font-size: 1.1rem;
-    font-weight: 700;
-    color: #1a1a2e;
-    letter-spacing: -0.02em;
-    margin-bottom: 0.15rem;
-}
-.app-subtitle {
-    font-size: 0.8rem;
-    color: #9ca3af;
-    letter-spacing: 0.02em;
-    text-transform: uppercase;
-}
-
-/* ── 统计数字行 ── */
-.stat-row {
-    display: flex;
-    gap: 2rem;
-    align-items: baseline;
-    padding: 0.6rem 0;
-    border-bottom: 1px solid #f0f0f0;
-    flex-wrap: wrap;
-}
-.stat-item { display: flex; flex-direction: column; gap: 1px; }
-.stat-n { font-size: 1.3rem; font-weight: 700; color: #1a1a2e; line-height: 1; }
-.stat-l { font-size: 0.72rem; color: #9ca3af; letter-spacing: 0.04em; }
-.stat-sep { width: 1px; height: 28px; background: #e5e7eb; align-self: center; margin: 0 0.5rem; }
-
-/* ── Patch 卡片（列表项）────────────── */
-.patch-card {
-    border: 1px solid #eeeeee;
-    border-left: 3px solid #d1d5db;
-    border-radius: 4px;
-    padding: 0.75rem 1rem;
-    margin-bottom: 0.5rem;
-    background: #ffffff;
-    transition: border-color 0.12s, box-shadow 0.12s;
-}
-.patch-card:hover {
-    border-color: #c0c8d4;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
-}
-.patch-card.pvp { border-left-color: #6b7280; }
-
-.patch-card-title {
-    font-size: 0.875rem;
-    font-weight: 600;
-    color: #1a1a2e;
-    margin-bottom: 0.2rem;
-    display: flex;
-    align-items: baseline;
-    gap: 0.5rem;
-    flex-wrap: wrap;
-}
-.patch-date { font-size: 0.72rem; color: #9ca3af; font-weight: 400; font-family: monospace; flex-shrink: 0; }
-.patch-meta { font-size: 0.72rem; color: #9ca3af; margin-bottom: 0.25rem; }
-.patch-preview { font-size: 0.78rem; color: #6b7280; line-height: 1.5; }
-
-/* 减少 Badge：最多 1 个，仅 PvP 相关时显示 */
-.badge-pvp {
-    font-size: 0.65rem;
-    font-weight: 600;
-    padding: 1px 6px;
-    border-radius: 3px;
-    background: #f3f4f6;
-    color: #6b7280;
-    border: 1px solid #e5e7eb;
-    letter-spacing: 0.03em;
-    text-transform: uppercase;
-}
-
-/* ── 详情展开区 ── */
-.detail-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 0.75rem;
-    padding: 0.75rem 0;
-    border-top: 1px solid #f0f0f0;
-    margin-top: 0.5rem;
-}
-.detail-item { display: flex; flex-direction: column; gap: 2px; }
-.detail-label { font-size: 0.68rem; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.06em; }
-.detail-value { font-size: 0.82rem; color: #374151; }
-
-/* 官方日志原文 */
-.official-notes {
-    background: #f9f9f9;
-    padding: 0.75rem 1rem;
-    border-radius: 4px;
-    font-size: 0.82rem;
-    color: #374151;
-    line-height: 1.7;
-    max-height: 320px;
-    overflow-y: auto;
-    border: 1px solid #eeeeee;
-    margin: 0.5rem 0;
-}
-
-/* 详细改动（黄色高亮区） */
-.detail-changes {
-    background: #fefce8;
-    padding: 0.6rem 0.8rem;
-    border-radius: 4px;
-    font-size: 0.82rem;
-    line-height: 1.7;
-    color: #374151;
-    border-left: 2px solid #fde047;
-    margin: 0.5rem 0;
-}
-
-/* ── AI 分析结果卡片 ── */
-.ai-card {
-    border: 1px solid #eeeeee;
-    border-radius: 6px;
-    padding: 1rem 1.25rem;
-    margin: 0.75rem 0;
-    background: #fafafa;
-}
-.ai-card.pvp { border-left: 3px solid #9ca3af; }
-.ai-card-label {
-    font-size: 0.72rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: #9ca3af;
-    margin-bottom: 0.5rem;
-}
-
-/* 洞察盒子 */
-.insight-box {
-    background: #ffffff;
-    border: 1px solid #eeeeee;
-    border-radius: 4px;
-    padding: 0.75rem 1rem;
-    font-size: 0.85rem;
-    color: #4b5563;
-    line-height: 1.6;
-    margin: 0.75rem 0;
-}
-
-/* ── 演进报告步骤指示器 ── */
-.step-bar {
-    display: flex;
-    align-items: center;
-    gap: 0;
-    margin-bottom: 0.5rem;
-}
-.step-pill {
-    font-size: 0.75rem;
-    font-weight: 600;
-    padding: 4px 14px;
-    border-radius: 20px;
-    letter-spacing: 0.02em;
-    white-space: nowrap;
-}
-.step-pill.done { background: #1a1a2e; color: #ffffff; }
-.step-pill.active { background: #e5e7eb; color: #1a1a2e; border: 1px solid #d1d5db; }
-.step-pill.waiting { background: transparent; color: #d1d5db; }
-.step-connector {
-    flex: 1;
-    height: 1px;
-    background: #e5e7eb;
-    margin: 0 4px;
-    min-width: 20px;
-}
-
-/* ── 维度折叠卡（演进报告）── */
-.dim-card {
-    border: 1px solid #eeeeee;
-    border-radius: 6px;
-    margin-bottom: 0.75rem;
-    overflow: hidden;
-    background: #ffffff;
-    transition: border-color 0.12s;
-}
-.dim-card:hover { border-color: #d1d5db; }
-.dim-card.selected { border-color: #1a1a2e; }
-.dim-header {
-    padding: 0.75rem 1rem;
-    font-size: 0.875rem;
-    font-weight: 600;
-    color: #1a1a2e;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    background: #fafafa;
-    border-bottom: 1px solid #eeeeee;
-}
-.dim-header:hover { background: #f5f5f5; }
-.dim-count { font-size: 0.72rem; color: #9ca3af; font-weight: 400; }
-.dim-body { padding: 0.75rem 1rem; }
-
-/* ── 演进枝列表项 ── */
-.branch-item {
-    padding: 0.6rem 0;
-    border-bottom: 1px solid #f5f5f5;
-}
-.branch-item:last-child { border-bottom: none; }
-.branch-problem { font-size: 0.875rem; font-weight: 600; color: #1a1a2e; margin-bottom: 0.15rem; }
-.branch-meta { font-size: 0.72rem; color: #9ca3af; display: flex; gap: 0.5rem; flex-wrap: wrap; }
-.branch-insight { font-size: 0.78rem; color: #6b7280; margin-top: 0.2rem; font-style: italic; }
-
-/* ── 时间轴页面 ── */
-.tl-section-title {
-    font-size: 0.875rem;
-    font-weight: 700;
-    color: #1a1a2e;
-    padding-bottom: 0.5rem;
-    border-bottom: 1px solid #eeeeee;
-    margin: 1.5rem 0 1rem;
-    letter-spacing: -0.01em;
-}
-
-/* ── Tab 标签页样式 ── */
-[data-testid="stTabList"] {
-    gap: 2px;
-    background: transparent;
-    padding: 0 0 1px 0;
-    border-bottom: 1px solid #eeeeee;
-    border-radius: 0;
-}
-[data-testid="stTab"] {
-    border: none;
-    border-radius: 0;
-    padding: 6px 16px;
-    font-size: 0.82rem;
-    font-weight: 500;
-    color: #9ca3af;
-    background: transparent;
-    border-bottom: 2px solid transparent;
-    transition: all 0.15s;
-    margin-bottom: -1px;
-}
-[data-testid="stTab"]:hover { color: #374151; background: transparent; }
-[data-testid="stTab"][aria-selected="true"] {
-    background: transparent;
-    color: #1a1a2e;
-    border-bottom-color: #1a1a2e;
-    font-weight: 700;
-}
-
-/* ── Streamlit 原生元素微调 ── */
-[data-testid="stExpander"] { border: 1px solid #eeeeee !important; border-radius: 4px !important; }
-[data-testid="stExpander"]:hover { border-color: #d1d5db !important; }
-.stButton>button { border-radius: 4px !important; font-size: 0.82rem !important; }
-.stButton>button.primary { font-weight: 600; }
-div[data-testid="stTextInput"] > div > div > input,
-div[data-testid="stSelectbox"] > div > div > div,
-div[data-testid="stMultiselect"] > div > div > div { border-radius: 4px !important; font-size: 0.82rem !important; }
-[data-testid="stMetricValue"] { font-size: 1.1rem !important; font-weight: 700 !important; }
-[data-testid="stMetricLabel"] { font-size: 0.72rem !important; color: #9ca3af !important; }
-
-/* ── 侧边栏 ── */
-section[data-testid="stSidebar"] {
-    background: #fafafa;
-    border-right: 1px solid #eeeeee;
-}
-.sidebar-section-label {
-    font-size: 0.65rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: #d1d5db;
-    padding: 0.75rem 1rem 0.25rem;
-}
-.sidebar-caption { font-size: 0.75rem; color: #9ca3af; line-height: 1.5; }
-
-/* ── 数据表格 ── */
-[data-testid="stDataFrame"] table { font-size: 0.82rem !important; }
-[data-testid="stDataFrame"] thead th { font-size: 0.72rem !important; color: #9ca3af !important; text-transform: uppercase; letter-spacing: 0.05em; }
-
-/* ── 进度条 ── */
-.stProgress > div > div > div { background: #e5e7eb !important; }
-.stProgress > div > div > div > div { background: #1a1a2e !important; }
-
-/* ── Divider ── */
-hr { border-color: #eeeeee !important; }
+    .main-header {
+        font-size: 2.5rem;
+        font-weight: bold;
+        color: #1f77b4;
+        text-align: center;
+        margin-bottom: 1rem;
+    }
+    .sub-header {
+        font-size: 1.2rem;
+        color: #666;
+        text-align: center;
+        margin-bottom: 2rem;
+    }
+    .metric-card {
+        background-color: #f0f8ff;
+        padding: 1rem;
+        border-radius: 0.5rem;
+        border-left: 4px solid #1f77b4;
+    }
+    .tag-pvp { background-color: #ff6b6b; color: white; padding: 2px 8px; border-radius: 4px; }
+    .tag-pve { background-color: #4ecdc4; color: white; padding: 2px 8px; border-radius: 4px; }
+    .tag-mechanic { background-color: #45b7d1; color: white; padding: 2px 8px; border-radius: 4px; }
+    .tag-balance { background-color: #96ceb4; color: white; padding: 2px 8px; border-radius: 4px; }
+    .tab4-step-active {
+        background: #1f77b4;
+        color: white;
+        padding: 6px 16px;
+        border-radius: 4px;
+        font-weight: bold;
+    }
+    .tab4-step-done {
+        background: #27ae60;
+        color: white;
+        padding: 6px 16px;
+        border-radius: 4px;
+        font-weight: bold;
+    }
+    .tab4-step-waiting {
+        background: #e0e0e0;
+        color: #888;
+        padding: 6px 16px;
+        border-radius: 4px;
+        font-weight: bold;
+    }
+    .tab4-topic-card {
+        border: 1.5px solid #e0e0e0;
+        border-radius: 6px;
+        padding: 14px 16px;
+        margin-bottom: 10px;
+        cursor: pointer;
+        background: white;
+    }
+    .tab4-topic-card:hover {
+        border-color: #1f77b4;
+        background: #f0f8ff;
+    }
+    .tab4-topic-card.selected {
+        border-color: #1f77b4;
+        background: #e8f4fd;
+        box-shadow: 0 0 0 2px #1f77b4;
+    }
+    .tab4-topic-name {
+        font-size: 1.05rem;
+        font-weight: 600;
+        color: #222;
+        margin-bottom: 4px;
+    }
+    .tab4-topic-meta {
+        font-size: 0.82rem;
+        color: #888;
+    }
+    .tab4-topic-count {
+        display: inline-block;
+        background: #e8f4fd;
+        color: #1f77b4;
+        border-radius: 12px;
+        padding: 2px 10px;
+        font-size: 0.78rem;
+        font-weight: 600;
+        margin-left: 8px;
+    }
+    .tab4-report-section {
+        background: #f9f9f9;
+        border-radius: 8px;
+        padding: 20px 24px;
+        margin-top: 16px;
+    }
+    .tab4-report-section h4 {
+        color: #1f77b4;
+        border-bottom: 2px solid #1f77b4;
+        padding-bottom: 6px;
+        margin-bottom: 12px;
+        font-size: 1rem;
+    }
+    .tab4-report-field {
+        margin-bottom: 14px;
+    }
+    .tab4-report-field strong {
+        color: #444;
+        font-size: 0.88rem;
+        display: block;
+        margin-bottom: 4px;
+    }
+    .tab4-report-field p, .tab4-report-field li {
+        font-size: 0.92rem;
+        color: #333;
+        line-height: 1.6;
+    }
+    .data-source-badge {
+        background-color: #e3f2fd;
+        padding: 0.5rem 1rem;
+        border-radius: 1rem;
+        font-size: 0.85rem;
+        color: #1565c0;
+    }
+    .patch-tag {
+        display: inline-block;
+        padding: 2px 8px;
+        border-radius: 10px;
+        font-size: 0.78rem;
+        font-weight: 500;
+        margin-right: 4px;
+    }
+    .patch-tag-mechanic { background-color: #45b7d1; color: white; }
+    .patch-tag-other { background-color: #96ceb4; color: white; }
+    .patch-tag-pvp { background-color: #ff6b6b; color: white; }
+    .patch-tag-pve { background-color: #4ecdc4; color: white; }
+    .patch-tag-balance { background-color: #f0ad4e; color: white; }
+    .patch-full-content {
+        background-color: #f8f9fa;
+        padding: 12px;
+        border-radius: 6px;
+        font-size: 0.88rem;
+        line-height: 1.7;
+        color: #333;
+    }
+    .insight-box {
+        background: linear-gradient(135deg, #e8f4fd 0%, #f0f7ff 100%);
+        border-left: 4px solid #1f77b4;
+        border-radius: 8px;
+        padding: 16px 20px;
+        margin: 12px 0;
+        font-size: 0.9rem;
+        color: #333;
+        line-height: 1.6;
+    }
+    /* Tab 标签页按钮化样式 */
+    [data-testid="stTabList"] {
+        gap: 4px;
+        background-color: #f0f4f8;
+        padding: 6px 8px;
+        border-radius: 8px;
+        border: none;
+    }
+    [data-testid="stTab"] {
+        border: 1px solid transparent;
+        border-radius: 6px;
+        padding: 6px 20px;
+        font-weight: 500;
+        font-size: 0.88rem;
+        color: #555;
+        background-color: transparent;
+        transition: all 0.2s ease;
+    }
+    [data-testid="stTab"]:hover {
+        background-color: rgba(31, 119, 180, 0.08);
+        border-color: rgba(31, 119, 180, 0.3);
+        color: #1f77b4;
+    }
+    [data-testid="stTab"][aria-selected="true"] {
+        background-color: #1f77b4;
+        color: white;
+        border-color: #1f77b4;
+        font-weight: 600;
+        box-shadow: 0 2px 6px rgba(31, 119, 180, 0.35);
+    }
 </style>
 """, unsafe_allow_html=True)
 
@@ -479,7 +367,7 @@ def fetch_game_data(game: str, generation: int = None, refresh: bool = False) ->
 
 # ==================== 侧边栏 ====================
 with st.sidebar:
-    st.markdown('<p class="sidebar-section-label" style="padding-top:0;">配置</p>', unsafe_allow_html=True)
+    st.header("配置")
 
     # 游戏选择
     selected_game = st.selectbox(
@@ -532,7 +420,7 @@ with st.sidebar:
         )
 
     # 数据刷新（仅清除 session 缓存，不重新抓取网络）
-    st.markdown('<p class="sidebar-section-label">数据源</p>', unsafe_allow_html=True)
+    st.subheader("数据源")
     st.info("更新日志已预采集到本地 data/ 目录，应用启动时直接读取，不访问网络。如需采集最新数据，请运行 `python fetch_all_data.py` 后重启应用。")
     if st.button("清除缓存", width="stretch"):
         st.cache_resource.clear()
@@ -545,7 +433,7 @@ with st.sidebar:
         st.rerun()
 
     # 数据来源权威性与新鲜度展示
-    st.markdown('<p class="sidebar-section-label">数据概览</p>', unsafe_allow_html=True)
+    st.subheader("数据概览")
 
     _GAME_SOURCE_INFO = {
         "Pokemon": {"source": "Serebii.net + 内置数据", "type": "结构化内置"},
@@ -572,7 +460,25 @@ with st.sidebar:
 
     st.divider()
 
-    # LLM 连接状态（简洁行内显示）
+    # 交互式报告入口
+    st.subheader("交互式报告")
+    st.markdown(
+        "「设计演化档案」完整报告 — 10条设计原则 / 47条检查清单 / 历代时间轴",
+        unsafe_allow_html=True,
+    )
+    if st.button("打开演进报告", use_container_width=True, icon="📊"):
+        import webbrowser, pathlib
+        _path = pathlib.Path(__file__).parent / "docs" / "index.html"
+        webbrowser.open(f"file:///{_path.as_posix()}")
+        st.toast("已在浏览器中打开演进报告")
+
+    # 免责声明
+    st.warning(
+        "AI 分析结论可能存在偏差，"
+        "历史案例引用建议通过权威来源交叉验证。"
+    )
+
+    # LLM 连接状态指示（放在设置 expander 外部，每次渲染都可见）
     _llm_init_ok = False
     try:
         _test_ext = IntentExtractor(
@@ -586,11 +492,11 @@ with st.sidebar:
         pass
     _has_key = bool(st.session_state.get("llm_api_key", ""))
     if _has_key and _llm_init_ok:
-        st.caption("AI 分析: **已就绪**")
+        st.caption("**AI 分析**: 已就绪")
     elif _has_key:
-        st.caption("AI 分析: 连接异常")
+        st.caption("**AI 分析**: 连接异常")
     else:
-        st.caption("AI 分析: 未配置")
+        st.caption("**AI 分析**: 未配置")
 
     # LLM 配置 - 折叠式按钮（默认折叠，配置已迁移至 Zeabur 环境变量）
     with st.expander("LLM 设置", expanded=False):
@@ -701,7 +607,7 @@ with st.sidebar:
                     st.error(f"连接失败: {test_result['message']}")
 
     # 数据统计
-    st.markdown('<p class="sidebar-section-label">数据统计</p>', unsafe_allow_html=True)
+    st.subheader("数据统计")
     try:
         db = SQLiteStore()
         stats = db.get_stats(game=selected_game)
@@ -721,34 +627,77 @@ with st.sidebar:
 
 
 # ==================== 主界面 ====================
-col_title, col_meta = st.columns([2, 1])
-with col_title:
-    st.markdown('<p class="app-title">游戏设计演进研究</p>', unsafe_allow_html=True)
-    st.markdown('<p class="app-subtitle">多人对战设计 · 版本编年 · 意图分析</p>', unsafe_allow_html=True)
-with col_meta:
-    source_label = "Wiki 结构化数据" if fetch_stats["source"] == "wiki" else "本地 data/ 目录"
-    st.caption(f"数据来源: {source_label}")
+st.markdown('<h1 class="main-header">游戏设计演进研究工具</h1>', unsafe_allow_html=True)
+st.markdown('<p class="sub-header">多人对战游戏设计演进研究 | 本地静态数据</p>', unsafe_allow_html=True)
 
-st.markdown('<div class="stat-row">', unsafe_allow_html=True)
-c1, c2, c3, c4 = st.columns(4)
-with c1:
-    st.markdown(f'<div class="stat-item"><span class="stat-n">{selected_game}</span><span class="stat-l">当前游戏</span></div>', unsafe_allow_html=True)
-with c2:
-    st.markdown(f'<div class="stat-item"><span class="stat-n">{len(patches)}</span><span class="stat-l">更新记录</span></div>', unsafe_allow_html=True)
-with c3:
-    if selected_game == "Pokemon":
-        st.markdown(f'<div class="stat-item"><span class="stat-n">第{generation}世代</span><span class="stat-l">分析范围</span></div>', unsafe_allow_html=True)
-    else:
-        st.markdown(f'<div class="stat-item"><span class="stat-n">Steam News</span><span class="stat-l">数据来源</span></div>', unsafe_allow_html=True)
-with c4:
-    try:
-        db = SQLiteStore()
-        stats = db.get_stats(game=selected_game)
-        total_analyses = stats.get("total_analyses", 0)
-        st.markdown(f'<div class="stat-item"><span class="stat-n">{total_analyses}</span><span class="stat-l">已分析</span></div>', unsafe_allow_html=True)
-    except:
-        st.markdown(f'<div class="stat-item"><span class="stat-n">—</span><span class="stat-l">已分析</span></div>', unsafe_allow_html=True)
-st.markdown('</div>', unsafe_allow_html=True)
+# 获取数据 - 使用稳定的缓存机制
+# 每个 (game, generation) 组合独立缓存，切换时代只驱逐旧世代缓存
+
+def _get_gen_cache_key(game: str, gen: int) -> str:
+    return f"_patches_{game}_{gen}"
+
+def _evict_old_gen_caches(game: str, current_gen: int):
+    """驱逐同一游戏下旧世代的缓存，只保留当前世代"""
+    prefix = f"_patches_{game}_"
+    for k in list(st.session_state.keys()):
+        if k.startswith(prefix):
+            # 解析世代号
+            try:
+                cached_gen = int(k.replace(prefix, ""))
+                if cached_gen != current_gen:
+                    del st.session_state[k]
+            except ValueError:
+                pass
+
+cache_data_key = _get_gen_cache_key(selected_game, generation)
+
+# 检测是否切换了游戏或世代
+current_game_key = "_current_game"
+current_gen_key = "_current_gen"
+prev_game = st.session_state.get(current_game_key)
+prev_gen = st.session_state.get(current_gen_key)
+
+# 切换游戏/世代时：清除旧世代缓存，保留其他数据
+if prev_game is not None and (prev_game != selected_game or prev_gen != generation):
+    # 驱逐同一游戏下旧世代的缓存
+    _evict_old_gen_caches(selected_game, generation)
+    # 更新当前游戏/世代记录
+    st.session_state[current_game_key] = selected_game
+    st.session_state[current_gen_key] = generation
+    # 强制重渲染，清除旧 widget 占位空白
+    st.rerun(scope="app")
+
+if cache_data_key in st.session_state:
+    # 使用缓存
+    patches, fetch_stats = st.session_state[cache_data_key]
+else:
+    # 首次加载或缓存被驱逐，加载数据
+    with st.spinner("正在加载数据..."):
+        patches, fetch_stats = fetch_game_data(selected_game, generation)
+    st.session_state[cache_data_key] = (patches, fetch_stats)
+    # 更新当前游戏/世代记录
+    st.session_state[current_game_key] = selected_game
+    st.session_state[current_gen_key] = generation
+
+# 统计信息
+col1, col2, col3, col4 = st.columns(4)
+with col1:
+    st.metric("游戏", selected_game)
+with col2:
+    st.metric("更新日志", len(patches))
+with col3:
+    st.metric("世代", f"第{generation}世代" if selected_game == "Pokemon" else "N/A")
+with col4:
+    source_label = "Wiki 结构化数据" if fetch_stats["source"] == "wiki" else "本地 data/ 目录"
+    st.caption(f"数据来源：{source_label}")
+
+# 显示错误信息（如果有）
+if fetch_stats.get("errors"):
+    with st.expander("数据获取警告", expanded=False):
+        for error in fetch_stats["errors"]:
+            st.warning(error)
+
+st.divider()
 
 # Tab 界面
 tab1, tab2, tab3, tab4 = st.tabs([
@@ -813,13 +762,16 @@ def _render_analysis_result(analysis, pvp_related, source, patch_key, extractor)
     ]]):
         return
 
-    card_class = "ai-card pvp" if pvp_related else "ai-card"
-    src_color = "#9ca3af" if source == "DB缓存" else "#6b7280"
-    src_tag = f'<span style="font-size:0.65rem;color:{src_color};padding:1px 5px;border:1px solid {src_color};border-radius:3px;margin-left:6px">{source}</span>'
+    ai_border = "#ff6b6b" if pvp_related else "#1f77b4"
+    ai_bg = "#fff5f5" if pvp_related else "#f0f7ff"
+    pvp_tag = '<span style="background:#ff6b6b;color:white;padding:2px 8px;border-radius:10px;font-size:11px;margin-left:8px">多人对战相关</span>' if pvp_related else ""
+    color = "#52c41a" if source == "新分析" else "#888"
+    src_tag = f'<span style="background:{color};color:white;padding:1px 6px;border-radius:6px;font-size:10px;margin-left:8px">{source}</span>'
 
     st.markdown(
-        f'<div class="{card_class}">'
-        f'<div class="ai-card-label">AI 分析结果{src_tag}</div>',
+        f'<div style="background:linear-gradient(135deg,{ai_bg} 0%,#e8f4fd 100%);'
+        f'border-left:4px solid {ai_border};border-radius:8px;padding:14px;margin:12px 0;">'
+        f'<div style="font-size:1rem;font-weight:700;margin-bottom:10px">AI 分析结果{pvp_tag}{src_tag}</div>',
         unsafe_allow_html=True
     )
 
@@ -837,7 +789,7 @@ def _render_analysis_result(analysis, pvp_related, source, patch_key, extractor)
     if mechanics:
         if not isinstance(mechanics, list):
             mechanics = [mechanics]
-        tags_html = " ".join([f'<span style="font-size:0.72rem;padding:1px 6px;border:1px solid #e5e7eb;border-radius:3px;color:#6b7280;background:#f5f5f5">{m}</span>' for m in mechanics[:6]])
+        tags_html = " ".join([f'<span class="patch-tag patch-tag-mechanic">{m}</span>' for m in mechanics[:6]])
         st.markdown(f"**涉及机制**: {tags_html}", unsafe_allow_html=True)
 
     players = analysis.get("player_impact") or analysis.get("affected_players", "")
@@ -846,38 +798,42 @@ def _render_analysis_result(analysis, pvp_related, source, patch_key, extractor)
             players = "、".join(players)
         st.markdown(f"**受影响玩家**: {players}")
 
+    # balance_assessment 直观标签映射
     _ASSESSMENT_LABELS = {
-        "恰到好处": ("力度适中", "#52c41a"),
-        "力度不足": ("调整不足", "#faad14"),
-        "过犹不及": ("矫枉过正", "#ff4d4f"),
-        "治标不治本": ("治标不治本", "#fa8c16"),
+        "恰到好处": ("[力度适中]", "#52c41a"),
+        "力度不足": ("[调整不足]", "#faad14"),
+        "过犹不及": ("[矫枉过正]", "#ff4d4f"),
+        "治标不治本": ("[治标不治本]", "#fa8c16"),
     }
+
     balance = analysis.get("balance_assessment") or analysis.get("design_pattern", "")
     if balance:
         label, color = next(
             ((lbl, col) for key, (lbl, col) in _ASSESSMENT_LABELS.items() if key in balance),
-            (f"[{balance}]", "#6b7280"),
+            (f"[{balance}]", "#666"),
         )
-        st.markdown(f"**平衡评估**: <span style='font-size:0.72rem;font-weight:600;padding:1px 8px;border-radius:3px;background:{color}22;color:{color};border:1px solid {color}44'>{label}</span>", unsafe_allow_html=True)
+        st.markdown(f"**平衡评估**: <span style='background:{color};color:white;padding:2px 10px;border-radius:12px;font-size:12px'>{label}</span>", unsafe_allow_html=True)
 
+    # 数据置信度展示
     confidence = analysis.get("_data_confidence", "")
     if confidence:
-        conf_color = {"高": "#52c41a", "中": "#faad14", "低": "#ff4d4f"}.get(confidence, "#9ca3af")
-        st.markdown(f"**置信度**: <span style='color:{conf_color};font-weight:700;font-size:0.8rem'>{confidence}</span>", unsafe_allow_html=True)
+        conf_color = {"高": "#52c41a", "中": "#faad14", "低": "#ff4d4f"}.get(confidence, "#666")
+        st.markdown(f"**分析置信度**: <span style='color:{conf_color};font-weight:bold'>[{confidence}]</span>", unsafe_allow_html=True)
 
+    # 免责声明
     disclaimer = analysis.get("_disclaimer", "")
     if disclaimer:
-        st.caption(f"⚠ {disclaimer}")
+        st.caption(f"⚠️ {disclaimer}")
 
     similar = analysis.get("similar_historical_cases", [])
     if similar and isinstance(similar, list):
-        st.caption("以下历史案例由 AI 推断，建议交叉验证")
+        st.warning("以下历史案例由 AI 推断生成，建议通过 Serebii.net 等权威来源交叉验证")
         st.markdown("**历史参照**:")
         for r in similar[:3]:
             desc = r.get("description", r) if isinstance(r, dict) else str(r)
             st.markdown(f"- {desc}")
 
-    st.markdown("</div>", unsafe_allow_html=True)
+    st.markdown('</div>', unsafe_allow_html=True)
 
     if st.button("重新分析", key=f"btn_reanal_{patch_key}"):
         st.session_state[patch_key] = None
@@ -950,89 +906,109 @@ def _render_patch_card(patch, selected_game, generation, llm_ready, extractor, d
         "分级", "赛季", "pvp", "pve", "对战", "削弱", "增强", "nerf",
     ])
 
-    card_class = "patch-card pvp" if pvp_related else "patch-card"
-    badge_html = '<span class="badge-pvp">PVP相关</span>' if pvp_related else ''
+    border_color = "#ff6b6b" if pvp_related else "#1f77b4"
+    bg_color = "#fff5f5" if pvp_related else "#ffffff"
+    badge = "[研究相关]" if pvp_related else "[更新]"
 
-    title_text = patch.get("title", "N/A")[:60]
-    preview = patch.get("content", "")[:80]
-    categories = patch.get("categories", [])[:2]
-    cat_text = " / ".join(categories) if categories else ""
-    version = patch.get("version", "")
+    type_val = ""
+    if any(k in raw for k in ["raid", "团体战", "极巨团体", "太晶团体", "多人", "pve", "合作"]):
+        type_val = "PvE"
+    elif any(k in raw for k in ["vgc", "pvp", "对战", "双打", "单打", "规则", "ban", "赛季", "分级", "削弱", "增强", "极巨化", "太晶化", "mega", "z招"]):
+        type_val = "PvP"
+
+    type_html = ""
+    if type_val:
+        c = "#4ecdc4" if type_val == "PvE" else "#96ceb4"
+        type_html = f'<span style="background:{c};color:white;padding:2px 8px;border-radius:8px;font-size:10px;margin-left:6px">{type_val}</span>'
+
+    pvp_html = '<span style="background:#ff6b6b;color:white;padding:2px 8px;border-radius:10px;font-size:11px;margin-left:6px">多人对战相关</span>' if pvp_related else ''
+
+    preview = patch.get("content", "")[:100]
+    preview_html = f'<div style="font-size:0.82rem;color:#555;margin-top:6px;line-height:1.5">{preview}{"..." if len(patch.get("content","")) > 100 else ""}</div>' if preview else ""
 
     st.markdown(
-        f'<div class="{card_class}">'
-        f'<div class="patch-card-title">'
-        f'<span class="patch-date">{patch.get("date","—")}</span>'
-        f'{title_text}'
-        f'{badge_html}'
+        f'<div style="border-left:4px solid {border_color};background:{bg_color};'
+        f'padding:12px 16px;margin-bottom:8px;border-radius:4px;">'
+        f'<div style="font-weight:600;margin-bottom:4px;">'
+        f'{badge} <b>{patch.get("date","N/A")}</b> — {patch.get("title","N/A")[:60]}{type_html}{pvp_html}'
         f'</div>'
-        f'<div class="patch-meta">版本 {version}{(" · " + cat_text) if cat_text else ""}</div>'
-        f'<div class="patch-preview">{preview}{"..." if len(patch.get("content","")) > 80 else ""}</div>'
+        f'<div style="font-size:0.82rem;color:#666;">'
+        f'版本: {patch.get("version","N/A")}　类别: {" / ".join(patch.get("categories",[])[:3])}'
+        f'</div>'
+        f'{preview_html}'
         f'</div>',
         unsafe_allow_html=True
     )
 
     with st.expander("查看详情", expanded=False):
-        st.markdown(f'<div class="detail-grid">'
-                    f'<div class="detail-item"><span class="detail-label">日期</span><span class="detail-value">{patch.get("date","N/A")}</span></div>'
-                    f'<div class="detail-item"><span class="detail-label">版本</span><span class="detail-value">{patch.get("version","N/A")}</span></div>'
-                    f'</div>',
-                    unsafe_allow_html=True)
+        cols = st.columns(3)
+        with cols[0]:
+            st.markdown(f"**日期**: {patch.get('date','N/A')}")
+        with cols[1]:
+            st.markdown(f"**版本**: {patch.get('version','N/A')}")
+        with cols[2]:
+            cats = patch.get("categories", [])[:3]
+            if cats:
+                cat_tags = " ".join([f'<span class="patch-tag patch-tag-other">{c}</span>' for c in cats])
+                st.markdown(f"**类别**: {cat_tags}", unsafe_allow_html=True)
 
         content = patch.get("content", "")
         if content:
-            st.markdown('<p class="detail-label" style="margin-top:0.5rem;margin-bottom:0.2rem;">更新摘要</p>', unsafe_allow_html=True)
-            st.markdown(f'<div class="official-notes">{content}</div>', unsafe_allow_html=True)
+            st.markdown("**更新摘要**:")
+            st.markdown(f'<div class="patch-full-content">{content}</div>', unsafe_allow_html=True)
 
         detail = patch.get("detail", "")
         if detail:
-            st.markdown('<p class="detail-label" style="margin-top:0.5rem;margin-bottom:0.2rem;">详细改动</p>', unsafe_allow_html=True)
-            st.markdown(f'<div class="detail-changes">{detail}</div>', unsafe_allow_html=True)
+            st.markdown("**详细改动**:")
+            st.markdown(f'<div style="background:#fffef0;padding:12px;border-radius:6px;border-left:3px solid #f0ad4e;margin:10px 0;font-size:0.9rem;line-height:1.7">{detail}</div>', unsafe_allow_html=True)
 
         has_bg = any([patch.get("full_context"), patch.get("impact"), patch.get("vgc_relevance"), patch.get("balance_changes")])
         if has_bg:
             with st.expander("详细背景信息"):
                 if patch.get("full_context"):
-                    st.markdown('<p class="detail-label">背景说明</p>', unsafe_allow_html=True)
-                    st.markdown(f'<div class="official-notes">{patch.get("full_context")}</div>', unsafe_allow_html=True)
+                    st.markdown("**背景说明**:")
+                    st.markdown(f'<div style="background:#f8f9fa;padding:12px;border-radius:6px;margin:6px 0;font-size:0.88rem;line-height:1.7">{patch.get("full_context")}</div>', unsafe_allow_html=True)
                 bc = patch.get("balance_changes", {})
                 if bc:
-                    st.markdown('<p class="detail-label" style="margin-top:0.5rem;">数值改动</p>', unsafe_allow_html=True)
+                    st.markdown("**数值改动详情**:")
                     for name, changes in bc.items():
                         if isinstance(changes, dict):
                             st.markdown(f"- **{name}**: {', '.join(f'{k}:{v}' for k, v in changes.items())}")
                         else:
                             st.markdown(f"- **{name}**: {changes}")
                 if patch.get("impact"):
-                    st.markdown('<p class="detail-label" style="margin-top:0.5rem;">影响分析</p>', unsafe_allow_html=True)
-                    st.markdown(f'<div class="official-notes">{patch.get("impact")}</div>', unsafe_allow_html=True)
+                    st.markdown("**影响分析**:")
+                    st.markdown(f'<div style="background:#e8f4fd;padding:10px;border-radius:6px;margin:6px 0;font-size:0.88rem">{patch.get("impact")}</div>', unsafe_allow_html=True)
                 if patch.get("vgc_relevance"):
-                    st.markdown('<p class="detail-label" style="margin-top:0.5rem;">VGC相关</p>', unsafe_allow_html=True)
-                    st.markdown(f'<div class="official-notes">{patch.get("vgc_relevance")}</div>', unsafe_allow_html=True)
+                    st.markdown("**VGC相关说明**:")
+                    st.markdown(f'<div style="background:#f0f8ff;padding:10px;border-radius:6px;margin:6px 0;font-size:0.88rem">{patch.get("vgc_relevance")}</div>', unsafe_allow_html=True)
 
         if patch.get("official_notes"):
-            st.markdown('<p class="detail-label" style="margin-top:0.5rem;">官方原文</p>', unsafe_allow_html=True)
+            st.markdown("#### 官方更新日志原文")
             st.markdown(
-                f'<div class="official-notes">{patch.get("official_notes","").replace(chr(10),"<br>")}</div>',
+                f'<div style="background:#f5f5f5;color:#333;'
+                f'padding:16px;border-radius:8px;margin:10px 0;max-height:400px;'
+                f'overflow-y:auto;font-size:0.85rem;line-height:1.7">'
+                f'{patch.get("official_notes","").replace(chr(10),"<br>")}</div>',
                 unsafe_allow_html=True
             )
 
         if patch.get("intent"):
-            st.markdown('<p class="detail-label" style="margin-top:0.5rem;">设计意图</p>', unsafe_allow_html=True)
-            st.markdown(f'<div class="insight-box">{patch.get("intent")}</div>', unsafe_allow_html=True)
+            st.markdown("**设计意图**:")
+            st.info(patch.get("intent"))
 
-        st.markdown('<div style="border-top:1px solid #f0f0f0;padding-top:0.75rem;margin-top:0.5rem;">', unsafe_allow_html=True)
+        st.markdown("---")
         _render_patch_detail(patch, patch_key, selected_game, generation, pvp_related, llm_ready, extractor, db)
 
         src_url = patch.get("source_url", "")
         if src_url:
-            st.markdown(f'<p style="margin-top:0.5rem;"><a href="{src_url}" target="_blank" style="font-size:0.78rem;color:#9ca3af;">→ 查看官方原文</a></p>', unsafe_allow_html=True)
+            st.markdown(f"[查看官方原文]({src_url})")
 
 
 # ==================== Tab 1: 版本编年史 ====================
 with tab1:
-    st.markdown('<p class="app-title" style="margin-top:0.5rem;">版本编年史</p>', unsafe_allow_html=True)
-    st.markdown(f'<p class="app-subtitle">{"基于 Wiki 结构化的版本更新记录" if selected_game == "Pokemon" else "Steam News 预采集日志"}</p>', unsafe_allow_html=True)
+    st.header("版本编年史")
+    st.markdown("基于 Wiki 结构化整理的版本更新记录" if selected_game == "Pokemon" else "从 Steam News API 预采集的更新日志记录")
 
     if not patches:
         st.info("已加载结构化版本数据，可通过侧边栏筛选世代查看详细更新记录。" if selected_game == "Pokemon"
@@ -1126,8 +1102,8 @@ with tab1:
 
 # ==================== Tab 2: 机制时间轴 ====================
 with tab2:
-    st.markdown('<p class="app-title" style="margin-top:0.5rem;">机制时间轴</p>', unsafe_allow_html=True)
-    st.markdown('<p class="app-subtitle">历代多人对战机制演进可视化</p>', unsafe_allow_html=True)
+    st.header("机制时间轴")
+    st.markdown("可视化展示历代多人对战机制的演进过程")
 
     # 从 PokeAPI 获取版本信息构建时间轴（session_state 缓存避免重复请求）
     timeline_data = []
@@ -1298,7 +1274,7 @@ with tab2:
 
     if _filtered_db:
         st.divider()
-        st.markdown('<p class="tl-section-title">已分析条目</p>', unsafe_allow_html=True)
+        st.subheader("已分析条目（来自本地数据库）")
         _dcols = st.columns([1, 3, 2])
         with _dcols[0]:
             st.caption(f"共 {len(_filtered_db)} 条")
@@ -1328,15 +1304,20 @@ with tab2:
             "太晶化": ["属性改变+招式", "1回合", "任意宝可梦", "PvP/PvE"],
         }
         st.divider()
-        st.markdown('<p class="tl-section-title">防御/保护机制演进对比</p>', unsafe_allow_html=True)
+        st.subheader("防御/保护机制演进对比")
         df_defense = pd.DataFrame(comparison_data)
         st.dataframe(df_defense, width="stretch", hide_index=True)
 
 
 # ==================== Tab 3: 设计意图分析 ====================
 with tab3:
-    st.markdown('<p class="app-title" style="margin-top:0.5rem;">设计意图分析</p>', unsafe_allow_html=True)
-    st.markdown('<p class="app-subtitle">大语言模型解读版本更新背后的设计动机</p>', unsafe_allow_html=True)
+    st.header("设计意图分析")
+    st.markdown("""
+    <div class="insight-box">
+    利用大语言模型分析游戏版本更新背后的设计意图。
+    数据来自预采集的本地更新日志，无需网络请求。
+    </div>
+    """, unsafe_allow_html=True)
 
     if not patches:
         st.warning("需要先在「版本编年史」中获取到更新数据才能进行分析")
@@ -1351,7 +1332,7 @@ with tab3:
 
         if analysis_mode == "分析已有数据":
             # 显示可分析的数据预览
-            st.markdown('<p class="tl-section-title">待分析更新列表</p>', unsafe_allow_html=True)
+            st.subheader("待分析更新列表")
 
             analysis_options = []
             for i, patch in enumerate(patches):
@@ -1482,43 +1463,13 @@ with tab3:
 
 # ==================== Tab 4: 演进报告 ====================
 def _render_step(step_num, label, state):
-    label_html = f'<span class="step-pill {state}">{step_num}. {label}</span>'
+    label_html = f'<span class="tab4-step-{state}">{step_num}. {label}</span>'
     st.markdown(label_html, unsafe_allow_html=True)
 
 
 with tab4:
-    st.markdown('<p class="app-title" style="margin-top:0.5rem;">演进报告</p>', unsafe_allow_html=True)
-    st.markdown('<p class="app-subtitle">AI 扫描所有更新 · 分层主题树 · 深度演进分析</p>', unsafe_allow_html=True)
-
-    _report_html_path = Path(__file__).parent / "docs" / "index.html"
-    _report_md_path  = Path(__file__).parent / "综合研究报告_宝可梦VGC多人对战设计经验.md"
-
-    if _report_html_path.exists():
-        with st.container():
-            st.markdown('<div style="border:1px solid #eeeeee;border-radius:6px;padding:1rem 1.25rem;margin:1rem 0;background:#fafafa;">', unsafe_allow_html=True)
-            st.markdown('<p class="ai-card-label">综合研究报告</p>', unsafe_allow_html=True)
-            st.markdown('<p style="font-size:0.875rem;color:#374151;margin-bottom:0.75rem;">宝可梦 VGC 多人对战设计演进 · 10条设计原则 · 历代演进时间轴 · Pokemon vs Palworld 对照 · 设计检查清单</p>', unsafe_allow_html=True)
-
-            col_info, col_btn = st.columns([3, 1])
-            with col_info:
-                st.caption("报告从 Pokemon 29 年历史中提炼可操作的多人对战设计原则")
-            with col_btn:
-                _report_url = str(_report_html_path.resolve())
-                if st.button("在浏览器中打开", key="open_interactive_report"):
-                    import webbrowser
-                    webbrowser.open_new_tab(f"file:///{_report_url.replace(chr(92), '/')}")
-                    st.toast("已在浏览器中打开交互式报告")
-
-            st.markdown('</div>', unsafe_allow_html=True)
-
-            if _report_md_path.exists():
-                with st.expander("在 App 内阅读完整 Markdown 报告"):
-                    _md_content = _report_md_path.read_text(encoding="utf-8")
-                    st.markdown(_md_content[:4000])
-                    if len(_md_content) > 4000:
-                        st.caption(f"（报告共 {len(_md_content):,} 字符，此处仅显示前 4000 字）")
-
-    st.divider()
+    st.header("演进报告")
+    st.markdown("AI 自动扫描所有更新，构建分层主题树，选择具体演进枝后生成深度分析报告。")
 
     if not patches:
         st.warning("当前没有可用数据。请先在「版本编年史」中选择游戏和世代加载数据。")
@@ -1618,13 +1569,13 @@ with tab4:
                 has_report = bool(st.session_state.get(report_key))
                 step3_state = "done" if has_report else "active"
 
-        _step1 = f'<span class="step-pill {step1_state}">1. 发现主题</span>'
-        _step2 = f'<span class="step-pill {step2_state}">2. 选择演进枝</span>'
-        _step3 = f'<span class="step-pill {step3_state}">3. 生成报告</span>'
-        st.markdown(
-            f'<div class="step-bar">{_step1}<div class="step-connector"></div>{_step2}<div class="step-connector"></div>{_step3}</div>',
-            unsafe_allow_html=True
-        )
+        col_s1, col_s2, col_s3 = st.columns([1, 1, 2])
+        with col_s1:
+            _render_step(1, "AI 发现主题", step1_state)
+        with col_s2:
+            _render_step(2, "选择演进枝", step2_state)
+        with col_s3:
+            _render_step(3, "生成报告", step3_state)
 
         st.divider()
 
