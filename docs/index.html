@@ -909,7 +909,7 @@ body {
 .comp-table-wrap { overflow-x: auto; }
 .comp-table { width: 100%; border-collapse: collapse; margin-top: var(--sp-5); font-size: var(--fs-sm); }
 .comp-table th, .comp-table td { padding: var(--sp-4) var(--sp-5); text-align: left; border-bottom: 1px solid var(--border); vertical-align: top; }
-.comp-table th { font-size: 10px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-muted); background: var(--bg-elevated); position: sticky; top: var(--topbar-h); }
+.comp-table th { font-size: 10px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-muted); background: var(--bg-elevated); position: sticky; top: 0; z-index: 100; }
 .comp-table tr:hover td { background: rgba(37,99,235,0.04); }
 .comp-table td:first-child { font-weight: 700; color: var(--text-primary); min-width: 140px; background: var(--bg-surface); }
 .comp-dim-header td { font-weight: 700; color: var(--text-primary); background: var(--bg-elevated) !important; font-size: var(--fs-sm); }
@@ -1092,7 +1092,8 @@ body {
 }
 .report-nav-btn:hover { background: var(--bg-elevated); color: var(--text-primary); }
 .report-nav-btn.active { background: var(--accent); color: #fff; border-color: var(--accent); font-weight: 600; }
-.report-nav-icon { font-size: 16px; }
+.report-nav-icon { font-size: 14px; display: flex; align-items: center; justify-content: center; width: 16px; height: 16px; }
+.report-nav-icon svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
 .report-nav-label { font-size: var(--fs-sm); }
 
 .report-tab-content { display: none; }
@@ -1133,12 +1134,12 @@ body {
 .report-scenario-name { font-size: var(--fs-lg); font-weight: 700; color: var(--text-primary); }
 .report-scenario-desc { font-size: var(--fs-sm); color: var(--text-secondary); line-height: 1.6; margin-bottom: var(--sp-3); }
 
-.report-comparison-item { background: var(--bg-surface); border: 1px solid var(--border); border-radius: var(--r-lg); margin-bottom: var(--sp-5); overflow: hidden; }
-.report-comparison-dim { font-size: var(--fs-sm); font-weight: 700; color: #fff; background: var(--accent); padding: var(--sp-3) var(--sp-5); }
+.report-comparison-item { background: var(--bg-surface); border: 1px solid var(--border); border-radius: var(--r-lg); margin-bottom: var(--sp-5); overflow: hidden; position: relative; }
+.report-comparison-dim { font-size: var(--fs-sm); font-weight: 700; color: #fff; background: var(--accent); padding: var(--sp-3) var(--sp-5); position: sticky; top: 0; z-index: 100; }
 .report-comparison-row { display: grid; grid-template-columns: 1fr 1fr; }
 .report-comparison-col { padding: var(--sp-4) var(--sp-5); font-size: var(--fs-sm); line-height: 1.6; }
 .report-comparison-col:first-child { border-right: 1px solid var(--border); }
-.report-comparison-col-label { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); margin-bottom: var(--sp-2); }
+.report-comparison-col-label { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); margin-bottom: var(--sp-2); position: relative; z-index: 2; }
 .report-comparison-col-text { color: var(--text-secondary); }
 .report-comparison-takeaway { padding: var(--sp-4) var(--sp-5); background: var(--bg-elevated); border-top: 1px solid var(--border); }
 .report-comparison-takeaway-label { font-size: 9px; font-weight: 700; text-transform: uppercase; color: var(--accent); margin-bottom: var(--sp-1); }
@@ -2057,19 +2058,19 @@ body {
         <!-- Report Navigation -->
         <div class="report-nav">
           <button class="report-nav-btn active" data-report-tab="overview" onclick="switchReportTab('overview', this)">
-            <span class="report-nav-icon">&#128196;</span>
+            <span class="report-nav-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg></span>
             <span class="report-nav-label">报告概览</span>
           </button>
           <button class="report-nav-btn" data-report-tab="principles" onclick="switchReportTab('principles', this)">
-            <span class="report-nav-icon">&#9878;</span>
+            <span class="report-nav-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v4l3 3"/></svg></span>
             <span class="report-nav-label">设计原则</span>
           </button>
           <button class="report-nav-btn" data-report-tab="scenarios" onclick="switchReportTab('scenarios', this)">
-            <span class="report-nav-icon">&#128640;</span>
+            <span class="report-nav-icon"><svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/><line x1="12" y1="12" x2="12" y2="16"/><line x1="10" y1="14" x2="14" y2="14"/></svg></span>
             <span class="report-nav-label">子场景</span>
           </button>
           <button class="report-nav-btn" data-report-tab="comparison" onclick="switchReportTab('comparison', this)">
-            <span class="report-nav-icon">&#128202;</span>
+            <span class="report-nav-icon"><svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/><line x1="3" y1="20" x2="21" y2="20"/></svg></span>
             <span class="report-nav-label">双轨对照</span>
           </button>
         </div>
