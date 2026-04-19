@@ -1,0 +1,2033 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>设计演化档案 — 宝可梦 VGC 多人对战设计演进</title>
+<style>
+/* ═══════════════════════════════════════════════════════════════
+   DESIGN LANGUAGE: v6.0 — 简洁·克制·高级
+   核心理念：信息密度优先，视觉噪音归零
+═══════════════════════════════════════════════════════════════ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  /* Core palette — Near-black + neutral grays + single accent */
+  --bg-base: #ffffff;
+  --bg-surface: #f9fafb;
+  --bg-elevated: #f3f4f6;
+  --bg-hover: #ebedf0;
+  --border: #e5e7eb;
+  --border-light: #d1d5db;
+
+  /* Text — three levels only */
+  --text-primary: #111827;
+  --text-secondary: #4b5563;
+  --text-muted: #9ca3af;
+
+  /* Single accent — deep navy, no rainbow palette */
+  --accent: #1e293b;
+  --accent-light: #f1f5f9;
+  --accent-hover: #0f172a;
+
+  /* Semantic colors — subdued for minimal visual noise */
+  --success: #16a34a;
+  --success-bg: rgba(22, 163, 74, 0.06);
+  --warn: #ca8a04;
+  --warn-bg: rgba(202, 138, 4, 0.06);
+  --error: #dc2626;
+  --error-bg: rgba(220, 38, 38, 0.06);
+  --conf-high: #16a34a;
+  --conf-medium: #ca8a04;
+  --conf-low: #dc2626;
+
+  /* Category — subdued grays, no competing hues */
+  --cat-primary: var(--accent);
+  --cat-pvp: #6b7280;
+  --cat-enhancement: #6b7280;
+  --cat-multiplayer: #6b7280;
+  --cat-meta: #6b7280;
+  --cat-foundation: #9ca3af;
+  --cat-pve: #6b7280;
+
+  /* Action (accent) */
+  --action: var(--accent);
+  --action-hover: var(--accent-hover);
+  --action-light: var(--accent-light);
+
+  /* Spacing */
+  --sp-1: 4px; --sp-2: 8px; --sp-3: 12px;
+  --sp-4: 16px; --sp-5: 20px; --sp-6: 24px;
+  --sp-8: 32px; --sp-10: 40px; --sp-12: 48px;
+
+  /* Typography */
+  --font: 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  --font-mono: 'Cascadia Code', 'Fira Code', 'Consolas', monospace;
+  --fs-xs: 11px; --fs-sm: 13px; --fs-base: 14px;
+  --fs-lg: 16px; --fs-xl: 20px; --fs-2xl: 26px; --fs-3xl: 32px;
+
+  /* Shape */
+  --r-sm: 4px; --r-md: 6px; --r-lg: 10px; --r-xl: 14px;
+
+  /* Layout */
+  --sidebar-w: 210px;
+  --topbar-h: 48px;
+  --content-max: 1000px;
+
+  /* Transition */
+  --tr-fast: 0.12s ease;
+  --tr-base: 0.2s ease;
+}
+
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font);
+  font-size: var(--fs-base);
+  color: var(--text-primary);
+  background: var(--bg-base);
+  line-height: 1.65;
+  min-height: 100vh;
+}
+
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border-light); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--border); }
+::selection { background: var(--action-light); color: var(--action); }
+
+/* ═══════════════════════════════════════════════
+   APP SHELL
+═══════════════════════════════════════════════ */
+.app { display: flex; min-height: 100vh; }
+
+/* ─── Sidebar ───────────────────────────────────── */
+.sidebar {
+  width: var(--sidebar-w);
+  min-height: 100vh;
+  background: var(--bg-surface);
+  border-right: 1px solid var(--border);
+  position: fixed;
+  top: 0; left: 0;
+  height: 100vh;
+  overflow-y: auto;
+  z-index: 100;
+  display: flex; flex-direction: column;
+  flex-shrink: 0;
+}
+
+.sidebar-logo {
+  padding: var(--sp-6) var(--sp-4) var(--sp-5);
+  border-bottom: 1px solid var(--border);
+}
+.sidebar-logo-label {
+  font-size: 9px; font-weight: 700; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--text-muted);
+  margin-bottom: 4px;
+}
+.sidebar-title {
+  font-size: var(--fs-sm); font-weight: 700;
+  color: var(--text-primary); line-height: 1.4;
+}
+.sidebar-subtitle {
+  font-size: var(--fs-xs); color: var(--text-muted); margin-top: 2px;
+}
+
+.sidebar-nav { padding: var(--sp-2) 0; flex: 1; }
+
+.nav-section { margin-bottom: var(--sp-1); }
+.nav-section-label {
+  font-size: 9px; font-weight: 700; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--text-muted);
+  padding: var(--sp-2) var(--sp-4) var(--sp-1);
+}
+
+.nav-item {
+  display: flex; align-items: center;
+  padding: 6px var(--sp-4);
+  font-size: var(--fs-sm);
+  color: var(--text-secondary);
+  cursor: pointer;
+  border-left: 3px solid transparent;
+  transition: all var(--tr-fast);
+  text-decoration: none;
+  border-radius: 0 var(--r-sm) var(--r-sm) 0;
+}
+.nav-item:hover { color: var(--action); background: var(--accent-light); border-left-color: rgba(30,41,59,0.2); }
+.nav-item.active { color: var(--action); background: var(--accent-light); border-left-color: var(--action); font-weight: 600; }
+
+.nav-arrow { margin-left: auto; font-size: 10px; opacity: 0; transition: opacity var(--tr-fast); color: var(--accent); }
+.nav-item:hover .nav-arrow, .nav-item.active .nav-arrow { opacity: 1; }
+
+/* ─── Main ───────────────────────────────────────── */
+.main { margin-left: var(--sidebar-w); flex: 1; min-height: 100vh; }
+
+/* ─── Top Bar ─────────────────────────────────────── */
+.topbar {
+  position: sticky; top: 0; z-index: 50;
+  background: rgba(249,250,251,0.96);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 var(--sp-6);
+  height: var(--topbar-h);
+  display: flex; align-items: center; gap: var(--sp-4);
+}
+.topbar-toggle {
+  display: none;
+  background: none; border: none;
+  color: var(--text-muted);
+  font-size: 18px; cursor: pointer;
+  padding: var(--sp-1);
+}
+.breadcrumb { display: flex; align-items: center; gap: 6px; font-size: var(--fs-sm); color: var(--text-muted); }
+.breadcrumb-sep { color: var(--border); }
+.breadcrumb-current { color: var(--text-primary); font-weight: 600; }
+
+.topbar-right { margin-left: auto; display: flex; align-items: center; gap: var(--sp-3); }
+.topbar-badge {
+  font-size: var(--fs-xs); padding: 2px 10px;
+  border-radius: 12px;
+  background: var(--bg-elevated); color: var(--text-muted);
+  border: 1px solid var(--border);
+  font-family: var(--font-mono);
+}
+
+/* ─── Sections ──────────────────────────────────── */
+.section { display: none; }
+.section.active { display: block; }
+.section-inner { padding: var(--sp-8) var(--sp-6) 80px; max-width: var(--content-max); margin: 0 auto; }
+
+/* ─── Tags ─────────────────────────────────────── */
+.tag {
+  display: inline-block; padding: 2px 8px;
+  border-radius: var(--r-sm); font-size: 10px; font-weight: 600;
+  margin-right: 4px; margin-bottom: 3px;
+}
+.tag-pvp, .tag-enhancement, .tag-multiplayer, .tag-meta {
+  background: var(--bg-elevated);
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+}
+.tag-foundation { background: var(--bg-elevated); color: var(--text-muted); }
+.tag-pve { background: var(--bg-elevated); color: var(--text-muted); }
+
+/* ─── Confidence ────────────────────────────────── */
+.conf-badge {
+  display: inline-flex; align-items: center; gap: 3px;
+  font-size: 9px; font-weight: 700; padding: 1px 6px;
+  border-radius: 3px; letter-spacing: 0.04em;
+}
+.conf-high { background: rgba(22,163,74,0.1); color: var(--conf-high); }
+.conf-medium { background: rgba(202,138,4,0.1); color: var(--conf-medium); }
+.conf-low { background: rgba(220,38,38,0.1); color: var(--conf-low); }
+
+/* ─── Priority ─────────────────────────────────── */
+.priority-core { font-size: 9px; font-weight: 700; color: var(--priority-core); letter-spacing: 0.06em; text-transform: uppercase; }
+.priority-important { font-size: 9px; font-weight: 700; color: var(--priority-important); letter-spacing: 0.06em; text-transform: uppercase; }
+.priority-general { font-size: 9px; font-weight: 700; color: var(--priority-general); letter-spacing: 0.06em; text-transform: uppercase; }
+
+/* ═══════════════════════════════════════════════
+   HOME — ENTRY PAGE
+═══════════════════════════════════════════════ */
+.home-hero {
+  padding: var(--sp-12) 0 var(--sp-8);
+}
+.home-hero h1 {
+  font-size: var(--fs-2xl); font-weight: 800;
+  color: var(--text-primary); line-height: 1.2;
+  margin-bottom: var(--sp-3);
+  letter-spacing: -0.02em;
+}
+.home-hero p {
+  font-size: var(--fs-base); color: var(--text-secondary);
+  line-height: 1.7; max-width: 520px;
+  margin-bottom: var(--sp-6);
+}
+
+.home-divider {
+  display: flex; align-items: center; gap: var(--sp-4);
+  margin: var(--sp-6) 0 var(--sp-5);
+}
+.home-divider-line { flex: 1; height: 1px; background: var(--border); }
+.home-divider-text {
+  font-size: var(--fs-xs); color: var(--text-muted);
+  font-weight: 600; letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+/* ─── Primary Entry Cards — minimal border-only ─── */
+.entry-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-4);
+  margin-bottom: var(--sp-6);
+}
+
+.entry-card {
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  padding: var(--sp-5);
+  cursor: pointer;
+  transition: border-color var(--tr-fast), box-shadow var(--tr-fast);
+  background: var(--bg-surface);
+}
+.entry-card:hover { border-color: var(--border-light); box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
+
+.entry-card-header { display: flex; align-items: center; gap: var(--sp-3); margin-bottom: var(--sp-2); }
+.entry-card-icon {
+  width: 32px; height: 32px; border-radius: var(--r-sm);
+  display: flex; align-items: center; justify-content: center;
+  background: var(--bg-elevated); color: var(--text-muted);
+  flex-shrink: 0;
+}
+
+.entry-card-title { font-size: var(--fs-base); font-weight: 700; color: var(--text-primary); }
+.entry-card-sub { font-size: var(--fs-xs); color: var(--text-muted); margin-top: 1px; }
+
+.entry-card-desc {
+  font-size: var(--fs-sm); color: var(--text-secondary);
+  line-height: 1.6; margin-bottom: var(--sp-3);
+}
+
+.entry-card-topics { display: flex; flex-wrap: wrap; gap: var(--sp-2); }
+.entry-topic {
+  font-size: 10px; padding: 1px 6px;
+  border-radius: 3px;
+  background: var(--bg-elevated); color: var(--text-muted);
+  border: 1px solid var(--border);
+}
+
+/* ─── Quick Links — plain text links ─── */
+.quick-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--sp-4);
+}
+.quick-link {
+  padding: var(--sp-4) var(--sp-5);
+  background: var(--bg-surface); border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  cursor: pointer;
+  transition: all var(--tr-fast);
+  display: flex; flex-direction: column; gap: var(--sp-2);
+  font-family: inherit; text-align: left;
+}
+.quick-link:hover { border-color: var(--accent); background: var(--accent-light); }
+.quick-link-label { font-size: var(--fs-sm); font-weight: 600; color: var(--text-primary); }
+.quick-link-sub { font-size: var(--fs-xs); color: var(--text-muted); }
+
+/* ═══════════════════════════════════════════════
+   SCENARIO DETAIL (PvP/PvE sub-page)
+═══════════════════════════════════════════════ */
+.scenario-header {
+  padding: var(--sp-8) 0 var(--sp-6);
+  border-bottom: 1px solid var(--border);
+  margin-bottom: var(--sp-8);
+}
+.scenario-header-back {
+  display: inline-flex; align-items: center; gap: var(--sp-2);
+  font-size: var(--fs-sm); color: var(--text-muted);
+  cursor: pointer; margin-bottom: var(--sp-4);
+  transition: color var(--tr-fast);
+}
+.scenario-header-back:hover { color: var(--action); }
+.scenario-header-label { font-size: var(--fs-xs); color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: var(--sp-2); }
+.scenario-header-title { font-size: var(--fs-2xl); font-weight: 800; color: var(--text-primary); margin-bottom: var(--sp-3); }
+.scenario-header-desc { font-size: var(--fs-base); color: var(--text-secondary); line-height: 1.7; max-width: 640px; }
+.scenario-stats { display: flex; gap: var(--sp-8); margin-top: var(--sp-5); flex-wrap: wrap; }
+.scenario-stat { display: flex; flex-direction: column; gap: 2px; }
+.scenario-stat-n { font-size: var(--fs-2xl); font-weight: 800; }
+.scenario-stat-l { font-size: var(--fs-xs); color: var(--text-muted); }
+.scenario-stat.pvp .scenario-stat-n { color: var(--accent); }
+.scenario-stat.pve .scenario-stat-n { color: var(--text-secondary); }
+
+/* ─── Lesson Block ───────────────────────────────── */
+.lesson-block {
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--cat-primary);
+  border-radius: var(--r-lg);
+  padding: var(--sp-6);
+  margin-bottom: var(--sp-8);
+  position: relative;
+}
+.lesson-block-label {
+  font-size: 9px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.12em; margin-bottom: var(--sp-3);
+  display: flex; align-items: center; gap: var(--sp-2);
+}
+.lesson-block-label-text { color: var(--text-muted); }
+.lesson-block.pvp .lesson-block-label-text { color: var(--accent); }
+.lesson-block.pve .lesson-block-label-text { color: var(--text-secondary); }
+.lesson-block-icon { width: 18px; height: 18px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px; }
+.lesson-block.pvp .lesson-block-icon { background: var(--accent-light); color: var(--accent); }
+.lesson-block.pve .lesson-block-icon { background: var(--bg-elevated); color: var(--text-muted); }
+
+.lesson-items { display: flex; flex-direction: column; gap: var(--sp-3); }
+.lesson-item {
+  display: flex; align-items: flex-start; gap: var(--sp-3);
+  padding: var(--sp-3) var(--sp-4);
+  background: var(--bg-elevated);
+  border-radius: var(--r-md);
+  border-left: 3px solid;
+  transition: all var(--tr-fast);
+}
+.lesson-item:hover { background: var(--bg-hover); }
+.lesson-item.pvp { border-left-color: var(--accent); }
+.lesson-item.pve { border-left-color: var(--text-muted); }
+.lesson-year { font-size: var(--fs-xs); font-weight: 700; color: var(--text-muted); font-family: var(--font-mono); flex-shrink: 0; min-width: 40px; }
+.lesson-text { font-size: var(--fs-sm); color: var(--text-secondary); line-height: 1.6; }
+
+/* ─── Section Header ──────────────────────────────── */
+.section-header {
+  display: flex; align-items: center; gap: var(--sp-3);
+  margin-bottom: var(--sp-5);
+  padding-bottom: var(--sp-4);
+  border-bottom: 1px solid var(--border);
+}
+.section-header h3 {
+  font-size: var(--fs-lg); font-weight: 700; color: var(--text-primary);
+}
+.section-header-count {
+  font-size: var(--fs-xs); padding: 2px 8px;
+  border-radius: 12px; background: var(--bg-elevated);
+  color: var(--text-muted); font-weight: 600;
+}
+
+/* ═══════════════════════════════════════════════
+   PRINCIPLE CARDS
+═══════════════════════════════════════════════ */
+.principle-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  padding: var(--sp-4) var(--sp-5);
+  cursor: pointer;
+  transition: all var(--tr-base);
+  position: relative;
+  overflow: hidden;
+}
+.principle-card::before {
+  content: ''; position: absolute; top: 0; left: 0;
+  width: 4px; height: 100%;
+}
+.principle-card.pvp::before { background: var(--accent); }
+.principle-card.enhancement::before { background: var(--text-muted); }
+.principle-card.multiplayer::before { background: var(--text-muted); }
+.principle-card.meta::before { background: var(--text-muted); }
+
+.principle-card:hover { border-color: var(--cat-primary); box-shadow: 0 2px 8px rgba(31,119,180,0.08); }
+
+.principle-card-header { display: flex; align-items: center; gap: var(--sp-2); margin-bottom: var(--sp-2); flex-wrap: wrap; }
+.principle-num {
+  font-size: 9px; font-weight: 700; padding: 1px 6px;
+  border-radius: var(--r-sm); background: var(--bg-elevated); color: var(--text-muted);
+  font-family: var(--font-mono);
+}
+.principle-name { font-size: var(--fs-base); font-weight: 700; color: var(--text-primary); line-height: 1.4; margin-bottom: var(--sp-2); }
+.principle-summary { font-size: var(--fs-sm); color: var(--text-secondary); line-height: 1.55; }
+.principle-expand-hint {
+  font-size: var(--fs-xs); color: var(--action);
+  display: flex; align-items: center; gap: 4px; font-weight: 500;
+  opacity: 0; transform: translateY(2px);
+  transition: all var(--tr-fast);
+  margin-top: var(--sp-3);
+}
+.principle-card:hover .principle-expand-hint { opacity: 1; transform: translateY(0); }
+
+/* ═══════════════════════════════════════════════
+   MODAL
+═══════════════════════════════════════════════ */
+.modal-overlay {
+  display: none; position: fixed; inset: 0;
+  background: rgba(0,0,0,0.4); z-index: 400;
+  backdrop-filter: blur(4px);
+  justify-content: center; align-items: flex-start;
+  padding: 5vh var(--sp-6);
+  overflow-y: auto;
+}
+.modal-overlay.open { display: flex; }
+
+.modal {
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  width: 100%; max-width: 660px;
+  margin: auto;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+  animation: modalIn 0.2s ease;
+}
+@keyframes modalIn { from { opacity: 0; transform: scale(0.97) translateY(8px); } to { opacity: 1; transform: scale(1) translateY(0); } }
+
+.modal-header {
+  padding: var(--sp-6) var(--sp-6) var(--sp-5);
+  border-bottom: 1px solid var(--border);
+  position: relative;
+}
+.modal-close {
+  position: absolute; top: var(--sp-4); right: var(--sp-4);
+  background: var(--bg-elevated); border: none;
+  color: var(--text-muted);
+  font-size: 20px; width: 30px; height: 30px;
+  border-radius: var(--r-sm); cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: all var(--tr-fast);
+}
+.modal-close:hover { background: var(--bg-hover); color: var(--text-primary); }
+
+.modal-title { font-size: var(--fs-xl); font-weight: 800; margin-bottom: var(--sp-2); color: var(--text-primary); }
+.modal-summary { font-size: var(--fs-base); color: var(--text-secondary); line-height: 1.6; }
+.modal-meta { display: flex; gap: var(--sp-2); flex-wrap: wrap; margin-top: var(--sp-3); }
+
+.modal-body { padding: var(--sp-5) var(--sp-6) var(--sp-6); }
+
+.modal-section {
+  border-radius: var(--r-md);
+  padding: var(--sp-4);
+  margin-bottom: var(--sp-3);
+}
+.modal-section.decision { background: var(--accent-light); border-left: 3px solid var(--accent); }
+.modal-section.case-study { background: var(--warn-bg); border-left: 3px solid var(--warn); }
+.modal-section.application { background: var(--success-bg); border-left: 3px solid var(--success); }
+.modal-section.confidence { background: var(--bg-elevated); border-left: 3px solid var(--border); }
+.modal-section.counter { background: var(--error-bg); border-left: 3px solid var(--error); }
+.modal-section.boundary { background: var(--warn-bg); border-left: 3px solid var(--warn); }
+.modal-section.producer { background: var(--accent-light); border-left: 3px solid var(--accent); }
+
+.modal-section-label {
+  font-size: 9px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+  margin-bottom: var(--sp-2); color: var(--text-muted);
+}
+.modal-section p, .modal-section li { font-size: var(--fs-sm); color: var(--text-secondary); line-height: 1.7; }
+.modal-section ul { padding-left: 18px; margin-top: var(--sp-1); }
+.modal-section li { margin-bottom: 3px; }
+
+.modal-related { display: flex; flex-wrap: wrap; gap: var(--sp-2); margin-top: var(--sp-3); }
+.related-tag {
+  font-size: var(--fs-xs); padding: 3px 10px;
+  border-radius: var(--r-sm);
+  background: var(--bg-surface); color: var(--text-secondary);
+  border: 1px solid var(--border);
+  cursor: pointer; transition: all var(--tr-fast); font-weight: 500;
+}
+.related-tag:hover { background: var(--accent-light); color: var(--accent); border-color: var(--accent); }
+
+/* ═══════════════════════════════════════════════
+   CHECKLIST
+═══════════════════════════════════════════════ */
+.checklist-toolbar {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: var(--sp-4); margin-bottom: var(--sp-6); flex-wrap: wrap;
+}
+.checklist-toolbar-left { display: flex; gap: var(--sp-2); flex-wrap: wrap; }
+
+.filter-btn {
+  padding: 6px 14px; border-radius: var(--r-md);
+  border: 1px solid var(--border);
+  background: var(--bg-surface);
+  color: var(--text-secondary);
+  font-size: var(--fs-sm); cursor: pointer;
+  transition: all var(--tr-fast);
+  font-family: inherit; font-weight: 500;
+}
+.filter-btn.active { background: var(--action); border-color: var(--action); color: white; }
+.filter-btn:hover:not(.active) { border-color: var(--action); color: var(--action); }
+
+.checklist-toolbar-right { display: flex; gap: var(--sp-2); }
+.btn-tool {
+  padding: 6px 14px; border-radius: var(--r-md);
+  border: 1px solid var(--border);
+  background: var(--bg-surface);
+  color: var(--text-secondary);
+  font-size: var(--fs-sm); cursor: pointer;
+  transition: all var(--tr-fast);
+  font-family: inherit; font-weight: 500;
+  display: flex; align-items: center; gap: 5px;
+}
+.btn-tool:hover { background: var(--bg-hover); color: var(--text-primary); }
+
+/* Progress */
+.progress-container { display: flex; align-items: center; gap: var(--sp-3); }
+.progress-label { font-size: var(--fs-sm); color: var(--text-muted); white-space: nowrap; }
+.progress-track { flex: 1; height: 4px; background: var(--border); border-radius: 2px; overflow: hidden; min-width: 100px; }
+.progress-fill { height: 100%; background: var(--conf-high); border-radius: 2px; transition: width 0.4s ease; }
+
+/* Checklist dimension */
+.checklist-dim { margin-bottom: var(--sp-8); }
+.dim-summary {
+  font-size: var(--fs-sm); color: var(--text-secondary);
+  margin-bottom: var(--sp-4); padding-bottom: var(--sp-3);
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; gap: var(--sp-3); flex-wrap: wrap;
+}
+.dim-summary strong { color: var(--text-primary); font-weight: 700; }
+
+.checklist-items { display: flex; flex-direction: column; gap: var(--sp-3); }
+
+.checklist-item {
+  display: flex; align-items: flex-start; gap: var(--sp-3);
+  padding: var(--sp-4) var(--sp-5);
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  cursor: pointer;
+  transition: all var(--tr-fast);
+}
+.checklist-item:hover { background: var(--bg-elevated); border-color: var(--border-light); }
+.checklist-item.checked { background: rgba(82,196,26,0.04); border-color: rgba(82,196,26,0.2); }
+.checklist-item.checked .item-text { text-decoration: line-through; color: var(--text-muted); }
+
+.checkbox {
+  width: 18px; height: 18px; flex-shrink: 0; margin-top: 2px;
+  border-radius: var(--r-sm); border: 2px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  transition: all var(--tr-fast); font-size: 11px; color: transparent;
+  cursor: pointer;
+}
+.checklist-item.checked .checkbox { background: var(--conf-high); border-color: var(--conf-high); color: white; }
+
+.item-body { flex: 1; min-width: 0; }
+.item-meta { display: flex; align-items: center; gap: var(--sp-2); margin-bottom: 5px; flex-wrap: wrap; }
+.item-text { font-size: var(--fs-sm); color: var(--text-primary); line-height: 1.55; }
+.item-id { font-size: 10px; color: var(--text-muted); font-family: var(--font-mono); }
+
+.item-logic {
+  font-size: var(--fs-xs); color: var(--text-secondary);
+  margin-top: var(--sp-2); line-height: 1.6;
+  background: var(--bg-elevated); border-radius: var(--r-sm);
+  padding: var(--sp-3) var(--sp-4);
+  display: none;
+}
+.checklist-item.expanded-logic .item-logic { display: block; }
+
+.item-logic-toggle {
+  font-size: 10px; color: var(--action);
+  display: inline-flex; align-items: center; gap: 3px;
+  margin-top: var(--sp-2); font-weight: 500;
+}
+
+.item-principles { display: flex; gap: 4px; flex-wrap: wrap; margin-top: 6px; }
+.item-principle-tag {
+  font-size: 10px; padding: 2px 8px; border-radius: var(--r-sm);
+  background: var(--action-light); color: var(--action);
+  font-weight: 600; cursor: pointer; transition: all var(--tr-fast);
+}
+.item-principle-tag:hover { background: var(--accent); color: white; }
+
+/* ═══════════════════════════════════════════════
+   TIMELINE
+═══════════════════════════════════════════════ */
+.timeline-tabs {
+  display: flex; gap: var(--sp-2); margin-bottom: var(--sp-6); flex-wrap: wrap;
+}
+.timeline-tab {
+  padding: 7px 18px; border-radius: var(--r-md);
+  border: 1px solid var(--border);
+  background: var(--bg-surface);
+  color: var(--text-secondary);
+  font-size: var(--fs-sm); cursor: pointer;
+  transition: all var(--tr-fast);
+  font-family: inherit; font-weight: 500;
+}
+.timeline-tab.active { background: var(--action); border-color: var(--action); color: white; }
+.timeline-tab:hover:not(.active) { border-color: var(--action); color: var(--action); }
+
+.timeline-filter-bar { display: flex; gap: var(--sp-2); margin-bottom: var(--sp-6); flex-wrap: wrap; }
+.timeline-filter-btn {
+  padding: 4px 12px; border-radius: var(--r-sm);
+  border: 1px solid var(--border);
+  background: var(--bg-surface);
+  color: var(--text-muted);
+  font-size: var(--fs-xs); cursor: pointer;
+  transition: all var(--tr-fast);
+  font-family: inherit; font-weight: 500;
+}
+.timeline-filter-btn.active { background: var(--bg-elevated); color: var(--text-primary); border-color: var(--border-light); }
+.timeline-filter-btn:hover:not(.active) { border-color: var(--action); color: var(--action); }
+
+.timeline-track { position: relative; padding-left: 52px; }
+.timeline-line { position: absolute; left: 20px; top: 14px; bottom: 14px; width: 1px; background: var(--border); }
+
+.timeline-item {
+  position: relative; margin-bottom: var(--sp-6);
+  opacity: 0; transform: translateY(6px);
+  animation: tlFadeIn 0.3s ease forwards;
+  animation-delay: calc(var(--i, 0) * 50ms);
+}
+@keyframes tlFadeIn { to { opacity: 1; transform: translateY(0); } }
+
+.timeline-dot {
+  position: absolute; left: -40px; top: 10px;
+  width: 10px; height: 10px; border-radius: 50%;
+  background: var(--bg-base); border: 2px solid var(--cat-primary);
+  z-index: 1;
+}
+.timeline-item.foundation .timeline-dot { border-color: var(--cat-foundation); }
+.timeline-item.pvp .timeline-dot { border-color: var(--accent); }
+.timeline-item.enhancement .timeline-dot { border-color: var(--text-muted); }
+.timeline-item.pve .timeline-dot { border-color: var(--text-secondary); }
+.timeline-item.multiplayer .timeline-dot { border-color: var(--text-muted); }
+
+.timeline-year {
+  font-size: var(--fs-xs); font-weight: 700; color: var(--text-muted);
+  margin-bottom: 5px; display: flex; align-items: center; gap: var(--sp-2); flex-wrap: wrap;
+}
+.timeline-gen {
+  font-size: 9px; padding: 2px 7px; border-radius: var(--r-sm);
+  background: var(--bg-elevated); border: 1px solid var(--border);
+  color: var(--text-muted); font-weight: 600;
+}
+.timeline-source-tag {
+  font-size: 9px; padding: 2px 7px; border-radius: var(--r-sm); font-weight: 700;
+}
+.timeline-source-tag.pokemon { background: var(--accent-light); color: var(--accent); }
+.timeline-source-tag.palworld { background: var(--bg-elevated); color: var(--text-secondary); }
+
+.timeline-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: var(--sp-4) var(--sp-5);
+  cursor: pointer;
+  transition: all var(--tr-fast);
+}
+.timeline-card:hover { border-color: var(--border-light); }
+.timeline-card-header { display: flex; align-items: center; justify-content: space-between; gap: var(--sp-3); }
+.timeline-card-title { font-size: var(--fs-sm); font-weight: 700; color: var(--text-primary); }
+.toggle-icon { font-size: 11px; color: var(--text-muted); transition: transform var(--tr-fast); flex-shrink: 0; }
+.timeline-card.expanded .toggle-icon { transform: rotate(180deg); }
+
+.timeline-card-detail {
+  font-size: var(--fs-xs); color: var(--text-muted);
+  line-height: 1.65; margin-top: var(--sp-2);
+  display: none;
+}
+.timeline-card.expanded .timeline-card-detail { display: block; }
+
+.timeline-verified {
+  display: inline-flex; align-items: center; gap: 3px;
+  font-size: 9px; color: var(--conf-high); font-weight: 600;
+  margin-top: var(--sp-2);
+}
+
+/* ═══════════════════════════════════════════════
+   COMPARISON
+═══════════════════════════════════════════════ */
+.comp-table-wrap { overflow-x: auto; }
+.comp-table { width: 100%; border-collapse: collapse; margin-top: var(--sp-5); font-size: var(--fs-sm); }
+.comp-table th, .comp-table td { padding: var(--sp-4) var(--sp-5); text-align: left; border-bottom: 1px solid var(--border); vertical-align: top; }
+.comp-table th { font-size: 10px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-muted); background: var(--bg-elevated); position: sticky; top: var(--topbar-h); }
+.comp-table tr:hover td { background: rgba(37,99,235,0.04); }
+.comp-table td:first-child { font-weight: 700; color: var(--text-primary); min-width: 140px; background: var(--bg-surface); }
+.comp-dim-header td { font-weight: 700; color: var(--text-primary); background: var(--bg-elevated) !important; font-size: var(--fs-sm); }
+.comp-pokemon { color: var(--accent) !important; font-weight: 600; }
+.comp-palworld { color: var(--text-secondary) !important; font-weight: 600; }
+.comp-takeaway td { font-size: var(--fs-xs); color: var(--text-muted); border-left: 3px solid var(--border) !important; font-style: italic; }
+
+/* ═══════════════════════════════════════════════
+   DECISION TREE
+═══════════════════════════════════════════════ */
+.tree-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--sp-5); margin-top: var(--sp-6); }
+
+.tree-branch {
+  background: var(--bg-surface); border: 1px solid var(--border);
+  border-radius: var(--r-xl); overflow: hidden;
+  transition: all var(--tr-base);
+}
+.tree-branch:hover { border-color: var(--accent); box-shadow: 0 1px 6px rgba(0,0,0,0.06); }
+.tree-branch-header {
+  padding: var(--sp-5) var(--sp-6);
+  display: flex; align-items: center; gap: var(--sp-3);
+}
+.tree-branch-icon {
+  width: 40px; height: 40px; border-radius: var(--r-md);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px; flex-shrink: 0;
+}
+.tree-branch-label { font-size: var(--fs-base); font-weight: 700; color: var(--text-primary); }
+.tree-branch-q { font-size: var(--fs-xs); color: var(--text-muted); padding: var(--sp-2) var(--sp-6); border-top: 1px solid var(--border); margin: 0; }
+.tree-branch-items { padding: var(--sp-3) var(--sp-5) var(--sp-5); }
+.tree-branch-item {
+  padding: var(--sp-3) var(--sp-3);
+  font-size: var(--fs-sm); color: var(--text-secondary);
+  cursor: pointer; border-radius: var(--r-sm);
+  transition: background var(--tr-fast);
+  display: flex; align-items: center; gap: var(--sp-2);
+}
+.tree-branch-item:hover { background: var(--action-light); color: var(--action); }
+.tree-branch-item::before { content: ''; display: inline-block; width: 4px; height: 4px; border-radius: 50%; background: var(--border); flex-shrink: 0; }
+.tree-branch-item:hover::before { background: var(--action); }
+
+/* ═══════════════════════════════════════════════
+   GUIDE
+═══════════════════════════════════════════════ */
+.guide-section { margin-bottom: var(--sp-8); }
+.guide-section h3 { font-size: var(--fs-lg); font-weight: 700; color: var(--text-primary); margin-bottom: var(--sp-4); padding-bottom: var(--sp-3); border-bottom: 1px solid var(--border); }
+.guide-list { display: flex; flex-direction: column; gap: var(--sp-3); }
+.guide-item {
+  padding: var(--sp-4) var(--sp-5);
+  background: var(--bg-surface); border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+}
+.guide-item-title { font-size: var(--fs-sm); font-weight: 700; color: var(--text-primary); margin-bottom: var(--sp-1); }
+.guide-item-desc { font-size: var(--fs-sm); color: var(--text-secondary); line-height: 1.6; }
+
+/* ═══════════════════════════════════════════════
+   SEARCH OVERLAY
+═══════════════════════════════════════════════ */
+.search-overlay {
+  display: none; position: fixed; inset: 0;
+  background: rgba(0,0,0,0.4); z-index: 500;
+  backdrop-filter: blur(4px);
+  justify-content: center; align-items: flex-start;
+  padding-top: 10vh;
+}
+.search-overlay.open { display: flex; }
+.search-box {
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  width: 100%; max-width: 580px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+  overflow: hidden;
+  animation: modalIn 0.15s ease;
+}
+.search-input-wrap {
+  display: flex; align-items: center; gap: var(--sp-3);
+  padding: var(--sp-4) var(--sp-5);
+  border-bottom: 1px solid var(--border);
+}
+.search-input-wrap svg { color: var(--text-muted); flex-shrink: 0; }
+.search-input {
+  flex: 1; border: none; outline: none;
+  font-size: var(--fs-lg); font-family: inherit;
+  color: var(--text-primary); background: transparent;
+}
+.search-input::placeholder { color: var(--text-muted); }
+.search-kbd { font-size: 10px; font-family: var(--font-mono); background: var(--bg-elevated); padding: 2px 7px; border-radius: 4px; color: var(--text-muted); border: 1px solid var(--border); }
+.search-results { max-height: 60vh; overflow-y: auto; padding: var(--sp-2); }
+.search-group-label { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted); padding: var(--sp-3) var(--sp-3) var(--sp-1); }
+.search-result-item { display: flex; align-items: flex-start; gap: var(--sp-3); padding: var(--sp-2) var(--sp-3); border-radius: var(--r-sm); cursor: pointer; transition: background var(--tr-fast); }
+.search-result-item:hover { background: var(--bg-elevated); }
+.search-result-item .result-type { font-size: 9px; font-weight: 700; padding: 2px 7px; border-radius: 4px; background: var(--bg-elevated); color: var(--text-muted); flex-shrink: 0; margin-top: 2px; }
+.search-result-item .result-text { font-size: var(--fs-sm); color: var(--text-primary); line-height: 1.5; }
+.search-result-item .result-meta { font-size: var(--fs-xs); color: var(--text-muted); margin-top: 2px; }
+.search-empty { text-align: center; padding: var(--sp-10); color: var(--text-muted); font-size: var(--fs-sm); }
+
+/* ─── Search trigger in topbar ─────────────────── */
+.topbar-search {
+  display: flex; align-items: center; gap: var(--sp-2);
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  padding: 6px 14px;
+  font-size: var(--fs-sm); color: var(--text-muted);
+  cursor: pointer; transition: all var(--tr-fast);
+  min-width: 180px;
+}
+.topbar-search:hover { border-color: var(--action); color: var(--text-secondary); }
+.topbar-search svg { flex-shrink: 0; }
+
+/* ─── Disclaimer ────────────────────────────────── */
+.disclaimer-overlay {
+  display: none; position: fixed; inset: 0;
+  background: rgba(0,0,0,0.4); z-index: 600;
+  backdrop-filter: blur(4px);
+  justify-content: center; align-items: center;
+  padding: var(--sp-6);
+}
+.disclaimer-overlay.open { display: flex; }
+.disclaimer-modal {
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  max-width: 520px; width: 100%;
+  padding: var(--sp-8);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+  animation: modalIn 0.22s ease;
+}
+.disclaimer-modal h2 { font-size: var(--fs-xl); font-weight: 800; margin-bottom: var(--sp-5); color: var(--text-primary); }
+.disclaimer-section { margin-bottom: var(--sp-5); }
+.disclaimer-section-title { font-size: var(--fs-sm); font-weight: 700; color: var(--text-primary); margin-bottom: var(--sp-2); }
+.disclaimer-section ul { padding-left: 18px; }
+.disclaimer-section li { font-size: var(--fs-sm); color: var(--text-secondary); margin-bottom: 4px; line-height: 1.55; }
+.confidence-legend { display: flex; flex-direction: column; gap: var(--sp-3); margin-top: var(--sp-2); }
+.conf-legend-item { display: flex; align-items: flex-start; gap: var(--sp-3); font-size: var(--fs-sm); }
+.conf-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; margin-top: 5px; }
+.conf-dot.high { background: #16a34a; }
+.conf-dot.medium { background: #ca8a04; }
+.conf-dot.low { background: #dc2626; }
+.disclaimer-actions { display: flex; justify-content: flex-end; margin-top: var(--sp-6); }
+.btn-primary {
+  padding: 9px 24px; border-radius: var(--r-md);
+  background: var(--action); color: white;
+  border: none; font-size: var(--fs-sm);
+  font-weight: 600; cursor: pointer;
+  transition: all var(--tr-fast); font-family: inherit;
+}
+.btn-primary:hover { background: var(--action-hover); }
+
+/* ─── Misc ─────────────────────────────────────── */
+.divider { height: 1px; background: var(--border); margin: var(--sp-8) 0; }
+.footer { text-align: center; padding: var(--sp-6); font-size: var(--fs-xs); color: var(--text-muted); border-top: 1px solid var(--border); }
+
+/* ═══════════════════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════════════════ */
+@media (max-width: 900px) {
+  .sidebar { transform: translateX(-100%); }
+  .sidebar.open { transform: translateX(0); }
+  .main { margin-left: 0; }
+  .topbar-toggle { display: flex; }
+  .entry-grid { grid-template-columns: 1fr; }
+  .tree-grid { grid-template-columns: 1fr; }
+  .quick-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 600px) {
+  .section-inner { padding: var(--sp-6) var(--sp-4) 60px; }
+  .timeline-track { padding-left: 36px; }
+  .timeline-dot { left: -32px; }
+  .timeline-line { left: 14px; }
+  .topbar-search span { display: none; }
+  .breadcrumb { display: none; }
+  .comp-table { font-size: var(--fs-xs); }
+}
+</style>
+</head>
+<body>
+
+<!-- ─── Search Overlay ─────────────────────────────── -->
+<div class="search-overlay" id="searchOverlay">
+  <div class="search-box">
+    <div class="search-input-wrap">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+      </svg>
+      <input type="text" class="search-input" id="searchInput" placeholder="搜索原则、清单元数据、时间轴..." autocomplete="off">
+      <span class="search-kbd">ESC</span>
+    </div>
+    <div class="search-results" id="searchResults">
+      <div class="search-empty">输入关键词开始搜索</div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── Disclaimer Overlay ──────────────────────────── -->
+<div class="disclaimer-overlay" id="disclaimerOverlay">
+  <div class="disclaimer-modal">
+    <h2>使用说明</h2>
+    <div class="disclaimer-section">
+      <div class="disclaimer-section-title">数据来源</div>
+      <ul>
+        <li>Pokemon 数据来自 Serebii.net 官方更新日志</li>
+        <li>Palworld 数据来自 Steam News API 预采集</li>
+        <li>部分设计意图由 AI 从补丁历史中归纳推断</li>
+      </ul>
+    </div>
+    <div class="disclaimer-section">
+      <div class="disclaimer-section-title">置信度说明</div>
+      <div class="confidence-legend">
+        <div class="conf-legend-item"><span class="conf-dot high"></span><span>高置信度 — 有官方记录或社区共识</span></div>
+        <div class="conf-legend-item"><span class="conf-dot medium"></span><span>中置信度 — 社区反馈反推，官方未明确说明</span></div>
+        <div class="conf-legend-item"><span class="conf-dot low"></span><span>低置信度 — 高度推断，边界条件可能不完整</span></div>
+      </div>
+    </div>
+    <div class="disclaimer-actions">
+      <button class="btn-primary" onclick="acknowledgeDisclaimer()">我知道了</button>
+    </div>
+  </div>
+</div>
+
+<!-- ─── App Shell ────────────────────────────────────── -->
+<div class="app">
+
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-logo">
+      <div class="sidebar-logo-label">设计演化档案</div>
+      <div class="sidebar-title">宝可梦 VGC<br>多人对战设计演进</div>
+      <div class="sidebar-subtitle">Pokemon VGC Design Evolution</div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <div class="nav-section">
+        <div class="nav-section-label">快速入口</div>
+        <a class="nav-item active" data-section="home" href="#">
+          首页
+          <span class="nav-arrow">→</span>
+        </a>
+      </div>
+
+      <div class="nav-section">
+        <div class="nav-section-label">场景导航</div>
+        <a class="nav-item" data-section="pvp" href="#">
+          PvP 设计
+          <span class="nav-arrow">→</span>
+        </a>
+        <a class="nav-item" data-section="pve" href="#">
+          PvE 设计
+          <span class="nav-arrow">→</span>
+        </a>
+      </div>
+
+      <div class="nav-section">
+        <div class="nav-section-label">设计工具</div>
+        <a class="nav-item" data-section="principles" href="#">
+          10 条设计原则
+          <span class="nav-arrow">→</span>
+        </a>
+        <a class="nav-item" data-section="checklist" href="#">
+          47 条检查清单
+          <span class="nav-arrow">→</span>
+        </a>
+        <a class="nav-item" data-section="timeline" href="#">
+          历代时间轴
+          <span class="nav-arrow">→</span>
+        </a>
+      </div>
+
+      <div class="nav-section">
+        <div class="nav-section-label">参考资料</div>
+        <a class="nav-item" data-section="comparison" href="#">
+          Pokemon vs Palworld
+          <span class="nav-arrow">→</span>
+        </a>
+        <a class="nav-item" data-section="decision" href="#">
+          决策树
+          <span class="nav-arrow">→</span>
+        </a>
+        <a class="nav-item" data-section="guide" href="#">
+          使用指南
+          <span class="nav-arrow">→</span>
+        </a>
+      </div>
+    </nav>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main">
+    <div class="topbar">
+      <button class="topbar-toggle" id="sidebarToggle" aria-label="Toggle sidebar">&#9776;</button>
+      <div class="breadcrumb">
+        <span id="breadcrumbRoot">设计演化档案</span>
+        <span class="breadcrumb-sep">/</span>
+        <span class="breadcrumb-current" id="breadcrumbCurrent">首页</span>
+      </div>
+      <div class="topbar-search" id="searchTrigger" role="button" tabindex="0">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+        </svg>
+        <span>搜索...</span>
+        <kbd>Ctrl+K</kbd>
+      </div>
+      <div class="topbar-right">
+        <div class="progress-container" id="progressBar" style="display:none">
+          <span class="progress-label" id="progressLabel">0%</span>
+          <div class="progress-track">
+            <div class="progress-fill" id="progressFill" style="width:0%"></div>
+          </div>
+        </div>
+        <span class="topbar-badge" id="versionBadge">v2.3</span>
+      </div>
+    </div>
+
+    <!-- ══ HOME ═══════════════════════════════════════ -->
+    <section class="section active" id="section-home">
+      <div class="section-inner">
+        <div class="home-hero">
+          <h1>宝可梦 VGC<br>多人对战设计演进</h1>
+          <p>从 Pokemon 29 年演进历史中提炼可操作的设计经验，帮助你在设计宝可梦Like游戏的多人 PvP 和 PvE 玩法时，参考经过验证的设计规律，规避已知的坑。</p>
+        </div>
+
+        <!-- Primary Entry -->
+        <div class="entry-grid">
+          <div class="entry-card" onclick="showSection('pvp')">
+            <div class="entry-card-header">
+              <div>
+                <div class="entry-card-title">我要设计 PvP</div>
+                <div class="entry-card-sub">双打对战 / 强化机制 / 速度博弈</div>
+              </div>
+            </div>
+            <div class="entry-card-desc">从 Pokemon 29 年的 PvP 设计演进中找到集火保护、强化策略、速度博弈、天气系统的设计规律。</div>
+            <div class="entry-card-topics">
+              <span class="entry-topic">集火与保护</span>
+              <span class="entry-topic">强化/爆发机制</span>
+              <span class="entry-topic">速度线博弈</span>
+              <span class="entry-topic">天气/环境</span>
+            </div>
+          </div>
+
+          <div class="entry-card" onclick="showSection('pve')">
+            <div class="entry-card-header">
+              <div>
+                <div class="entry-card-title">我要设计 PvE</div>
+                <div class="entry-card-sub">4人合作 / Boss 设计 / 贡献归属</div>
+              </div>
+            </div>
+            <div class="entry-card-desc">从 Pokemon 团体战历代演进和 Palworld Raid 设计实践中学习多人合作内容的设计方法。</div>
+            <div class="entry-card-topics">
+              <span class="entry-topic">4人合作团体战</span>
+              <span class="entry-topic">Boss 阶段设计</span>
+              <span class="entry-topic">贡献归属</span>
+              <span class="entry-topic">等待时间</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="home-divider">
+          <div class="home-divider-line"></div>
+          <div class="home-divider-text">或者，从这里开始</div>
+          <div class="home-divider-line"></div>
+        </div>
+
+        <div class="quick-grid">
+          <button class="quick-link" onclick="showSection('principles')">
+            <div class="quick-link-label">10 条设计原则</div>
+            <div class="quick-link-sub">经过历史验证的核心设计准则</div>
+          </button>
+          <button class="quick-link" onclick="showSection('checklist')">
+            <div class="quick-link-label">47 条检查清单</div>
+            <div class="quick-link-sub">可直接用于设计审查的检查条目</div>
+          </button>
+          <button class="quick-link" onclick="showSection('timeline')">
+            <div class="quick-link-label">历代时间轴</div>
+            <div class="quick-link-sub">Pokemon Gen1-9 + Palworld v0.1-v0.7</div>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ PVP SECTION ════════════════════════════════ -->
+    <section class="section" id="section-pvp">
+      <div class="section-inner">
+        <div class="scenario-header">
+          <div class="scenario-header-back" onclick="showSection('home')">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg>
+            返回首页
+          </div>
+          <div class="scenario-header-label">PvP 设计场景</div>
+          <div class="scenario-header-title">双打对战核心机制设计</div>
+          <div class="scenario-header-desc">Pokemon 用六代才建立完整的三层防御体系。从守住到看我嘛到威吓，每一步都是血的教训。这些规律现在可以作为你的设计参考。</div>
+          <div class="scenario-stats">
+            <div class="scenario-stat pvp">
+              <span class="scenario-stat-n">4</span>
+              <span class="scenario-stat-l">个子场景</span>
+            </div>
+            <div class="scenario-stat pvp">
+              <span class="scenario-stat-n">6</span>
+              <span class="scenario-stat-l">条相关原则</span>
+            </div>
+            <div class="scenario-stat pvp">
+              <span class="scenario-stat-n">23</span>
+              <span class="scenario-stat-l">条检查条目</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Lesson Block -->
+        <div class="lesson-block pvp">
+          <div class="lesson-block-label">
+            <div class="lesson-block-icon">!</div>
+            <div class="lesson-block-label-text">历史教训</div>
+          </div>
+          <div class="lesson-items">
+            <div class="lesson-item pvp">
+              <div class="lesson-year">1999</div>
+              <div class="lesson-text">守住机制的三个设计要素：完全抵挡（有效）、一回合限制（反制窗口）、可预判（博弈深度）。防守不是无敌，是有代价的选择。</div>
+            </div>
+            <div class="lesson-item pvp">
+              <div class="lesson-year">2006</div>
+              <div class="lesson-text">「看我嘛」引入嘲讽概念，第一次将「谁来承受伤害」变成了战术决策，而非随机结果。</div>
+            </div>
+            <div class="lesson-item pvp">
+              <div class="lesson-year">2011</div>
+              <div class="lesson-text">VGC 赛季制度建立，第一次将「提前公布规则」作为设计原则。临时改规则引发大量玩家抱怨的教训历历在目。</div>
+            </div>
+            <div class="lesson-item pvp">
+              <div class="lesson-year">2013</div>
+              <div class="lesson-text">超级进化 48 选 8。差异化在「谁能用」而非「怎么用」，导致 40 种强化形态成为设计浪费。</div>
+            </div>
+            <div class="lesson-item pvp">
+              <div class="lesson-year">2022</div>
+              <div class="lesson-text">太晶化三维度决策（时机/目标/属性切换）成为历代最强，因为差异化在「怎么用」上，所有玩家都能参与。</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sub-scenarios -->
+        <div class="section-header">
+          <h3>选择具体场景</h3>
+        </div>
+        <div class="grid-pvp-sub" id="pvpSubGrid"></div>
+
+        <!-- Inline Principles (related to PvP) -->
+        <div class="divider"></div>
+        <div class="section-header">
+          <h3>相关设计原则</h3>
+          <span class="section-header-count">6 条</span>
+        </div>
+        <div class="grid-pvp-principles" id="pvpPrinciplesGrid"></div>
+
+        <!-- Inline Checklist -->
+        <div class="divider"></div>
+        <div class="section-header">
+          <h3>PvP 相关检查清单</h3>
+          <span class="section-header-count">23 条</span>
+        </div>
+        <div id="pvpChecklist"></div>
+      </div>
+    </section>
+
+    <!-- ══ PVE SECTION ════════════════════════════════ -->
+    <section class="section" id="section-pve">
+      <div class="section-inner">
+        <div class="scenario-header">
+          <div class="scenario-header-back" onclick="showSection('home')">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg>
+            返回首页
+          </div>
+          <div class="scenario-header-label">PvE 设计场景</div>
+          <div class="scenario-header-title">4人合作团体战设计</div>
+          <div class="scenario-header-desc">多人 PvE 有三重困境：等待时间、贡献归属、状态失控。Pokemon 用六代、Palworld 用两年，各自趟过了这些坑。</div>
+          <div class="scenario-stats">
+            <div class="scenario-stat pve">
+              <span class="scenario-stat-n">1</span>
+              <span class="scenario-stat-l">个子场景</span>
+            </div>
+            <div class="scenario-stat pve">
+              <span class="scenario-stat-n">2</span>
+              <span class="scenario-stat-l">条相关原则</span>
+            </div>
+            <div class="scenario-stat pve">
+              <span class="scenario-stat-n">9</span>
+              <span class="scenario-stat-l">条检查条目</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="lesson-block pve">
+          <div class="lesson-block-label">
+            <div class="lesson-block-icon">!</div>
+            <div class="lesson-block-label-text">历史教训</div>
+          </div>
+          <div class="lesson-items">
+            <div class="lesson-item pve">
+              <div class="lesson-year">2019</div>
+              <div class="lesson-text">极巨团体战引入护盾机制，第一次让「血量」变成了可交互的资源，而不只是倒计时。</div>
+            </div>
+            <div class="lesson-item pve">
+              <div class="lesson-year">2022</div>
+              <div class="lesson-text">太晶团体战引入时间轴机制，每位玩家有独立行动窗口，等待时间大幅改善。但贡献归属问题仍未完全解决。</div>
+            </div>
+            <div class="lesson-item pve">
+              <div class="lesson-year">2024</div>
+              <div class="lesson-text">Palworld v0.7 战场分离解决了一个核心问题：PvP 入侵不影响 PvE 体验。将不同玩法模式物理分离是关键设计决策。</div>
+            </div>
+            <div class="lesson-item pve">
+              <div class="lesson-year">2024</div>
+              <div class="lesson-text">Palworld Raid Boss 从单难度到多难度演进，Expedition 远征系统引入自动匹配。组队便利性是多人 PvE 的基础设施。</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="section-header">
+          <h3>相关设计原则</h3>
+          <span class="section-header-count">2 条</span>
+        </div>
+        <div class="grid-pvp-principles" id="pvePrinciplesGrid"></div>
+
+        <div class="divider"></div>
+
+        <div class="section-header">
+          <h3>PvE 相关检查清单</h3>
+          <span class="section-header-count">9 条</span>
+        </div>
+        <div id="pveChecklist"></div>
+      </div>
+    </section>
+
+    <!-- ══ PRINCIPLES ══════════════════════════════════ -->
+    <section class="section" id="section-principles">
+      <div class="section-inner">
+        <div class="scenario-header">
+          <div class="scenario-header-back" onclick="showSection('home')">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg>
+            返回首页
+          </div>
+          <div class="scenario-header-label">设计原则</div>
+          <div class="scenario-header-title">10 条设计原则</div>
+          <div class="scenario-header-desc">来自 Pokemon 29 年演进历史验证的核心设计准则。每条包含决策逻辑、历史案例、应用场景、边界条件和制作人提示。</div>
+        </div>
+        <div id="principlesGridFull"></div>
+      </div>
+    </section>
+
+    <!-- ══ TIMELINE ════════════════════════════════════ -->
+    <section class="section" id="section-timeline">
+      <div class="section-inner">
+        <div class="scenario-header">
+          <div class="scenario-header-back" onclick="showSection('home')">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg>
+            返回首页
+          </div>
+          <div class="scenario-header-label">历代时间轴</div>
+          <div class="scenario-header-title">设计演进时间线</div>
+          <div class="scenario-header-desc">Pokemon Gen 1-9（1996-2025）和 Palworld v0.1-v0.7（2024-2026）的关键设计节点。橙色为 Pokemon，蓝色为 Palworld。</div>
+        </div>
+
+        <div class="timeline-tabs">
+          <button class="timeline-tab active" data-game="pokemon">Pokemon</button>
+          <button class="timeline-tab" data-game="palworld">Palworld</button>
+          <button class="timeline-tab" data-game="both">双轨对照</button>
+        </div>
+        <div class="timeline-filter-bar" id="timelineFilterBar">
+          <button class="timeline-filter-btn active" data-type="all">全部</button>
+          <button class="timeline-filter-btn" data-type="foundation">奠基</button>
+          <button class="timeline-filter-btn" data-type="pvp">PvP</button>
+          <button class="timeline-filter-btn" data-type="enhancement">强化</button>
+          <button class="timeline-filter-btn" data-type="pve">PvE</button>
+        </div>
+        <div id="timelineContainer"></div>
+      </div>
+    </section>
+
+    <!-- ══ COMPARISON ═══════════════════════════════════ -->
+    <section class="section" id="section-comparison">
+      <div class="section-inner">
+        <div class="scenario-header">
+          <div class="scenario-header-back" onclick="showSection('home')">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg>
+            返回首页
+          </div>
+          <div class="scenario-header-label">参考资料</div>
+          <div class="scenario-header-title">Pokemon vs Palworld 对照</div>
+          <div class="scenario-header-desc">从强化机制演进、多人 PvE 设计、平衡管理、商业模型、新人门槛五个维度，对比两个游戏的演进路径和设计决策。</div>
+        </div>
+        <div class="comp-table-wrap">
+          <table class="comp-table">
+            <thead>
+              <tr>
+                <th>维度</th>
+                <th style="color:var(--accent)">Pokemon</th>
+                <th style="color:var(--text-secondary)">Palworld</th>
+              </tr>
+            </thead>
+            <tbody id="comparisonBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ CHECKLIST ═══════════════════════════════════ -->
+    <section class="section" id="section-checklist">
+      <div class="section-inner">
+        <div class="scenario-header">
+          <div class="scenario-header-back" onclick="showSection('home')">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg>
+            返回首页
+          </div>
+          <div class="scenario-header-label">设计工具</div>
+          <div class="scenario-header-title">设计检查清单</div>
+          <div class="scenario-header-desc">47 条可直接用于设计审查的检查条目，按 7 个维度组织。核心条目（19条）标记为「核心」，优先检查。勾选后自动保存进度。</div>
+        </div>
+
+        <div class="checklist-toolbar">
+          <div class="checklist-toolbar-left" id="filterBtns">
+            <button class="filter-btn active" data-filter="all">全部</button>
+            <button class="filter-btn" data-filter="unchecked">未完成</button>
+            <button class="filter-btn" data-filter="core">核心</button>
+            <button class="filter-btn" data-filter="important">重要</button>
+            <button class="filter-btn" data-filter="general">一般</button>
+          </div>
+          <div class="checklist-toolbar-right">
+            <button class="btn-tool" id="clearBtn">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"></path></svg>
+              清空
+            </button>
+            <button class="btn-tool" id="exportBtn">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+              导出已勾选
+            </button>
+          </div>
+        </div>
+
+        <div id="checklistContainer"></div>
+      </div>
+    </section>
+
+    <!-- ══ DECISION TREE ═══════════════════════════════ -->
+    <section class="section" id="section-decision">
+      <div class="section-inner">
+        <div class="scenario-header">
+          <div class="scenario-header-back" onclick="showSection('home')">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg>
+            返回首页
+          </div>
+          <div class="scenario-header-label">决策树</div>
+          <div class="scenario-header-title">制作人决策树</div>
+          <div class="scenario-header-desc">从问题类型出发，引导你找到对应的设计原则和检查清单。点击任意选项直接跳转。</div>
+        </div>
+        <div class="tree-grid" id="decisionTreeGrid"></div>
+      </div>
+    </section>
+
+    <!-- ══ GUIDE ═══════════════════════════════════════ -->
+    <section class="section" id="section-guide">
+      <div class="section-inner">
+        <div class="scenario-header">
+          <div class="scenario-header-back" onclick="showSection('home')">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg>
+            返回首页
+          </div>
+          <div class="scenario-header-label">使用指南</div>
+          <div class="scenario-header-title">报告使用指南</div>
+          <div class="scenario-header-desc">本报告基于 Pokemon 29 年 VGC 多人对战设计演进和 Palworld 实时实践编写，旨在为宝可梦Like游戏的多人玩法设计提供经验参考。</div>
+        </div>
+
+        <div class="guide-section">
+          <h3>报告结构</h3>
+          <div class="guide-list">
+            <div class="guide-item">
+              <div class="guide-item-title">设计原则（10条）</div>
+              <div class="guide-item-desc">来自历史验证的核心设计准则。每条包含决策逻辑、历史案例、应用场景、边界条件和制作人提示。</div>
+            </div>
+            <div class="guide-item">
+              <div class="guide-item-title">历代时间轴</div>
+              <div class="guide-item-desc">Pokemon Gen 1-9 和 Palworld v0.1-v0.7.3 的关键设计节点。橙色为 Pokemon，蓝色为 Palworld。</div>
+            </div>
+            <div class="guide-item">
+              <div class="guide-item-title">设计检查清单（47条）</div>
+              <div class="guide-item-desc">可直接用于设计审查的检查条目，按 7 个维度组织。核心条目（19条）标记为「核心」，优先检查。</div>
+            </div>
+            <div class="guide-item">
+              <div class="guide-item-title">制作人决策树</div>
+              <div class="guide-item-desc">从问题出发，引导你找到对应的原则和检查清单。适用于不确定设计问题属于哪类时使用。</div>
+            </div>
+            <div class="guide-item">
+              <div class="guide-item-title">Pokemon vs Palworld</div>
+              <div class="guide-item-desc">两个游戏的对照分析，从强化机制、多人 PvE、平衡管理、新人门槛等维度对比。</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="guide-section">
+          <h3>置信度说明</h3>
+          <div class="confidence-legend" style="max-width:400px;">
+            <div class="conf-legend-item"><span class="conf-dot high"></span><span>高置信度 — 有官方记录或社区共识的设计结论</span></div>
+            <div class="conf-legend-item"><span class="conf-dot medium"></span><span>中置信度 — 社区反馈反推，Game Freak 未公开说明设计意图</span></div>
+            <div class="conf-legend-item"><span class="conf-dot low"></span><span>低置信度 — 从补丁历史中高度推断，边界条件可能不完整</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<!-- ─── Modal ────────────────────────────────────────── -->
+<div class="modal-overlay" id="modalOverlay" role="dialog" aria-modal="true">
+  <div class="modal">
+    <div class="modal-header">
+      <button class="modal-close" onclick="closeModal()" aria-label="Close">&times;</button>
+      <div id="modalHeaderContent"></div>
+    </div>
+    <div id="modalBody"></div>
+  </div>
+</div>
+
+<script>
+// INLINE_REPORT_DATA placeholder — replaced by generate_interactive_report.py
+const INLINE_REPORT_DATA = {"meta": {"title": "综合研究报告：宝可梦 VGC 多人对战设计演进", "subtitle": "Pokemon VGC Multiplayer Design Evolution", "version": "2.3", "generated_at": "2026-04-19T21:11:24.213378", "source": "综合研究报告_宝可梦VGC多人对战设计经验.md", "description": "Pokemon 29年（1996-2025）多人对战设计演进研究，含10条设计原则与47条详细检查清单", "data_sources": [{"name": "Serebii.net", "type": "official", "description": "Pokemon 官方更新日志"}, {"name": "Steam News API", "type": "official", "description": "Palworld 公开公告（预采集）"}, {"name": "Smogon 社区", "type": "community", "description": "竞技平衡反馈、使用率数据、禁用讨论"}, {"name": "AI 分析归纳", "type": "inferred", "description": "从补丁历史中推断的设计意图（置信度为中/低）"}]}, "principles": [{"id": 1, "name": "决策空间优先原则", "summary": "任何让对手无法做出有意义决策的机制，都是危险的", "category": "balance", "category_label": "平衡性", "category_color": "#ff6b6b", "chapter": "第一章 / A.1.2", "decision_logic": "当设计任何限制对手选择的机制时，必须先问：对手在这个机制下还有什么选择？如果答案是'没有'，这个机制需要重新设计。", "case_study": "追猎特性被禁用 — 当对手被困后无任何选择，只能等死", "application": "设计任何限制对手选择的机制时，必须问：对手还有什么选择？限制不等于消灭，限制是让选择更困难，不是让选择消失。", "confidence": "中", "confidence_note": "追猎特性被禁用为社区规则（非官方），Game Freak 未公开说明设计意图", "counter_example": "《炉石传说》的'疲劳'机制让对手在资源耗尽后无牌可抽，并非设计失误，而是游戏结束条件的一部分。", "boundary_condition": "本原则适用于'进行中'的战术决策。当游戏目标本身就是让对手无牌可打时（如疲劳战），此原则不适用。核心条件：正在进行的对局中，任何回合都应给对手留有至少2种有意义的选择。", "producer_note": "遇到'这个机制让对手完全没有选择'的设计时，无论数值多合理，都要打回重做。", "scenario_tags": ["pvp_combat"]}, {"id": 2, "name": "三明治平衡原则", "summary": "攻击有威胁 → 防御有手段 → 攻击方有反制，循环不息", "category": "balance", "category_label": "平衡性", "category_color": "#ff6b6b", "chapter": "第一章 / A.1.4-5", "decision_logic": "设计防御机制时，必须同时回答三个问题：(1) 防御手段有哪些？(2) 对手如何反制这些防御？(3) 防御方如何应对反制？这三个环节缺一不可。", "case_study": "三层防御体系：①守住 = 完全抵挡单体攻击一次（防\"这回合会不会死\"）；②看我嘛 = 强制敌方优先攻击己方嘲讽手（防\"谁来承受伤害\"）；③威吓 = 降低对方攻击伤害（防\"下一回合是否还是必死\"）。三层各有分工、相互配合，不是替代关系", "application": "防御机制必须配套反制手段，否则迟早被绕过或禁用。好的防御体系让双方都有选择，形成持续的博弈循环。", "confidence": "中", "confidence_note": "三层防御体系为观察总结，Game Freak 未公开说明设计目标为'三层递进'", "counter_example": "《皇室战争》的防守塔在某些版本中几乎无法正面突破，但游戏仍成功——因为它是'游戏结束条件'的一部分，'无解'是刻意设计。", "boundary_condition": "本原则适用于战术博弈层面。当某个防御机制本身就是游戏的终结条件时，此原则不适用。核心条件：对局仍在进行时，任何防御都应有对应的反制手段。", "producer_note": "设计防御体系时，同步列出'对手如何破防'和'防御方如何应对破防'，形成闭环才算完成设计。", "scenario_tags": ["pvp_combat"]}, {"id": 3, "name": "组合监管优先原则", "summary": "Ban List 不只管哪个强，还要管哪些组合强", "category": "balance", "category_label": "平衡性", "category_color": "#ff6b6b", "chapter": "第四/六章 / A.4.1 / A.6.1", "decision_logic": "评估机制时，必须做'最坏情况分析'：当两个极端机制同时出现时，是否产生1+1>>2的效果？只要存在这种可能，就需要提前设计监管方案。", "case_study": "降雨特性 + 悠游自如特性组合被联合禁用，开创机制组合禁用先例", "application": "评估机制组合的1+1>>2效果，优先禁用组合而非单体。禁用组合对玩家'投入'的伤害比禁用单体更小。", "confidence": "高", "confidence_note": "降雨+悠游自如组合禁用为社区规则（有公开记录），但 Game Freak 官方未明确说明此为有意设计", "counter_example": "《游戏王》大量'FTK'（一回杀）组合被反复禁用，但游戏仍健康发展——说明高强度组合未必需要禁用，环境自身压力可自然抑制。", "boundary_condition": "本原则适用于需要长期稳定竞技平衡的环境。对于追求'爆款体验'的卡牌游戏，偶尔出现的强力组合可能反而是话题性来源。核心条件：需要长期稳定竞技平衡时，组合监管优先。", "producer_note": "设计多个可交互机制时，同步评估'哪些组合可能失控'。Ban List 要包含单体禁用、机制禁用、组合禁用三个层次。", "scenario_tags": ["pvp_environment", "meta_governance"]}, {"id": 4, "name": "使用决策优于数值原则", "summary": "什么时候用/给谁用/怎么用，比用多强更有趣", "category": "enhancement", "category_label": "强化机制", "category_color": "#f0ad4e", "chapter": "第二章 / A.2.1", "decision_logic": "评估强化机制时，数值的平衡永远做不完，但决策的丰富度是可以设计的。问自己：这个机制是否需要对当前局面做判断？是否需要了解对手的配置？最优使用时机是否受对手影响？", "case_study": "太晶化三维度决策（时机/目标/属性切换）成为历代最强强化机制", "application": "评估强化机制时，让玩家思考决策而非数值比较。使用决策丰富的机制，即使数值有些许失衡，也有足够多的博弈空间。", "confidence": "中", "confidence_note": "太晶化被社区公认为历代最强强化机制，但 Game Freak 未公开说明设计目标是'三维决策'", "counter_example": "《暗黑破坏神》的装备词缀（+100% 伤害）是纯数值强化，但游戏仍成功——因为它服务的是'刷装爽感'而非策略博弈，数值强化在 ARPG 中是核心乐趣。", "boundary_condition": "本原则适用于需要策略深度的竞技类游戏。对于以收集/养成/刷装为核心乐趣的游戏，纯数值强化可能反而更好。核心条件：游戏是否以策略博弈为核心乐趣。", "producer_note": "强化机制的'爽感'和'策略深度'可能冲突。设计时先确定目标用户是谁——硬核竞技玩家需要决策深度，泛用户可能更需要数值爽感。", "scenario_tags": ["enhancement"]}, {"id": 5, "name": "窗口期优于永久原则", "summary": "强化效果有时间限制让决策更有意义", "category": "enhancement", "category_label": "强化机制", "category_color": "#f0ad4e", "chapter": "第二章 / A.2.3", "decision_logic": "任何强化/增益机制都需要回答：它是否在某个时间点/回合数后消失？如果是永久效果，是否有其他机制（如机会成本）来限制使用频率？", "case_study": "顺风（2回合）/ 极巨化（3回合）/ Z招式（一次性）均有时间限制", "application": "无限制的强化很快变成无脑使用的工具。窗口期长度本身也是设计决策——太长则无意义，太短则难以使用。", "confidence": "中", "confidence_note": "历代强化机制均有时间限制为观察总结，Game Freak 未明确说明窗口期设计为有意控制博弈节奏", "counter_example": "《英雄联盟》的大招没有时间限制（整局可用），但仍创造丰富策略——因为它通过'冷却时间'而非'窗口期'来限制，两者服务于不同战术节奏。", "boundary_condition": "'时间窗口'只是限制手段之一，冷却时间、资源消耗、次数限制都是等效替代。选择哪种取决于游戏节奏需求：回合制适合窗口期（可预测），即时制适合冷却时间（动态）。", "producer_note": "'限制强化'的方式不止一种。设计时问：这个机制用什么方式限制最符合游戏的节奏感？", "scenario_tags": ["enhancement"]}, {"id": 6, "name": "差异化是双刃剑原则", "summary": "差异化应在怎么用，而非谁能用", "category": "enhancement", "category_label": "强化机制", "category_color": "#f0ad4e", "chapter": "第二章 / A.2.4", "decision_logic": "差异化设计前先问：差异化体现在哪里？如果是'谁能用'（专属强化），需要评估实际使用率。如果是'怎么用'（灵活反制），需要评估决策丰富度。", "case_study": "超级进化：48种中仅8种有竞技价值，40种成设计浪费", "application": "差异化是设计工作而非玩家选择时，投入产出比极低。好的差异化让所有玩家都能参与，但使用方式有差异。", "confidence": "高", "confidence_note": "超级进化使用率不均为已知事实，社区有大量数据支撑", "counter_example": "《Dota 2》的英雄选择本身就是差异化（每个英雄完全不同），但不妨碍游戏成功——说明'谁能用'的差异在角色认同为核心的游戏中是合理的，甚至是核心卖点。", "boundary_condition": "本原则的适用前提是单位之间有可替代性（如 Pokemon 的宝可梦之间可替代）。当每个单位本身就是独立身份认同时（如 MOBA 英雄），差异化在'谁能用'上是合理的。", "producer_note": "先问：我的游戏里单位之间是否可以替代？如果是，差异化要体现在'怎么用'；如果不是，差异化可以体现在'谁能用'。", "scenario_tags": ["enhancement"]}, {"id": 7, "name": "团队性优于单体性原则", "summary": "多人玩法应鼓励协作而非单打独斗", "category": "multiplayer", "category_label": "多人玩法", "category_color": "#4ecdc4", "chapter": "第三/五章 / A.3.3 / A.5.4", "decision_logic": "设计多人机制时自问：这个机制让单人更强，还是团队更强？如果单人也能完美运作，多人只是锦上添花。优先设计'需要团队配合才能最大化价值'的机制。", "case_study": "顺风/天气/护盾 — 成功的多人机制都具有团队性", "application": "问：这个机制让单人更强，还是团队更强？团队性机制让多人对战有了区别于单人游玩的独特价值。", "confidence": "中", "confidence_note": "团队性机制与多人对战的独特价值为归纳结论，缺乏系统性数据验证", "counter_example": "《星际争霸》是纯多人 RTS，但大量机制（微操、多线操作）本质仍是'单人操作强度'的体现。成功的多人游戏不一定要有'纯团队机制'。", "boundary_condition": "本原则适用于需要区分单人/多人价值的游戏。如果游戏核心乐趣在于'个人技术的极致展现'（如格斗游戏/RTS），团队性优先原则不适用。", "producer_note": "设计多人机制时，同步问：单人玩家用这个机制能达到团队玩家同样的效果吗？如果是，这个机制的多人价值就消失了。", "scenario_tags": ["pvp_speed", "pve_group"]}, {"id": 8, "name": "可见性优于隐藏性原则", "summary": "多人 PvE 中，每个玩家的贡献必须可见", "category": "multiplayer", "category_label": "多人玩法", "category_color": "#4ecdc4", "chapter": "第五章 / A.5.5", "decision_logic": "设计多人 PvE 时，必须回答：玩家能否直观看到自己做了什么贡献？贡献是否影响奖励分配？如果贡献不可见，认真参与的玩家会感到努力被埋没。", "case_study": "太晶团体战贡献度不够可视化，是历代团体战最大不足之一", "application": "提供个人贡献仪表盘，贡献可见不仅是公平问题也是激励问题——玩家需要知道自己'做了什么'才有成就感。", "confidence": "中", "confidence_note": "太晶团体战贡献度不足为社区反馈，Game Freak 未公开承认此为设计缺陷", "counter_example": "《灵魂狼》等'隐型贡献'游戏刻意隐藏个人数据，增强团队认同感。对于追求团队身份认同的游戏，可见性优先原则可能适得其反。", "boundary_condition": "本原则适用于需要明确个人责任归属的场景（随机组队、竞技环境）。对于固定团队/公会内容，隐藏个人数据可能强化团队凝聚力。核心判断：内容是'临时组队'还是'固定团队'？", "producer_note": "多人 PvE 一定要解决'贡献归属'问题。方案不一定是数据可视化，也可以是角色分工（每个人做不同的事），关键是让认真参与的玩家感到自己的价值。", "scenario_tags": ["pve_group"]}, {"id": 9, "name": "可预测性优于随机惊喜原则", "summary": "赛季规则提前公布比临时调整更健康", "category": "meta", "category_label": "Meta 管理", "category_color": "#a855f7", "chapter": "第六章 / A.6.4-5", "decision_logic": "建立赛季制度时必须回答：规则变化是否提前至少一个月公布？更迭是否有固定节奏？玩家能否提前规划投入？可预测性是竞技环境健康的基础。", "case_study": "VGC 赛季规则提前公布；超级进化赛季禁用未提前告知引发大量抱怨", "application": "赛季规则提前至少一个月公布，建立可预测节奏。固定节奏比随机调整更健康。", "confidence": "高", "confidence_note": "VGC 赛季规则提前公布为公开事实；超级进化禁用争议有大量社区记录", "counter_example": "《守望先锋2》的 meta 变化通过'开发者日志'即时传达，玩家反而感到'响应迅速'而非'不可预测'。说明可预测性的替代方案是'高透明度的快速调整'。", "boundary_condition": "可预测性优先的替代方案是'快速响应+高透明度'。当团队能在 <1 周内做平衡调整时，可预测性优先原则可弱化；当 >4 周时，必须坚持可预测性。", "producer_note": "无论选择'可预测的赛季节奏'还是'快速的透明调整'，都要提前告知玩家并建立稳定预期。临时起意的规则变化永远是下策。", "scenario_tags": ["meta_governance"]}, {"id": 10, "name": "新人门槛与深度平衡原则", "summary": "让新手能上手，让高手有追求", "category": "meta", "category_label": "Meta 管理", "category_color": "#a855f7", "chapter": "第七章 / A.7.1-3", "decision_logic": "设计任何系统时必须回答：新手能否在不了解全部细节的情况下使用？高手是否还有精细控制的空间？降低门槛不等于降低深度，两者可以同时存在。", "case_study": "超级训练：简单界面快速上手 + 精确EV控制，高手也有追求", "application": "降低门槛不等于降低深度，默认选项+高级选项可同时存在。让深度培育成为'赢面更大'而非'不培育就不能玩'。", "confidence": "中", "confidence_note": "超级训练被公认为成功的简化案例，但其成功程度缺乏系统性数据验证", "counter_example": "《围棋》规则极其简单（入门5分钟）但深度极高（一生学不完）。它没有提供'默认/高级'入口，但通过段位系统实现隐性的难度分层。门槛与深度的平衡可以有非显式路径。", "boundary_condition": "'默认/高级入口'只是一种实现方式，段位系统、ELO匹配、新手指引都是等效替代。选择取决于：让用户自己摸索，还是主动引导？", "producer_note": "'降低门槛'和'保持深度'不矛盾。关键是提供两条路径：一条让新人不花时间就能上手，另一条让老手有精细控制的空间。两者由玩家自选，不强迫。", "scenario_tags": ["meta_progression"]}], "checklist": [{"dimension": "集火与保护", "icon": "shield", "description": "2v2中'击杀'与'保命'的设计平衡", "module": "pvp", "items": [{"id": "A.1.1", "text": "防御机制是否有明确的使用限制（次数/频率/窗口期）？无限制的保护会直接导致对战变成无脑轮流防守的无聊局面。", "priority": "core", "decision_logic": "检查每种防御手段的限制条件。限制可以是次数、频率、窗口期或机会成本——只要有代价即可。", "related_principles": [2]}, {"id": "A.1.2", "text": "对手在被集火的情况下还有什么有意义的选择？必须至少有2种以上实质选择，而非形式上有选择（如'可以挨打'）。", "priority": "core", "decision_logic": "在设计阶段模拟最坏情况：如果对手被集火，他能做什么？如果答案是'只能等死'，需要重新设计。", "related_principles": [1]}, {"id": "A.1.3", "text": "是否存在让对手'完全没有反制手段'的机制？每个强机制必须有反制手段，反制成本不能比被反制的机制更大。", "priority": "core", "decision_logic": "系统梳理每个核心机制的'反制手段清单'。如果某个机制没有任何反制手段，它迟早会被禁用。", "related_principles": [1, 3]}, {"id": "A.1.4", "text": "是否提供了至少三种不同层次的保护手段（单体/范围/嘲讽/削弱）？Pokemon用了六代才建立三层防御体系。", "priority": "core", "decision_logic": "检查单体攻击和范围攻击是否都有对应保护手段。嘲讽和削弱是否有差异化价值。", "related_principles": [2]}, {"id": "A.1.5", "text": "攻击-防御-反制是否形成完整的三角闭环？攻击有威胁，防御有手段，防御有反制。", "priority": "important", "decision_logic": "评估博弈循环是否至少需要3个回合才能完成。如果一方可以无限循环同一策略，说明闭环不完整。", "related_principles": [2]}, {"id": "A.1.6", "text": "嘲讽与直接保护是否有足够的差异化？嘲讽不应该在所有场景下都比直接保护更好用。", "priority": "important", "decision_logic": "对比两种机制的使用场景和代价。如果嘲讽在所有场景都优于保护，说明直接保护是冗余的。", "related_principles": [2]}, {"id": "A.1.7", "text": "保护机制是否与强化/成长系统有绑定关系？极巨防壁将保护与强化代价绑定的设计值得参考。", "priority": "important", "decision_logic": "问：选择强化某单位是否附带保护收益？如果保护是独立的，它是否有独立的使用成本？", "related_principles": [2]}, {"id": "A.1.8", "text": "保护效果是否有清晰的视觉和数值反馈？双方都能准确判断保护是否生效。", "priority": "general", "decision_logic": "测试保护的可见性。如果玩家无法判断'我的保护是否生效'，就无法做出有效的战术决策。", "related_principles": [8]}]}, {"dimension": "强化机制", "icon": "zap", "description": "'让玩家变强'机制的设计陷阱", "module": "pvp", "items": [{"id": "A.2.1", "text": "强化机制是否包含至少两个维度的使用决策（时机/目标/方式）？Z招式（二维）被认为过于简单，太晶化（三维）被认为是历代最强。", "priority": "core", "decision_logic": "问：玩家在'是否使用强化'时需要考虑哪些信息？最优使用时机是否受对手配置影响？是否存在'无脑使用'的场景？", "related_principles": [4]}, {"id": "A.2.2", "text": "是否避免了'一键翻盘'机制？强化不应该让之前所有布局都变得毫无价值。", "priority": "core", "decision_logic": "问：使用强化后，之前的对局积累（血量优势、站位优势）是否仍然有意义？强化是否会直接抹平差距？", "related_principles": [4]}, {"id": "A.2.3", "text": "强化效果是否有明确的时间窗口限制？顺风（2回合）、极巨化（3回合）均为有窗口期的设计。", "priority": "core", "decision_logic": "问：强化效果是否在某时间点/回合数后消失？如果是永久的，是否有其他机制（如机会成本）来限制？", "related_principles": [5]}, {"id": "A.2.4", "text": "差异化是否在'怎么用'而非'谁能用'上？超级进化48种仅8种有竞技价值的教训。", "priority": "core", "decision_logic": "问：差异化体现在哪里？是否存在'完全没人用'的强化内容？如果存在，说明差异化策略有问题。", "related_principles": [6]}, {"id": "A.2.5", "text": "强化机制是否与基础战术系统有深度绑定？太晶化与属性克制深度绑定，而非独立存在。", "priority": "important", "decision_logic": "问：强化决策是否需要了解对手的阵容/配置？如果可以独立考虑，说明绑定不够。", "related_principles": [4]}, {"id": "A.2.6", "text": "差异化程度是否与目标用户群体匹配？太晶化的三维决策对硬核玩家是深度，对休闲玩家是负担。", "priority": "important", "decision_logic": "评估目标用户的平均游戏经验水平。是否有新手引导？是否有简化版和深度版两种使用方式？", "related_principles": [4, 10]}, {"id": "A.2.7", "text": "强化资源的稀缺性是否合理？新手是否会因无法获取强化资源而明显处于劣势？", "priority": "important", "decision_logic": "问：不使用最强强化的玩家是否仍然有竞争力的对局体验？是否有免费/低成本的替代路径？", "related_principles": [10]}, {"id": "A.2.8", "text": "强化机制是否提供了足够的情感满足？专属动画和视觉反馈是否值得等待？", "priority": "general", "decision_logic": "问：强化是否让玩家感到'这是我独特的力量'？强化动画是否太短以至于没感觉？", "related_principles": [4]}]}, {"dimension": "速度博弈", "icon": "activity", "description": "如何让'先手'不是唯一的胜负手", "module": "pvp", "items": [{"id": "A.3.1", "text": "低速单位是否有差异化的使用场景？Pokemon 29年都未能完全解决'极速就是正义'问题，需要刻意设计。", "priority": "core", "decision_logic": "问：低速高攻单位是否有明确战术定位（如空间下先手）？是否存在'低速专属'机制？低速单位是否在任何情况下都能找到价值？", "related_principles": [7]}, {"id": "A.3.2", "text": "是否提供了'增强己方'和'削弱对方'两种速度调控机制？双轨设计让战术选择更丰富。", "priority": "important", "decision_logic": "问：两种机制的解决问题是否不同（己方慢 vs 对方快）？两种机制是否有不同的使用场景和代价？", "related_principles": [7]}, {"id": "A.3.3", "text": "速度调控是否具有团队性？顺风（全队加速）比单体加速更适合多人对战语境。", "priority": "important", "decision_logic": "问：速度调控是影响单体还是团队？辅助型单位是否可以通过速度调控提供独特的团队价值？", "related_principles": [7]}, {"id": "A.3.4", "text": "速度调控是否有明确的时间窗口限制？顺风的2回合限制是优秀的设计案例。", "priority": "important", "decision_logic": "问：窗口期长度是否合理（太长无意义，太短难以使用）？持续时间是否短到需要考虑'什么时候开'？", "related_principles": [5]}, {"id": "A.3.5", "text": "场上同时存在的速度线数量是否合理？太少则同质化，太多则难以平衡。", "priority": "general", "decision_logic": "问：是否有至少2-3条清晰可辨的速度策略路径？每条路径是否有明确的优缺点？", "related_principles": [7]}]}, {"dimension": "环境控制", "icon": "cloud", "description": "天气与地形的战略价值", "module": "pvp", "items": [{"id": "A.4.1", "text": "是否系统评估了'哪些机制组合可能产生1+1>>2的效果'？降雨+悠游自如的教训：单个平衡≠组合平衡。", "priority": "core", "decision_logic": "做'最坏情况分析'：两个极端机制同时出现时，是否产生远超预期的效果？只要存在可能，就需要提前设计监管方案。", "related_principles": [3]}, {"id": "A.4.2", "text": "环境控制系统是否可被玩家主动建立？纯随机的环境效果会破坏竞技性。", "priority": "important", "decision_logic": "问：玩家是否可以主动选择建立哪种环境？建立代价是否合理？环境是否可以持续维持？", "related_principles": [7]}, {"id": "A.4.3", "text": "环境机制是否与其他机制有联动设计？Pokemon天气+特性联动是设计的精髓。", "priority": "important", "decision_logic": "问：环境变化是否触发其他机制的联动效果？联动效果是否让'围绕环境构建战术'变得有价值？", "related_principles": [7]}, {"id": "A.4.4", "text": "是否有清除/反制环境的手段？如果环境一旦建立就无法被打破，会变成'比谁先建'的无趣竞赛。", "priority": "important", "decision_logic": "问：反制手段的代价是否与建立环境相当？反制是否需要针对不同环境做不同选择？", "related_principles": [3]}, {"id": "A.4.5", "text": "环境控制在多人对战中是否具有团队价值？所有队友共享同一个天气。", "priority": "important", "decision_logic": "问：环境建立者的选择是否影响全队？是否可以通过团队配合来建立/维持环境？", "related_principles": [7]}]}, {"dimension": "PvE 多人合作", "icon": "users", "description": "4人合作的内容设计三重困境", "module": "pve", "items": [{"id": "A.5.1", "text": "等待时间是否有优化机制（半即时/个人时间窗口）？纯回合制是多人PvE的最大敌人。太晶团体战的时间轴设计是参考案例。", "priority": "core", "decision_logic": "问：是否采用了半即时制？每个玩家的等待时间是否控制在30秒以内？有人掉线时其他人是否需要等待？", "related_principles": [8]}, {"id": "A.5.2", "text": "是否存在玩家可以'挂机'仍然获得同等奖励的机制漏洞？这是多人PvE的最大敌人之一。", "priority": "core", "decision_logic": "问：奖励是否与个人贡献成正比？是否有机制防止挂机行为？贡献度是否可视化让挂机者被识别？", "related_principles": [8]}, {"id": "A.5.3", "text": "Boss是否有明确的阶段性反制机制防止无限堆叠状态？需要周期性清除、状态免疫或状态上限。", "priority": "core", "decision_logic": "问：Boss是否会周期性清除负面状态？状态清除时机是否对玩家可见？是否有需要分配特定职责的阶段？", "related_principles": [8]}, {"id": "A.5.4", "text": "每个玩家是否有明确的个人任务/职责？不是所有人做同样的事，而是需要互补协作。", "priority": "core", "decision_logic": "问：是否设计了需要不同角色的Boss机制？职责是否在战斗中动态调整？是否提供足够反馈让玩家知道'我当前应该做什么'？", "related_principles": [7, 8]}, {"id": "A.5.5", "text": "玩家贡献是否可视化（伤害量/治疗量/辅助次数）？贡献可见不仅是公平问题，也是激励问题。", "priority": "core", "decision_logic": "问：是否提供个人贡献统计？数据是否实时更新？贡献度是否影响奖励分配（而非平均）？", "related_principles": [8]}, {"id": "A.5.6", "text": "护盾/血条等即时反馈机制是否完善？Boss血量、伤害数字、战斗紧迫程度是否实时可见？", "priority": "important", "decision_logic": "问：Boss的护盾/血量是否实时可见？伤害数字是否即时显示？是否有倒计时明确显示？", "related_principles": [8]}, {"id": "A.5.7", "text": "战斗失败的代价是否合理？重试等待时间、是否需要重新召集4人、惩罚是否与难度成正比。", "priority": "important", "decision_logic": "问：失败惩罚是否适度？是否有机制让'差一点'的失败不至于完全重来？重试的等待时间是否合理？", "related_principles": []}, {"id": "A.5.8", "text": "不同难度的团体战是否有清晰的差异化？难度应体现在'配合要求提升'而非仅'数值提升'。", "priority": "important", "decision_logic": "问：难度是否通过机制差异体现？是否有足够的过渡难度供团队成长？", "related_principles": []}, {"id": "A.5.9", "text": "团体战是否与社交/公会系统有良好整合？组队是否便利？是否有公会专属内容？", "priority": "general", "decision_logic": "问：是否有便捷的组队/招募机制？跨服/跨区域组队是否便利？", "related_principles": []}]}, {"dimension": "Meta 管理", "icon": "filter", "description": "规则赛季迭代与Ban List制度", "module": "meta", "items": [{"id": "A.6.1", "text": "是否有Ban List/禁用规则的设计计划？Pokemon用了近10年才建立完整制度，设计早期必须规划。", "priority": "core", "decision_logic": "问：禁用规则是否包含单体/机制/组合三个层次？禁用决策流程是否透明？是否有'快速禁用'应对突发问题？", "related_principles": [3]}, {"id": "A.6.2", "text": "禁用是否优先考虑'机制禁用'而非'单体禁用'？Pokemon从'禁用宝可梦'转向'禁用机制'显著降低了社区反弹。", "priority": "core", "decision_logic": "问：禁用决策是否优先考虑'禁用这个机制'？禁用机制后该宝可梦是否仍有其他可用玩法？是否考虑了玩家已投入的培育资源？", "related_principles": [3, 10]}, {"id": "A.6.3", "text": "赛季更迭时是否有机制保护玩家已投入的培育资源？超级进化禁用引发的'投资浪费'争议是核心教训。", "priority": "core", "decision_logic": "问：如果某个内容被禁用，玩家是否可以获得等价补偿？是否有足够过渡期？是否有'保级机制'让被禁用内容降级使用？", "related_principles": [9]}, {"id": "A.6.4", "text": "Ban List是否提前至少一个月公布？Pokemon VGC的成功实践：赛季规则提前公布让玩家有充足准备时间。", "priority": "important", "decision_logic": "问：下个赛季禁用规则是否提前公布？是否有可预测的更新节奏？", "related_principles": [9]}, {"id": "A.6.5", "text": "赛季更迭是否有可预测的固定节奏？固定节奏比随机调整更健康。", "priority": "important", "decision_logic": "问：赛季长度是否固定（如3个月）？每个赛季是否有明确主题？", "related_principles": [9]}, {"id": "A.6.6", "text": "是否有分级制度让不同强度的内容都有使用场景？让次一级的内容也有自己的竞技空间。", "priority": "important", "decision_logic": "问：是否有至少2个以上竞技分级？每个分级是否有明确的准入标准？", "related_principles": []}]}, {"dimension": "养成系统", "icon": "trending-up", "description": "培育循环与竞技门槛设计", "module": "meta", "items": [{"id": "A.7.1", "text": "新人是否可以在短时间内组建'可用'的对战配置？Pokemon超级训练让EV训练从几十小时缩短到几分钟。", "priority": "core", "decision_logic": "问：是否有'一键培育'功能？'可用'与'完美'的差距是否在10-20%胜率范围内？新人是否需要查阅外部资料才能理解系统？", "related_principles": [10]}, {"id": "A.7.2", "text": "深度培育是否是'加分项'而非'必须项'？培育不完美是否仍能通过操作弥补差距？", "priority": "core", "decision_logic": "问：匹配系统是否考虑'培育水平'？是否有面向'低培育'玩家的对战模式？培育不完美是否可以通过决策弥补？", "related_principles": [10]}, {"id": "A.7.3", "text": "是否有快速准备和深度养成两条路径？超级训练示范：简单界面让新人上手，精确控制让高手追求。", "priority": "important", "decision_logic": "问：是否有'快速路径'让新人在10分钟内完成基础配置？是否有'深度路径'让老玩家精细控制？两条路径是否由玩家自选？", "related_principles": [10]}, {"id": "A.7.4", "text": "培育的每个步骤本身是否有游戏乐趣？Pokemon早期最大的问题是'无意义的门槛'而非'有趣的挑战'。", "priority": "important", "decision_logic": "问：培育过程是否除了'等待'以外还有内容？培育决策是否涉及战略选择？是否移除了'假选择'（如TM是否一次性）？", "related_principles": []}, {"id": "A.7.5", "text": "培育所需资源是否可通过多种方式获取？避免'必须刷特定内容'的枯燥感。", "priority": "important", "decision_logic": "问：资源获取途径是否多样化？是否避免了孤立刷取的设计？获取过程是否与其他游戏内容有交叉？", "related_principles": []}, {"id": "A.7.6", "text": "普通玩家是否需要查阅外部资料才能理解培育系统？EV/IV对Pokemon普通玩家是黑箱。", "priority": "general", "decision_logic": "问：游戏内是否有清晰易懂的新手引导？关键参数是否有游戏内解释？UI是否让'什么是好的培育'一目了然？", "related_principles": [10]}]}], "scenarios": [{"id": "pvp_combat", "label": "集火与保护", "question": "我要设计 2v2 的集火与保护机制", "description": "Pokemon 用六代建立三层防御体系：守住 → 看我嘛 → 威吓。三层各有分工、相互配合。", "chapter": "第一章", "principles": [1, 2], "checklist_ids": ["A.1.1", "A.1.2", "A.1.3", "A.1.4", "A.1.5", "A.1.6", "A.1.7", "A.1.8"], "timeline_pokemon_years": [1999, 2006, 2022]}, {"id": "enhancement", "label": "强化机制", "question": "我要设计强化 / 变身 / 爆发机制", "description": "太晶化三维度决策（时机/目标/属性）成为历代最强——差异化应在怎么用而非谁能用。", "chapter": "第二章", "principles": [4, 5, 6], "checklist_ids": ["A.2.1", "A.2.2", "A.2.3", "A.2.4", "A.2.5", "A.2.6", "A.2.7", "A.2.8"], "timeline_pokemon_years": [2013, 2016, 2019, 2022]}, {"id": "pvp_speed", "label": "速度博弈", "question": "我要解决先手优势过大的问题", "description": "Pokemon 29年都未能完全解决「极速就是正义」问题，需要通过空间机制、属性差异等手段为低速单位创造差异化价值。", "chapter": "第三章", "principles": [7], "checklist_ids": ["A.3.1", "A.3.2", "A.3.3", "A.3.4", "A.3.5"], "timeline_pokemon_years": [2011]}, {"id": "pvp_environment", "label": "环境控制", "question": "我要设计天气 / 地形 / 环境系统", "description": "降雨+悠游自如组合被联合禁用，开创机制组合禁用先例。环境系统必须评估最坏情况下的组合效果。", "chapter": "第四章", "principles": [3], "checklist_ids": ["A.4.1", "A.4.2", "A.4.3", "A.4.4", "A.4.5"], "timeline_pokemon_years": [2002, 2011]}, {"id": "pve_group", "label": "PvE 多人合作", "question": "我要设计 4 人合作的 PvE 挑战", "description": "多人 PvE 有三重困境：等待时间、贡献归属、状态失控。太晶团体战的时间轴机制是当前最优解。", "chapter": "第五章", "principles": [7, 8], "checklist_ids": ["A.5.1", "A.5.2", "A.5.3", "A.5.4", "A.5.5", "A.5.6", "A.5.7", "A.5.8", "A.5.9"], "timeline_pokemon_years": [2019, 2022]}, {"id": "meta_governance", "label": "Meta 管理", "question": "我要设计 Ban List / 赛季制度", "description": "禁用规则应包含单体/机制/组合三个层次。优先禁用组合而非单体，对玩家「投入」的伤害最小。", "chapter": "第六章", "principles": [3, 9], "checklist_ids": ["A.6.1", "A.6.2", "A.6.3", "A.6.4", "A.6.5", "A.6.6"], "timeline_pokemon_years": [2011]}, {"id": "meta_progression", "label": "养成系统", "question": "我要设计培育 / 养成 / 成长系统", "description": "降低门槛不等于降低深度。超级训练示范：简单界面让新人上手，精确控制让高手追求——两条路径由玩家自选。", "chapter": "第七章", "principles": [10], "checklist_ids": ["A.7.1", "A.7.2", "A.7.3", "A.7.4", "A.7.5", "A.7.6"], "timeline_pokemon_years": [2013]}], "timelines": {"pokemon": [{"year": 1996, "gen": "Gen 1", "title": "Pokemon 红/绿版发售", "detail": "确立回合制战斗、属性克制、捕捉机制等核心框架；Link Cable 支持联机交换但仅限单打对战，为多人对战埋下伏笔", "category": "foundation"}, {"year": 1999, "gen": "Gen 2", "title": "双打模式与守住机制", "detail": "金银版首次引入双打对战；「守住」技能奠定多层防御体系基础——完全抵挡、一回合限制、可预判，三个属性让防守成为真正的战术决策", "category": "pvp"}, {"year": 2002, "gen": "Gen 3", "title": "双打正式确立 + 天气系统革命", "detail": "红蓝宝石版双打对战正式成为标准模式；天气系统完整实现——天气启动特性（沙暴/降雪）永久持续，将天气从随机效果变为可建立的优势", "category": "pvp"}, {"year": 2006, "gen": "Gen 4", "title": "嘲讽机制与传说禁表", "detail": "钻石/珍珠引入「看我嘛」嘲讽技能；首次因「机制」而非「数值」禁用（沙隐特性）；VGC 世界锦标赛正式举办", "category": "pvp"}, {"year": 2011, "gen": "Gen 5", "title": "VGC 赛季制度建立 + 顺风/黏黏网", "detail": "黑白版正式建立 VGC 赛季积分制度；引入顺风（全队加速，2回合）和黏黏网（群体降速）；天气民主化实验（梦世界网页平台）引发降雨+悠游自如组合危机", "category": "pvp"}, {"year": 2013, "gen": "Gen 6", "title": "超级进化", "detail": "XY 引入 Mega Evolution；约48种专属强化形态；但40种几乎没有竞技使用；48选8的结果揭示了'差异化在谁能用而非怎么用'的问题", "category": "enhancement"}, {"year": 2016, "gen": "Gen 7", "title": "Z 招式与广域防守", "detail": "日月引入 Z-Move（全员可用/一次性）；「一键秒杀」争议让'使用决策深度不足'问题首次暴露；广域防守完善范围保护", "category": "enhancement"}, {"year": 2019, "gen": "Gen 8", "title": "极巨化与旷野地带", "detail": "剑/盾引入极巨化（全队可用/3回合限时/群体效果）；极巨团体战；极巨防壁将保护与强化绑定；旷野地带首次大规模多人开放世界尝试", "category": "pve"}, {"year": 2022, "gen": "Gen 9", "title": "太晶化", "detail": "朱/紫引入太晶化（全员可用/1回合/灵活属性切换）；三维度决策（时机/目标/属性）成为历代最强强化机制；太晶团体战引入时间轴机制改善等待问题", "category": "enhancement"}], "palworld": [{"year": 2024, "version": "v0.1", "title": "首发：生存建造 + 核心捕捉循环", "detail": "2024年1月；多人服务器首发；无任何 PvP 机制；专注于 Pals 捕捉与基地建造——'先 PvE 后 PvP'的保守策略显著降低了口碑风险", "category": "foundation", "data_verified": true}, {"year": 2024, "version": "v0.2", "title": "首个 Raid Boss：Bellanoir", "detail": "2024年4月；Summoning Altar 召唤祭坛上线；raid difficulty 机制；首个合作 PvE 团体战内容", "category": "pve", "data_verified": true}, {"year": 2024, "version": "v0.3.1", "title": "Sakurajima 岛 + PvP Arena", "detail": "2024年6月；新岛 Sakurajima 上线；Arena 竞技场首次出现（多人 PvP）；Oil Rig 攻城战；Blazamut Ryu Raid", "category": "pvp", "data_verified": true}, {"year": 2024, "version": "v0.4", "title": "Feybreak 大型更新", "detail": "2024年12月；新岛 Feybreak；Expedition 远征系统；Research Lab 研究系统；Predator Pals；世界事件强制合作内容", "category": "pve", "data_verified": true}, {"year": 2025, "version": "v0.5", "title": "Crossplay + Global Palbox", "detail": "2025年3月；跨平台联机；Global Palbox 跨世界转移；Flea Market 经济系统", "category": "foundation", "data_verified": true}, {"year": 2025, "version": "v0.6.x", "title": "Terraria 联动 + 大量 Bug 修复", "detail": "2025年7月-11月；Terraria 联动（Moon Lord Raid）；v0.6.1-0.6.9 持续修复 Dungeons / Multiplayer connectivity / Bug；Dimensional storage 上线", "category": "pve", "data_verified": true}, {"year": 2026, "version": "v0.7.0-0.7.3", "title": "正式 PvP 功能 + 战场分离", "detail": "2026年1-4月；v0.7.0 Experimental PvP 正式加入（基地入侵/Raid战场分离）；v0.7.1-0.7.3 持续平衡调整和 Bug 修复（最新 v0.7.3 于 2026-04-06）", "category": "pvp", "data_verified": true}]}, "comparison": [{"dimension": "强化机制演进路线", "pokemon": "超级进化(48选8) → Z招式(全员+一次性) → 极巨化(全队+群体) → 太晶化(全员+三维决策)，演进方向：谁能用→怎么用", "palworld": "装备/等级/Passive/繁育/信任/外科手术，多维度分散式；无集中式强化机制", "takeaway": "Pokemon的演进揭示'差异化在怎么用而非谁能用'的方向价值；Palworld选择分散式降低了单点风险"}, {"dimension": "多人 PvE 设计", "pokemon": "竞虫大赛(无配合) → 超级团体战(同步回合+等待问题) → 极巨团体战(护盾机制) → 太晶团体战(时间轴+阶段)", "palworld": "Raid Boss(v0.2) → 多难度 Raid → 战场分离(v0.7解决毁基地) → Expedition/Feybreak", "takeaway": "Pokemon用29年演进的三个核心问题（等待/贡献度/状态失控）Palworld用1年走完大部分弯路；v0.7战场分离是重要设计决策"}, {"dimension": "平衡管理机制", "pokemon": "传说禁表 → 机制禁用 → 组合禁用 → 规则赛季 → 赛季动态调整，完整体系历经20年", "palworld": "仍在早期，v0.7才开始有意识地做PvP平衡调整，尚无完整Ban List制度", "takeaway": "Pokemon的经验：平衡管理机制需要从设计初期规划；'组合禁用优先'原则是重要教训"}, {"dimension": "商业模型对竞技的影响", "pokemon": "买断制(Gen1-5) → DLC模式(Gen6-9)；DLC引入新宝可梦直接进VGC引发'付费即更强'争议", "palworld": "买断制+免费更新；付费内容（未来可能）是否涉及竞技变量尚待观察", "takeaway": "Pokemon教训：付费内容与竞技内容的边界必须严格管控；严格区分'外观付费'与'竞技付费'"}, {"dimension": "新人门槛设计", "pokemon": "Gen3-4极复杂EV/IV → Gen6超级训练可视化 → Gen7-9持续简化，培育门槛与公平竞技的矛盾历代都在调整", "palworld": "目前以PvE为主，竞技体系尚未建立；但核心捕捉循环上手极快", "takeaway": "Pokemon示范'降低门槛不等于降低深度'的可行路径；Palworld如建立竞技体系需参考EV/IV简化历史"}], "decision_tree": {"title": "我的设计问题对应哪个章节？", "root": {"question": "遇到什么类型的设计问题？", "type": "root"}, "branches": [{"label": "PvP 双打", "icon": "shield", "color": "#ff6b6b", "sub_question": "具体是哪个维度的问题？", "items": [{"label": "集火/保护机制", "target": {"chapter": "第一章", "principles": [1, 2], "checklist": ["A.1.1", "A.1.2", "A.1.3", "A.1.4"]}}, {"label": "强化/成长系统", "target": {"chapter": "第二章", "principles": [4, 5, 6], "checklist": ["A.2.1", "A.2.2", "A.2.3", "A.2.4"]}}, {"label": "速度线博弈", "target": {"chapter": "第三章", "principles": [7], "checklist": ["A.3.1", "A.3.2", "A.3.3"]}}, {"label": "天气/环境控制", "target": {"chapter": "第四章", "principles": [3], "checklist": ["A.4.1", "A.4.2", "A.4.3"]}}]}, {"label": "PvE 团体战", "icon": "users", "color": "#4ecdc4", "sub_question": "遇到的是哪类问题？", "items": [{"label": "等待时间太长", "target": {"chapter": "第五章", "principles": [8], "checklist": ["A.5.1"]}}, {"label": "贡献度不均/挂机", "target": {"chapter": "第五章", "principles": [8], "checklist": ["A.5.2", "A.5.5"]}}, {"label": "状态失控/Boss太简单", "target": {"chapter": "第五章", "principles": [], "checklist": ["A.5.3", "A.5.4"]}}, {"label": "没有团队协作感", "target": {"chapter": "第五章", "principles": [7], "checklist": ["A.5.4"]}}]}, {"label": "Meta/赛季管理", "icon": "filter", "color": "#a855f7", "sub_question": "遇到的是哪类问题？", "items": [{"label": "某个组合太强", "target": {"chapter": "第六章", "principles": [3], "checklist": ["A.6.1", "A.6.2"]}}, {"label": "玩家抱怨规则不透明", "target": {"chapter": "第六章", "principles": [9], "checklist": ["A.6.3", "A.6.4", "A.6.5"]}}, {"label": "新人流失太快", "target": {"chapter": "第七章", "principles": [10], "checklist": ["A.7.1", "A.7.2", "A.7.3"]}}, {"label": "培育系统太肝", "target": {"chapter": "第七章", "principles": [10], "checklist": ["A.7.4", "A.7.5", "A.7.6"]}}]}]}};;;;
+
+let reportData = null;
+let checkedItems = {};
+let currentFilter = 'all';
+let currentTimelineGame = 'pokemon';
+let currentTimelineType = 'all';
+let searchActions = [];
+let selectedSearchIndex = -1;
+
+const SECTION_TITLES = { home:'首页', pvp:'PvP 设计', pve:'PvE 设计', principles:'10条设计原则', timeline:'历代演进时间轴', comparison:'Pokemon vs Palworld', checklist:'设计检查清单', decision:'制作人决策树', guide:'使用指南' };
+
+const CAT_CLASS = { pvp:'pvp', enhancement:'enhancement', multiplayer:'multiplayer', meta:'meta', foundation:'foundation' };
+const CAT_TAG = { pvp:'pvp', enhancement:'enhancement', multiplayer:'multiplayer', meta:'meta' };
+
+function init() {
+  reportData = INLINE_REPORT_DATA;
+
+  var vb = document.getElementById('versionBadge');
+  if (vb && reportData.meta) vb.textContent = 'v' + (reportData.meta.version || '2.3');
+
+  renderPvPSubScenarios();
+  renderPvPPrinciples();
+  renderPvPChecklist();
+  renderPvEPrinciples();
+  renderPvEChecklist();
+  renderPrinciplesGrid('principlesGridFull', 10);
+  renderChecklist();
+  renderTimeline('pokemon');
+  renderComparison();
+  renderDecisionTree();
+
+  try {
+    var saved = localStorage.getItem('vgc-report-v4');
+    if (saved) {
+      var state = JSON.parse(saved);
+      checkedItems = state.checkedItems || {};
+      currentFilter = state.filter || 'all';
+      applyFilterState();
+      updateProgress();
+      renderChecklist();
+    }
+  } catch {}
+
+  if (!localStorage.getItem('vgc-disclaimer-v4')) {
+    document.getElementById('disclaimerOverlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+}
+
+function acknowledgeDisclaimer() {
+  localStorage.setItem('vgc-disclaimer-v4', '1');
+  document.getElementById('disclaimerOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function saveState() {
+  try { localStorage.setItem('vgc-report-v4', JSON.stringify({ checkedItems: checkedItems, filter: currentFilter })); } catch {}
+}
+
+function showSection(id) {
+  document.querySelectorAll('.section').forEach(function(s) { s.classList.remove('active'); });
+  var sec = document.getElementById('section-' + id);
+  if (sec) sec.classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(function(n) { n.classList.remove('active'); });
+  var ni = document.querySelector('.nav-item[data-section="' + id + '"]');
+  if (ni) ni.classList.add('active');
+  document.getElementById('breadcrumbCurrent').textContent = SECTION_TITLES[id] || id;
+  document.getElementById('progressBar').style.display = id === 'checklist' ? 'flex' : 'none';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  document.getElementById('sidebar').classList.remove('open');
+  closeSearch();
+}
+
+document.querySelectorAll('.nav-item').forEach(function(item) {
+  item.addEventListener('click', function(e) { e.preventDefault(); showSection(item.dataset.section); });
+});
+document.getElementById('sidebarToggle').addEventListener('click', function() {
+  document.getElementById('sidebar').classList.toggle('open');
+});
+
+// ─── PvP Sub-scenarios ────────────────────────────────
+function renderPvPSubScenarios() {
+  var grid = document.getElementById('pvpSubGrid');
+  if (!grid || !reportData) return;
+  var pvpScenarios = [
+    { id: 'pvp_combat', label: '集火与保护', desc: '2v2 中「击杀」与「保命」的设计平衡', chapter: '第一章', principles: [1,2], count: 8, icon: '&#9878;' },
+    { id: 'enhancement', label: '强化机制', desc: '变身/爆发/强化机制的设计陷阱', chapter: '第二章', principles: [4,5,6], count: 8, icon: '&#9889;' },
+    { id: 'pvp_speed', label: '速度博弈', desc: '如何让「先手」不是唯一的胜负手', chapter: '第三章', principles: [7], count: 5, icon: '&#128640;' },
+    { id: 'pvp_environment', label: '环境控制', desc: '天气/地形/环境的战略价值', chapter: '第四章', principles: [3], count: 5, icon: '&#9925;' },
+  ];
+  grid.innerHTML = pvpScenarios.map(function(s) {
+    return '<div class="entry-card pvp" style="padding:var(--sp-6);" onclick="navigateToPvpSub(\'' + s.id + '\')">' +
+      '<div class="entry-card-header" style="margin-bottom:var(--sp-3);">' +
+        '<div class="entry-card-icon" style="width:36px;height:36px;font-size:16px;">' + s.icon + '</div>' +
+        '<div>' +
+          '<div class="entry-card-title" style="font-size:var(--fs-lg);">' + s.label + '</div>' +
+          '<div class="entry-card-sub" style="font-size:var(--fs-xs);">' + s.chapter + '</div>' +
+        '</div>' +
+      '</div>' +
+      '<div class="entry-card-desc" style="font-size:var(--fs-sm);margin-bottom:var(--sp-3);">' + s.desc + '</div>' +
+      '<div style="display:flex;gap:var(--sp-4);">' +
+        '<div style="font-size:var(--fs-xs);color:var(--text-muted);"><strong style="color:var(--accent);">' + s.principles.length + '</strong> 条原则</div>' +
+        '<div style="font-size:var(--fs-xs);color:var(--text-muted);"><strong style="color:var(--accent);">' + s.count + '</strong> 条清单</div>' +
+      '</div>' +
+      '<div class="entry-card-arrow">→</div>' +
+    '</div>';
+  }).join('');
+}
+
+function navigateToPvpSub(id) {
+  showSection('checklist');
+  currentFilter = id;
+  applyFilterState();
+  renderChecklist();
+  saveState();
+  setTimeout(function() {
+    var dim = reportData.checklist.find(function(d) {
+      var scenario = reportData.scenarios.find(function(s) { return s.id === id; });
+      return scenario && scenario.checklist_ids && scenario.checklist_ids.indexOf(d.items[0] && d.items[0].id) !== -1;
+    });
+    if (dim) {
+      var el = document.getElementById('dim-' + dim.dimension.replace(/\s+/g, '-'));
+      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }, 200);
+}
+
+// ─── PvP Principles ───────────────────────────────────
+function renderPvPPrinciples() {
+  var container = document.getElementById('pvpPrinciplesGrid');
+  if (!container || !reportData) return;
+  var pvpPrincipleIds = [1, 2, 3, 4, 5, 6, 7];
+  var pvpPrinciples = reportData.principles.filter(function(p) { return pvpPrincipleIds.indexOf(p.id) !== -1; });
+  container.innerHTML = pvpPrinciples.map(function(p) { return buildPrincipleCardHTML(p); }).join('');
+}
+
+// ─── PvP Checklist ─────────────────────────────────────
+function renderPvPChecklist() {
+  var container = document.getElementById('pvpChecklist');
+  if (!container || !reportData) return;
+  var pvpDims = ['集火与保护', '强化机制', '速度博弈', '环境控制'];
+  var dims = reportData.checklist.filter(function(d) { return pvpDims.indexOf(d.dimension) !== -1; });
+  container.innerHTML = dims.map(function(dim) { return buildChecklistDimHTML(dim, 'pvp'); }).join('');
+}
+
+// ─── PvE Principles ───────────────────────────────────
+function renderPvEPrinciples() {
+  var container = document.getElementById('pvePrinciplesGrid');
+  if (!container || !reportData) return;
+  var pvePrincipleIds = [7, 8];
+  var pvePrinciples = reportData.principles.filter(function(p) { return pvePrincipleIds.indexOf(p.id) !== -1; });
+  container.innerHTML = pvePrinciples.map(function(p) { return buildPrincipleCardHTML(p); }).join('');
+}
+
+// ─── PvE Checklist ────────────────────────────────────
+function renderPvEChecklist() {
+  var container = document.getElementById('pveChecklist');
+  if (!container || !reportData) return;
+  var pveDims = ['PvE 多人合作'];
+  var dims = reportData.checklist.filter(function(d) { return pveDims.indexOf(d.dimension) !== -1; });
+  container.innerHTML = dims.map(function(dim) { return buildChecklistDimHTML(dim, 'pve'); }).join('');
+}
+
+// ─── Principle Card Builder ───────────────────────────
+function buildPrincipleCardHTML(p) {
+  var catClass = CAT_CLASS[p.category] || 'pvp';
+  var tagClass = CAT_TAG[p.category] || 'pvp';
+  var confBadge = p.confidence ? '<span class="conf-badge conf-' + (p.confidence === '高' ? 'high' : p.confidence === '中' ? 'medium' : 'low') + '">' + confLabel(p.confidence) + '</span>' : '';
+  return '<div class="principle-card ' + catClass + '" onclick="openPrincipleModal(' + p.id + ')" role="button" tabindex="0" onkeydown="if(event.key===\'Enter\')openPrincipleModal(' + p.id + ')">' +
+    '<div class="principle-card-header">' +
+      '<span class="principle-num">原则 ' + p.id + '</span>' +
+      '<span class="tag tag-' + tagClass + '">' + (p.category_label || p.category) + '</span>' +
+      confBadge +
+    '</div>' +
+    '<div class="principle-name">' + p.name + '</div>' +
+    '<div class="principle-summary">' + p.summary + '</div>' +
+    '<div class="principle-expand-hint">' +
+      '<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>' +
+      '查看详情' +
+    '</div>' +
+  '</div>';
+}
+
+// ─── Checklist Dim Builder ─────────────────────────────
+function buildChecklistDimHTML(dim, type) {
+  var coreCount = dim.items.filter(function(i) { return i.priority === 'core'; }).length;
+  return '<div class="checklist-dim" id="dim-' + dim.dimension.replace(/\s+/g, '-') + '">' +
+    '<div class="dim-summary">' +
+      '<strong>' + dim.dimension + '</strong>' +
+      '<span style="color:var(--text-muted);font-size:var(--fs-xs);"> ' + dim.items.length + ' 项</span>' +
+      '<span style="font-size:var(--fs-xs);color:var(--accent);margin-left:var(--sp-2);">' + coreCount + ' 核心</span>' +
+    '</div>' +
+    '<div class="checklist-items">' +
+      dim.items.map(function(item) { return buildChecklistItemHTML(item, dim.dimension); }).join('') +
+    '</div>' +
+  '</div>';
+}
+
+function buildChecklistItemHTML(item, dimName) {
+  var key = dimName + item.id;
+  var checked = !!checkedItems[key];
+  var priClass = 'priority-' + (item.priority === 'core' ? 'core' : item.priority === 'important' ? 'important' : 'general');
+  var priLabel = item.priority === 'core' ? '核心' : item.priority === 'important' ? '重要' : '一般';
+  var principlesHtml = '';
+  if (item.related_principles && item.related_principles.length) {
+    principlesHtml = '<div class="item-principles">' +
+      item.related_principles.map(function(pid) {
+        var rp = reportData.principles.find(function(p) { return p.id === pid; });
+        return rp ? '<span class="item-principle-tag" onclick="event.stopPropagation();openPrincipleModal(' + pid + ')">原则' + pid + '</span>' : '';
+      }).join('') + '</div>';
+  }
+  return '<div class="checklist-item' + (checked ? ' checked' : '') + '" onclick="event.stopPropagation();">' +
+    '<div class="checkbox" onclick="event.stopPropagation();toggleChecklist(\'' + key.replace(/'/g, "\\'") + '\', this.parentElement)" role="checkbox" aria-checked="' + checked + '" tabindex="0" onkeydown="if(event.key===\'Enter\'){event.stopPropagation();toggleChecklist(\'' + key.replace(/'/g, "\\'") + '\', this.parentElement);}">' + (checked ? '&#10003;' : '') + '</div>' +
+    '<div class="item-body">' +
+      '<div class="item-meta">' +
+        '<span class="' + priClass + '">' + priLabel + '</span>' +
+        '<span class="item-id">' + item.id + '</span>' +
+      '</div>' +
+      '<div class="item-text">' + item.text + '</div>' +
+      '<div class="item-logic">' + item.decision_logic + '</div>' +
+      '<div class="item-logic-toggle" onclick="this.parentElement.parentElement.classList.toggle(\'expanded-logic\'); event.stopPropagation();">' +
+        '<svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>' +
+        '查看决策逻辑' +
+      '</div>' +
+      principlesHtml +
+    '</div>' +
+  '</div>';
+}
+
+// ─── Confidence ────────────────────────────────────────
+function confClass(c) {
+  if (c === '高') return 'conf-high';
+  if (c === '中') return 'conf-medium';
+  return 'conf-low';
+}
+function confLabel(c) {
+  if (c === '高') return '&#10003; 高';
+  if (c === '中') return '&#8211; 中';
+  return '&#8212; 低';
+}
+
+// ─── Principles Grid (full page) ──────────────────────
+function renderPrinciplesGrid(containerId, count) {
+  var container = document.getElementById(containerId);
+  if (!container || !reportData) return;
+  var principles = reportData.principles.slice(0, count);
+  container.innerHTML = '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:var(--sp-4);">' +
+    principles.map(function(p) { return buildPrincipleCardHTML(p); }).join('') + '</div>';
+}
+
+// ─── Modal ─────────────────────────────────────────────
+function openPrincipleModal(id) {
+  var p = reportData.principles.find(function(pr) { return pr.id === id; });
+  if (!p) return;
+  var catClass = CAT_CLASS[p.category] || 'pvp';
+  var tagClass = CAT_TAG[p.category] || 'pvp';
+  var confBadge = p.confidence ? '<span class="conf-badge conf-' + confClass(p.confidence).replace('conf-','') + '">' + confLabel(p.confidence) + '</span>' : '';
+  var confNote = p.confidence_note ? '<span style="font-size:var(--fs-xs);color:var(--text-muted);margin-left:var(--sp-2);">' + p.confidence_note + '</span>' : '';
+  var counterHtml = p.counter_example ? '<div class="modal-section counter"><div class="modal-section-label">&#10005; 反例</div><p>' + p.counter_example + '</p></div>' : '';
+  var boundaryHtml = p.boundary_condition ? '<div class="modal-section boundary"><div class="modal-section-label">&#8212; 边界条件</div><p>' + p.boundary_condition + '</p></div>' : '';
+  var producerHtml = p.producer_note ? '<div class="modal-section producer"><div class="modal-section-label">&#9734; 制作人提示</div><p>' + p.producer_note + '</p></div>' : '';
+  var related = reportData.principles.filter(function(pr) { return pr.id !== id && pr.category === p.category; }).slice(0, 3);
+  var relatedHtml = related.length ? '<div style="background:var(--bg-elevated);border-radius:var(--r-md);padding:var(--sp-3) var(--sp-4);margin-top:var(--sp-4);"><div style="font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--text-muted);margin-bottom:var(--sp-2);">同类别原则</div><div class="modal-related">' + related.map(function(rp) { return '<span class="related-tag" onclick="openPrincipleModal(' + rp.id + ')">' + rp.name + '</span>'; }).join('') + '</div></div>' : '';
+
+  document.getElementById('modalHeaderContent').innerHTML =
+    '<div style="display:flex;align-items:center;gap:var(--sp-2);margin-bottom:var(--sp-2);flex-wrap:wrap;">' +
+      '<span class="principle-num">原则 ' + p.id + '</span>' +
+      '<span class="tag tag-' + tagClass + '">' + (p.category_label || p.category) + '</span>' +
+      confBadge +
+    '</div>' +
+    '<h2 class="modal-title">' + p.name + '</h2>' +
+    '<div class="modal-summary">' + p.summary + '</div>' +
+    '<div class="modal-meta">' +
+      '<span class="tag tag-foundation">' + p.chapter + '</span>' +
+      confNote +
+    '</div>';
+
+  document.getElementById('modalBody').innerHTML =
+    '<div class="modal-section decision"><div class="modal-section-label">&#9654; 决策逻辑</div><p>' + p.decision_logic + '</p></div>' +
+    '<div class="modal-section case-study"><div class="modal-section-label">&#9679; 历史案例</div><p>' + p.case_study + '</p></div>' +
+    '<div class="modal-section application"><div class="modal-section-label">&#9650; 应用场景</div><p>' + p.application + '</p></div>' +
+    counterHtml + boundaryHtml + producerHtml +
+    relatedHtml;
+
+  document.getElementById('modalOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  document.getElementById('modalOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.getElementById('modalOverlay').addEventListener('click', function(e) { if (e.target === document.getElementById('modalOverlay')) closeModal(); });
+document.addEventListener('keydown', function(e) { if (e.key === 'Escape') { closeModal(); closeSearch(); } });
+
+// ─── Checklist ────────────────────────────────────────
+function renderChecklist() {
+  var container = document.getElementById('checklistContainer');
+  if (!container || !reportData) return;
+
+  container.innerHTML = reportData.checklist.map(function(dim) {
+    var allItems = dim.items;
+    var filtered = allItems.filter(function(item) {
+      if (currentFilter === 'all') return true;
+      if (currentFilter === 'unchecked') return !checkedItems[dim.dimension + item.id];
+      if (currentFilter === 'core') return item.priority === 'core';
+      if (currentFilter === 'important') return item.priority === 'important';
+      if (currentFilter === 'general') return item.priority === 'general';
+      // Scenario filter
+      if (reportData.scenarios) {
+        var scenario = reportData.scenarios.find(function(s) { return s.id === currentFilter; });
+        if (scenario && scenario.checklist_ids) return scenario.checklist_ids.indexOf(item.id) !== -1;
+      }
+      return true;
+    });
+    if (filtered.length === 0) return '';
+
+    var coreCount = allItems.filter(function(i) { return i.priority === 'core'; }).length;
+    var importantCount = allItems.filter(function(i) { return i.priority === 'important'; }).length;
+    var generalCount = allItems.filter(function(i) { return i.priority === 'general'; }).length;
+
+    return '<div class="checklist-dim" id="dim-' + dim.dimension.replace(/\s+/g, '-') + '">' +
+      '<div class="dim-summary">' +
+        '<strong>' + dim.dimension + '</strong>' +
+        '<span style="font-size:var(--fs-xs);color:var(--text-muted);"> ' + allItems.length + ' 项</span>' +
+        '<span style="font-size:var(--fs-xs);color:var(--priority-core);"> ' + coreCount + ' 核心</span>' +
+        '<span style="font-size:var(--fs-xs);color:var(--text-muted);"> / ' + importantCount + ' 重要 / ' + generalCount + ' 一般</span>' +
+      '</div>' +
+      '<div class="checklist-items">' +
+        filtered.map(function(item) { return buildChecklistItemHTML(item, dim.dimension); }).join('') +
+      '</div>' +
+    '</div>';
+  }).join('');
+}
+
+function toggleChecklist(key, el) {
+  checkedItems[key] = !checkedItems[key];
+  el.classList.toggle('checked', checkedItems[key]);
+  el.querySelector('.checkbox').innerHTML = checkedItems[key] ? '&#10003;' : '';
+  el.querySelector('.checkbox').setAttribute('aria-checked', checkedItems[key]);
+  updateProgress();
+  saveState();
+}
+
+function updateProgress() {
+  if (!reportData) return;
+  var allItems = reportData.checklist.reduce(function(sum, dim) { return sum + dim.items.length; }, 0);
+  var checked = Object.values(checkedItems).filter(Boolean).length;
+  var pct = allItems > 0 ? Math.round((checked / allItems) * 100) : 0;
+  document.getElementById('progressLabel').textContent = pct + '%';
+  document.getElementById('progressFill').style.width = pct + '%';
+}
+
+function applyFilterState() {
+  document.querySelectorAll('.filter-btn').forEach(function(btn) {
+    btn.classList.toggle('active', btn.dataset.filter === currentFilter);
+  });
+}
+
+document.querySelectorAll('.filter-btn').forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    currentFilter = btn.dataset.filter;
+    applyFilterState();
+    renderChecklist();
+    saveState();
+  });
+});
+
+document.getElementById('exportBtn').addEventListener('click', function() {
+  if (!reportData) return;
+  var lines = ['# 设计检查清单导出\n'];
+  reportData.checklist.forEach(function(dim) {
+    var checked = dim.items.filter(function(i) { return checkedItems[dim.dimension + i.id]; });
+    if (checked.length === 0) return;
+    lines.push('\n## ' + dim.dimension + ' (' + checked.length + '/' + dim.items.length + ')');
+    checked.forEach(function(i) { lines.push('- [x] ' + i.text.replace(/<[^>]+>/g, '') + ' (' + i.id + ')'); });
+  });
+  var total = Object.values(checkedItems).filter(Boolean).length;
+  lines.unshift('共 ' + total + ' / ' + reportData.checklist.reduce(function(s, d) { return s + d.items.length; }, 0) + ' 条已完成\n');
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(lines.join('\n')).then(function() {
+      var btn = document.getElementById('exportBtn');
+      var orig = btn.innerHTML;
+      btn.innerHTML = '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> 已复制!';
+      setTimeout(function() { btn.innerHTML = orig; }, 2000);
+    });
+  }
+});
+
+document.getElementById('clearBtn').addEventListener('click', function() {
+  if (!confirm('确定清空所有勾选？')) return;
+  checkedItems = {};
+  renderChecklist();
+  updateProgress();
+  saveState();
+});
+
+// ─── Timeline ─────────────────────────────────────────
+function renderTimeline(game) {
+  var container = document.getElementById('timelineContainer');
+  var filterBar = document.getElementById('timelineFilterBar');
+  if (!container || !reportData) return;
+  filterBar.style.display = game !== 'both' ? 'flex' : 'none';
+
+  var items = [];
+  if (game === 'pokemon') {
+    items = reportData.timelines.pokemon;
+  } else if (game === 'palworld') {
+    items = reportData.timelines.palworld;
+  } else {
+    var pItems = reportData.timelines.pokemon.map(function(i) { return Object.assign({}, i, {source: 'pokemon'}); });
+    var plItems = reportData.timelines.palworld.map(function(i) { return Object.assign({}, i, {source: 'palworld'}); });
+    items = pItems.concat(plItems).sort(function(a, b) { return a.year - b.year || (a.source === 'pokemon' ? 0 : 1) - (b.source === 'palworld' ? 0 : 1); });
+  }
+
+  var filtered = items.filter(function(item) { return currentTimelineType === 'all' || item.category === currentTimelineType; });
+
+  container.innerHTML = '<div class="timeline-track"><div class="timeline-line"></div>' +
+    filtered.map(function(item, idx) {
+      var genTag = item.gen ? '<span class="timeline-gen">' + item.gen + '</span>' : '';
+      var verTag = item.version ? '<span class="timeline-gen">' + item.version + '</span>' : '';
+      var srcPokemon = item.source === 'pokemon' ? '<span class="timeline-source-tag pokemon">Pokemon</span>' : '';
+      var srcPalworld = item.source === 'palworld' ? '<span class="timeline-source-tag palworld">Palworld</span>' : '';
+      var verified = item.data_verified ? '<div class="timeline-verified"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg> 已验证</div>' : '';
+      return '<div class="timeline-item ' + (item.category || 'foundation') + '" style="--i:' + idx + '">' +
+        '<div class="timeline-dot"></div>' +
+        '<div class="timeline-year">' + item.year + genTag + verTag + srcPokemon + srcPalworld + '</div>' +
+        '<div class="timeline-card" onclick="this.classList.toggle(\'expanded\')">' +
+          '<div class="timeline-card-header">' +
+            '<div class="timeline-card-title">' + item.title + '</div>' +
+            '<span class="toggle-icon">&#9660;</span>' +
+          '</div>' +
+          '<div class="timeline-card-detail">' + item.detail + verified + '</div>' +
+        '</div>' +
+      '</div>';
+    }).join('') + '</div>';
+}
+
+document.querySelectorAll('.timeline-tab').forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    document.querySelectorAll('.timeline-tab').forEach(function(b) { b.classList.remove('active'); });
+    btn.classList.add('active');
+    currentTimelineGame = btn.dataset.game;
+    currentTimelineType = 'all';
+    document.querySelectorAll('.timeline-filter-btn').forEach(function(b) { b.classList.toggle('active', b.dataset.type === 'all'); });
+    renderTimeline(btn.dataset.game);
+  });
+});
+
+document.querySelectorAll('.timeline-filter-btn').forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    document.querySelectorAll('.timeline-filter-btn').forEach(function(b) { b.classList.remove('active'); });
+    btn.classList.add('active');
+    currentTimelineType = btn.dataset.type;
+    renderTimeline(currentTimelineGame);
+  });
+});
+
+// ─── Comparison ───────────────────────────────────────
+function renderComparison() {
+  var tbody = document.getElementById('comparisonBody');
+  if (!tbody || !reportData) return;
+  tbody.innerHTML = reportData.comparison.map(function(row) {
+    return '<tr class="comp-dim-header"><td>' + row.dimension + '</td><td class="comp-pokemon">' + row.pokemon + '</td><td class="comp-palworld">' + row.palworld + '</td></tr>' +
+      '<tr class="comp-takeaway"><td>&#8594; 设计规律</td><td colspan="2">' + row.takeaway + '</td></tr>';
+  }).join('');
+}
+
+// ─── Decision Tree ────────────────────────────────────
+function renderDecisionTree() {
+  var grid = document.getElementById('decisionTreeGrid');
+  if (!grid || !reportData || !reportData.decision_tree) return;
+  var tree = reportData.decision_tree;
+  var icons = { shield:'&#9878;', users:'&#128101;', filter:'&#128269;' };
+  grid.innerHTML = tree.branches.map(function(branch) {
+    return '<div class="tree-branch">' +
+      '<div class="tree-branch-header">' +
+        '<div class="tree-branch-icon" style="background:' + branch.color + '18;color:' + branch.color + ';">' + (icons[branch.icon] || '&#9679;') + '</div>' +
+        '<div class="tree-branch-label">' + branch.label + '</div>' +
+      '</div>' +
+      '<div class="tree-branch-q">' + branch.sub_question + '</div>' +
+      '<div class="tree-branch-items">' +
+        branch.items.map(function(item) {
+          return '<div class="tree-branch-item" onclick="navigateToTarget(' + JSON.stringify(item.target).replace(/"/g, '&quot;') + ')">' + item.label + '</div>';
+        }).join('') +
+      '</div>' +
+    '</div>';
+  }).join('');
+}
+
+function navigateToTarget(target) {
+  if (target.checklist && target.checklist.length > 0) {
+    showSection('checklist');
+    currentFilter = 'all';
+    applyFilterState();
+    renderChecklist();
+    updateProgress();
+    setTimeout(function() {
+      var firstId = target.checklist[0];
+      var dim = reportData.checklist.find(function(d) { return d.items.some(function(i) { return i.id === firstId; }); });
+      if (dim) {
+        var el = document.getElementById('dim-' + dim.dimension.replace(/\s+/g, '-'));
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }, 200);
+  }
+}
+
+// ─── Search ───────────────────────────────────────────
+function openSearch() {
+  document.getElementById('searchOverlay').classList.add('open');
+  document.getElementById('searchInput').focus();
+  document.body.style.overflow = 'hidden';
+  selectedSearchIndex = -1;
+}
+
+function closeSearch() {
+  document.getElementById('searchOverlay').classList.remove('open');
+  document.getElementById('searchInput').value = '';
+  document.getElementById('searchResults').innerHTML = '<div class="search-empty">输入关键词开始搜索</div>';
+  searchActions = [];
+}
+
+document.getElementById('searchTrigger').addEventListener('click', openSearch);
+document.getElementById('searchOverlay').addEventListener('click', function(e) { if (e.target === document.getElementById('searchOverlay')) closeSearch(); });
+
+document.addEventListener('keydown', function(e) {
+  if ((e.ctrlKey || e.metaKey) && e.key === 'k') { e.preventDefault(); openSearch(); return; }
+  if (!document.getElementById('searchOverlay').classList.contains('open')) return;
+  var results = document.querySelectorAll('.search-result-item');
+  if (e.key === 'ArrowDown') { e.preventDefault(); selectedSearchIndex = Math.min(selectedSearchIndex + 1, results.length - 1); updateSearchSelection(results); }
+  if (e.key === 'ArrowUp') { e.preventDefault(); selectedSearchIndex = Math.max(selectedSearchIndex - 1, -1); updateSearchSelection(results); }
+  if (e.key === 'Enter' && selectedSearchIndex >= 0) { e.preventDefault(); results[selectedSearchIndex] && results[selectedSearchIndex].click(); }
+});
+
+function updateSearchSelection(results) {
+  results.forEach(function(r, i) { r.classList.toggle('selected', i === selectedSearchIndex); });
+}
+
+document.getElementById('searchInput').addEventListener('input', function() {
+  var q = this.value.trim().toLowerCase();
+  var container = document.getElementById('searchResults');
+  if (!q) { container.innerHTML = '<div class="search-empty">输入关键词开始搜索</div>'; searchActions = []; return; }
+  if (!reportData) return;
+
+  var results = [];
+  searchActions = [];
+
+  reportData.principles.forEach(function(p) {
+    if ([p.name, p.summary, p.decision_logic, p.case_study].some(function(t) { return t.toLowerCase().includes(q); })) {
+      results.push({ type: '原则', label: '原则 ' + p.id, text: p.name, sub: p.summary.substring(0, 60), action: function() { closeSearch(); openPrincipleModal(p.id); } });
+    }
+  });
+  reportData.checklist.forEach(function(dim) {
+    dim.items.forEach(function(item) {
+      if ([item.text, item.decision_logic].some(function(t) { return t.toLowerCase().includes(q); })) {
+        results.push({ type: '清单', label: item.id, text: item.text.replace(/<[^>]+>/g, '').substring(0, 80), sub: dim.dimension, action: function() { closeSearch(); showSection('checklist'); } });
+      }
+    });
+  });
+  [].concat(reportData.timelines.pokemon, reportData.timelines.palworld).forEach(function(item) {
+    if ([item.title, item.detail].some(function(t) { return t.toLowerCase().includes(q); })) {
+      results.push({ type: '时间轴', label: item.gen || item.version || item.year, text: item.title, sub: (item.source || 'Pokemon') + ' · ' + item.year, action: function() { closeSearch(); showSection('timeline'); } });
+    }
+  });
+
+  results.forEach(function(r) { searchActions.push(r.action); });
+
+  if (results.length === 0) { container.innerHTML = '<div class="search-empty">未找到匹配结果</div>'; return; }
+
+  var typeOrder = ['原则', '清单', '时间轴'];
+  var html = '';
+  typeOrder.forEach(function(type) {
+    var group = results.filter(function(r) { return r.type === type; });
+    if (!group.length) return;
+    html += '<div class="search-group-label">' + type + '（' + group.length + '）</div>';
+    html += group.map(function(r) {
+      return '<div class="search-result-item" data-idx="' + results.indexOf(r) + '">' +
+        '<span class="result-type">' + r.label + '</span>' +
+        '<div><div class="result-text">' + r.text + '</div><div class="result-meta">' + r.sub + '</div></div>' +
+      '</div>';
+    }).join('');
+  });
+  container.innerHTML = html;
+
+  container.querySelectorAll('.search-result-item').forEach(function(el) {
+    el.addEventListener('click', function() {
+      var idx = parseInt(el.dataset.idx);
+      if (idx >= 0 && searchActions[idx]) searchActions[idx]();
+    });
+  });
+});
+
+document.addEventListener('DOMContentLoaded', init);
+</script>
+</body>
+</html>
