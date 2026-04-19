@@ -1,0 +1,15 @@
+{
+  "patches": [
+    {
+      "gid": "bacd7a24f9553de6",
+      "title": "v0.6.8",
+      "url": "https://paldb.cc/version",
+      "date": "2000-01-01",
+      "timestamp": 946656000,
+      "author": "pocketpair_dev",
+      "feed_label": "Community Announcements",
+      "content": "- Complete the mission (21,-230) to unlock Zoe's Halloween costume and a Depresso armor set for players!\n- Five Spring Festival skins have been added for all players!\n(※You must have the corresponding Pal to equip the skin in Pal Dressing Facility)\n- Defeat the dark mechanical dragon Invader from Space Xenolord that controls the Xeno army!\n- 6 Christmas skins have been added in Pal Dressing Facility for all players!\n(※You must own the Pal to equip the skin)\n- (※You must own the Pal to equip the skin)\n- *Please note that the soundtrack update may be delayed by about a day.\n- We are planning a larger, more content-packed update for summer 2024.\nEnjoy never-before-seen scenery and thrilling adventures on a new island, home to many new pals.\nIn addition, we plan to add a large amount of new content including new buildings, weapons, and tower bosses.\n- Thank you for your continued support of Palworld.\n- After the v0.2.0.6 update, it has been reported that there is an issue where eggs cannot be placed inside the Egg Incubator. We apologize for this inconvenience.\n- The problem can be resolved by rebuilding the incubator.\n- *On community servers, this will only be displayed if the setting is enabled\n- *The game no longer crashes even if the total number of captured objects exceeds 7000.\nHowever, save data that has already been in this state (in the case of a server, the server's world data) prior to this update will still be unable to load. \nWe are continuing to work on fixing this issue permanently.\n- *Further improvements are currently planned, such as support for interact key configuration.",
+      "source": "wiki_compilation"
+    }
+  ]
+}
