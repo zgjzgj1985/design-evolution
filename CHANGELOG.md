@@ -2,6 +2,177 @@
 
 所有版本变更记录遵循 [Keep a Changelog](https://keepachangelog.com/) 规范。
 
+## [3.0.0] - 2026-04-19
+
+### Added
+- 全新交互式报告 v4.0：完全重新设计的用户界面，从"信息展示型报告"转变为"问题诊断型工具"
+- **`scripts/generate_report_data.py`**：报告数据提取脚本，从 Python 常量直接生成 `docs/report_data.json`（替代原有的 Markdown 解析流程）
+- **`scripts/generate_interactive_report.py`**：HTML 生成脚本，通过括号计数算法精确定位并替换 `INLINE_REPORT_DATA` 区段
+- **`scripts/check_html.py`**：HTML 验证脚本，包含 42 项功能检查（数据结构/函数/版本号等）
+- **`docs/report_data.json`**：报告结构化数据文件，供交互式报告前端使用
+- **`scrapers/palworld_wiki.py`**：Palworld Wiki 爬虫，从 paldb.cc/version 补全 Steam News API 未覆盖的早期版本（v0.1-v0.4）
+- Palworld 数据从 100 条扩展至 118 条，时间范围从 2025-01-15 扩展到 2024-01-25（v0.1.3）
+- `data/palworld/patches_early.json`：早期版本独立存档（v0.1-v0.4 系列）
+
+### Changed
+- 首页重新设计：删除7个场景卡片按钮，改为 PvP/PvE 两大核心入口，让设计师快速定位问题类型
+- 侧边栏重构：按"快速入口 → 场景导航 → 设计工具 → 参考资料"重新组织信息层级
+- 新增场景详情页：每个入口（PvP/PvE）包含三段式布局——历史教训(Why) → 设计原则(What) → 检查清单(How)
+- PvP 场景页新增"历史教训"模块：从 Pokemon 演进中找到的设计规律，按年份排列
+- PvE 场景页新增"历史教训"模块：Pokemon 团体战演进 + Palworld Raid 设计实践
+- 视觉设计升级：从浅色极简风格改为深色主题（#0d1117 底色），增加橙色(#f97316) PvP 和青色(#06b6d4) PvE 色彩体系
+- 视觉引导增强：首页入口卡片 hover 动画、箭头引导、进度条始终显示
+- 清单筛选标签优化：维度筛选改为优先级（全部/未完成/核心/重要/一般）
+- **`app.py` Design Language v6 升级**：完整重构 CSS 设计系统，从 Streamlit 默认彩色风格改为极简克制高级风格——去掉所有 linear-gradient、统一字体/间距/圆角层级
+- **`docs/report_data.json` 数据结构重建**：
+  - 10 条原则新增 `confidence`（置信度）、`confidence_note`、`counter_example`（反例）、`boundary_condition`（边界条件）、`producer_note`（制作人提示）、`scenario_tags`（场景标签）字段
+  - 47 条清单条目新增 `decision_logic`（决策逻辑说明）和 `related_principles`（关联原则 ID 数组）字段
+  - Pokemon 时间轴从 7 个节点扩展为 9 个（补全 Gen 3「双打正式确立+天气系统革命」和 Gen 5「VGC 赛季制度建立+顺风」）
+  - Palworld 时间轴基于 `data/palworld/patches.json` 真实 Steam 数据重建，修正了 v0.5/v0.6/v0.7 的错误日期，新增 `data_verified` 标注
+  - 对照表从 5 维度扩展，新增"商业模型对竞技的影响"和"新人门槛设计"两个维度，每行增加 `takeaway` 设计规律总结
+  - 版本号升级至 2.3
+- **README.md 更新**：新增交互式报告星标入口，更新 Palworld 数据来源说明，更新项目结构说明
+
+### Fixed
+- 决策树导航逻辑：点击选项后跳转到清单页并自动滚动到对应维度
+- 清单决策逻辑：改为默认折叠、点击展开，避免信息过载
+- Palworld 数据缺失：修正 `data/palworld/patches.json` 缺失 v0.1-v0.4 系列早期版本的长期问题
+- Palworld 特殊版本日期：为无 HTML 日期段落的版本（v0.6.8、v0.6.4、v0.3.10、v0.4.12）添加 KNOWN_DATES 查表修正
+- `generate_interactive_report.py` 括号计数算法增强：加入 skip string literals 逻辑（`"` 内的嵌套括号不参与计数），修复复杂 JSON 中括号匹配失败问题
+
+## [2.2.1] - 2026-04-19
+
+### Fixed
+- 修正"三层防御体系"用词不清晰问题：原"守住（单体）→ 看我嘛（嘲讽）→ 威吓（削弱）"缺乏游戏设计知识的人无法理解，改为带编号和功能解释的格式
+- 修正 `generate_interactive_report.py` 的正则表达式 bug：原 `...\\n\};` 要求换行符导致匹配失败，改为纯括号计数算法更健壮
+
+### Changed
+- `docs/index.html` 中的硬编码 insight-box 文本同步更新为解释性格式
+
+## [2.3.0] - 2026-04-19
+
+### Added
+- 新增 7 个"场景分组"（pvp_combat / enhancement / pvp_speed / pvp_environment / pve_group / meta_governance / meta_progression），按用户决策场景聚合原则和清单
+- 新增首页场景引导界面：用户先选问题类型，再看到对应的原则和清单
+- 清单页维度汇总头：显示"集火与保护 · 8 项（3 核心 / 4 重要 / 1 一般）"
+- 清单决策逻辑默认展开（不再需要点击）
+- 原则卡片中的关联原则标签改为可点击，直接打开对应原则模态框
+
+### Changed
+- 完整重写 CSS 设计系统：从彩色张扬风格改为极简克制型——去掉所有 linear-gradient、减少视觉噪音、统一字体/间距/圆角层级
+- 优先级标签从彩色徽章改为灰阶文字（核心/重要/一般）
+- 模态框最大宽度从 720px 缩小到 640px
+- localStorage 键版本升级为 v3（不继承旧版本状态）
+- 版本号升级到 v2.3
+
+### Fixed
+- 决策树节点点击后自动筛选清单到对应维度，并滚动定位
+- 时间轴动画从固定的 nth-child 延迟改为 CSS 变量 `--i` 自动递增，解决超过 9 项后时序错乱问题
+- 清单元数据展示新增维度定位锚点
+- 清单筛选支持场景 ID（通过 `checklist_ids` 匹配）
+
+### Deprecated
+- 旧版本 localStorage 状态（vgc-report-state-v2）不再兼容
+
+## [2.2.0] - 2026-04-19
+
+### Added
+
+- **`docs/index.html` 首次访问弹窗**：新增"数据来源与置信度说明"弹窗（首次访问显示，`localStorage` 记忆），将数据来源分为高/中/低三档置信度，让读者明确哪些是官方记录、哪些是社区推断、哪些是 AI 归纳
+- **制作人速查决策树**：侧边栏新增"制作人决策树"入口，提供交互式问题引导（PvP / PvE / Meta 三大类），点击后跳转到对应原则卡片和清单条目
+- **全局搜索**：顶部搜索栏 + `Ctrl+K` 快捷键，支持全文搜索（原则 / 清单 / 时间轴），搜索结果按类型分组，支持键盘导航
+- **原则 Modal 补全**：Modal 从 4 个区块扩展为 8 个，新增置信度标签（含置信度说明）、反例对照、边界条件、制作人提示、同类别原则导航
+- **清单关联原则标签**：每条清单条目关联对应的设计原则编号，点击可跳转
+- **清单导出/清空功能**：检查清单新增"导出已勾选"（复制到剪贴板）和"清空所有勾选"按钮
+
+### Changed
+
+- **`docs/report_data.json` 数据层重建**：
+  - 10 条原则新增 `confidence`（置信度）、`confidence_note`、`counter_example`（反例）、`boundary_condition`（边界条件）、`producer_note`（制作人提示）字段，内容从 Markdown 第九章提取
+  - 47 条清单条目新增 `decision_logic`（决策逻辑说明）和 `related_principles`（关联原则 ID 数组）字段
+  - Pokemon 时间轴从 7 个节点扩展为 9 个（补全 Gen 3「双打正式确立+天气系统革命」和 Gen 5「VGC 赛季制度建立+顺风」）
+  - Palworld 时间轴基于 `data/palworld/patches.json` 真实 Steam 数据重建，修正了 v0.5/v0.6/v0.7 的错误日期（v0.7.0 实为 2026-01-31 而非 2025-12），新增 `data_verified` 标注
+  - 对照表从 5 维度扩展，新增"商业模型对竞技的影响"和"新人门槛设计"两个维度，每行增加 `takeaway` 设计规律总结
+- **CSS 设计 Token 体系重建**：建立完整 CSS 变量系统（颜色/间距/圆角/阴影/字体/过渡），全部使用语义化变量名替代硬编码值
+- **UI 视觉升级**：
+  - 侧边栏从 248px 收窄到 220px
+  - 原则卡片左上角彩色竖条改为左侧 4px 色条（按类别区分）
+  - 置信度徽章直接显示在卡片上（高=绿 / 中=黄 / 低=红）
+  - Modal 动画从无过渡升级为 `scale(0.96) + translateY(8px)` 入场动画
+  - 进度条宽度增加到 5px，更平滑
+  - 面包屑导航显示当前章节路径
+  - Insight Box 渐变色按类别区分（蓝色/橙色/青色/紫色）
+- **时间轴增强**：新增按类型筛选（奠基/PvP/强化/PvE），双轨对照视图显示 Pokemon/Palworld 标签区分来源
+- **清单增强**：
+  - 新增"未完成"筛选
+  - 清单条目左侧优先级颜色条（核心=红 / 重要=橙 / 一般=灰）
+  - 展开 decision_logic 改为点击主体区域触发，箭头图标旋转动画
+  - 清单工具栏布局优化（筛选在左，操作按钮在右）
+
+### Deprecated
+
+- **`scripts/generate_report_data.py` 的旧数据结构**：v1.x 版本的 Python 常量格式已废弃，v2.0 版本使用完整的结构化字段
+
+## [2.1.0] - 2026-04-19
+
+### Changed
+
+- **交互式报告 `docs/index.html`**：全面重构 UI 设计语言，与 app.py Streamlit 风格统一：
+  - 配色方案：主色 `#1f77b4`（Streamlit 蓝）、Danger/PvP `#ff6b6b`、PvE `#4ecdc4`、Mechanic `#45b7d1`、Balance `#96ceb4`
+  - 背景层次：`#f0f4f8` → `#e8f4fd` → `#ffffff` 三层递进
+  - 卡片设计：左侧色条（4px）+ 渐变背景 + 8px 圆角，hover 时加阴影和上浮
+  - Insight Box：采用 app.py 风格 `linear-gradient(135deg, #e8f4fd 0%, #f0f7ff 100%)` + 左侧蓝色边框
+  - 标签系统：统一为 `#tag` 圆角样式
+  - 整体风格从"暗色工具感"转为"白底轻量信息感"
+- **`docs/report_data.json`**：重新生成匹配新报告内容的数据结构，新增 `decision_logic` 字段（每条原则的决策逻辑）和 `takeaway` 字段（对照表每行的核心结论），新增设计维度 `icon` 字段
+- **综合研究报告 Markdown**：重写检查清单附录，从简单表格升级为 47 条详细条目（3000+ 字），每条包含：检查问题 + 为什么重要 + Pokemon 实际案例 + 检查维度的四段式结构；为 14 条核心红线条目增加深度说明（500+ 字/条）
+
+### Fixed
+
+- **CORS 问题**（`docs/index.html`）：将 `report_data.json` 嵌入为 `INLINE_REPORT_DATA` 常量，移除 `fetch()` 调用，解决直接打开 `file://` 路径时的跨域限制
+
+## [2.0.0] - 2026-04-19
+
+### Added
+
+- **Palworld 早期历史数据补全**（`scrapers/palworld_wiki.py`）：新增爬虫从 `paldb.cc/version` 补全了 Steam News API 未覆盖的早期版本，新增 18 条历史记录（v0.1.3 ~ v0.6.4），数据来源标注为 `source: "wiki_compilation"`
+- **Pokemon vs Palworld 对照文档**（`docs/Pokemon_vs_Palworld_多人对战设计对照.md`）：新增跨游戏对照文档，涵盖 PvP 模式、团体战、平衡管理、强化机制、合作系统等 7 个维度
+- **综合研究报告审核报告**（`docs/综合研究报告_审核报告.md`）：对综合研究报告进行系统性审核，提出 3 个严重问题、改进建议和优先级汇总
+- **交互式 Web 报告**（`docs/index.html`）：新增纯 HTML 单文件交互式报告，包含 10 条设计原则卡片（可展开详情）、Pokemon/Palworld 双轨演进时间轴、Pokemon vs Palworld 对照表、设计检查清单（可勾选 + 优先级筛选 + 进度条 + localStorage 持久化）
+- **报告数据提取脚本**（`scripts/generate_report_data.py`）：从 Markdown 提取结构化 JSON（`docs/report_data.json`）供前端使用
+
+### Changed
+
+- **Palworld patches.json**：合并 Wiki 爬取的早期版本后，总条目从 100 条增加到 118 条，覆盖时间范围从 2025-01-15 扩展到 2024-01-25（v0.1.3）
+- **交互式报告技术方案**（`docs/交互式Web报告技术方案.md`）：设计并与用户确认采用纯 HTML 单文件方案（方案 A）
+- **README.md**：新增「交互式报告」功能特性入口，星标标注；更新 Palworld 数据来源说明（Steam API + paldb.cc Wiki 补全）；更新项目结构说明（新增 docs/ 和 scrapers/palworld_wiki.py）
+
+### Fixed
+
+- **Palworld 数据缺失**：修正 `data/palworld/patches.json` 缺失 v0.1-v0.4 系列早期版本的长期问题
+- **Palworld 特殊版本日期**：为无 HTML 日期段落的版本（v0.6.8、v0.6.4、v0.3.10、v0.4.12）添加 KNOWN_DATES 查表修正
+
+## [1.9.0] - 2026-04-18
+
+### Changed
+
+- **综合研究报告：宝可梦 VGC 多人对战设计经验**：制作人评审修订版，主要改进如下：
+
+  - **事实修正**：修正三处历史事实错误——第一代双打实际从第二代（金银版）开始；第八代极巨团体战实为第九代（朱/紫）内容；梦世界是网页平台而非游戏内装备系统
+  - **结构重构**：为每章增加前置核心结论摘要框；新增十项设计原则速查表；对检查清单增加优先级标注（⚠️核心/重要/一般）和快速索引
+  - **内容补全**：新增第四章付费模式与对战生态（买断制 vs DLC 模式分析）；新增制作人评审说明（工具局限性、使用边界）
+  - **章节重组**：报告从七章扩展为九章，模块重新划分为 PvP 机制 / PvE 机制 / Meta管理与养成 / 商业运营 / 综合原则
+
+### Added
+
+- **核心结论摘要**：每个分析章节开头增加一行核心结论摘要，提炼该章节最关键的设计洞察
+- **适用条件说明**：每章可操作建议末尾增加适用条件说明，明确建议在什么前提下成立、在什么前提下不成立
+- **制作人评审附录**：新增"本报告的使用边界"章节，提醒策划团队报告作为"后验研究"的局限性、数据偏差、交叉验证必要性等
+
+### Deprecated
+
+- **版本号 1.0**：综合研究报告 v1.0 版本标记为已废弃，请使用 v1.1 版本
+
 ## [1.8.3] - 2026-04-17
 
 ### Fixed

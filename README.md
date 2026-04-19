@@ -4,7 +4,7 @@
 
 ## 核心定位
 
-**面向谁**：游戏设计师、VGC/宝可梦竞技玩家、设计研究者
+**面向谁**：游戏设计师、设计研究者（目的是在设计类宝可梦like新游时，在设计多人PVE玩法和PVP玩法上，从历代更新，迭代中找到参考和经验）
 **解决什么问题**：将散布在多个平台（Wiki、Steam News、Bulbapedia 等）的更新日志系统化整理，不仅告诉你"改了什么"，还分析"为什么这样改"以及"历代有哪些不同的解法"
 **与 Wiki 的区别**：不是数据查询工具，而是**分析工具**——提供设计意图推断、历史演进脉络、跨游戏对比等 Wiki 无法提供的研究型输出
 
@@ -15,6 +15,7 @@
 - **设计意图分析** — 调用 LLM 深度分析每次改动的设计动机
 - **演进报告** — AI 自动发现主题，生成专题研究报告
 - **语义检索** — 支持按问题搜索历史改动，如"2v2 集火问题是如何解决的"
+- **交互式报告** — [综合研究报告：宝可梦 VGC 多人对战设计演进](docs/index.html) ⭐ — 可交互的 10 条设计原则速查、时间轴、检查清单
 
 ## 支持的游戏
 
@@ -22,7 +23,7 @@
 - **Pokemon 朱/紫** — Wiki + 内置数据
 - **Temtem** — Steam News API
 - **Cassette Beasts** — Steam News API
-- **Palworld** — Steam News API
+- **Palworld** — Steam News API + [paldb.cc Wiki](https://paldb.cc/version)（早期版本 v0.1-v0.4 由 Wiki 补全）
 
 ## 快速开始
 
@@ -71,14 +72,22 @@ streamlit run app.py
 │
 ├── data/                     # 预采集静态数据
 │   ├── temtem/patches.json   # Temtem 更新日志（100条）
-│   ├── palworld/patches.json # 幻兽帕鲁更新日志（100条）
+│   ├── palworld/patches.json # 幻兽帕鲁更新日志（118条，含早期版本）
+│   ├── pokemon/vgc_history.json # Pokemon VGC 历史
 │   └── cassette_beasts/      # 占位（Steam无公告）
+│
+├── docs/                     # 研究报告与文档
+│   ├── index.html            # 交互式报告（Web 入口）⭐
+│   ├── report_data.json     # 报告结构化数据
+│   ├── Pokemon_vs_Palworld_多人对战设计对照.md # 跨游戏对照
+│   └── 综合研究报告_审核报告.md # 报告审核意见
 │
 ├── scrapers/                 # 数据采集层
 │   ├── steam_scraper.py      # Steam 爬虫（降级方案）
 │   ├── pokemon_wiki.py       # 宝可梦 Wiki + 内置数据
 │   ├── bulbapedia.py         # Bulbapedia + PokeAPI
 │   ├── smogon.py             # Smogon/Pikalytics
+│   ├── palworld_wiki.py      # Palworld Wiki 早期版本补全
 │   └── patch_notes.py        # 更新日志基类
 │
 ├── analyzer/                 # AI 分析层
