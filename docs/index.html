@@ -307,8 +307,22 @@ body {
   cursor: pointer;
   transition: border-color var(--tr-fast), box-shadow var(--tr-fast);
   background: var(--bg-surface);
+  position: relative;
+  overflow: hidden;
 }
-.entry-card:hover { border-color: var(--border-light); box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
+.entry-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: var(--cat-primary);
+  opacity: 0.4;
+  transition: opacity var(--tr-fast);
+}
+.entry-card:hover { border-color: var(--border-light); box-shadow: 0 2px 8px rgba(0,0,0,0.07); }
+.entry-card:hover::before { opacity: 1; }
+.entry-card.pvp::before { background: #ef4444; }
+.entry-card.pve::before { background: #10b981; }
 
 .entry-card-header { display: flex; align-items: center; gap: var(--sp-3); margin-bottom: var(--sp-2); }
 .entry-card-icon {
@@ -317,6 +331,8 @@ body {
   background: var(--bg-elevated); color: var(--text-muted);
   flex-shrink: 0;
 }
+.entry-card.pvp .entry-card-icon { background: rgba(239,68,68,0.08); color: #dc2626; }
+.entry-card.pve .entry-card-icon { background: rgba(16,185,129,0.08); color: #10b981; }
 
 .entry-card-title { font-size: var(--fs-base); font-weight: 700; color: var(--text-primary); }
 .entry-card-sub { font-size: var(--fs-xs); color: var(--text-muted); margin-top: 1px; }
@@ -333,6 +349,8 @@ body {
   background: var(--bg-elevated); color: var(--text-muted);
   border: 1px solid var(--border);
 }
+.entry-card.pvp .entry-topic { background: rgba(239,68,68,0.06); border-color: rgba(239,68,68,0.2); color: #dc2626; }
+.entry-card.pve .entry-topic { background: rgba(16,185,129,0.06); border-color: rgba(16,185,129,0.2); color: #059669; }
 
 /* ─── Quick Links — plain text links ─── */
 .quick-grid {
@@ -373,8 +391,28 @@ body {
 .scenario-stat { display: flex; flex-direction: column; gap: 2px; }
 .scenario-stat-n { font-size: var(--fs-2xl); font-weight: 800; }
 .scenario-stat-l { font-size: var(--fs-xs); color: var(--text-muted); }
-.scenario-stat.pvp .scenario-stat-n { color: var(--accent); }
-.scenario-stat.pve .scenario-stat-n { color: var(--text-secondary); }
+.scenario-stat.pvp .scenario-stat-n { color: #dc2626; }
+.scenario-stat.pve .scenario-stat-n { color: #059669; }
+.scenario-header.principles {
+  border-left: 4px solid #8b5cf6;
+  padding-left: var(--sp-4);
+}
+.scenario-header.checklist {
+  border-left: 4px solid #f59e0b;
+  padding-left: var(--sp-4);
+}
+.scenario-header.decision {
+  border-left: 4px solid #06b6d4;
+  padding-left: var(--sp-4);
+}
+.scenario-header.pvp {
+  border-left: 4px solid #dc2626;
+  padding-left: var(--sp-4);
+}
+.scenario-header.pve {
+  border-left: 4px solid #059669;
+  padding-left: var(--sp-4);
+}
 
 /* ─── Lesson Block ───────────────────────────────── */
 .lesson-block {
@@ -387,30 +425,43 @@ body {
   position: relative;
 }
 .lesson-block-label {
-  font-size: 9px; font-weight: 700; text-transform: uppercase;
-  letter-spacing: 0.12em; margin-bottom: var(--sp-3);
+  font-size: var(--fs-sm); font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.08em; margin-bottom: var(--sp-3);
   display: flex; align-items: center; gap: var(--sp-2);
 }
-.lesson-block-label-text { color: var(--text-muted); }
-.lesson-block.pvp .lesson-block-label-text { color: var(--accent); }
-.lesson-block.pve .lesson-block-label-text { color: var(--text-secondary); }
+.lesson-block-label-text { color: var(--text-secondary); font-size: var(--fs-sm); }
+.lesson-block.pvp {
+  background: rgba(239,68,68,0.04);
+  border-color: rgba(239,68,68,0.15);
+  border-left-color: #ef4444;
+}
+.lesson-block.pvp .lesson-block-label-text { color: #dc2626; }
+.lesson-block.pve {
+  background: rgba(16,185,129,0.04);
+  border-color: rgba(16,185,129,0.15);
+  border-left-color: #10b981;
+}
+.lesson-block.pve .lesson-block-label-text { color: #059669; }
 .lesson-block-icon { width: 18px; height: 18px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px; }
-.lesson-block.pvp .lesson-block-icon { background: var(--accent-light); color: var(--accent); }
-.lesson-block.pve .lesson-block-icon { background: var(--bg-elevated); color: var(--text-muted); }
+.lesson-block.pvp .lesson-block-icon { background: rgba(220,38,38,0.12); color: #dc2626; }
+.lesson-block.pve .lesson-block-icon { background: rgba(16,185,129,0.12); color: #10b981; }
 
 .lesson-items { display: flex; flex-direction: column; gap: var(--sp-3); }
 .lesson-item {
   display: flex; align-items: flex-start; gap: var(--sp-3);
   padding: var(--sp-3) var(--sp-4);
-  background: var(--bg-elevated);
+  background: var(--bg-base);
   border-radius: var(--r-md);
   border-left: 3px solid;
   transition: all var(--tr-fast);
 }
-.lesson-item:hover { background: var(--bg-hover); }
-.lesson-item.pvp { border-left-color: var(--accent); }
-.lesson-item.pve { border-left-color: var(--text-muted); }
-.lesson-year { font-size: var(--fs-xs); font-weight: 700; color: var(--text-muted); font-family: var(--font-mono); flex-shrink: 0; min-width: 40px; }
+.lesson-item:hover { background: rgba(239,68,68,0.06); }
+.lesson-item.pvp { border-left-color: #ef4444; }
+.lesson-item.pve { border-left-color: #10b981; }
+.lesson-item.pve:hover { background: rgba(16,185,129,0.06); }
+.lesson-year { font-size: var(--fs-xs); font-weight: 700; font-family: var(--font-mono); flex-shrink: 0; min-width: 40px; }
+.lesson-item.pvp .lesson-year { color: #dc2626; }
+.lesson-item.pve .lesson-year { color: #059669; }
 .lesson-text { font-size: var(--fs-sm); color: var(--text-secondary); line-height: 1.6; }
 
 /* ─── Section Header ──────────────────────────────── */
@@ -418,16 +469,25 @@ body {
   display: flex; align-items: center; gap: var(--sp-3);
   margin-bottom: var(--sp-5);
   padding-bottom: var(--sp-4);
+  padding-left: var(--sp-3);
   border-bottom: 1px solid var(--border);
+  border-left: 3px solid var(--cat-primary);
 }
 .section-header h3 {
   font-size: var(--fs-lg); font-weight: 700; color: var(--text-primary);
 }
+.section-header.pvp { border-left-color: #dc2626; }
+.section-header.pve { border-left-color: #059669; }
+
 .section-header-count {
   font-size: var(--fs-xs); padding: 2px 8px;
   border-radius: 12px; background: var(--bg-elevated);
   color: var(--text-muted); font-weight: 600;
 }
+.section-header.pvp + * .section-header-count,
+.section-header.pvp .section-header-count { background: rgba(220,38,38,0.08); color: #dc2626; }
+.section-header.pve + * .section-header-count,
+.section-header.pve .section-header-count { background: rgba(16,185,129,0.08); color: #059669; }
 
 /* ═══════════════════════════════════════════════
    PRINCIPLE CARDS
@@ -476,12 +536,22 @@ body {
 /* ═══════════════════════════════════════════════
    PRINCIPLES — Grouped List + Inline Detail
 ═══════════════════════════════════════════════ */
+.pl-body {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 0;
+}
 .pl-sidebar {
   flex: 1;
   min-width: 0;
   border-right: 1px solid var(--border);
   padding-right: var(--sp-5);
   margin-right: var(--sp-5);
+  max-height: 70vh;
+  overflow-y: auto;
+  position: sticky;
+  top: 0;
 }
 .pl-cat-tabs {
   display: flex;
@@ -540,7 +610,7 @@ body {
 .pl-item-name { font-size: var(--fs-sm); font-weight: 600; color: var(--text-primary); flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .pl-item-arrow { font-size: 11px; color: var(--action); opacity: 0; transition: opacity 0.1s; flex-shrink: 0; }
 .pl-item:hover .pl-item-arrow, .pl-item.active .pl-item-arrow { opacity: 1; }
-.pl-detail { flex: 1.2; min-width: 0; }
+.pl-detail { flex: 1.2; min-width: 0; max-height: 80vh; overflow-y: auto; }
 .pl-detail-empty { text-align: center; color: var(--text-muted); font-size: var(--fs-sm); padding: 40px 20px; border: 1px dashed var(--border); border-radius: var(--r-md); }
 .dp-header { margin-bottom: var(--sp-4); }
 .dp-meta { display: flex; align-items: center; gap: 6px; margin-bottom: var(--sp-2); flex-wrap: wrap; }
@@ -731,11 +801,11 @@ body {
 
 .item-principles { display: flex; gap: 4px; flex-wrap: wrap; margin-top: 6px; }
 .item-principle-tag {
-  font-size: 10px; padding: 2px 8px; border-radius: var(--r-sm);
-  background: var(--action-light); color: var(--action);
+  font-size: 11px; padding: 3px 10px; border-radius: var(--r-sm);
+  background: rgba(34, 197, 94, 0.12); color: #16a34a;
   font-weight: 600; cursor: pointer; transition: all var(--tr-fast);
 }
-.item-principle-tag:hover { background: var(--accent); color: white; }
+.item-principle-tag:hover { background: #16a34a; color: white; }
 
 /* ═══════════════════════════════════════════════
    TIMELINE
@@ -846,6 +916,126 @@ body {
 .comp-pokemon { color: var(--accent) !important; font-weight: 600; }
 .comp-palworld { color: var(--text-secondary) !important; font-weight: 600; }
 .comp-takeaway td { font-size: var(--fs-xs); color: var(--text-muted); border-left: 3px solid var(--border) !important; font-style: italic; }
+
+/* ═══════════════════════════════════════════════
+   ANALYSIS CALLOUT (yellow collapsible)
+═══════════════════════════════════════════════ */
+.analysis-callout {
+  background: rgba(202, 138, 4, 0.06);
+  border: 1px solid rgba(202, 138, 4, 0.25);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  margin-top: var(--sp-5);
+  transition: all var(--tr-base);
+}
+.analysis-callout:hover {
+  border-color: rgba(202, 138, 4, 0.45);
+  box-shadow: 0 1px 6px rgba(202, 138, 4, 0.08);
+}
+.analysis-callout-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-3);
+  padding: var(--sp-4) var(--sp-5);
+  cursor: pointer;
+  user-select: none;
+}
+.analysis-callout-label {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  color: #ca8a04;
+}
+.analysis-callout-icon {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #ca8a04;
+  color: #fff;
+  font-size: 11px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+.analysis-callout-title {
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  color: var(--text-primary);
+}
+.analysis-callout-arrow {
+  font-size: 10px;
+  color: #ca8a04;
+  transition: transform var(--tr-fast);
+  flex-shrink: 0;
+}
+.analysis-callout.expanded .analysis-callout-arrow {
+  transform: rotate(180deg);
+}
+.analysis-callout-body {
+  display: none;
+  padding: 0 var(--sp-5) var(--sp-5);
+}
+.analysis-callout.expanded .analysis-callout-body {
+  display: block;
+}
+
+/* Form-style structured analysis rows */
+.analysis-form {
+  border: 1px solid rgba(202, 138, 4, 0.18);
+  border-radius: var(--r-md);
+  overflow: hidden;
+  margin-top: var(--sp-3);
+}
+.analysis-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 0;
+  border-bottom: 1px solid rgba(202, 138, 4, 0.12);
+}
+.analysis-row:last-child {
+  border-bottom: none;
+}
+.analysis-row-label {
+  width: 130px;
+  min-width: 130px;
+  padding: var(--sp-4) var(--sp-4);
+  background: rgba(202, 138, 4, 0.08);
+  border-right: 1px solid rgba(202, 138, 4, 0.12);
+  flex-shrink: 0;
+}
+.analysis-row-label-num {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #ca8a04;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: var(--sp-2);
+}
+.analysis-row-label-title {
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  color: #ca8a04;
+  line-height: 1.4;
+}
+.analysis-row-content {
+  padding: var(--sp-4) var(--sp-5);
+  flex: 1;
+}
+.analysis-row-text {
+  font-size: var(--fs-sm);
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
 
 /* ═══════════════════════════════════════════════
    DECISION TREE
@@ -1024,6 +1214,81 @@ body {
 .topbar-search:hover { border-color: var(--action); color: var(--text-secondary); }
 .topbar-search svg { flex-shrink: 0; }
 
+/* ─── Principle Popup ─────────────────────────────────── */
+.principle-popup-overlay {
+  display: none; position: fixed; inset: 0;
+  background: rgba(0,0,0,0.45); z-index: 700;
+  backdrop-filter: blur(4px);
+  justify-content: center; align-items: center;
+  padding: var(--sp-6);
+}
+.principle-popup-overlay.open { display: flex; }
+.principle-popup {
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  width: 100%; max-width: 680px; max-height: 85vh;
+  display: flex; flex-direction: column;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+  animation: modalIn 0.2s ease;
+  overflow: hidden;
+}
+@keyframes modalIn {
+  from { opacity: 0; transform: scale(0.96) translateY(8px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+.principle-popup-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: var(--sp-5) var(--sp-6);
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+.principle-popup-meta { display: flex; align-items: center; gap: var(--sp-2); flex-wrap: wrap; }
+.principle-popup-close {
+  width: 32px; height: 32px; border-radius: var(--r-sm);
+  border: none; background: var(--bg-elevated);
+  color: var(--text-muted); cursor: pointer; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px; transition: all var(--tr-fast);
+}
+.principle-popup-close:hover { background: var(--border); color: var(--text-primary); }
+.principle-popup-body {
+  padding: var(--sp-6);
+  overflow-y: auto;
+  flex: 1;
+}
+.principle-popup-title {
+  font-size: var(--fs-2xl); font-weight: 800;
+  color: var(--text-primary); margin-bottom: var(--sp-3);
+  line-height: 1.2; letter-spacing: -0.01em;
+}
+.principle-popup-summary {
+  font-size: var(--fs-base); color: var(--text-secondary);
+  line-height: 1.65; margin-bottom: var(--sp-5);
+  padding-bottom: var(--sp-5);
+  border-bottom: 1px solid var(--border);
+}
+.principle-popup-section { margin-bottom: var(--sp-5); }
+.principle-popup-section:last-child { margin-bottom: 0; }
+.principle-popup-section-label {
+  font-size: var(--fs-xs); text-transform: uppercase;
+  letter-spacing: 0.06em; color: var(--text-muted); margin-bottom: var(--sp-2);
+}
+.principle-popup-section-body {
+  font-size: var(--fs-sm); color: var(--text-secondary); line-height: 1.7;
+}
+.principle-popup-footer {
+  padding: var(--sp-4) var(--sp-6);
+  border-top: 1px solid var(--border);
+  display: flex; justify-content: flex-end; flex-shrink: 0;
+}
+.btn-ghost {
+  padding: 8px 20px; border-radius: var(--r-md); border: 1px solid var(--border);
+  background: transparent; color: var(--text-secondary);
+  font-size: var(--fs-sm); cursor: pointer; transition: all var(--tr-fast);
+}
+.btn-ghost:hover { background: var(--bg-elevated); color: var(--text-primary); }
+
 /* ─── Disclaimer ────────────────────────────────── */
 .disclaimer-overlay {
   display: none; position: fixed; inset: 0;
@@ -1105,6 +1370,24 @@ body {
     </div>
     <div class="search-results" id="searchResults">
       <div class="search-empty">输入关键词开始搜索</div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── Principle Popup ─────────────────────────────── -->
+<div class="principle-popup-overlay" id="principlePopupOverlay" onclick="if(event.target===this)closePrinciplePopup()">
+  <div class="principle-popup">
+    <div class="principle-popup-header">
+      <div class="principle-popup-meta" id="ppMeta"></div>
+      <button class="principle-popup-close" onclick="closePrinciplePopup()" aria-label="关闭">&#215;</button>
+    </div>
+    <div class="principle-popup-body">
+      <div class="principle-popup-title" id="ppTitle"></div>
+      <div class="principle-popup-summary" id="ppSummary"></div>
+      <div id="ppSections"></div>
+    </div>
+    <div class="principle-popup-footer">
+      <button class="btn-ghost" onclick="closePrinciplePopup()">关闭</button>
     </div>
   </div>
 </div>
@@ -1271,7 +1554,7 @@ body {
 
         <!-- Primary Entry -->
         <div class="entry-grid">
-          <div class="entry-card" onclick="showSection('pvp')">
+          <div class="entry-card pvp" onclick="showSection('pvp')">
             <div class="entry-card-header">
               <div>
                 <div class="entry-card-title">我要设计 PvP</div>
@@ -1287,7 +1570,7 @@ body {
             </div>
           </div>
 
-          <div class="entry-card" onclick="showSection('pve')">
+          <div class="entry-card pve" onclick="showSection('pve')">
             <div class="entry-card-header">
               <div>
                 <div class="entry-card-title">我要设计 PvE</div>
@@ -1385,14 +1668,110 @@ body {
         </div>
 
         <!-- Sub-scenarios -->
-        <div class="section-header">
+        <div class="section-header pvp">
           <h3>选择具体场景</h3>
         </div>
         <div class="grid-pvp-sub" id="pvpSubGrid"></div>
 
+        <!-- Analysis Callout 1: 3v3/4v4 Historical Context -->
+        <div class="analysis-callout" id="analysis-3v3-history">
+          <div class="analysis-callout-header" onclick="this.parentElement.classList.toggle('expanded')">
+            <div class="analysis-callout-label">
+              <div class="analysis-callout-icon">1</div>
+              <div class="analysis-callout-title">深度分析：为什么 Pokemon 从未真正实现 3v3 或 4v4 多人对战</div>
+            </div>
+            <div class="analysis-callout-arrow">&#9660;</div>
+          </div>
+          <div class="analysis-callout-body">
+            <div class="analysis-form">
+              <div class="analysis-row">
+                <div class="analysis-row-label">
+                  <div class="analysis-row-label-num">1</div>
+                  <div class="analysis-row-label-title">RPG 设计哲学根源</div>
+                </div>
+                <div class="analysis-row-content">
+                  <div class="analysis-row-text">
+                    Pokemon 最初的设计哲学源于 Game Freak 对 RPG 体验的追求——玩家的冒险是一场「收集、养成、对战」的完整叙事。每一只宝可梦都是玩家投入时间和情感的载体。这种设计决定了团队规模不可能太小，因为玩家需要足够多的选择来体现「收集」的成就感，也需要足够深的队伍深度来支撑「养成」的价值。1998 年 Pokemon Stadium 首次尝试将 RPG 战斗搬上大屏幕时，1v1 单打和 2v2 双打两种模式并存，但任天堂很快发现：单打模式的观赏性和竞技性远高于双打。1v1 战斗的决策路径清晰，观众的注意力可以集中在一个清晰的对抗主线上；而 2v2 中四个单位同时在场，注意力被分散，战斗逻辑变得更像「混战」而非「博弈」。这种对「清晰对抗」的本能追求，锁定了 Pokemon 竞技设计的规模上限。
+                  </div>
+                </div>
+              </div>
+              <div class="analysis-row">
+                <div class="analysis-row-label">
+                  <div class="analysis-row-label-num">2</div>
+                  <div class="analysis-row-label-title">特性交互复杂度爆炸</div>
+                </div>
+                <div class="analysis-row-content">
+                  <div class="analysis-row-text">
+                    进入 GBA 时代（2002-2006），随着无线通信技术的成熟，无论是在 Gen 3 的华丽大赛场，还是 Gen 4 的全球对战设施中，始终没有出现过 3v3 或 4v4 的正式竞技模式。核心障碍在于「特性」和「道具」交互的复杂度爆炸：当场上同时存在三个或四个宝可梦时，每个单位都可能触发多个特性（威吓、天气、场地、追击等），这些特性之间的交互形成一个难以预测的连锁反应网络。在 2v2 中，Game Freak 花了整整三代（Gen 3 到 Gen 6）才通过引入「守住」和「看我嘛」等机制将交互控制在可管理范围内。若贸然扩展到 3v3 或 4v4，平衡难度将以指数级增长，任何一个强力特性都可能在多打多环境中造成远超 2v2 的失衡效应，且无法通过简单的数值调整来修复。
+                  </div>
+                </div>
+              </div>
+              <div class="analysis-row">
+                <div class="analysis-row-label">
+                  <div class="analysis-row-label-num">3</div>
+                  <div class="analysis-row-label-title">受众时间与门槛约束</div>
+                </div>
+                <div class="analysis-row-content">
+                  <div class="analysis-row-text">
+                    从游戏受众角度看，Pokemon 的核心用户群始终以青少年为主，他们的时间和注意力有限。2v2 对战一局通常需要 5-15 分钟，而 3v3 或 4v4 模式下，单局时间将延长至 15-30 分钟甚至更长，这超出了大多数休闲玩家的耐心范围。更重要的是，组队门槛会急剧上升：在 2v2 中，玩家需要准备一对宝可梦；而在 3v3 中，至少需要三只精心培养的个体，4v4 则需要四只。这对于平均游戏时间有限的玩家来说是一个不切实际的要求。此外，对战节奏的放慢会直接影响直播观赏性和社交媒体传播效率，这对 Pokemon 的品牌推广策略也有直接影响。因此，尽管 3v3 和 4v4 在理论上有更高的战术深度，但 Pokemon 的商业模型和用户画像决定了它必须选择参与门槛更低、节奏更快的 2v2 作为竞技主流。
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Analysis Callout 2: Design Cancellation Reasons -->
+        <div class="analysis-callout" id="analysis-3v3-cancellation">
+          <div class="analysis-callout-header" onclick="this.parentElement.classList.toggle('expanded')">
+            <div class="analysis-callout-label">
+              <div class="analysis-callout-icon">2</div>
+              <div class="analysis-callout-title">深度分析：3v3 与 4v4 设计尝试的失败原因与取消逻辑</div>
+            </div>
+            <div class="analysis-callout-arrow">&#9660;</div>
+          </div>
+          <div class="analysis-callout-body">
+            <div class="analysis-form">
+              <div class="analysis-row">
+                <div class="analysis-row-label">
+                  <div class="analysis-row-label-num">1</div>
+                  <div class="analysis-row-label-title">旁观者困境（3v3 混战测试）</div>
+                </div>
+                <div class="analysis-row-content">
+                  <div class="analysis-row-text">
+                    在 Gen 5（2010-2013）期间，Game Freak 曾在官方活动中测试过「三方对战」的概念——即三个玩家各控制一队宝可梦进行混战。这一模式的吸引力在于它增加了「第三方博弈」的战略维度。然而测试结果表明，这种模式在实际体验中存在严重的「旁观者困境」：当某一方处于劣势时，另外两方往往会心照不宣地联手压制领先者，导致战斗在短时间内变成一对二的屠杀，而非预期的三方博弈。胜利者的选择变得单一——「联合第二名干掉第一名」几乎总是最优策略。这违背了竞技游戏「多种胜利路径」的核心原则。当玩家意识到最优解是结盟而非纯粹对抗时，游戏的竞技性就名存实亡了。
+                  </div>
+                </div>
+              </div>
+              <div class="analysis-row">
+                <div class="analysis-row-label">
+                  <div class="analysis-row-label-num">2</div>
+                  <div class="analysis-row-label-title">聚光灯问题（4v4 贡献可见性）</div>
+                </div>
+                <div class="analysis-row-content">
+                  <div class="analysis-row-text">
+                    4v4 模式的尝试同样遭遇了独特的挑战。在 Pokemon GO 的早期设计中，开发团队曾认真考虑过以训练师俱乐部形式支持 4v4 团战的可能性。然而，当团队规模扩大到四个单位时，「个人贡献的可见性」急剧下降。在 2v2 中，队友的行为高度可见——每一次集火、每一次保护都能被清晰感知；而在 4v4 中，一个玩家的决策被淹没在八个单位的行动洪流中，个人技术难以体现，团队配合也因信息过载而无法被有效欣赏。这一问题在团队竞技游戏中被称为「聚光灯问题」：当每个参与者分到的注意力资源固定时，团队规模越大，个人的成就感越低。对于 Pokemon 这样高度依赖「个体成就感」的游戏来说，4v4 模式会系统性地削弱玩家的核心驱动力。
+                  </div>
+                </div>
+              </div>
+              <div class="analysis-row">
+                <div class="analysis-row-label">
+                  <div class="analysis-row-label-num">3</div>
+                  <div class="analysis-row-label-title">Game Freak 资源约束</div>
+                </div>
+                <div class="analysis-row-content">
+                  <div class="analysis-row-text">
+                    更深层的原因在于 Game Freak 的资源约束。Pokemon 系列每年面临巨大的商业压力——新游戏必须在假日季节准时发售，新宝可梦、新机制、新地区必须持续为玩家提供新鲜感。在这种节奏下，为 3v3 或 4v4 模式重新平衡所有 800+ 宝可梦的数值和特性，几乎是不可能完成的任务。相比之下，2v2 的平衡工作虽然同样艰巨，但已经积累了大量的社区数据、比赛经验和职业选手反馈，形成了一个相对可控的设计空间。这也解释了为什么 Pokemon 的竞技对战始终围绕 6v6 选 2 展开：不是因为 2v2 天然最优，而是因为这是 Game Freak 在有限资源下能够有效维护的唯一竞技模式。对于未来的开发者而言，这揭示了一个关键的设计权衡——在「更多人数」与「可维护平衡」之间，必须做出清醒且可持续的选择。
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <!-- Inline Principles (related to PvP) -->
         <div class="divider"></div>
-        <div class="section-header">
+        <div class="section-header pvp">
           <h3>相关设计原则</h3>
           <span class="section-header-count">6 条</span>
         </div>
@@ -1460,7 +1839,7 @@ body {
           </div>
         </div>
 
-        <div class="section-header">
+        <div class="section-header pve">
           <h3>相关设计原则</h3>
           <span class="section-header-count">2 条</span>
         </div>
@@ -1468,7 +1847,7 @@ body {
 
         <div class="divider"></div>
 
-        <div class="section-header">
+        <div class="section-header pve">
           <h3>PvE 相关检查清单</h3>
           <span class="section-header-count">9 条</span>
         </div>
@@ -1479,7 +1858,7 @@ body {
     <!-- ══ PRINCIPLES ══════════════════════════════════ -->
     <section class="section" id="section-principles">
       <div class="section-inner">
-        <div class="scenario-header">
+        <div class="scenario-header principles">
           <div class="scenario-header-back" onclick="showSection('home')">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg>
             返回首页
@@ -1488,15 +1867,17 @@ body {
           <div class="scenario-header-title">10 条设计原则</div>
           <div class="scenario-header-desc">来自 Pokemon 29 年演进历史验证的核心设计准则。每条包含决策逻辑、历史案例、应用场景、边界条件和制作人提示。</div>
         </div>
-        <!-- 原则分组列表（左侧） -->
-        <div class="pl-sidebar">
-          <div class="pl-cat-tabs" id="plCatNav"></div>
-          <div class="pl-count" id="plCount"></div>
-          <div class="pl-list" id="plList"></div>
-        </div>
-        <!-- 原则详情（右侧） -->
-        <div class="pl-detail" id="plDetailPane">
-          <div class="pl-detail-empty">点击左侧原则名称查看详情</div>
+        <div class="pl-body">
+          <!-- 原则分组列表（左侧） -->
+          <div class="pl-sidebar">
+            <div class="pl-cat-tabs" id="plCatNav"></div>
+            <div class="pl-count" id="plCount"></div>
+            <div class="pl-list" id="plList"></div>
+          </div>
+          <!-- 原则详情（右侧） -->
+          <div class="pl-detail" id="plDetailPane">
+            <div class="pl-detail-empty">点击左侧原则名称查看详情</div>
+          </div>
         </div>
       </div>
     </section>
@@ -1560,7 +1941,7 @@ body {
     <!-- ══ CHECKLIST ═══════════════════════════════════ -->
     <section class="section" id="section-checklist">
       <div class="section-inner">
-        <div class="scenario-header">
+        <div class="scenario-header checklist">
           <div class="scenario-header-back" onclick="showSection('home')">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg>
             返回首页
@@ -1597,7 +1978,7 @@ body {
     <!-- ══ DECISION TREE ═══════════════════════════════ -->
     <section class="section" id="section-decision">
       <div class="section-inner">
-        <div class="scenario-header">
+        <div class="scenario-header decision">
           <div class="scenario-header-back" onclick="showSection('home')">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg>
             返回首页
@@ -1652,9 +2033,9 @@ body {
         <div class="guide-section">
           <h3>置信度说明</h3>
           <div class="confidence-legend" style="max-width:400px;">
-            <div class="conf-legend-item"><span class="conf-dot high"></span><span>高置信度 — 有官方记录或社区共识的设计结论</span></div>
-            <div class="conf-legend-item"><span class="conf-dot medium"></span><span>中置信度 — 社区反馈反推，Game Freak 未公开说明设计意图</span></div>
-            <div class="conf-legend-item"><span class="conf-dot low"></span><span>低置信度 — 从补丁历史中高度推断，边界条件可能不完整</span></div>
+            <div class="conf-legend-item" style="cursor:pointer;" onclick="showDisclaimer()"><span class="conf-dot high"></span><span>置信度高 — 有官方记录或社区共识的设计结论</span></div>
+            <div class="conf-legend-item" style="cursor:pointer;" onclick="showDisclaimer()"><span class="conf-dot medium"></span><span>置信度中 — 社区反馈反推，Game Freak 未公开说明设计意图</span></div>
+            <div class="conf-legend-item" style="cursor:pointer;" onclick="showDisclaimer()"><span class="conf-dot low"></span><span>置信度低 — 从补丁历史中高度推断，边界条件可能不完整</span></div>
           </div>
         </div>
       </div>
@@ -1821,6 +2202,46 @@ function init() {
   }
 }
 
+function showDisclaimer() {
+  document.getElementById('disclaimerOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function showPrinciplePopup(id) {
+  var p = reportData.principles.find(function(pr) { return pr.id === id; });
+  if (!p) return;
+  var fields = [
+    { key: 'decision_logic', label: '决策逻辑' },
+    { key: 'case_study', label: '历史案例' },
+    { key: 'application', label: '应用场景' },
+    { key: 'counter_example', label: '反例' },
+    { key: 'boundary_condition', label: '边界条件' },
+    { key: 'producer_note', label: '制作人提示' }
+  ];
+  var sectionsHtml = fields.filter(function(f) { return p[f.key]; }).map(function(f) {
+    return '<div class="principle-popup-section">' +
+      '<div class="principle-popup-section-label">' + f.label + '</div>' +
+      '<div class="principle-popup-section-body">' + p[f.key] + '</div>' +
+    '</div>';
+  }).join('');
+  var confClass = p.confidence === '高' ? 'conf-high' : p.confidence === '中' ? 'conf-medium' : 'conf-low';
+  var catColor = CAT_COLORS[p.category] || '#6366f1';
+  document.getElementById('ppMeta').innerHTML =
+    '<span style="background:' + catColor + '20;color:' + catColor + ';font-size:11px;font-weight:700;padding:2px 8px;border-radius:100px;">原则 ' + p.id + '</span>' +
+    '<span style="background:' + catColor + '20;color:' + catColor + ';font-size:11px;font-weight:600;padding:2px 8px;border-radius:100px;">' + (p.category_label || p.category) + '</span>' +
+    (p.confidence ? '<span class="dp-conf ' + confClass + '" style="cursor:pointer;" onclick="closePrinciplePopup();showDisclaimer();">' + confLabel(p.confidence) + '</span>' : '');
+  document.getElementById('ppTitle').textContent = p.name;
+  document.getElementById('ppSummary').textContent = p.summary;
+  document.getElementById('ppSections').innerHTML = sectionsHtml;
+  document.getElementById('principlePopupOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closePrinciplePopup() {
+  document.getElementById('principlePopupOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
 function acknowledgeDisclaimer() {
   localStorage.setItem('vgc-disclaimer-v4', '1');
   document.getElementById('disclaimerOverlay').classList.remove('open');
@@ -1857,17 +2278,16 @@ function renderPvPSubScenarios() {
   var grid = document.getElementById('pvpSubGrid');
   if (!grid || !reportData) return;
   var pvpScenarios = [
-    { id: 'pvp_combat', label: '集火与保护', desc: '2v2 中「击杀」与「保命」的设计平衡', chapter: '第一章', principles: [1,2], count: 8, icon: '&#9878;' },
-    { id: 'enhancement', label: '强化机制', desc: '变身/爆发/强化机制的设计陷阱', chapter: '第二章', principles: [4,5,6], count: 8, icon: '&#9889;' },
-    { id: 'pvp_speed', label: '速度博弈', desc: '如何让「先手」不是唯一的胜负手', chapter: '第三章', principles: [7], count: 5, icon: '&#128640;' },
-    { id: 'pvp_environment', label: '环境控制', desc: '天气/地形/环境的战略价值', chapter: '第四章', principles: [3], count: 5, icon: '&#9925;' },
+    { id: 'pvp_combat', label: '集火与保护', desc: '2v2 中「击杀」与「保命」的设计平衡', principles: [1,2], count: 8, icon: '&#9878;' },
+    { id: 'enhancement', label: '强化机制', desc: '变身/爆发/强化机制的设计陷阱', principles: [4,5,6], count: 8, icon: '&#9889;' },
+    { id: 'pvp_speed', label: '速度博弈', desc: '如何让「先手」不是唯一的胜负手', principles: [7], count: 5, icon: '&#128640;' },
+    { id: 'pvp_environment', label: '环境控制', desc: '天气/地形/环境的战略价值', principles: [3], count: 5, icon: '&#9925;' },
   ];
   grid.innerHTML = pvpScenarios.map(function(s) {
     return '<div class="entry-card pvp" style="padding:var(--sp-6);" onclick="navigateToPvpSub(\'' + s.id + '\')">' +
       '<div class="entry-card-header" style="margin-bottom:var(--sp-3);">' +
         '<div>' +
           '<div class="entry-card-title" style="font-size:var(--fs-lg);">' + s.label + '</div>' +
-          '<div class="entry-card-sub" style="font-size:var(--fs-xs);padding:2px 8px;border-radius:100px;background:var(--bg-elevated);color:var(--text-muted);display:inline-block;margin-top:2px;">' + s.chapter + '</div>' +
         '</div>' +
       '</div>' +
       '<div class="entry-card-desc" style="font-size:var(--fs-sm);margin-bottom:var(--sp-3);">' + s.desc + '</div>' +
@@ -1938,8 +2358,8 @@ function renderPvEChecklist() {
 function buildPrincipleCardHTML(p) {
   var catClass = CAT_CLASS[p.category] || 'pvp';
   var tagClass = CAT_TAG[p.category] || 'pvp';
-  var confBadge = p.confidence ? '<span class="conf-badge conf-' + (p.confidence === '高' ? 'high' : p.confidence === '中' ? 'medium' : 'low') + '">' + confLabel(p.confidence) + '</span>' : '';
-  return '<div class="principle-card ' + catClass + '" onclick="openPrincipleModal(' + p.id + ')" role="button" tabindex="0" onkeydown="if(event.key===\'Enter\')openPrincipleModal(' + p.id + ')">' +
+  var confBadge = p.confidence ? '<span class="conf-badge conf-' + (p.confidence === '高' ? 'high' : p.confidence === '中' ? 'medium' : 'low') + '" style="cursor:pointer;" onclick="event.stopPropagation();showDisclaimer()">' + confLabel(p.confidence) + '</span>' : '';
+  return '<div class="principle-card ' + catClass + '" onclick="showPrinciplePopup(' + p.id + ')" role="button" tabindex="0" onkeydown="if(event.key===\'Enter\')showPrinciplePopup(' + p.id + ')">' +
     '<div class="principle-card-header">' +
       '<span class="principle-num">原则 ' + p.id + '</span>' +
       '<span class="tag tag-' + tagClass + '">' + (p.category_label || p.category) + '</span>' +
@@ -1979,7 +2399,7 @@ function buildChecklistItemHTML(item, dimName) {
     principlesHtml = '<div class="item-principles">' +
       item.related_principles.map(function(pid) {
         var rp = reportData.principles.find(function(p) { return p.id === pid; });
-        return rp ? '<span class="item-principle-tag" onclick="event.stopPropagation();openPrincipleModal(' + pid + ')">原则' + pid + '</span>' : '';
+        return rp ? '<span class="item-principle-tag" onclick="event.stopPropagation();showPrinciplePopup(' + pid + ')">原则' + pid + '</span>' : '';
       }).join('') + '</div>';
   }
   return '<div class="checklist-item' + (checked ? ' checked' : '') + '" onclick="event.stopPropagation();">' +
@@ -2007,9 +2427,9 @@ function confClass(c) {
   return 'conf-low';
 }
 function confLabel(c) {
-  if (c === '高') return '&#10003; 高';
-  if (c === '中') return '&#8211; 中';
-  return '&#8212; 低';
+  if (c === '高') return '置信度高';
+  if (c === '中') return '置信度中';
+  return '置信度低';
 }
 
 // ─── Principles Grouped List + Inline Detail ──────────
@@ -2087,7 +2507,11 @@ function plSelect(id, el) {
   selectedPrincipleId = id;
 
   document.querySelectorAll('.pl-item').forEach(function(i) { i.classList.remove('active'); });
-  if (el) el.classList.add('active'); else { var t = document.querySelector('.pl-item[data-id="' + id + '"]'); if (t) t.classList.add('active'); }
+  var activeEl = el || document.querySelector('.pl-item[data-id="' + id + '"]');
+  if (activeEl) {
+    activeEl.classList.add('active');
+    activeEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
 
   var pane = document.getElementById('plDetailPane');
   var fields = [
@@ -2110,7 +2534,7 @@ function plSelect(id, el) {
       '<div class="dp-meta">' +
         '<span class="dp-id" style="background:' + CAT_COLORS[p.category] + '20;color:' + CAT_COLORS[p.category] + ';">原则 ' + p.id + '</span>' +
         '<span class="dp-cat" style="background:' + CAT_COLORS[p.category] + '20;color:' + CAT_COLORS[p.category] + ';">' + (p.category_label || p.category || '') + '</span>' +
-        (p.confidence ? '<span class="dp-conf dp-conf-' + (p.confidence === '高' ? 'high' : p.confidence === '中' ? 'medium' : 'low') + '">' + confLabel(p.confidence) + '</span>' : '') +
+        (p.confidence ? '<span class="dp-conf dp-conf-' + (p.confidence === '高' ? 'high' : p.confidence === '中' ? 'medium' : 'low') + '" style="cursor:pointer;" onclick="showDisclaimer()">' + confLabel(p.confidence) + '</span>' : '') +
       '</div>' +
       '<h2 class="dp-title">' + p.name + '</h2>' +
       '<p class="dp-summary">' + p.summary + '</p>' +
@@ -2122,14 +2546,13 @@ function plSelect(id, el) {
 // ─── Modal ─────────────────────────────────────────────
 // Redirects to inline detail system
 function openPrincipleModal(id) {
+  showSection('principles');
   plSelect(id, null);
-  var pane = document.getElementById('plDetailPane');
-  if (pane) pane.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 function closeModal() {}
 // Modal overlay event listeners removed (inline detail now)
 ;
-document.addEventListener('keydown', function(e) { if (e.key === 'Escape') { closeModal(); closeSearch(); } });
+document.addEventListener('keydown', function(e) { if (e.key === 'Escape') { closeModal(); closeSearch(); closePrinciplePopup(); } });
 
 // ─── Checklist ────────────────────────────────────────
 function renderChecklist() {
@@ -2411,7 +2834,7 @@ function renderReportPrinciples() {
       '<div class="report-principle-tags">' +
         '<span class="report-principle-tag">' + p.category_label + '</span>' +
         '<span class="report-principle-tag">' + p.chapter + '</span>' +
-        '<span class="report-principle-tag">' + p.confidence + '置信度</span>' +
+        '<span class="report-principle-tag" style="cursor:pointer;" onclick="showDisclaimer()">' + confLabel(p.confidence) + '</span>' +
       '</div>' +
     '</div>';
   }).join('');
