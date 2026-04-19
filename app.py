@@ -1328,7 +1328,7 @@ with tab2:
             "太晶化": ["属性改变+招式", "1回合", "任意宝可梦", "PvP/PvE"],
         }
         st.divider()
-            st.markdown('<p class="tl-section-title">防御/保护机制演进对比</p>', unsafe_allow_html=True)
+        st.markdown('<p class="tl-section-title">防御/保护机制演进对比</p>', unsafe_allow_html=True)
         df_defense = pd.DataFrame(comparison_data)
         st.dataframe(df_defense, width="stretch", hide_index=True)
 
