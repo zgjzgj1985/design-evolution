@@ -1,8 +1,8 @@
 {
   "description": "VGC (Video Game Championships) 历史规则数据",
-  "source": "Serebii.net",
-  "fetched_at": "2026-04-16T14:47:09.842165",
-  "total_seasons": 13,
+  "source": "Serebii.net + Pokemon.com 官方数据",
+  "fetched_at": "2026-04-20T00:00:00.000000",
+  "total_seasons": 18,
   "seasons": [
     {
       "version": "2009",
@@ -23,10 +23,10 @@
     {
       "version": "2010",
       "date": "2010-01-01",
-      "game": "心金/魂银/黑/白",
+      "game": "黑/白",
       "source_url": "https://www.serebii.net/vgc/2010.shtml",
       "generation": 5,
-      "official_notes": "VGC 2010 Series - 心金/魂银/黑/白",
+      "official_notes": "VGC 2010 Series - 黑/白",
       "changes": [
         {
           "category": "PvP",
@@ -209,6 +209,86 @@
           "content": "2021年VGC赛季规则：对战类型: Double Battle | 禁用宝可梦: Mewtwo、Mew、Jirachi、Deoxys、Giratina、Darkrai、Arceus、Victini、Zekrom、Kyurem等15只 | 特殊条款: Same Pokémon Clause、Same Item Clause、Players、Sword、Shield",
           "intent": "记录第8世代VGC赛季规则变更，包括图鉴限制、禁用列表和特殊条款",
           "detail": "规则详情: {\"Clauses?\": \"No same Pokémon, No same itemPlayers may only use Pokémon with items or moves obtained in Pokémon Sword & ShieldMatch Time: 15 MinutesYour Time: 7 minutes\", \"Battle Type\": \"Double Battle\"}\n禁用宝可梦: Mewtwo, Mew, Jirachi, Deoxys, Giratina, Darkrai, Arceus, Victini, Zekrom, Kyurem, Meloetta, Genesect, Diancie, Hoopa, Volcanion\n特殊条款: Same Pokémon Clause, Same Item Clause, Players, Sword, Shield, Match Time, Minutes, Your Time\n世界冠军: "
+        }
+      ]
+    },
+    {
+      "version": "2022",
+      "date": "2022-01-01",
+      "game": "剑/盾",
+      "source_url": "https://www.serebii.net/playpokemon/2022/world.shtml",
+      "generation": 8,
+      "official_notes": "VGC 2022 Series - 剑/盾 | 世锦赛: 2022年8月18-21日，伦敦",
+      "changes": [
+        {
+          "category": "PvP",
+          "content": "2022年VGC赛季规则：对战类型: Double Battle | 图鉴限制: National图鉴（需有Galar Mark或Battle Ready Mark）| 禁用宝可梦: 传说/神话宝可梦限2只 | 特殊条款: Same Pokémon Clause、Same Item Clause | 规则游戏: 剑/盾 | 世界冠军(Masters): Eduardo Cunha (葡萄牙) | 世界冠军(Seniors): Yasuharu Shimizu (日本)",
+          "intent": "记录第8世代VGC赛季规则变更及世锦赛信息。朱紫于2022年11月发售，本赛季仍使用剑/盾。",
+          "detail": "规则详情: {\"Battle Type\": \"Double Battle\", \"Pokédex Restriction\": \"National (with Galar Mark or Battle Ready Mark)\", \"Team Size\": \"4-6 Pokémon, Level 50\", \"Restricted Pokémon\": \"Two per team from list\", \"Match Time\": \"20 Minutes\", \"Your Time\": \"7 Minutes\", \"Turn Time\": \"45 Seconds\"}\n可用传说/神话: Mewtwo, Lugia, Ho-Oh, Kyogre, Groudon, Rayquaza, Dialga, Palkia, Giratina, Reshiram, Zekrom, Kyurem, Xerneas, Yveltal, Zygarde, Cosmog, Cosmoem, Solgaleo, Lunala, Necrozma, Zacian, Zamazenta, Eternatus, Calyrex\n世锦赛: 2022年8月18-21日，ExCeL London\n世界冠军Masters: Eduardo Cunha (葡萄牙) — 击败 Guillermo Castilla (西班牙) 2-1，首位欧洲世界冠军\n世界冠军Seniors: Yasuharu Shimizu (日本) — 击败 Nicholas K. (澳大利亚)"
+        }
+      ]
+    },
+    {
+      "version": "2023",
+      "date": "2023-01-01",
+      "game": "朱/紫",
+      "source_url": "https://www.serebii.net/playpokemon/2023/world.shtml",
+      "generation": 9,
+      "official_notes": "VGC 2023 Series - 朱/紫 | 世锦赛: 2023年8月11-13日，横滨",
+      "changes": [
+        {
+          "category": "PvP",
+          "content": "2023年VGC赛季规则：对战类型: Double Battle | 图鉴限制: National图鉴 | 特殊条款: Same Pokémon Clause、Same Item Clause | 规则游戏: 朱/紫 | 世锦赛使用Regulation D | 世界冠军(Masters): Shohei Kimura (日本) | 世界冠军(Seniors): Tomoya Ogawa (日本)",
+          "intent": "记录第9世代朱紫VGC赛季规则变更。朱紫于2022年11月发售，本赛季正式开始使用朱紫作为规则游戏。",
+          "detail": "规则详情: {\"Battle Type\": \"Double Battle\", \"Pokédex Restriction\": \"National\", \"Clauses?\": \"No same Pokémon, No same itemPlayers may only use Pokémon with items or moves obtained in Pokémon Scarlet & Violet\", \"Match Time\": \"15 Minutes\", \"Your Time\": \"7 minutes\"}\n赛季Regulation: A(12月-1月)→B(2月-3月)→C(4月-6月)→D(7月-9月)\n世锦赛使用Regulation D: 禁用Koraidon, Miraidon, Walking Wake, Iron Leaves\n世锦赛: 2023年8月11-13日，Pacifico Yokohama\n世界冠军Masters: Shohei Kimura (日本)\n世界冠军Seniors: Tomoya Ogawa (日本) — 击败 Robbie Schaaij (荷兰)\n特别公告: Indigo Disk DLC公布，Raging Bolt / Iron Crown登场，第19个太晶属性"
+        }
+      ]
+    },
+    {
+      "version": "2024",
+      "date": "2024-01-01",
+      "game": "朱/紫",
+      "source_url": "https://www.serebii.net/playpokemon/2024/world.shtml",
+      "generation": 9,
+      "official_notes": "VGC 2024 Series - 朱/紫 | 世锦赛: 2024年8月16-18日，火奴鲁鲁",
+      "changes": [
+        {
+          "category": "PvP",
+          "content": "2024年VGC赛季规则：对战类型: Double Battle | 图鉴限制: National图鉴 | 特殊条款: Same Pokémon Clause、Same Item Clause | 规则游戏: 朱/紫 | 世锦赛使用Regulation G（可携带1只Restricted宝可梦）| 世界冠军(Masters): Luca Ceribelli (意大利) | 世界冠军(Seniors): Ray Yamanaka (日本)",
+          "intent": "记录2024年朱紫VGC赛季规则变更。Regulation G允许每队携带1只Restricted宝可梦。",
+          "detail": "规则详情: {\"Battle Type\": \"Double Battle\", \"Pokédex Restriction\": \"National\", \"Restricted Pokémon\": \"One per team allowed\", \"Match Time\": \"15 Minutes\", \"Your Time\": \"7 minutes\"}\n赛季Regulation: F(1月-4月)→G(5月-8月，限制1只Restricted)→H(8月-1月，禁止悖论宝可梦和传说宝可梦)\n世锦赛: 2024年8月16-18日，Hawaii Convention Center\n世界冠军Masters: Luca Ceribelli (意大利) — Tomoya Ogawa的Sylveon作为配信\n世界冠军Seniors: Ray Yamanaka (日本)\nRegulation H主流战术: Tailwind、顺风队、Trick Room空间、Redirection+强化组合\n热门宝可梦: Dondozo + Tatsugiri组合、Maushold + Annihilape、Torkoal + Hisuian Lilligant"
+        }
+      ]
+    },
+    {
+      "version": "2025",
+      "date": "2025-01-01",
+      "game": "朱/紫",
+      "source_url": "https://www.serebii.net/playpokemon/2025/world.shtml",
+      "generation": 9,
+      "official_notes": "VGC 2025 Series - 朱/紫 | 世锦赛: 2025年8月15-17日，阿纳海姆",
+      "changes": [
+        {
+          "category": "PvP",
+          "content": "2025年VGC赛季规则：对战类型: Double Battle | 图鉴限制: National图鉴 | 特殊条款: Same Pokémon Clause、Same Item Clause | 规则游戏: 朱/紫 | 世锦赛使用Regulation I | 世界冠军(Masters): Giovanni Cischke (美国) | 世界冠军(Seniors): Kevin Han (美国)",
+          "intent": "记录2025年朱紫VGC赛季规则变更。朱紫的最后官方赛季，下一赛季将切换至Pokemon Champions。",
+          "detail": "规则详情: {\"Battle Type\": \"Double Battle\", \"Pokédex Restriction\": \"National\", \"Match Time\": \"15 Minutes\", \"Your Time\": \"7 minutes\"}\n赛季Regulation: I(1月-9月，允许2只Restricted宝可梦)→F(9月-2026年3月)\n世锦赛使用Regulation I: 允许2只Restricted宝可梦，进入National图鉴\n世锦赛: 2025年8月15-17日，Anaheim Convention Center\n世界冠军Masters: Giovanni Cischke (美国)\n世界冠军Seniors: Kevin Han (美国)\n特别公告: Pokemon Champions将于2026年世锦赛使用，Mega Evolution将回归；Pokemon Legends: Z-A的Z-A Battle Club模式公布（4人PvP）"
+        }
+      ]
+    },
+    {
+      "version": "2026",
+      "date": "2026-01-01",
+      "game": "Pokemon Champions (朱/紫)",
+      "source_url": "https://serebii.net/playpokemon/2026/vgc.shtml",
+      "generation": 9,
+      "official_notes": "Pokemon Champions 时代开启 | VGC正式过渡至Pokemon Champions平台 | 世锦赛: 2026年8月28-30日，旧金山",
+      "changes": [
+        {
+          "category": "PvP",
+          "content": "2026年Pokemon Champions赛季规则：对战类型: Double Battle | 游戏时间: 20分钟 | 每位玩家时间: 7分钟 | 招式时间: 45秒 | 规则游戏: Pokemon Champions (朱/紫) | 首个规则: Regulation M-A (允许Mega Evolution) | 世锦赛: 2026年8月28-30日，旧金山 | 世界冠军(Masters): 待定",
+          "intent": "记录Pokemon Champions时代开启。VGC正式过渡至Pokemon Champions平台，Mega Evolution在沉寂多年后正式回归。Pokemon Champions在2026年4月8日正式上线。",
+          "detail": "规则详情: {\"Battle Type\": \"Double Battle\", \"Game Time\": \"20 Minutes\", \"Player Time\": \"7 minutes\", \"Move Time\": \"45 seconds\", \"Pokédex Restriction\": \"National (Pokemon Champions licensed)\"}\nPokemon Champions平台: 2026年4月8日上线，所有正式比赛均通过Pokemon Champions进行\n首个Regulation: M-A (2026年4月8日-6月17日)，允许Mega Evolution但仅限特定宝可梦\n公开队表: TPCi赛事采用公开队表制度，对战开始前双方交换队表\n世锦赛: 2026年8月28-30日，旧金山Moscone Center\n特别公告: Pokemon Legends: Z-A的Z-A Battle Club模式引入4人PvP，延续了历代团体战的设计演进"
         }
       ]
     }
