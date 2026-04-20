@@ -63,7 +63,7 @@
   /* Typography */
   --font: 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
   --font-mono: 'Cascadia Code', 'Fira Code', 'Consolas', monospace;
-  --fs-xs: 12px; --fs-sm: 13px; --fs-base: 15px;
+  --fs-xs: 13px; --fs-sm: 14px; --fs-base: 16px;
   --fs-lg: 17px; --fs-xl: 20px; --fs-2xl: 26px; --fs-3xl: 32px;
 
   /* Priority */
@@ -344,8 +344,8 @@ body {
 
 .entry-card-topics { display: flex; flex-wrap: wrap; gap: var(--sp-2); }
 .entry-topic {
-  font-size: 10px; padding: 1px 6px;
-  border-radius: 3px;
+  font-size: 11px; padding: 2px 8px;
+  border-radius: var(--r-sm);
   background: var(--bg-elevated); color: var(--text-muted);
   border: 1px solid var(--border);
 }
@@ -379,11 +379,13 @@ body {
 }
 .scenario-header-back {
   display: inline-flex; align-items: center; gap: var(--sp-2);
-  font-size: var(--fs-sm); color: var(--text-muted);
+  font-size: var(--fs-sm); color: var(--text-secondary);
   cursor: pointer; margin-bottom: var(--sp-4);
-  transition: color var(--tr-fast);
+  padding: 6px 12px; border-radius: 8px;
+  background: var(--bg-elevated); border: 1px solid var(--border);
+  transition: all var(--tr-fast);
 }
-.scenario-header-back:hover { color: var(--action); }
+.scenario-header-back:hover { color: var(--action); background: var(--bg-hover); border-color: var(--border-light); }
 .scenario-header-label { font-size: var(--fs-xs); color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: var(--sp-2); }
 .scenario-header-title { font-size: var(--fs-2xl); font-weight: 800; color: var(--text-primary); margin-bottom: var(--sp-3); }
 .scenario-header-desc { font-size: var(--fs-base); color: var(--text-secondary); line-height: 1.7; max-width: 640px; }
@@ -796,7 +798,7 @@ body {
 .item-logic-toggle {
   font-size: var(--fs-xs); color: var(--action);
   display: inline-flex; align-items: center; gap: 4px;
-  margin-top: var(--sp-2); font-weight: 600;
+  margin-top: var(--sp-2);
 }
 
 .item-principles { display: flex; gap: 4px; flex-wrap: wrap; margin-top: 6px; }
@@ -1051,11 +1053,11 @@ body {
 .tree-branch-header {
   padding: var(--sp-5) var(--sp-6);
   display: flex; align-items: center; gap: var(--sp-3);
+  border-left: 3px solid var(--accent);
 }
 .tree-branch-icon {
-  width: 40px; height: 40px; border-radius: var(--r-md);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 18px; flex-shrink: 0;
+  width: 8px; height: 8px; border-radius: 50%;
+  display: inline-block; flex-shrink: 0;
 }
 .tree-branch-label { font-size: var(--fs-base); font-weight: 700; color: var(--text-primary); }
 .tree-branch-q { font-size: var(--fs-xs); color: var(--text-muted); padding: var(--sp-2) var(--sp-6); border-top: 1px solid var(--border); margin: 0; }
@@ -1105,13 +1107,10 @@ body {
 }
 .report-meta-header { display: flex; align-items: flex-start; justify-content: space-between; gap: var(--sp-4); margin-bottom: var(--sp-4); }
 .report-meta-title { font-size: var(--fs-2xl); font-weight: 800; color: var(--text-primary); line-height: 1.3; }
-.report-meta-version { font-size: var(--fs-xs); padding: 3px 10px; border-radius: 10px; background: var(--bg-elevated); color: var(--text-muted); font-family: var(--font-mono); flex-shrink: 0; }
+.report-meta-version { font-size: var(--fs-xs); padding: 2px 8px; border-radius: 100px; background: var(--bg-elevated); color: var(--text-muted); border: 1px solid var(--border); font-family: var(--font-mono); flex-shrink: 0; }
 .report-meta-desc { font-size: var(--fs-base); color: var(--text-secondary); line-height: 1.7; margin-bottom: var(--sp-5); }
 .report-meta-sources { display: flex; flex-wrap: wrap; gap: var(--sp-2); }
-.report-source-tag { font-size: 10px; padding: 3px 10px; border-radius: 10px; background: var(--bg-elevated); color: var(--text-muted); border: 1px solid var(--border); }
-.report-source-tag.official { background: var(--success-bg); color: var(--success); border-color: rgba(22,163,74,0.15); }
-.report-source-tag.community { background: var(--warn-bg); color: var(--warn); border-color: rgba(202,138,4,0.15); }
-.report-source-tag.inferred { background: var(--error-bg); color: var(--error); border-color: rgba(220,38,38,0.15); }
+.report-source-tag { font-size: 11px; padding: 2px 8px; border-radius: 100px; }
 
 .report-stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--sp-4); margin-top: var(--sp-6); }
 .report-stat-card { background: var(--bg-surface); border: 1px solid var(--border); border-radius: var(--r-lg); padding: var(--sp-5); text-align: center; }
@@ -1121,16 +1120,16 @@ body {
 .report-principle-item { background: var(--bg-surface); border: 1px solid var(--border); border-radius: var(--r-lg); padding: var(--sp-5); margin-bottom: var(--sp-4); cursor: pointer; transition: all var(--tr-fast); }
 .report-principle-item:hover { border-color: var(--accent); box-shadow: 0 2px 8px rgba(30,41,59,0.08); }
 .report-principle-header { display: flex; align-items: center; gap: var(--sp-3); margin-bottom: var(--sp-3); }
-.report-principle-id { font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 10px; background: var(--accent-light); color: var(--accent); font-family: var(--font-mono); }
+.report-principle-id { font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 100px; font-family: var(--font-mono); }
 .report-principle-name { font-size: var(--fs-lg); font-weight: 700; color: var(--text-primary); }
 .report-principle-summary { font-size: var(--fs-sm); color: var(--text-secondary); line-height: 1.6; }
 .report-principle-tags { display: flex; flex-wrap: wrap; gap: var(--sp-2); margin-top: var(--sp-3); }
-.report-principle-tag { font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 100px; background: var(--accent-light); color: var(--accent); }
+.report-principle-tag { font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 100px; }
 
 .report-scenario-item { background: var(--bg-surface); border: 1px solid var(--border); border-radius: var(--r-lg); padding: var(--sp-5); margin-bottom: var(--sp-4); cursor: pointer; transition: all var(--tr-fast); }
 .report-scenario-item:hover { border-color: var(--accent); }
 .report-scenario-header { display: flex; align-items: center; gap: var(--sp-3); margin-bottom: var(--sp-3); }
-.report-scenario-chapter { font-size: 10px; padding: 2px 8px; border-radius: 10px; background: var(--accent-light); color: var(--accent); font-family: var(--font-mono); }
+.report-scenario-chapter { font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 100px; font-family: var(--font-mono); }
 .report-scenario-name { font-size: var(--fs-lg); font-weight: 700; color: var(--text-primary); }
 .report-scenario-desc { font-size: var(--fs-sm); color: var(--text-secondary); line-height: 1.6; margin-bottom: var(--sp-3); }
 
@@ -1512,10 +1511,10 @@ body {
             <div class="progress-fill" id="progressFill" style="width:0%"></div>
           </div>
         </div>
-        <button class="topbar-report-btn" onclick="showSection('report')">
+        <button class="topbar-report-btn" onclick="showSection('report', true)">
           演进报告
         </button>
-        <button class="topbar-report-btn topbar-report-btn--outline" onclick="showSection('scenes')">
+        <button class="topbar-report-btn topbar-report-btn--outline" onclick="showSection('scenes', true)">
           场景入口
         </button>
         <span class="topbar-badge" id="versionBadge">v2.3</span>
@@ -1530,11 +1529,11 @@ body {
           <p>从 Pokemon 29 年演进历史中提炼可操作的设计经验，帮助你在设计宝可梦Like游戏的多人 PvP 和 PvE 玩法时，参考经过验证的设计规律，规避已知的坑。</p>
         </div>
         <div class="home-quick-start">
-          <button class="home-start-btn home-start-btn--primary" onclick="showSection('scenes')">
+          <button class="home-start-btn home-start-btn--primary" onclick="showSection('scenes', true)">
             开始探索
             <span class="home-start-arrow">→</span>
           </button>
-          <button class="home-start-btn home-start-btn--secondary" onclick="showSection('report')">
+          <button class="home-start-btn home-start-btn--secondary" onclick="showSection('report', true)">
             查看演进报告
           </button>
         </div>
@@ -1545,9 +1544,9 @@ body {
     <section class="section" id="section-scenes">
       <div class="section-inner">
         <div class="scenario-header">
-          <div class="scenario-header-back" onclick="showSection('home')">
+          <div class="scenario-header-back" onclick="goBack()">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg>
-            返回首页
+            返回
           </div>
           <div class="scenario-header-title">设计场景</div>
           <div class="scenario-header-desc">选择一个具体的设计问题，进入对应的分析章节。</div>
@@ -1555,7 +1554,7 @@ body {
 
         <!-- Primary Entry -->
         <div class="entry-grid">
-          <div class="entry-card pvp" onclick="showSection('pvp')">
+          <div class="entry-card pvp" onclick="showSection('pvp', true)">
             <div class="entry-card-header">
               <div>
                 <div class="entry-card-title">我要设计 PvP</div>
@@ -1571,7 +1570,7 @@ body {
             </div>
           </div>
 
-          <div class="entry-card pve" onclick="showSection('pve')">
+          <div class="entry-card pve" onclick="showSection('pve', true)">
             <div class="entry-card-header">
               <div>
                 <div class="entry-card-title">我要设计 PvE</div>
@@ -1595,15 +1594,15 @@ body {
         </div>
 
         <div class="quick-grid">
-          <button class="quick-link" onclick="showSection('principles')">
+          <button class="quick-link" onclick="showSection('principles', true)">
             <div class="quick-link-label">10 条设计原则</div>
             <div class="quick-link-sub">经过历史验证的核心设计准则</div>
           </button>
-          <button class="quick-link" onclick="showSection('checklist')">
+          <button class="quick-link" onclick="showSection('checklist', true)">
             <div class="quick-link-label">47 条检查清单</div>
             <div class="quick-link-sub">可直接用于设计审查的检查条目</div>
           </button>
-          <button class="quick-link" onclick="showSection('timeline')">
+          <button class="quick-link" onclick="showSection('timeline', true)">
             <div class="quick-link-label">历代时间轴</div>
             <div class="quick-link-sub">Pokemon Gen1-9 + Palworld v0.1-v0.7</div>
           </button>
@@ -1615,9 +1614,9 @@ body {
     <section class="section" id="section-pvp">
       <div class="section-inner">
         <div class="scenario-header">
-          <div class="scenario-header-back" onclick="showSection('home')">
+          <div class="scenario-header-back" onclick="goBack()">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg>
-            返回首页
+            返回
           </div>
           <div class="scenario-header-label">PvP 设计场景</div>
           <div class="scenario-header-title">双打对战核心机制设计</div>
@@ -1792,9 +1791,9 @@ body {
     <section class="section" id="section-pve">
       <div class="section-inner">
         <div class="scenario-header">
-          <div class="scenario-header-back" onclick="showSection('home')">
+          <div class="scenario-header-back" onclick="goBack()">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg>
-            返回首页
+            返回
           </div>
           <div class="scenario-header-label">PvE 设计场景</div>
           <div class="scenario-header-title">4人合作团体战设计</div>
@@ -1860,9 +1859,9 @@ body {
     <section class="section" id="section-principles">
       <div class="section-inner">
         <div class="scenario-header principles">
-          <div class="scenario-header-back" onclick="showSection('home')">
+          <div class="scenario-header-back" onclick="goBack()">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg>
-            返回首页
+            返回
           </div>
           <div class="scenario-header-label">设计原则</div>
           <div class="scenario-header-title">10 条设计原则</div>
@@ -1887,9 +1886,9 @@ body {
     <section class="section" id="section-timeline">
       <div class="section-inner">
         <div class="scenario-header">
-          <div class="scenario-header-back" onclick="showSection('home')">
+          <div class="scenario-header-back" onclick="goBack()">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg>
-            返回首页
+            返回
           </div>
           <div class="scenario-header-label">历代时间轴</div>
           <div class="scenario-header-title">设计演进时间线</div>
@@ -1916,9 +1915,9 @@ body {
     <section class="section" id="section-comparison">
       <div class="section-inner">
         <div class="scenario-header">
-          <div class="scenario-header-back" onclick="showSection('home')">
+          <div class="scenario-header-back" onclick="goBack()">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg>
-            返回首页
+            返回
           </div>
           <div class="scenario-header-label">参考资料</div>
           <div class="scenario-header-title">Pokemon vs Palworld 对照</div>
@@ -1943,9 +1942,9 @@ body {
     <section class="section" id="section-checklist">
       <div class="section-inner">
         <div class="scenario-header checklist">
-          <div class="scenario-header-back" onclick="showSection('home')">
+          <div class="scenario-header-back" onclick="goBack()">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg>
-            返回首页
+            返回
           </div>
           <div class="scenario-header-label">设计工具</div>
           <div class="scenario-header-title">设计检查清单</div>
@@ -1980,9 +1979,9 @@ body {
     <section class="section" id="section-decision">
       <div class="section-inner">
         <div class="scenario-header decision">
-          <div class="scenario-header-back" onclick="showSection('home')">
+          <div class="scenario-header-back" onclick="goBack()">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg>
-            返回首页
+            返回
           </div>
           <div class="scenario-header-label">决策树</div>
           <div class="scenario-header-title">制作人决策树</div>
@@ -1996,9 +1995,9 @@ body {
     <section class="section" id="section-guide">
       <div class="section-inner">
         <div class="scenario-header">
-          <div class="scenario-header-back" onclick="showSection('home')">
+          <div class="scenario-header-back" onclick="goBack()">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg>
-            返回首页
+            返回
           </div>
           <div class="scenario-header-label">使用指南</div>
           <div class="scenario-header-title">报告使用指南</div>
@@ -2046,9 +2045,9 @@ body {
     <section class="section" id="section-report">
       <div class="section-inner">
         <div class="scenario-header">
-          <div class="scenario-header-back" onclick="showSection('home')">
+          <div class="scenario-header-back" onclick="goBack()">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg>
-            返回首页
+            返回
           </div>
           <div class="scenario-header-label">参考资料</div>
           <div class="scenario-header-title">演进报告</div>
@@ -2253,7 +2252,19 @@ function saveState() {
   try { localStorage.setItem('vgc-report-v4', JSON.stringify({ checkedItems: checkedItems, filter: currentFilter })); } catch {}
 }
 
-function showSection(id) {
+// ─── Section Navigation History ──────────────────────────
+var sectionHistory = ['home'];
+
+function goBack() {
+  if (sectionHistory.length > 1) {
+    sectionHistory.pop();
+    showSection(sectionHistory[sectionHistory.length - 1], true);
+  } else {
+    showSection('home', true);
+  }
+}
+
+function showSection(id, fromHistory) {
   document.querySelectorAll('.section').forEach(function(s) { s.classList.remove('active'); });
   var sec = document.getElementById('section-' + id);
   if (sec) sec.classList.add('active');
@@ -2265,10 +2276,14 @@ function showSection(id) {
   window.scrollTo({ top: 0, behavior: 'smooth' });
   document.getElementById('sidebar').classList.remove('open');
   closeSearch();
+  if (!fromHistory) {
+    var current = sectionHistory[sectionHistory.length - 1];
+    if (current !== id) sectionHistory.push(id);
+  }
 }
 
 document.querySelectorAll('.nav-item').forEach(function(item) {
-  item.addEventListener('click', function(e) { e.preventDefault(); showSection(item.dataset.section); });
+  item.addEventListener('click', function(e) { e.preventDefault(); showSection(item.dataset.section, true); });
 });
 document.getElementById('sidebarToggle').addEventListener('click', function() {
   document.getElementById('sidebar').classList.toggle('open');
@@ -2733,12 +2748,12 @@ function renderDecisionTree() {
   var grid = document.getElementById('decisionTreeGrid');
   if (!grid || !reportData || !reportData.decision_tree) return;
   var tree = reportData.decision_tree;
-  var icons = { shield:'&#9878;', users:'&#128101;', filter:'&#128269;' };
+  var icons = { shield:'●', users:'●', filter:'●' };
   grid.innerHTML = tree.branches.map(function(branch) {
     return '<div class="tree-branch">' +
-      '<div class="tree-branch-header">' +
-        '<div class="tree-branch-icon" style="background:' + branch.color + '18;color:' + branch.color + ';">' + (icons[branch.icon] || '&#9679;') + '</div>' +
-        '<div class="tree-branch-label">' + branch.label + '</div>' +
+      '<div class="tree-branch-header" style="border-left-color:' + branch.color + ';">' +
+        '<div class="tree-branch-icon" style="background:' + branch.color + ';"></div>' +
+        '<div class="tree-branch-label" style="color:' + branch.color + ';">' + branch.label + '</div>' +
       '</div>' +
       '<div class="tree-branch-q">' + branch.sub_question + '</div>' +
       '<div class="tree-branch-items">' +
@@ -2785,8 +2800,8 @@ function renderReport() {
   var srcEl = document.getElementById('reportSources');
   if (srcEl && meta.data_sources) {
     srcEl.innerHTML = meta.data_sources.map(function(s) {
-      var typeClass = s.type === 'official' ? 'official' : (s.type === 'community' ? 'community' : 'inferred');
-      return '<span class="report-source-tag ' + typeClass + '" title="' + s.description + '">' + s.name + '</span>';
+      var color = s.type === 'official' ? '#10b981' : s.type === 'community' ? '#a855f7' : '#f97316';
+      return '<span class="report-source-tag" style="background:' + color + '18;color:' + color + ';border-color:' + color + '30;" title="' + s.description + '">' + s.name + '</span>';
     }).join('');
   }
 
@@ -2826,16 +2841,19 @@ function renderReportPrinciples() {
   var container = document.getElementById('reportPrinciplesList');
   if (!container || !reportData || !reportData.principles) return;
   container.innerHTML = reportData.principles.map(function(p) {
-    return '<div class="report-principle-item" onclick="showPrincipleModal(' + p.id + ')">' +
+    var catColor = CAT_COLORS[p.category] || '#6366f1';
+    var confColor = p.confidence === '高' ? '#16a34a' : p.confidence === '中' ? '#ca8a04' : '#dc2626';
+    var confBg = p.confidence === '高' ? 'rgba(22,163,74,0.1)' : p.confidence === '中' ? 'rgba(202,138,4,0.1)' : 'rgba(220,38,38,0.1)';
+    return '<div class="report-principle-item" onclick="openPrincipleModal(' + p.id + ')">' +
       '<div class="report-principle-header">' +
-        '<span class="report-principle-id">原则 ' + p.id + '</span>' +
+        '<span class="report-principle-id" style="background:' + catColor + '20;color:' + catColor + ';">原则 ' + p.id + '</span>' +
         '<span class="report-principle-name">' + p.name + '</span>' +
       '</div>' +
       '<div class="report-principle-summary">' + p.summary + '</div>' +
       '<div class="report-principle-tags">' +
-        '<span class="report-principle-tag">' + p.category_label + '</span>' +
-        '<span class="report-principle-tag">' + p.chapter + '</span>' +
-        '<span class="report-principle-tag" style="cursor:pointer;" onclick="showDisclaimer()">' + confLabel(p.confidence) + '</span>' +
+        '<span class="report-principle-tag" style="background:' + catColor + '18;color:' + catColor + ';">' + p.category_label + '</span>' +
+        '<span class="report-principle-tag" style="background:' + catColor + '18;color:' + catColor + ';">' + p.chapter + '</span>' +
+        (p.confidence ? '<span class="report-principle-tag" style="background:' + confBg + ';color:' + confColor + ';cursor:pointer;" onclick="showDisclaimer()">' + confLabel(p.confidence) + '</span>' : '') +
       '</div>' +
     '</div>';
   }).join('');
@@ -2845,15 +2863,16 @@ function renderReportScenarios() {
   var container = document.getElementById('reportScenariosList');
   if (!container || !reportData || !reportData.scenarios) return;
   container.innerHTML = reportData.scenarios.map(function(s) {
+    var catColor = CAT_COLORS[s.category] || '#6366f1';
     return '<div class="report-scenario-item" onclick="showScenarioDetail(\'' + s.id + '\')">' +
       '<div class="report-scenario-header">' +
-        '<span class="report-scenario-chapter">' + s.chapter + '</span>' +
+        '<span class="report-scenario-chapter" style="background:' + catColor + '20;color:' + catColor + ';">' + s.chapter + '</span>' +
         '<span class="report-scenario-name">' + s.label + '</span>' +
       '</div>' +
       '<div class="report-scenario-desc">' + s.description + '</div>' +
       '<div class="report-principle-tags">' +
-        '<span class="report-principle-tag">' + s.principles.length + ' 条原则</span>' +
-        '<span class="report-principle-tag">' + s.checklist_ids.length + ' 条清单</span>' +
+        '<span class="report-principle-tag" style="background:' + catColor + '18;color:' + catColor + ';">' + s.principles.length + ' 条原则</span>' +
+        '<span class="report-principle-tag" style="background:' + catColor + '18;color:' + catColor + ';">' + s.checklist_ids.length + ' 条清单</span>' +
       '</div>' +
     '</div>';
   }).join('');
