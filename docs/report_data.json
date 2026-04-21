@@ -883,7 +883,9 @@
         "category": "foundation",
         "data_confidence": "official",
         "related_principles": [],
-        "related_checklist": []
+        "related_checklist": [],
+        "freshness": "low",
+        "last_verified": "2026-04-21"
       },
       {
         "year": 1999,
@@ -893,7 +895,9 @@
         "category": "foundation",
         "data_confidence": "official",
         "related_principles": [],
-        "related_checklist": []
+        "related_checklist": [],
+        "freshness": "low",
+        "last_verified": "2026-04-21"
       },
       {
         "year": 2000,
@@ -904,7 +908,9 @@
         "removed": false,
         "data_confidence": "inferred_mid",
         "related_principles": [],
-        "related_checklist": []
+        "related_checklist": [],
+        "freshness": "low",
+        "last_verified": "2026-04-21"
       },
       {
         "year": 2000,
@@ -915,7 +921,9 @@
         "removed": false,
         "data_confidence": "official",
         "related_principles": [],
-        "related_checklist": []
+        "related_checklist": [],
+        "freshness": "low",
+        "last_verified": "2026-04-21"
       },
       {
         "year": 2001,
@@ -938,7 +946,23 @@
         "related_checklist": [
           "A.7.2"
         ],
-        "chain_related": []
+        "chain_related": [],
+        "freshness": "low",
+        "last_verified": "2026-04-21",
+        "edit_history": [
+          {
+            "date": "2026-04-21",
+            "version": "2.8.0",
+            "action": "P2双向关联系统 - 关联原则/清单标注",
+            "editor": "AI-agent"
+          },
+          {
+            "date": "2026-04-20",
+            "version": "2.5.5",
+            "action": "扩充已删除条目详情",
+            "editor": "AI-agent"
+          }
+        ]
       },
       {
         "year": 2002,
@@ -949,7 +973,9 @@
         "removed": false,
         "data_confidence": "official",
         "related_principles": [],
-        "related_checklist": []
+        "related_checklist": [],
+        "freshness": "low",
+        "last_verified": "2026-04-21"
       },
       {
         "year": 2002,
@@ -960,7 +986,9 @@
         "removed": false,
         "data_confidence": "official",
         "related_principles": [],
-        "related_checklist": []
+        "related_checklist": [],
+        "freshness": "low",
+        "last_verified": "2026-04-21"
       },
       {
         "year": 2002,
@@ -971,7 +999,9 @@
         "removed": false,
         "data_confidence": "inferred_mid",
         "related_principles": [],
-        "related_checklist": []
+        "related_checklist": [],
+        "freshness": "low",
+        "last_verified": "2026-04-21"
       },
       {
         "year": 2002,
@@ -994,6 +1024,28 @@
         "related_checklist": [
           "A.1.1",
           "A.1.2"
+        ],
+        "freshness": "low",
+        "last_verified": "2026-04-21",
+        "edit_history": [
+          {
+            "date": "2026-04-20",
+            "version": "2.6.0",
+            "action": "P0数据质量筑基 - 置信度标注",
+            "editor": "AI-agent"
+          },
+          {
+            "date": "2026-04-21",
+            "version": "2.7.0",
+            "action": "P1事件粒度标准化 - 从综合条目拆分",
+            "editor": "AI-agent"
+          },
+          {
+            "date": "2026-04-21",
+            "version": "2.8.0",
+            "action": "P2双向关联系统 - 关联原则/清单标注",
+            "editor": "AI-agent"
+          }
         ]
       },
       {
@@ -1013,7 +1065,29 @@
           "A.3.1",
           "A.3.2"
         ],
-        "chain_related": []
+        "chain_related": [],
+        "freshness": "low",
+        "last_verified": "2026-04-21",
+        "edit_history": [
+          {
+            "date": "2026-04-20",
+            "version": "2.6.0",
+            "action": "P0数据质量筑基 - 置信度标注",
+            "editor": "AI-agent"
+          },
+          {
+            "date": "2026-04-21",
+            "version": "2.7.0",
+            "action": "P1事件粒度标准化 - 从综合条目拆分",
+            "editor": "AI-agent"
+          },
+          {
+            "date": "2026-04-21",
+            "version": "2.8.0",
+            "action": "P2双向关联系统 - 关联原则/清单标注",
+            "editor": "AI-agent"
+          }
+        ]
       },
       {
         "year": 2002,
@@ -1033,6 +1107,28 @@
         ],
         "related_checklist": [
           "A.1.1"
+        ],
+        "freshness": "low",
+        "last_verified": "2026-04-21",
+        "edit_history": [
+          {
+            "date": "2026-04-20",
+            "version": "2.6.0",
+            "action": "P0数据质量筑基 - 置信度标注",
+            "editor": "AI-agent"
+          },
+          {
+            "date": "2026-04-21",
+            "version": "2.7.0",
+            "action": "P1事件粒度标准化 - 从综合条目拆分",
+            "editor": "AI-agent"
+          },
+          {
+            "date": "2026-04-21",
+            "version": "2.8.0",
+            "action": "P2双向关联系统 - 关联原则/清单标注",
+            "editor": "AI-agent"
+          }
         ]
       },
       {
@@ -1056,6 +1152,28 @@
         "related_checklist": [
           "A.1.3",
           "A.1.4"
+        ],
+        "freshness": "low",
+        "last_verified": "2026-04-21",
+        "edit_history": [
+          {
+            "date": "2026-04-20",
+            "version": "2.6.0",
+            "action": "P0数据质量筑基 - 置信度标注",
+            "editor": "AI-agent"
+          },
+          {
+            "date": "2026-04-21",
+            "version": "2.7.0",
+            "action": "P1事件粒度标准化 - 从综合条目拆分",
+            "editor": "AI-agent"
+          },
+          {
+            "date": "2026-04-21",
+            "version": "2.8.0",
+            "action": "P2双向关联系统 - 关联原则/清单标注",
+            "editor": "AI-agent"
+          }
         ]
       },
       {
@@ -1077,6 +1195,16 @@
         "chain_related": [
           "华丽大赛作为「非战斗内容」登场",
           "华丽大赛从主系列中消失"
+        ],
+        "freshness": "low",
+        "last_verified": "2026-04-21",
+        "edit_history": [
+          {
+            "date": "2026-04-21",
+            "version": "2.8.0",
+            "action": "P2双向关联系统 - 关联原则/清单标注",
+            "editor": "AI-agent"
+          }
         ]
       },
       {
@@ -1088,7 +1216,9 @@
         "removed": false,
         "data_confidence": "official",
         "related_principles": [],
-        "related_checklist": []
+        "related_checklist": [],
+        "freshness": "low",
+        "last_verified": "2026-04-21"
       },
       {
         "year": 2006,
@@ -1114,6 +1244,22 @@
         ],
         "chain_related": [
           "秘密别墅（Secret Base）：玩家空间概念的原型"
+        ],
+        "freshness": "low",
+        "last_verified": "2026-04-21",
+        "edit_history": [
+          {
+            "date": "2026-04-21",
+            "version": "2.8.0",
+            "action": "P2双向关联系统 - 关联原则/清单标注",
+            "editor": "AI-agent"
+          },
+          {
+            "date": "2026-04-20",
+            "version": "2.5.5",
+            "action": "扩充已删除条目详情",
+            "editor": "AI-agent"
+          }
         ]
       },
       {
@@ -1137,6 +1283,22 @@
         "related_checklist": [
           "A.1.4",
           "A.1.2"
+        ],
+        "freshness": "low",
+        "last_verified": "2026-04-21",
+        "edit_history": [
+          {
+            "date": "2026-04-21",
+            "version": "2.7.0",
+            "action": "P1事件粒度标准化 - 从综合条目拆分",
+            "editor": "AI-agent"
+          },
+          {
+            "date": "2026-04-21",
+            "version": "2.8.0",
+            "action": "P2双向关联系统 - 关联原则/清单标注",
+            "editor": "AI-agent"
+          }
         ]
       },
       {
@@ -1148,7 +1310,9 @@
         "removed": false,
         "data_confidence": "official",
         "related_principles": [],
-        "related_checklist": []
+        "related_checklist": [],
+        "freshness": "low",
+        "last_verified": "2026-04-21"
       },
       {
         "year": 2007,
@@ -1159,7 +1323,9 @@
         "removed": false,
         "data_confidence": "official",
         "related_principles": [],
-        "related_checklist": []
+        "related_checklist": [],
+        "freshness": "low",
+        "last_verified": "2026-04-21"
       },
       {
         "year": 2007,
@@ -1170,7 +1336,9 @@
         "removed": false,
         "data_confidence": "inferred_mid",
         "related_principles": [],
-        "related_checklist": []
+        "related_checklist": [],
+        "freshness": "low",
+        "last_verified": "2026-04-21"
       },
       {
         "year": 2008,
@@ -1192,6 +1360,22 @@
         ],
         "related_checklist": [
           "A.7.2"
+        ],
+        "freshness": "low",
+        "last_verified": "2026-04-21",
+        "edit_history": [
+          {
+            "date": "2026-04-21",
+            "version": "2.7.0",
+            "action": "P1事件粒度标准化 - 从综合条目拆分",
+            "editor": "AI-agent"
+          },
+          {
+            "date": "2026-04-21",
+            "version": "2.8.0",
+            "action": "P2双向关联系统 - 关联原则/清单标注",
+            "editor": "AI-agent"
+          }
         ]
       },
       {
@@ -1204,7 +1388,17 @@
         "data_confidence": "official",
         "chain_category": "palworld_analog",
         "related_principles": [],
-        "related_checklist": []
+        "related_checklist": [],
+        "freshness": "medium",
+        "last_verified": "2026-04-21",
+        "edit_history": [
+          {
+            "date": "2026-04-21",
+            "version": "2.8.0",
+            "action": "手动新鲜度等级指定",
+            "editor": "AI-agent"
+          }
+        ]
       },
       {
         "year": 2009,
@@ -1227,6 +1421,28 @@
         "related_checklist": [
           "A.4.1",
           "A.6.1"
+        ],
+        "freshness": "low",
+        "last_verified": "2026-04-21",
+        "edit_history": [
+          {
+            "date": "2026-04-20",
+            "version": "2.6.0",
+            "action": "P0数据质量筑基 - 置信度标注",
+            "editor": "AI-agent"
+          },
+          {
+            "date": "2026-04-21",
+            "version": "2.7.0",
+            "action": "P1事件粒度标准化 - 从综合条目拆分",
+            "editor": "AI-agent"
+          },
+          {
+            "date": "2026-04-21",
+            "version": "2.8.0",
+            "action": "P2双向关联系统 - 关联原则/清单标注",
+            "editor": "AI-agent"
+          }
         ]
       },
       {
@@ -1253,6 +1469,28 @@
         ],
         "chain_related": [
           "Pokewalker 将真实步行与游戏奖励绑定"
+        ],
+        "freshness": "low",
+        "last_verified": "2026-04-21",
+        "edit_history": [
+          {
+            "date": "2026-04-21",
+            "version": "2.8.0",
+            "action": "手动新鲜度等级指定",
+            "editor": "AI-agent"
+          },
+          {
+            "date": "2026-04-21",
+            "version": "2.8.0",
+            "action": "P2双向关联系统 - 关联原则/清单标注",
+            "editor": "AI-agent"
+          },
+          {
+            "date": "2026-04-20",
+            "version": "2.5.5",
+            "action": "扩充已删除条目详情",
+            "editor": "AI-agent"
+          }
         ]
       },
       {
@@ -1268,7 +1506,9 @@
         "chain_next": null,
         "chain_related": [],
         "related_principles": [],
-        "related_checklist": []
+        "related_checklist": [],
+        "freshness": "low",
+        "last_verified": "2026-04-21"
       },
       {
         "year": 2011,
@@ -1278,7 +1518,9 @@
         "category": "foundation",
         "data_confidence": "official",
         "related_principles": [],
-        "related_checklist": []
+        "related_checklist": [],
+        "freshness": "low",
+        "last_verified": "2026-04-21"
       },
       {
         "year": 2011,
@@ -1306,6 +1548,22 @@
         "chain_related": [
           "对战塔（Battle Tower）：回合制竞技场的原型",
           "对战塔在 Gen 8 剑/盾中彻底消失"
+        ],
+        "freshness": "low",
+        "last_verified": "2026-04-21",
+        "edit_history": [
+          {
+            "date": "2026-04-21",
+            "version": "2.8.0",
+            "action": "P2双向关联系统 - 关联原则/清单标注",
+            "editor": "AI-agent"
+          },
+          {
+            "date": "2026-04-20",
+            "version": "2.5.5",
+            "action": "扩充已删除条目详情",
+            "editor": "AI-agent"
+          }
         ]
       },
       {
@@ -1331,7 +1589,23 @@
           "A.7.1",
           "A.6.2"
         ],
-        "chain_related": []
+        "chain_related": [],
+        "freshness": "low",
+        "last_verified": "2026-04-21",
+        "edit_history": [
+          {
+            "date": "2026-04-21",
+            "version": "2.8.0",
+            "action": "P2双向关联系统 - 关联原则/清单标注",
+            "editor": "AI-agent"
+          },
+          {
+            "date": "2026-04-20",
+            "version": "2.5.5",
+            "action": "扩充已删除条目详情",
+            "editor": "AI-agent"
+          }
+        ]
       },
       {
         "year": 2011,
@@ -1360,6 +1634,22 @@
         "chain_related": [
           "华丽大赛作为「非战斗内容」登场",
           "华丽大赛升级：添加华丽舞台与旁观模式"
+        ],
+        "freshness": "low",
+        "last_verified": "2026-04-21",
+        "edit_history": [
+          {
+            "date": "2026-04-21",
+            "version": "2.8.0",
+            "action": "P2双向关联系统 - 关联原则/清单标注",
+            "editor": "AI-agent"
+          },
+          {
+            "date": "2026-04-20",
+            "version": "2.5.5",
+            "action": "扩充已删除条目详情",
+            "editor": "AI-agent"
+          }
         ]
       },
       {
@@ -1371,7 +1661,9 @@
         "removed": false,
         "data_confidence": "official",
         "related_principles": [],
-        "related_checklist": []
+        "related_checklist": [],
+        "freshness": "low",
+        "last_verified": "2026-04-21"
       },
       {
         "year": 2011,
@@ -1382,7 +1674,9 @@
         "removed": false,
         "data_confidence": "official",
         "related_principles": [],
-        "related_checklist": []
+        "related_checklist": [],
+        "freshness": "low",
+        "last_verified": "2026-04-21"
       },
       {
         "year": 2011,
@@ -1399,7 +1693,17 @@
         "data_confidence": "inferred_mid",
         "ban_type": "content_removal",
         "related_principles": [],
-        "related_checklist": []
+        "related_checklist": [],
+        "freshness": "low",
+        "last_verified": "2026-04-21",
+        "edit_history": [
+          {
+            "date": "2026-04-20",
+            "version": "2.5.5",
+            "action": "扩充已删除条目详情",
+            "editor": "AI-agent"
+          }
+        ]
       },
       {
         "year": 2012,
@@ -1410,7 +1714,9 @@
         "removed": false,
         "data_confidence": "inferred_mid",
         "related_principles": [],
-        "related_checklist": []
+        "related_checklist": [],
+        "freshness": "low",
+        "last_verified": "2026-04-21"
       },
       {
         "year": 2013,
@@ -1433,6 +1739,22 @@
         "related_checklist": [
           "A.2.1",
           "A.2.3"
+        ],
+        "freshness": "low",
+        "last_verified": "2026-04-21",
+        "edit_history": [
+          {
+            "date": "2026-04-20",
+            "version": "2.6.0",
+            "action": "P0数据质量筑基 - 置信度标注",
+            "editor": "AI-agent"
+          },
+          {
+            "date": "2026-04-21",
+            "version": "2.8.0",
+            "action": "P2双向关联系统 - 关联原则/清单标注",
+            "editor": "AI-agent"
+          }
         ]
       },
       {
@@ -1465,6 +1787,22 @@
         "related_checklist": [
           "A.2.3",
           "A.6.1"
+        ],
+        "freshness": "low",
+        "last_verified": "2026-04-21",
+        "edit_history": [
+          {
+            "date": "2026-04-21",
+            "version": "2.8.0",
+            "action": "P2双向关联系统 - 关联原则/清单标注",
+            "editor": "AI-agent"
+          },
+          {
+            "date": "2026-04-20",
+            "version": "2.5.5",
+            "action": "扩充已删除条目详情",
+            "editor": "AI-agent"
+          }
         ]
       },
       {
@@ -1476,7 +1814,9 @@
         "removed": false,
         "data_confidence": "official",
         "related_principles": [],
-        "related_checklist": []
+        "related_checklist": [],
+        "freshness": "low",
+        "last_verified": "2026-04-21"
       },
       {
         "year": 2013,
@@ -1502,6 +1842,22 @@
         ],
         "chain_related": [
           "反转对战（Inverse Battle）模式登场"
+        ],
+        "freshness": "low",
+        "last_verified": "2026-04-21",
+        "edit_history": [
+          {
+            "date": "2026-04-21",
+            "version": "2.8.0",
+            "action": "P2双向关联系统 - 关联原则/清单标注",
+            "editor": "AI-agent"
+          },
+          {
+            "date": "2026-04-20",
+            "version": "2.5.5",
+            "action": "扩充已删除条目详情",
+            "editor": "AI-agent"
+          }
         ]
       },
       {
@@ -1513,7 +1869,9 @@
         "removed": false,
         "data_confidence": "official",
         "related_principles": [],
-        "related_checklist": []
+        "related_checklist": [],
+        "freshness": "low",
+        "last_verified": "2026-04-21"
       },
       {
         "year": 2013,
@@ -1524,7 +1882,9 @@
         "removed": false,
         "data_confidence": "official",
         "related_principles": [],
-        "related_checklist": []
+        "related_checklist": [],
+        "freshness": "low",
+        "last_verified": "2026-04-21"
       },
       {
         "year": 2013,
@@ -1535,7 +1895,9 @@
         "removed": false,
         "data_confidence": "official",
         "related_principles": [],
-        "related_checklist": []
+        "related_checklist": [],
+        "freshness": "low",
+        "last_verified": "2026-04-21"
       },
       {
         "year": 2013,
@@ -1561,6 +1923,22 @@
         ],
         "chain_related": [
           "跟随系统（Following Pokemon）在心金/魂银中首次实现"
+        ],
+        "freshness": "low",
+        "last_verified": "2026-04-21",
+        "edit_history": [
+          {
+            "date": "2026-04-21",
+            "version": "2.8.0",
+            "action": "P2双向关联系统 - 关联原则/清单标注",
+            "editor": "AI-agent"
+          },
+          {
+            "date": "2026-04-20",
+            "version": "2.5.5",
+            "action": "扩充已删除条目详情",
+            "editor": "AI-agent"
+          }
         ]
       },
       {
@@ -1572,7 +1950,9 @@
         "removed": false,
         "data_confidence": "official",
         "related_principles": [],
-        "related_checklist": []
+        "related_checklist": [],
+        "freshness": "low",
+        "last_verified": "2026-04-21"
       },
       {
         "year": 2013,
@@ -1583,7 +1963,9 @@
         "removed": false,
         "data_confidence": "inferred_mid",
         "related_principles": [],
-        "related_checklist": []
+        "related_checklist": [],
+        "freshness": "low",
+        "last_verified": "2026-04-21"
       },
       {
         "year": 2013,
@@ -1594,7 +1976,9 @@
         "removed": false,
         "data_confidence": "official",
         "related_principles": [],
-        "related_checklist": []
+        "related_checklist": [],
+        "freshness": "low",
+        "last_verified": "2026-04-21"
       },
       {
         "year": 2013,
@@ -1611,7 +1995,17 @@
         "data_confidence": "inferred_mid",
         "ban_type": "content_removal",
         "related_principles": [],
-        "related_checklist": []
+        "related_checklist": [],
+        "freshness": "low",
+        "last_verified": "2026-04-21",
+        "edit_history": [
+          {
+            "date": "2026-04-20",
+            "version": "2.5.5",
+            "action": "扩充已删除条目详情",
+            "editor": "AI-agent"
+          }
+        ]
       },
       {
         "year": 2014,
@@ -1634,6 +2028,16 @@
         ],
         "related_checklist": [
           "A.7.2"
+        ],
+        "freshness": "low",
+        "last_verified": "2026-04-21",
+        "edit_history": [
+          {
+            "date": "2026-04-21",
+            "version": "2.8.0",
+            "action": "P2双向关联系统 - 关联原则/清单标注",
+            "editor": "AI-agent"
+          }
         ]
       },
       {
@@ -1657,6 +2061,16 @@
         "related_checklist": [
           "A.2.1",
           "A.2.4"
+        ],
+        "freshness": "low",
+        "last_verified": "2026-04-21",
+        "edit_history": [
+          {
+            "date": "2026-04-21",
+            "version": "2.8.0",
+            "action": "P2双向关联系统 - 关联原则/清单标注",
+            "editor": "AI-agent"
+          }
         ]
       },
       {
@@ -1681,7 +2095,23 @@
           "A.5.1",
           "A.6.2"
         ],
-        "chain_related": []
+        "chain_related": [],
+        "freshness": "low",
+        "last_verified": "2026-04-21",
+        "edit_history": [
+          {
+            "date": "2026-04-21",
+            "version": "2.8.0",
+            "action": "P2双向关联系统 - 关联原则/清单标注",
+            "editor": "AI-agent"
+          },
+          {
+            "date": "2026-04-20",
+            "version": "2.5.5",
+            "action": "扩充已删除条目详情",
+            "editor": "AI-agent"
+          }
+        ]
       },
       {
         "year": 2016,
@@ -1706,6 +2136,22 @@
         ],
         "chain_related": [
           "DexNav：口袋探险队系统的集大成者"
+        ],
+        "freshness": "low",
+        "last_verified": "2026-04-21",
+        "edit_history": [
+          {
+            "date": "2026-04-21",
+            "version": "2.8.0",
+            "action": "P2双向关联系统 - 关联原则/清单标注",
+            "editor": "AI-agent"
+          },
+          {
+            "date": "2026-04-20",
+            "version": "2.5.5",
+            "action": "扩充已删除条目详情",
+            "editor": "AI-agent"
+          }
         ]
       },
       {
@@ -1730,7 +2176,23 @@
           "A.5.2",
           "A.7.2"
         ],
-        "chain_related": []
+        "chain_related": [],
+        "freshness": "low",
+        "last_verified": "2026-04-21",
+        "edit_history": [
+          {
+            "date": "2026-04-21",
+            "version": "2.8.0",
+            "action": "P2双向关联系统 - 关联原则/清单标注",
+            "editor": "AI-agent"
+          },
+          {
+            "date": "2026-04-20",
+            "version": "2.5.5",
+            "action": "扩充已删除条目详情",
+            "editor": "AI-agent"
+          }
+        ]
       },
       {
         "year": 2016,
@@ -1755,6 +2217,22 @@
         ],
         "chain_related": [
           "超级进化 + 超级训练"
+        ],
+        "freshness": "low",
+        "last_verified": "2026-04-21",
+        "edit_history": [
+          {
+            "date": "2026-04-21",
+            "version": "2.8.0",
+            "action": "P2双向关联系统 - 关联原则/清单标注",
+            "editor": "AI-agent"
+          },
+          {
+            "date": "2026-04-20",
+            "version": "2.5.5",
+            "action": "扩充已删除条目详情",
+            "editor": "AI-agent"
+          }
         ]
       },
       {
@@ -1766,7 +2244,9 @@
         "removed": false,
         "data_confidence": "official",
         "related_principles": [],
-        "related_checklist": []
+        "related_checklist": [],
+        "freshness": "low",
+        "last_verified": "2026-04-21"
       },
       {
         "year": 2016,
@@ -1777,7 +2257,9 @@
         "removed": false,
         "data_confidence": "official",
         "related_principles": [],
-        "related_checklist": []
+        "related_checklist": [],
+        "freshness": "low",
+        "last_verified": "2026-04-21"
       },
       {
         "year": 2016,
@@ -1788,7 +2270,9 @@
         "removed": false,
         "data_confidence": "official",
         "related_principles": [],
-        "related_checklist": []
+        "related_checklist": [],
+        "freshness": "low",
+        "last_verified": "2026-04-21"
       },
       {
         "year": 2016,
@@ -1799,7 +2283,9 @@
         "removed": false,
         "data_confidence": "inferred_mid",
         "related_principles": [],
-        "related_checklist": []
+        "related_checklist": [],
+        "freshness": "low",
+        "last_verified": "2026-04-21"
       },
       {
         "year": 2016,
@@ -1810,7 +2296,9 @@
         "removed": false,
         "data_confidence": "inferred_mid",
         "related_principles": [],
-        "related_checklist": []
+        "related_checklist": [],
+        "freshness": "low",
+        "last_verified": "2026-04-21"
       },
       {
         "year": 2016,
@@ -1821,7 +2309,9 @@
         "removed": false,
         "data_confidence": "inferred_mid",
         "related_principles": [],
-        "related_checklist": []
+        "related_checklist": [],
+        "freshness": "low",
+        "last_verified": "2026-04-21"
       },
       {
         "year": 2017,
@@ -1851,6 +2341,22 @@
         "related_checklist": [
           "A.1.2",
           "A.6.1"
+        ],
+        "freshness": "low",
+        "last_verified": "2026-04-21",
+        "edit_history": [
+          {
+            "date": "2026-04-21",
+            "version": "2.8.0",
+            "action": "P2双向关联系统 - 关联原则/清单标注",
+            "editor": "AI-agent"
+          },
+          {
+            "date": "2026-04-20",
+            "version": "2.5.5",
+            "action": "扩充已删除条目详情",
+            "editor": "AI-agent"
+          }
         ]
       },
       {
@@ -1882,6 +2388,22 @@
         "related_checklist": [
           "A.1.2",
           "A.6.1"
+        ],
+        "freshness": "low",
+        "last_verified": "2026-04-21",
+        "edit_history": [
+          {
+            "date": "2026-04-21",
+            "version": "2.8.0",
+            "action": "P2双向关联系统 - 关联原则/清单标注",
+            "editor": "AI-agent"
+          },
+          {
+            "date": "2026-04-20",
+            "version": "2.5.5",
+            "action": "扩充已删除条目详情",
+            "editor": "AI-agent"
+          }
         ]
       },
       {
@@ -1905,6 +2427,22 @@
         "related_checklist": [
           "A.2.1",
           "A.2.2"
+        ],
+        "freshness": "low",
+        "last_verified": "2026-04-21",
+        "edit_history": [
+          {
+            "date": "2026-04-20",
+            "version": "2.6.0",
+            "action": "P0数据质量筑基 - 置信度标注",
+            "editor": "AI-agent"
+          },
+          {
+            "date": "2026-04-21",
+            "version": "2.8.0",
+            "action": "P2双向关联系统 - 关联原则/清单标注",
+            "editor": "AI-agent"
+          }
         ]
       },
       {
@@ -1937,6 +2475,22 @@
         "related_checklist": [
           "A.2.1",
           "A.2.4"
+        ],
+        "freshness": "low",
+        "last_verified": "2026-04-21",
+        "edit_history": [
+          {
+            "date": "2026-04-21",
+            "version": "2.8.0",
+            "action": "P2双向关联系统 - 关联原则/清单标注",
+            "editor": "AI-agent"
+          },
+          {
+            "date": "2026-04-20",
+            "version": "2.5.5",
+            "action": "扩充已删除条目详情",
+            "editor": "AI-agent"
+          }
         ]
       },
       {
@@ -1962,7 +2516,23 @@
           "A.3.1",
           "A.6.2"
         ],
-        "chain_related": []
+        "chain_related": [],
+        "freshness": "low",
+        "last_verified": "2026-04-21",
+        "edit_history": [
+          {
+            "date": "2026-04-21",
+            "version": "2.8.0",
+            "action": "P2双向关联系统 - 关联原则/清单标注",
+            "editor": "AI-agent"
+          },
+          {
+            "date": "2026-04-20",
+            "version": "2.5.5",
+            "action": "扩充已删除条目详情",
+            "editor": "AI-agent"
+          }
+        ]
       },
       {
         "year": 2019,
@@ -1988,6 +2558,22 @@
         ],
         "chain_related": [
           "Pokémon Refresh（宝可清爽乐）登场：超越喂食机的情感系统"
+        ],
+        "freshness": "low",
+        "last_verified": "2026-04-21",
+        "edit_history": [
+          {
+            "date": "2026-04-21",
+            "version": "2.8.0",
+            "action": "P2双向关联系统 - 关联原则/清单标注",
+            "editor": "AI-agent"
+          },
+          {
+            "date": "2026-04-20",
+            "version": "2.5.5",
+            "action": "扩充已删除条目详情",
+            "editor": "AI-agent"
+          }
         ]
       },
       {
@@ -2014,6 +2600,22 @@
         "chain_related": [
           "SOS 呼叫：Gen 7 的动态连锁系统",
           "DexNav 在 Gen 7 日月中被移除"
+        ],
+        "freshness": "low",
+        "last_verified": "2026-04-21",
+        "edit_history": [
+          {
+            "date": "2026-04-21",
+            "version": "2.8.0",
+            "action": "P2双向关联系统 - 关联原则/清单标注",
+            "editor": "AI-agent"
+          },
+          {
+            "date": "2026-04-20",
+            "version": "2.5.5",
+            "action": "扩充已删除条目详情",
+            "editor": "AI-agent"
+          }
         ]
       },
       {
@@ -2025,7 +2627,9 @@
         "removed": false,
         "data_confidence": "inferred_low",
         "related_principles": [],
-        "related_checklist": []
+        "related_checklist": [],
+        "freshness": "low",
+        "last_verified": "2026-04-21"
       },
       {
         "year": 2019,
@@ -2051,6 +2655,22 @@
         ],
         "chain_related": [
           "对战塔（Battle Tower）：回合制竞技场的原型"
+        ],
+        "freshness": "low",
+        "last_verified": "2026-04-21",
+        "edit_history": [
+          {
+            "date": "2026-04-21",
+            "version": "2.8.0",
+            "action": "P2双向关联系统 - 关联原则/清单标注",
+            "editor": "AI-agent"
+          },
+          {
+            "date": "2026-04-20",
+            "version": "2.5.5",
+            "action": "扩充已删除条目详情",
+            "editor": "AI-agent"
+          }
         ]
       },
       {
@@ -2079,6 +2699,22 @@
         "chain_related": [
           "对战塔（Battle Tower）：回合制竞技场的原型",
           "战斗前沿被移除（黑白版）"
+        ],
+        "freshness": "low",
+        "last_verified": "2026-04-21",
+        "edit_history": [
+          {
+            "date": "2026-04-21",
+            "version": "2.8.0",
+            "action": "P2双向关联系统 - 关联原则/清单标注",
+            "editor": "AI-agent"
+          },
+          {
+            "date": "2026-04-20",
+            "version": "2.5.5",
+            "action": "扩充已删除条目详情",
+            "editor": "AI-agent"
+          }
         ]
       },
       {
@@ -2090,7 +2726,9 @@
         "removed": false,
         "data_confidence": "official",
         "related_principles": [],
-        "related_checklist": []
+        "related_checklist": [],
+        "freshness": "low",
+        "last_verified": "2026-04-21"
       },
       {
         "year": 2019,
@@ -2107,7 +2745,17 @@
         "data_confidence": "inferred_mid",
         "ban_type": "content_removal",
         "related_principles": [],
-        "related_checklist": []
+        "related_checklist": [],
+        "freshness": "low",
+        "last_verified": "2026-04-21",
+        "edit_history": [
+          {
+            "date": "2026-04-20",
+            "version": "2.5.5",
+            "action": "扩充已删除条目详情",
+            "editor": "AI-agent"
+          }
+        ]
       },
       {
         "year": 2019,
@@ -2124,7 +2772,17 @@
         "data_confidence": "inferred_mid",
         "ban_type": "content_removal",
         "related_principles": [],
-        "related_checklist": []
+        "related_checklist": [],
+        "freshness": "low",
+        "last_verified": "2026-04-21",
+        "edit_history": [
+          {
+            "date": "2026-04-20",
+            "version": "2.5.5",
+            "action": "扩充已删除条目详情",
+            "editor": "AI-agent"
+          }
+        ]
       },
       {
         "year": 2020,
@@ -2139,7 +2797,9 @@
         "chain_next": "太晶化",
         "chain_related": [],
         "related_principles": [],
-        "related_checklist": []
+        "related_checklist": [],
+        "freshness": "low",
+        "last_verified": "2026-04-21"
       },
       {
         "year": 2020,
@@ -2150,7 +2810,9 @@
         "removed": false,
         "data_confidence": "inferred_mid",
         "related_principles": [],
-        "related_checklist": []
+        "related_checklist": [],
+        "freshness": "low",
+        "last_verified": "2026-04-21"
       },
       {
         "year": 2021,
@@ -2160,7 +2822,9 @@
         "category": "pve",
         "data_confidence": "official",
         "related_principles": [],
-        "related_checklist": []
+        "related_checklist": [],
+        "freshness": "medium",
+        "last_verified": "2026-04-21"
       },
       {
         "year": 2022,
@@ -2190,6 +2854,22 @@
         ],
         "related_checklist": [
           "A.7.2"
+        ],
+        "freshness": "medium",
+        "last_verified": "2026-04-21",
+        "edit_history": [
+          {
+            "date": "2026-04-21",
+            "version": "2.8.0",
+            "action": "P2双向关联系统 - 关联原则/清单标注",
+            "editor": "AI-agent"
+          },
+          {
+            "date": "2026-04-20",
+            "version": "2.5.5",
+            "action": "扩充已删除条目详情",
+            "editor": "AI-agent"
+          }
         ]
       },
       {
@@ -2207,7 +2887,17 @@
         "data_confidence": "official",
         "ban_type": "content_removal",
         "related_principles": [],
-        "related_checklist": []
+        "related_checklist": [],
+        "freshness": "medium",
+        "last_verified": "2026-04-21",
+        "edit_history": [
+          {
+            "date": "2026-04-20",
+            "version": "2.5.5",
+            "action": "扩充已删除条目详情",
+            "editor": "AI-agent"
+          }
+        ]
       },
       {
         "year": 2022,
@@ -2230,6 +2920,22 @@
           "A.2.1",
           "A.2.2",
           "A.2.3"
+        ],
+        "freshness": "medium",
+        "last_verified": "2026-04-21",
+        "edit_history": [
+          {
+            "date": "2026-04-20",
+            "version": "2.6.0",
+            "action": "P0数据质量筑基 - 置信度标注",
+            "editor": "AI-agent"
+          },
+          {
+            "date": "2026-04-21",
+            "version": "2.8.0",
+            "action": "P2双向关联系统 - 关联原则/清单标注",
+            "editor": "AI-agent"
+          }
         ]
       },
       {
@@ -2262,6 +2968,22 @@
         "related_checklist": [
           "A.2.1",
           "A.2.4"
+        ],
+        "freshness": "medium",
+        "last_verified": "2026-04-21",
+        "edit_history": [
+          {
+            "date": "2026-04-21",
+            "version": "2.8.0",
+            "action": "P2双向关联系统 - 关联原则/清单标注",
+            "editor": "AI-agent"
+          },
+          {
+            "date": "2026-04-20",
+            "version": "2.5.5",
+            "action": "扩充已删除条目详情",
+            "editor": "AI-agent"
+          }
         ]
       },
       {
@@ -2285,7 +3007,23 @@
         "related_checklist": [
           "A.5.1"
         ],
-        "chain_related": []
+        "chain_related": [],
+        "freshness": "medium",
+        "last_verified": "2026-04-21",
+        "edit_history": [
+          {
+            "date": "2026-04-21",
+            "version": "2.8.0",
+            "action": "P2双向关联系统 - 关联原则/清单标注",
+            "editor": "AI-agent"
+          },
+          {
+            "date": "2026-04-20",
+            "version": "2.5.5",
+            "action": "扩充已删除条目详情",
+            "editor": "AI-agent"
+          }
+        ]
       },
       {
         "year": 2022,
@@ -2302,7 +3040,17 @@
         "data_confidence": "inferred_mid",
         "ban_type": "content_removal",
         "related_principles": [],
-        "related_checklist": []
+        "related_checklist": [],
+        "freshness": "medium",
+        "last_verified": "2026-04-21",
+        "edit_history": [
+          {
+            "date": "2026-04-20",
+            "version": "2.5.5",
+            "action": "扩充已删除条目详情",
+            "editor": "AI-agent"
+          }
+        ]
       },
       {
         "year": 2022,
@@ -2313,7 +3061,9 @@
         "removed": false,
         "data_confidence": "official",
         "related_principles": [],
-        "related_checklist": []
+        "related_checklist": [],
+        "freshness": "medium",
+        "last_verified": "2026-04-21"
       },
       {
         "year": 2022,
@@ -2324,7 +3074,9 @@
         "removed": false,
         "data_confidence": "official",
         "related_principles": [],
-        "related_checklist": []
+        "related_checklist": [],
+        "freshness": "medium",
+        "last_verified": "2026-04-21"
       },
       {
         "year": 2023,
@@ -2334,7 +3086,9 @@
         "category": "foundation",
         "data_confidence": "official",
         "related_principles": [],
-        "related_checklist": []
+        "related_checklist": [],
+        "freshness": "medium",
+        "last_verified": "2026-04-21"
       },
       {
         "year": 2023,
@@ -2344,7 +3098,9 @@
         "category": "foundation",
         "data_confidence": "official",
         "related_principles": [],
-        "related_checklist": []
+        "related_checklist": [],
+        "freshness": "medium",
+        "last_verified": "2026-04-21"
       },
       {
         "year": 2023,
@@ -2372,6 +3128,22 @@
         "chain_related": [
           "战斗前沿被移除（黑白版）",
           "对战塔在 Gen 8 剑/盾中彻底消失"
+        ],
+        "freshness": "medium",
+        "last_verified": "2026-04-21",
+        "edit_history": [
+          {
+            "date": "2026-04-21",
+            "version": "2.8.0",
+            "action": "P2双向关联系统 - 关联原则/清单标注",
+            "editor": "AI-agent"
+          },
+          {
+            "date": "2026-04-20",
+            "version": "2.5.5",
+            "action": "扩充已删除条目详情",
+            "editor": "AI-agent"
+          }
         ]
       },
       {
@@ -2382,7 +3154,17 @@
         "category": "pvp",
         "data_confidence": "future",
         "related_principles": [],
-        "related_checklist": []
+        "related_checklist": [],
+        "freshness": "high",
+        "last_verified": "2026-04-21",
+        "edit_history": [
+          {
+            "date": "2026-04-21",
+            "version": "2.8.0",
+            "action": "近期事件新鲜度标注",
+            "editor": "AI-agent"
+          }
+        ]
       },
       {
         "year": 2025,
@@ -2405,6 +3187,28 @@
         ],
         "related_checklist": [
           "A.7.2"
+        ],
+        "freshness": "medium",
+        "last_verified": "2026-04-21",
+        "edit_history": [
+          {
+            "date": "2026-04-21",
+            "version": "2.8.0",
+            "action": "近期事件新鲜度标注",
+            "editor": "AI-agent"
+          },
+          {
+            "date": "2026-04-21",
+            "version": "2.8.0",
+            "action": "手动新鲜度等级指定",
+            "editor": "AI-agent"
+          },
+          {
+            "date": "2026-04-21",
+            "version": "2.8.0",
+            "action": "P2双向关联系统 - 关联原则/清单标注",
+            "editor": "AI-agent"
+          }
         ]
       },
       {
@@ -2430,6 +3234,34 @@
         ],
         "chain_related": [
           "Pokemon 虚拟银行（Pokemon Bank）上线，云端存储时代开启"
+        ],
+        "freshness": "low",
+        "last_verified": "2026-04-21",
+        "edit_history": [
+          {
+            "date": "2026-04-21",
+            "version": "2.8.0",
+            "action": "近期事件新鲜度标注",
+            "editor": "AI-agent"
+          },
+          {
+            "date": "2026-04-21",
+            "version": "2.8.0",
+            "action": "手动新鲜度等级指定",
+            "editor": "AI-agent"
+          },
+          {
+            "date": "2026-04-21",
+            "version": "2.8.0",
+            "action": "P2双向关联系统 - 关联原则/清单标注",
+            "editor": "AI-agent"
+          },
+          {
+            "date": "2026-04-20",
+            "version": "2.5.5",
+            "action": "扩充已删除条目详情",
+            "editor": "AI-agent"
+          }
         ]
       },
       {
@@ -2441,7 +3273,17 @@
         "removed": false,
         "data_confidence": "future",
         "related_principles": [],
-        "related_checklist": []
+        "related_checklist": [],
+        "freshness": "high",
+        "last_verified": "2026-04-21",
+        "edit_history": [
+          {
+            "date": "2026-04-21",
+            "version": "2.8.0",
+            "action": "近期事件新鲜度标注",
+            "editor": "AI-agent"
+          }
+        ]
       },
       {
         "year": 2026,
@@ -2452,7 +3294,17 @@
         "removed": false,
         "data_confidence": "inferred_low",
         "related_principles": [],
-        "related_checklist": []
+        "related_checklist": [],
+        "freshness": "high",
+        "last_verified": "2026-04-21",
+        "edit_history": [
+          {
+            "date": "2026-04-21",
+            "version": "2.8.0",
+            "action": "近期事件新鲜度标注",
+            "editor": "AI-agent"
+          }
+        ]
       },
       {
         "year": 2026,
@@ -2463,7 +3315,17 @@
         "removed": false,
         "data_confidence": "future",
         "related_principles": [],
-        "related_checklist": []
+        "related_checklist": [],
+        "freshness": "high",
+        "last_verified": "2026-04-21",
+        "edit_history": [
+          {
+            "date": "2026-04-21",
+            "version": "2.8.0",
+            "action": "近期事件新鲜度标注",
+            "editor": "AI-agent"
+          }
+        ]
       },
       {
         "year": 2026,
@@ -2475,7 +3337,17 @@
         "removal_note": "地区形态的案例是「内容膨胀」的经典游戏设计问题。当每个新功能都创造了「历史遗留」时，后续的开发成本会不断累积。阿罗拉形态虽然在 Gen 7 之后短暂「消失」，但最终被证实是一个「值得维护」的设计决策——它的情感价值和设计价值都足够高，足以支撑长期维护成本。这与「华丽大赛」和「跟随系统」等被移除后回归的内容形成了对比：不是所有被移除的内容都值得回归，地区形态回归是因为它的「对战差异化价值」是持续的，而华丽大赛的「表演价值」是递减的。",
         "data_confidence": "inferred_mid",
         "related_principles": [],
-        "related_checklist": []
+        "related_checklist": [],
+        "freshness": "high",
+        "last_verified": "2026-04-21",
+        "edit_history": [
+          {
+            "date": "2026-04-21",
+            "version": "2.8.0",
+            "action": "近期事件新鲜度标注",
+            "editor": "AI-agent"
+          }
+        ]
       },
       {
         "year": 2026,
@@ -2486,7 +3358,17 @@
         "removed": false,
         "data_confidence": "inferred_mid",
         "related_principles": [],
-        "related_checklist": []
+        "related_checklist": [],
+        "freshness": "high",
+        "last_verified": "2026-04-21",
+        "edit_history": [
+          {
+            "date": "2026-04-21",
+            "version": "2.8.0",
+            "action": "近期事件新鲜度标注",
+            "editor": "AI-agent"
+          }
+        ]
       },
       {
         "year": 2026,
@@ -2498,7 +3380,17 @@
         "removal_note": "Pokemon GO 联动的案例是「跨平台生态设计」的经典案例。Pokemon 通过 HOME 建立了一个「跨平台中转站」，使得不同平台（手机、掌机、家用机）的玩家可以共享同一个宝可梦池。这个设计的优势是明显的：Pokemon GO 的活跃用户可以为主游戏提供宝可梦来源，增加了 Pokemon 品牌的整体活跃度。但它的挑战同样明显：不同平台的获取难度和成本不同，如何防止「付费平台」对「游戏平台」的竞争优势，是一个需要持续平衡的问题。目前 Pokemon 的解决方案是「限制特定强力宝可梦的传输来源」，但随着 Gen 10 的到来，这一平衡策略的可持续性还有待观察。",
         "data_confidence": "inferred_mid",
         "related_principles": [],
-        "related_checklist": []
+        "related_checklist": [],
+        "freshness": "high",
+        "last_verified": "2026-04-21",
+        "edit_history": [
+          {
+            "date": "2026-04-21",
+            "version": "2.8.0",
+            "action": "近期事件新鲜度标注",
+            "editor": "AI-agent"
+          }
+        ]
       },
       {
         "year": 2026,
@@ -2510,7 +3402,17 @@
         "removal_note": "HM 系统的历史是一面镜子，映照出 Pokemon 从「收集-战斗循环」向「伙伴关系叙事」的演进轨迹。HM 的存在曾经强化了「宝可梦是工具」的一面，而它的消失则让 Pokemon 的核心叙事更加纯粹。这个案例提醒我们：游戏系统的设计会影响玩家的情感认知——同一个系统在不同设计哲学下会得出完全不同的评价。",
         "data_confidence": "inferred_mid",
         "related_principles": [],
-        "related_checklist": []
+        "related_checklist": [],
+        "freshness": "high",
+        "last_verified": "2026-04-21",
+        "edit_history": [
+          {
+            "date": "2026-04-21",
+            "version": "2.8.0",
+            "action": "近期事件新鲜度标注",
+            "editor": "AI-agent"
+          }
+        ]
       },
       {
         "year": 2026,
@@ -2522,7 +3424,17 @@
         "removal_note": "这 30+ 个被移除的系统共同构成了 Pokemon 的「设计债务」。每一个被移除的系统都代表着一批玩家的情感记忆和投入——培育华丽大赛的技巧、掌握 DexNav 连锁的节奏、与 Pokewalker 的步行日记。Pokemon 的设计策略正在从「不断添加新系统」转向「谨慎选择、长期维护」，Gen 10 的「统一呈现历代形态」和「让 Mega 进化回归」的承诺，都指向同一个方向：Game Freak 正在学习「保留遗产」而非「不断推翻重来」。这是一个从「创造者视角」到「守护者视角」的转变，对于一个拥有 30 年历史、覆盖全球数十亿玩家的 IP 来说，这个转变是必要且及时的。",
         "data_confidence": "inferred_mid",
         "related_principles": [],
-        "related_checklist": []
+        "related_checklist": [],
+        "freshness": "high",
+        "last_verified": "2026-04-21",
+        "edit_history": [
+          {
+            "date": "2026-04-21",
+            "version": "2.8.0",
+            "action": "近期事件新鲜度标注",
+            "editor": "AI-agent"
+          }
+        ]
       },
       {
         "year": 2026,
@@ -2537,7 +3449,29 @@
         "chain_next": null,
         "chain_related": [],
         "related_principles": [],
-        "related_checklist": []
+        "related_checklist": [],
+        "freshness": "high",
+        "last_verified": "2026-04-21",
+        "edit_history": [
+          {
+            "date": "2026-04-21",
+            "version": "2.8.0",
+            "action": "近期事件新鲜度标注",
+            "editor": "AI-agent"
+          },
+          {
+            "date": "2026-04-21",
+            "version": "2.8.0",
+            "action": "手动新鲜度等级指定",
+            "editor": "AI-agent"
+          },
+          {
+            "date": "2026-04-20",
+            "version": "2.6.0",
+            "action": "P0数据质量筑基 - 置信度标注",
+            "editor": "AI-agent"
+          }
+        ]
       }
     ],
     "palworld": [
@@ -2549,7 +3483,17 @@
         "category": "foundation",
         "data_confidence": "inferred_mid",
         "related_principles": [],
-        "related_checklist": []
+        "related_checklist": [],
+        "freshness": "high",
+        "last_verified": "2026-04-21",
+        "edit_history": [
+          {
+            "date": "2026-04-21",
+            "version": "2.8.0",
+            "action": "近期事件新鲜度标注",
+            "editor": "AI-agent"
+          }
+        ]
       },
       {
         "year": 2024,
@@ -2559,7 +3503,17 @@
         "category": "pve",
         "data_confidence": "inferred_mid",
         "related_principles": [],
-        "related_checklist": []
+        "related_checklist": [],
+        "freshness": "high",
+        "last_verified": "2026-04-21",
+        "edit_history": [
+          {
+            "date": "2026-04-21",
+            "version": "2.8.0",
+            "action": "近期事件新鲜度标注",
+            "editor": "AI-agent"
+          }
+        ]
       },
       {
         "year": 2024,
@@ -2569,7 +3523,17 @@
         "category": "pvp",
         "data_confidence": "inferred_mid",
         "related_principles": [],
-        "related_checklist": []
+        "related_checklist": [],
+        "freshness": "high",
+        "last_verified": "2026-04-21",
+        "edit_history": [
+          {
+            "date": "2026-04-21",
+            "version": "2.8.0",
+            "action": "近期事件新鲜度标注",
+            "editor": "AI-agent"
+          }
+        ]
       },
       {
         "year": 2024,
@@ -2579,7 +3543,17 @@
         "category": "pve",
         "data_confidence": "inferred_mid",
         "related_principles": [],
-        "related_checklist": []
+        "related_checklist": [],
+        "freshness": "high",
+        "last_verified": "2026-04-21",
+        "edit_history": [
+          {
+            "date": "2026-04-21",
+            "version": "2.8.0",
+            "action": "近期事件新鲜度标注",
+            "editor": "AI-agent"
+          }
+        ]
       },
       {
         "year": 2024,
@@ -2592,7 +3566,23 @@
         "chain_category": "palworld_foundation",
         "chain_order": 1,
         "related_principles": [],
-        "related_checklist": []
+        "related_checklist": [],
+        "freshness": "high",
+        "last_verified": "2026-04-21",
+        "edit_history": [
+          {
+            "date": "2026-04-21",
+            "version": "2.8.0",
+            "action": "近期事件新鲜度标注",
+            "editor": "AI-agent"
+          },
+          {
+            "date": "2026-04-21",
+            "version": "2.7.0",
+            "action": "P1 Palworld时间轴扩充",
+            "editor": "AI-agent"
+          }
+        ]
       },
       {
         "year": 2024,
@@ -2605,7 +3595,23 @@
         "chain_category": "palworld_foundation",
         "chain_order": 3,
         "related_principles": [],
-        "related_checklist": []
+        "related_checklist": [],
+        "freshness": "high",
+        "last_verified": "2026-04-21",
+        "edit_history": [
+          {
+            "date": "2026-04-21",
+            "version": "2.8.0",
+            "action": "近期事件新鲜度标注",
+            "editor": "AI-agent"
+          },
+          {
+            "date": "2026-04-21",
+            "version": "2.7.0",
+            "action": "P1 Palworld时间轴扩充",
+            "editor": "AI-agent"
+          }
+        ]
       },
       {
         "year": 2024,
@@ -2618,7 +3624,23 @@
         "chain_category": "palworld_pvp",
         "chain_order": 1,
         "related_principles": [],
-        "related_checklist": []
+        "related_checklist": [],
+        "freshness": "high",
+        "last_verified": "2026-04-21",
+        "edit_history": [
+          {
+            "date": "2026-04-21",
+            "version": "2.8.0",
+            "action": "近期事件新鲜度标注",
+            "editor": "AI-agent"
+          },
+          {
+            "date": "2026-04-21",
+            "version": "2.7.0",
+            "action": "P1 Palworld时间轴扩充",
+            "editor": "AI-agent"
+          }
+        ]
       },
       {
         "year": 2024,
@@ -2631,7 +3653,23 @@
         "chain_category": "palworld_foundation",
         "chain_order": 2,
         "related_principles": [],
-        "related_checklist": []
+        "related_checklist": [],
+        "freshness": "high",
+        "last_verified": "2026-04-21",
+        "edit_history": [
+          {
+            "date": "2026-04-21",
+            "version": "2.8.0",
+            "action": "近期事件新鲜度标注",
+            "editor": "AI-agent"
+          },
+          {
+            "date": "2026-04-21",
+            "version": "2.7.0",
+            "action": "P1 Palworld时间轴扩充",
+            "editor": "AI-agent"
+          }
+        ]
       },
       {
         "year": 2024,
@@ -2644,7 +3682,23 @@
         "chain_category": "palworld_online",
         "chain_order": 1,
         "related_principles": [],
-        "related_checklist": []
+        "related_checklist": [],
+        "freshness": "high",
+        "last_verified": "2026-04-21",
+        "edit_history": [
+          {
+            "date": "2026-04-21",
+            "version": "2.8.0",
+            "action": "近期事件新鲜度标注",
+            "editor": "AI-agent"
+          },
+          {
+            "date": "2026-04-21",
+            "version": "2.7.0",
+            "action": "P1 Palworld时间轴扩充",
+            "editor": "AI-agent"
+          }
+        ]
       },
       {
         "year": 2025,
@@ -2654,7 +3708,17 @@
         "category": "foundation",
         "data_confidence": "inferred_mid",
         "related_principles": [],
-        "related_checklist": []
+        "related_checklist": [],
+        "freshness": "high",
+        "last_verified": "2026-04-21",
+        "edit_history": [
+          {
+            "date": "2026-04-21",
+            "version": "2.8.0",
+            "action": "近期事件新鲜度标注",
+            "editor": "AI-agent"
+          }
+        ]
       },
       {
         "year": 2025,
@@ -2664,7 +3728,17 @@
         "category": "pve",
         "data_confidence": "inferred_mid",
         "related_principles": [],
-        "related_checklist": []
+        "related_checklist": [],
+        "freshness": "high",
+        "last_verified": "2026-04-21",
+        "edit_history": [
+          {
+            "date": "2026-04-21",
+            "version": "2.8.0",
+            "action": "近期事件新鲜度标注",
+            "editor": "AI-agent"
+          }
+        ]
       },
       {
         "year": 2025,
@@ -2677,7 +3751,17 @@
         "chain_category": "palworld_pvp",
         "chain_order": 2,
         "related_principles": [],
-        "related_checklist": []
+        "related_checklist": [],
+        "freshness": "high",
+        "last_verified": "2026-04-21",
+        "edit_history": [
+          {
+            "date": "2026-04-21",
+            "version": "2.8.0",
+            "action": "近期事件新鲜度标注",
+            "editor": "AI-agent"
+          }
+        ]
       },
       {
         "year": 2025,
@@ -2690,7 +3774,17 @@
         "chain_category": "palworld_pvp",
         "chain_order": 3,
         "related_principles": [],
-        "related_checklist": []
+        "related_checklist": [],
+        "freshness": "high",
+        "last_verified": "2026-04-21",
+        "edit_history": [
+          {
+            "date": "2026-04-21",
+            "version": "2.8.0",
+            "action": "近期事件新鲜度标注",
+            "editor": "AI-agent"
+          }
+        ]
       },
       {
         "year": 2026,
@@ -2700,7 +3794,17 @@
         "category": "pvp",
         "data_confidence": "inferred_mid",
         "related_principles": [],
-        "related_checklist": []
+        "related_checklist": [],
+        "freshness": "high",
+        "last_verified": "2026-04-21",
+        "edit_history": [
+          {
+            "date": "2026-04-21",
+            "version": "2.8.0",
+            "action": "近期事件新鲜度标注",
+            "editor": "AI-agent"
+          }
+        ]
       },
       {
         "year": 2026,
@@ -2713,7 +3817,17 @@
         "chain_category": "palworld_esports",
         "chain_order": 1,
         "related_principles": [],
-        "related_checklist": []
+        "related_checklist": [],
+        "freshness": "high",
+        "last_verified": "2026-04-21",
+        "edit_history": [
+          {
+            "date": "2026-04-21",
+            "version": "2.8.0",
+            "action": "近期事件新鲜度标注",
+            "editor": "AI-agent"
+          }
+        ]
       }
     ]
   },

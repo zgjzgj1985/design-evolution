@@ -1824,6 +1824,65 @@ with tab4:
                                 st.markdown(f"<span style='background:{_rc};color:white;padding:2px 10px;border-radius:12px;font-size:12px'>[{_rep_conf}]</span> 基于 {_rep_count} 条相关更新", unsafe_allow_html=True)
                             st.markdown(report_content)
 
+                            # P3-1: 时间轴历史验证层
+                            _tl_key = selected_game.lower().replace(" ", "_")
+                            _tl_data = all_timelines.get(_tl_key, [])
+                            if _tl_data:
+                                _branch_name = branch.get("problem", "").lower()
+                                # 模糊匹配：时间轴中与演进枝主题相关的条目
+                                _matched_tl = []
+                                for _tl in _tl_data:
+                                    _tl_title = _tl.get("title", "").lower()
+                                    # 检查标题或描述是否与演进枝相关
+                                    _keywords = [
+                                        "强化", "超级进化", "极巨化", "太晶化", "z 招式",
+                                        "防御", "保护", "嘲讽", "守住", "看我嘛",
+                                        "天气", "沙暴", "降雨", "晴天",
+                                        "对战", "双打", "三打", "vgc",
+                                        "meta", "ban", "禁用",
+                                        "简化", "移除", "删除",
+                                        "团体战", "raid", "团体战",
+                                        "社交", "wifi", "联网",
+                                    ]
+                                    if any(k in _tl_title or k in _tl.get("detail", "").lower() for k in _keywords):
+                                        # 进一步过滤：只保留与演进枝主题相关的
+                                        if any(_kw in _tl_title for _kw in ["超级进化", "极巨化", "太晶化", "z 招式", "mega", "dynamax", "tera"]):
+                                            if any(k in _branch_name for k in ["强化", "超级进化", "极巨化", "太晶化", "z 招式", "mega", "dynamax", "tera"]):
+                                                _matched_tl.append(_tl)
+                                        elif any(_kw in _tl_title for _kw in ["天气", "沙暴", "降雨"]):
+                                            if any(k in _branch_name for k in ["天气", "沙暴", "降雨", "顺风"]):
+                                                _matched_tl.append(_tl)
+                                        elif any(_kw in _tl_title for _kw in ["对战", "双打", "三打", "团体战"]):
+                                            if any(k in _branch_name for k in ["对战", "双打", "团体", "vgc"]):
+                                                _matched_tl.append(_tl)
+                                        elif _tl.get("removed"):
+                                            if any(k in _branch_name for k in ["移除", "简化", "删除", "meta"]):
+                                                _matched_tl.append(_tl)
+                                if _matched_tl:
+                                    st.divider()
+                                    st.markdown("**历史验证：时间轴相关条目**")
+                                    _unique_tl = {_tl["title"]: _tl for _tl in _matched_tl}
+                                    for _tl in sorted(_unique_tl.values(), key=lambda x: x.get("year", 0))[:8]:
+                                        _tl_conf = _tl.get("data_confidence", "unknown")
+                                        _conf_color = {"official": "#52c41a", "community": "#1890ff", "inferred_high": "#722ed1", "inferred_mid": "#faad14", "inferred_low": "#ff4d4f", "future": "#eb2f96"}.get(_tl_conf, "#8c8c8c")
+                                        _tl_year = _tl.get("year", "")
+                                        _tl_gen = _tl.get("gen", _tl.get("version", ""))
+                                        _is_removed = _tl.get("removed", False)
+                                        _rem_tag = f" | 已移除({_tl.get('removal_year', '')})" if _is_removed else ""
+                                        _chain = ""
+                                        if _tl.get("chain_prev") or _tl.get("chain_next"):
+                                            _prev = f"← {_tl['chain_prev']}" if _tl.get("chain_prev") else ""
+                                            _next = f"{_tl['chain_next']} →" if _tl.get("chain_next") else ""
+                                            _chain = f" | 演进链: {_prev} {_next}".strip()
+                                        st.markdown(
+                                            f"- **{_tl.get('title', '')}**（{_tl_gen} · {_tl_year}）"
+                                            f"<span style='color:{_conf_color};font-size:12px'>[{_tl_conf}]</span>"
+                                            f"{_rem_tag}{_chain}",
+                                            unsafe_allow_html=True,
+                                        )
+                                        st.caption(f"  {str(_tl.get('detail', ''))[:100]}...")
+
+
                         st.divider()
 
                         # P1-4: 报告导出功能
@@ -1905,6 +1964,31 @@ with tab4:
                                 _rc3 = {"高": "#52c41a", "中": "#faad14", "低": "#ff4d4f"}.get(_rc2, "#666")
                                 st.markdown(f"<span style='background:{_rc3};color:white;padding:2px 10px;border-radius:12px;font-size:12px'>[{_rc2}]</span> 基于 {_rep_d.get('_matched_count', '?')} 条相关更新", unsafe_allow_html=True)
                             st.markdown(_rep_str)
+
+                            # P3-1: 时间轴历史验证层（扁平主题路径）
+                            _tl_key2 = selected_game.lower().replace(" ", "_")
+                            _tl_data2 = all_timelines.get(_tl_key2, [])
+                            if _tl_data2 and topic.get("name"):
+                                _topic_name2 = topic.get("name", "").lower()
+                                _matched_tl2 = [
+                                    _tl for _tl in _tl_data2
+                                    if any(kw in (_tl.get("title", "").lower() + _tl.get("detail", "").lower())
+                                       for kw in [_topic_name2] if len(kw) > 2)
+                                ]
+                                if _matched_tl2:
+                                    st.divider()
+                                    st.markdown("**历史验证：时间轴相关条目**")
+                                    for _tl in sorted(_matched_tl2, key=lambda x: x.get("year", 0))[:5]:
+                                        _tl_conf2 = _tl.get("data_confidence", "unknown")
+                                        _conf_c2 = {"official": "#52c41a", "community": "#1890ff", "inferred_high": "#722ed1", "inferred_mid": "#faad14"}.get(_tl_conf2, "#8c8c8c")
+                                        _is_rm = _tl.get("removed", False)
+                                        _rm_tag = f" | 已移除({_tl.get('removal_year', '')})" if _is_rm else ""
+                                        st.markdown(
+                                            f"- **{_tl.get('title', '')}**（{_tl.get('gen', _tl.get('version', ''))} · {_tl.get('year', '')})"
+                                            f"<span style='color:{_conf_c2};font-size:12px'>[{_tl_conf2}]</span>{_rm_tag}",
+                                            unsafe_allow_html=True,
+                                        )
+
                         st.divider()
                         if st.button("换一个主题重新分析", key="btn_change_topic"):
                             st.session_state["selected_topic_idx"] = None
