@@ -1154,6 +1154,10 @@ with tab2:
                     "confidence": item.get("data_confidence", "unknown"),
                     "removed": item.get("removed", False),
                     "gen_label": item.get("gen", ""),
+                    "chain_prev": item.get("chain_prev"),
+                    "chain_next": item.get("chain_next"),
+                    "chain_related": item.get("chain_related", []),
+                    "chain_category": item.get("chain_category"),
                 })
 
     def _category_to_type(cat: str) -> str:
@@ -1255,12 +1259,56 @@ with tab2:
                     "inferred_low": "推断·低",
                     "future": "未来",
                 }.get(item.get("confidence", ""), item.get("confidence", ""))
+
+                # 演进链信息
+                chain_info = ""
+                if item.get("chain_prev") or item.get("chain_next"):
+                    prev_str = f"← {item['chain_prev']}" if item.get("chain_prev") else ""
+                    next_str = f"{item['chain_next']} →" if item.get("chain_next") else ""
+                    chain_info = f" <span style='color:#0369a1;font-size:12px'>链接: {prev_str} {next_str}</span>"
+
                 st.markdown(
                     f"- **{item.get('mechanism', '')}**（{item.get('gen_label', '')}，{item.get('year', '')}）"
                     f" <span style='color:{conf_color};font-size:12px'>[{conf_label}]</span>"
+                    f"{chain_info}"
                     f" — {item.get('description', '')[:60]}...",
                     unsafe_allow_html=True
                 )
+
+        # P1-2: 演进链概览
+        chain_map = {}
+        for item in display_data:
+            cc = item.get("chain_category", "")
+            if cc:
+                if cc not in chain_map:
+                    chain_map[cc] = []
+                chain_map[cc].append(item)
+
+        if chain_map:
+            st.divider()
+            st.subheader("演进链概览")
+            chain_display_names = {
+                "enhancement": "强化机制演进链",
+                "protection": "防御/保护机制演进链",
+                "weather": "天气系统演进链",
+                "core_battle": "核心战斗规则演进链",
+                "differentiation": "差异化设计演进链",
+                "pve_group": "团体战/PvE演进链",
+                "meta_management": "Meta管理演进链",
+                "online": "联网/社交演进链",
+                "esports": "电竞化演进链",
+            }
+            for cc, items in sorted(chain_map.items(), key=lambda x: x[0]):
+                chain_name = chain_display_names.get(cc, cc)
+                chain_items = sorted(items, key=lambda x: (x.get("chain_order", 0), x["year"]))
+                chain_titles = [f"{i.get('mechanism','')}" for i in chain_items]
+                st.markdown(f"**{chain_name}**：{' → '.join(chain_titles)}")
+                if len(chain_items) <= 5:
+                    for ci in chain_items:
+                        with st.expander(f"  {ci.get('mechanism','')[:40]}", expanded=False):
+                            st.caption(f"{ci.get('gen_label','')} {ci.get('year','')} | {ci.get('type','')} | {ci.get('confidence','')}")
+                            st.write(ci.get("description", "")[:150] + "...")
+
 
     else:
         st.info("当前选择游戏的报告数据暂缺，请联系管理员扩充数据。")
