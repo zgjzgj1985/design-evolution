@@ -6,7 +6,7 @@
 
 ### Changed
 
-- **Gen 2 综述卡数据准确性核查**：发现并修正了多处错误——Mobile Adapter GB 是有线设备（而非无线适配器）、Wi-Fi 是 Gen 4 才引入（而非 Gen 2 的遗产）、Macho Brace 是 Gen 3 才引入的道具、Special 分家描述改为"拆分为独立的特攻和特防"（而非"上下限"）；同时大幅扩展 Gen 2 综述卡内容至约380字，覆盖携带道具、培育系统、Special 分家、联网局限性和设计哲学遗产
+- **Gen 3 综述卡数据准确性核查**：修正了重大历史错误——物理/特殊分家是 Gen 4 才完成的历史性改革（而非 Gen 3），已从 Gen 3 的 title 和 detail 中移除；同时删除了 detail 中不属于 Gen 3 的 Snow Warning 特性；修正了 detail 中关于物理/特殊分家时间线的描述。大幅扩展 Gen 3 综述卡内容至约370字，覆盖特性系统、双打正式化、天气永久化、招式池扩充及 Gen 4 奠基关系。额外修正：用词错误——将"看我抓"改为"看我嘛（Follow Me）"并补充说明，便于读者理解。**Gen 4 综述卡数据准确性核查**：发现多处错误——(1) detail 中"「看我嘛」嘲讽技能"是错误描述（看我嘛是 Gen 3 的 Follow Me，Gen 4 的真正嘲讽机制是挑衅）；(2) Wi-Fi Corner 时间线标注"2008年4月 Wii Wi-Fi Connection"不准确（Nintendo Wi-Fi Connection 于2005年11月上线，Gen 4 是宝可梦系列首次接入的世代）；(3) key_shift 中"引入隐藏能力（HA）"是 Gen 5 才引入的，已删除；(4) theme_subtitle 中同样错误提及隐藏能力。修正 title 为"物理/特殊分家 + Wi-Fi联网对战 + VGC起步"，detail 补充 Soul Dew 禁用开创道具组合禁用先例。大幅扩展 Gen 4 综述卡内容至约390字，覆盖物理/特殊分家、天气完整化与秘密岩石、Wi-Fi联网历史、VGC体系建立
 
 ## [3.1.0] - 2026-04-21
 
