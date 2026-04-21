@@ -32,6 +32,7 @@ def generate_data_js(data):
         "checklist": data["checklist"],
         "scenarios": data.get("scenarios", []),
         "timelines": data["timelines"],
+        "generation_metadata": data.get("generation_metadata", {}),
         "comparison": data["comparison"],
         "decision_tree": data.get("decision_tree", {}),
     }
@@ -88,6 +89,7 @@ def main():
     print(f"  清单: {len(data['checklist'])} 个维度, {total_items} 条")
     print(f"  Pokemon 时间轴: {len(data['timelines']['pokemon'])} 个节点")
     print(f"  Palworld 时间轴: {len(data['timelines']['palworld'])} 个节点")
+    print(f"  世代元数据: {len(data.get('generation_metadata', {}))} 个世代节点")
 
     print(f"\n读取 HTML: {OUTPUT_HTML_PATH}")
     with open(OUTPUT_HTML_PATH, "r", encoding="utf-8") as f:

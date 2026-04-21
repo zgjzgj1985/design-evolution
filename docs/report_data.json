@@ -2,8 +2,8 @@
   "meta": {
     "title": "综合研究报告：宝可梦 VGC 多人对战设计演进",
     "subtitle": "Pokemon VGC Multiplayer Design Evolution",
-    "version": "3.0",
-    "generated_at": "2026-04-21T00:00:00.000000",
+    "version": "2.5",
+    "generated_at": "2026-04-21T17:11:11.357527",
     "source": "综合研究报告_宝可梦VGC多人对战设计经验.md",
     "description": "Pokemon 30年（1996-2026）多人对战设计演进研究，含10条设计原则与47条详细检查清单",
     "data_sources": [
@@ -881,316 +881,31 @@
         "title": "Pokemon 红/绿版发售",
         "detail": "确立回合制战斗、属性克制、捕捉机制等核心框架；Link Cable 支持联机交换但仅限单打对战，为多人对战埋下伏笔",
         "category": "foundation",
-        "data_confidence": "official",
-        "freshness": "low",
-        "last_verified": "2026-04-21"
+        "data_confidence": "official"
       },
       {
         "year": 1999,
         "gen": "Gen 2",
         "title": "携带道具 + 培育系统 + Special 分家",
-        "detail": "金/银版引入携带道具（Held Items）系统、宝可梦培育（培育屋/Egg Move/遗传机制）和 Special 属性分家（拆分为特攻和特防）三大核心系统；同时引入无线适配器（Mobile Adapter）的早期联网功能（仅日本），为日后 Wi-Fi 对战奠定基础。注意：金银版本身不包含双打对战模式——双打对战于 Gen 3 才在主游戏正式引入",
+        "detail": "金/银版引入三大核心系统：(1) 携带道具（Held Items）——宝可梦可携带道具获得被动效果；(2) 培育系统——引入培育屋孵蛋机制、蛋招式遗传、DV（个体值，0-15范围）和 Stat Experience（努力值前身，无上限）；(3) Special 属性分家——将 Gen 1 的单一 Special 拆分为独立的特攻和特防两个数值，深刻改变了宝可梦的能力分布。联网方面，仅日本版本通过 Mobile Adapter GB（有线连接移动网络）支持 Celebi 活动等有限功能，Wi-Fi 对战要到 Gen 4 才实现。注意：金银版本身不包含双打对战模式——双打对战于 Gen 3 才在主游戏正式引入",
         "category": "foundation",
-        "data_confidence": "official",
-        "freshness": "low",
-        "last_verified": "2026-04-21"
-      },
-      {
-        "year": 2000,
-        "gen": "Gen 1",
-        "title": "Pokemon Stadium：主系列在主机上的第一次大型展示",
-        "detail": "Pokemon Stadium（N64，2000）是 Pokemon 在家用主机上的首次重要亮相，将 Pokemon 红/蓝/黄版的宝可梦以 3D 形式呈现在大屏幕上。Pokemon Stadium 提供了全 151 种宝可梦的 3D 建模（当时的 N64 机能限制意味着建模相对简化），并包含了对战模式、迷你游戏、以及「租借宝可梦」系统。Pokemon Stadium 奠定了「Pokemon 在主机上的视觉呈现」基础，后续的 Pokemon Stadium 2（金城归来）、Pokemon Battle Revolution（2007）都是这一精神谱系的延续。",
-        "category": "foundation",
-        "removed": false,
-        "data_confidence": "official",
-        "freshness": "low",
-        "last_verified": "2026-04-21"
-      },
-      {
-        "year": 2000,
-        "gen": "Gen 2",
-        "title": "Mobile System GB：日本专用移动互联功能",
-        "detail": "Pokemon 金/银（以及 Crystal）的 Mobile System GB（移动游戏 Boys）是 Pokemon 历史上最早的网络功能实验——在日本，通过 Game Boy 的专用移动附件（Mobile GB），玩家可以连接至 Pokemon 的专用网站「Pokemon Mobile System GB」，进行宝可梦交换、登录小游戏得分、管理存储的宝可梦等功能。这是 Pokemon 线上化的最早尝试，但因硬件限制（仅在日本发行）而影响有限。",
-        "category": "social",
-        "removed": false,
-        "data_confidence": "official",
-        "freshness": "low",
-        "last_verified": "2026-04-21"
-      },
-      {
-        "year": 2001,
-        "gen": "Gen 2",
-        "title": "Mobile System GB 随 GBC 时代结束而终止",
-        "detail": "Mobile System GB 随 Game Boy Color 时代的结束和 Mobile Game Boy 配件的停产而正式终止服务。它没有进入 Pokemon Ruby/Sapphire 或其他后续世代，被 Nintendo Wi-Fi Connection（Gen 4）所代表的现代网络系统彻底取代。",
-        "category": "social",
-        "removed": true,
-        "removal_year": 2001,
-        "removal_reason": "Mobile System GB 的消失是因为它依赖于专用硬件（Mobile GB 附件），当 GBC 被 GBA 取代时，这一硬件平台也随之消亡。Nintendo 在 GBA 时代转向了不同的网络连接策略（e-Reader、Wifi），Mobile System GB 的架构无法迁移。",
-        "removal_cause": "Mobile System GB 是 Pokemon「服务连续性」问题的最早案例：它在一个已淘汰的硬件平台上建立了一个与游戏深度绑定的服务，当硬件更新时，服务无法跟随迁移。这是一个技术架构问题，而非服务理念问题——Pokemon 的网络化愿景早在 2000 年就已经存在，只是实现路径被硬件限制所绑架。",
-        "removal_impact": "negative",
-        "removal_note": "Mobile System GB 的历史地位常被忽视：它证明了 Pokemon 的玩家有强烈的网络化需求（交换、存储、积分），这在 Gen 4 的 Nintendo Wi-Fi Connection 中得到了完整实现。从 Mobile System GB 到 NFC 的历程说明：Pokemon 一直有线上化的意愿，但每一次都因为底层平台的变化而需要重新实现。Pokemon HOME 的出现，正是为了打破这一循环——建立一个不依赖特定游戏硬件的持久化服务层。",
-        "data_confidence": "official",
-        "ban_type": "content_removal",
-        "chain_related": [],
-        "freshness": "low",
-        "last_verified": "2026-04-21"
+        "data_confidence": "official"
       },
       {
         "year": 2002,
         "gen": "Gen 3",
-        "title": "华丽大赛作为「非战斗内容」登场",
-        "detail": "Pokemon 红/蓝/绿宝石引入华丽大赛（Contest），这是 Game Freak 首次将「宝可梦表现力」独立为一套与战斗平行的系统。玩家通过让宝可梦使用技能来积累「华丽值」，评判标准涵盖魅力、帅气、可爱、聪明、强壮五个属性，每场比赛四轮，最终争夺缎带勋章。Gen 3 的华丽大赛在丰缘地区举办，是 Pokemon「角色扮演」属性的一次外延实验。",
-        "category": "foundation",
-        "removed": false,
-        "data_confidence": "official",
-        "freshness": "low",
-        "last_verified": "2026-04-21"
-      },
-      {
-        "year": 2002,
-        "gen": "Gen 3",
-        "title": "对战塔（Battle Tower）：回合制竞技场的原型",
-        "detail": "Pokemon 红/蓝/绿宝石引入对战塔（Battle Tower），这是 Pokemon 第一个正式的「竞技挑战」设施。玩家携带6只宝可梦，与一系列 NPC 训练家进行连续对战，目标是尽可能多地连续获胜。对战塔奠定了「挑战制」竞技的基础——失败即终止连胜，逼出玩家的最优策略。之后 Gen 4 的对战塔（Battle Tower）、Gen 5 的对战铁路（Battle Subway）、Gen 6 的旋转战斗设施（Battle Spot）都是对战塔精神的延续。",
+        "title": "双打 + 特性系统 + 属性分家 + 天气革命",
+        "detail": "红蓝宝石版同期引入四大核心系统：(1) 双打对战正式成为标准模式；(2) 特性（Abilities）系统首次引入，取代 Gen 1 的固定属性，每只宝可梦拥有被动能力；(3) 天气系统完整化——引入天气启动特性（Drizzle/Drought/Sand Stream/Snow Warning），使天气可被特性永久召唤（而非只是招式触发），将天气从随机效果变为可建立的优势；(4) 招式分类基础奠定——Gen 2 将 Special 拆分为特攻和特防，Gen 4 才完成招式级别的物理/特殊分类改革",
         "category": "pvp",
-        "removed": false,
-        "data_confidence": "official",
-        "freshness": "low",
-        "last_verified": "2026-04-21"
-      },
-      {
-        "year": 2002,
-        "gen": "Gen 3",
-        "title": "秘密别墅（Secret Base）：玩家空间概念的原型",
-        "detail": "Pokemon 红/蓝/绿宝石引入了秘密别墅（Secret Base），允许玩家在特定草丛中「占领」一块地，建立自己的私人空间。玩家可以布置家具、放置旗帜（代表自己占领的基地），并邀请朋友来参观和战斗。秘密别墅是 Pokemon「玩家个人空间」概念的原型，在 Gen 3 的线上联机尚不发达的时代，它是重要的社交场所。",
-        "category": "foundation",
-        "removed": false,
-        "data_confidence": "official",
-        "freshness": "low",
-        "last_verified": "2026-04-21"
-      },
-      {
-        "year": 2002,
-        "gen": "Gen 3",
-        "title": "双打对战正式成为标准模式",
-        "detail": "Pokemon 红蓝宝石版引入双打对战（Double Battle）——每方选2只宝可梦同时上场对战。这是 Pokemon 多人对战的真正起点，确立了 4v4 选 2 的基本规则，也成为 VGC 竞技的基石。Gen 1/2 的 Link Cable 双打仅是小众实验，Gen 3 才开始将双打作为标准多人模式推广。",
-        "category": "pvp",
-        "data_confidence": "official",
-        "chain_category": "core_battle",
-        "chain_order": 1,
-        "chain_prev": null,
-        "chain_next": "物理/特殊分家完成",
-        "chain_related": [
-          "嘲讽（看我嘛）机制引入"
-        ],
-        "freshness": "low",
-        "last_verified": "2026-04-21"
-      },
-      {
-        "year": 2002,
-        "gen": "Gen 3",
-        "title": "特性（Abilities）系统首次引入",
-        "detail": "Pokemon 红蓝宝石版引入特性（Abilities）系统——每只宝可梦拥有1-2种被动能力，在对战中自动生效。这是 Pokemon 差异化设计的转折点：Gen 1 的「相同 species 完全相同」被打破，同一宝可梦的不同特性带来了完全不同的战术选择（如妙蛙花的「茂盛」vs「孢子」）。特性系统也使「特性协同」（Ability Synergy）成为组队时的核心考量因素。",
-        "category": "pvp",
-        "data_confidence": "official",
-        "chain_category": "differentiation",
-        "chain_order": 1,
-        "chain_related": [],
-        "freshness": "low",
-        "last_verified": "2026-04-21"
-      },
-      {
-        "year": 2002,
-        "gen": "Gen 3",
-        "title": "物理/特殊分家完成",
-        "detail": "Pokemon 红蓝宝石版完成物理/特殊分家——将招式按实际战斗效果分类，而非 Gen 2 的特殊属性上限。从此每一招都有明确的「物理」或「特殊」标签，决定它受攻击还是特攻影响。这是 Pokemon 战斗系统最深层的规则重构：它让「特攻打手」和「物攻打手」的界限清晰，也使得双打中的「集火目标选择」从单纯看威力变为同时考虑属性抗性。",
-        "category": "pvp",
-        "data_confidence": "official",
-        "chain_category": "core_battle",
-        "chain_order": 2,
-        "chain_prev": "双打对战正式成为标准模式",
-        "chain_next": null,
-        "chain_related": [],
-        "freshness": "low",
-        "last_verified": "2026-04-21"
-      },
-      {
-        "year": 2002,
-        "gen": "Gen 3",
-        "title": "天气系统革命：永久化天气",
-        "detail": "Pokemon 红蓝宝石版引入天气启动特性（沙暴/降雪）——天气效果从「5回合后消失」变为「永久持续」。这是天气从「随机干扰」升级为「可建立优势」的分水岭。沙暴队、雨队、晴天队从此成为有意识构建的战术体系，而不只是运气好时的额外收益。天气还间接推动了「气象球」等天气相关招式的战术价值，以及「天气球」等专属招式的出现。",
-        "category": "pvp",
-        "data_confidence": "official",
-        "chain_category": "weather",
-        "chain_order": 1,
-        "chain_prev": null,
-        "chain_next": null,
-        "chain_related": [
-          "VGC 赛季制度建立 + 顺风/黏黏网"
-        ],
-        "freshness": "low",
-        "last_verified": "2026-04-21"
+        "data_confidence": "official"
       },
       {
         "year": 2006,
         "gen": "Gen 4",
-        "title": "华丽大赛升级：添加华丽舞台与旁观模式",
-        "detail": "Pokemon 钻石/珍珠/白金将华丽大赛迁移至神奥地区，并大幅扩展：新增「超级华丽大赛」和「最高级华丽大赛」两个更高难度层级，引入旁观者可以让朋友投票参与，同时加入「华丽纪录」功能可记录个人最佳成绩。Gen 4 版本首次将华丽大赛与对战内容交叉（部分比赛会限制特定属性技能）。",
-        "category": "foundation",
-        "removed": false,
-        "data_confidence": "official",
-        "chain_related": [
-          "华丽大赛作为「非战斗内容」登场",
-          "华丽大赛从主系列中消失"
-        ],
-        "freshness": "low",
-        "last_verified": "2026-04-21"
-      },
-      {
-        "year": 2006,
-        "gen": "Gen 4",
-        "title": "跟随系统（Following Pokemon）在心金/魂银中首次实现",
-        "detail": "Pokemon 心金/魂银首次实现了宝可梦跟随系统——玩家的第一只宝可梦会跟在玩家身后行走，这在 Gen 1/2 的游戏中是缺失的（Gen 1/2 仅有宝可梦跟随在城镇中，但城市间移动时宝可梦会进入球中）。心金/魂银将跟随系统扩展到了所有非战斗场景，并加入了宝可梦在特定地点的特殊反应动画（如皮卡丘在森林中会有特殊动画）。",
-        "category": "foundation",
-        "removed": false,
-        "data_confidence": "official",
-        "freshness": "low",
-        "last_verified": "2026-04-21"
-      },
-      {
-        "year": 2006,
-        "gen": "Gen 4",
-        "title": "秘密别墅在 Gen 4 被移除",
-        "detail": "Pokemon 钻石/珍珠/白金移除了秘密别墅系统，尽管保留了「占领草丛」的视觉元素。Gen 4 增加了「宝可梦追梦人」（Spirit Link）等新功能来弥补秘密别墅的空缺，但「玩家个人空间」这一概念在 Gen 4 期间完全缺失。",
-        "category": "foundation",
-        "removed": true,
-        "removal_year": 2006,
-        "removal_reason": "Gen 4 删减秘密别墅的原因与 Gen 4 的「陆地移动探索」设计方向有关——神奥地区的地图结构不允许秘密别墅的「隐藏空间」设计。Nintendo Wi-Fi Connection 的线上功能在 Gen 4 已经足够成熟，秘密别墅的「本地私人空间」功能可以由线上交换和对战所取代。",
-        "removal_cause": "秘密别墅的消失揭示了「空间设计」与「地图结构」的绑定关系——当地图从「道路连接型」转向「开放区域型」时，秘密别墅的「隐藏草丛」设计就不再适用。这是 Pokemon 地图设计演变的副产品：当世界变得更「开放」时，「隐藏角落」的空间就变少了。",
-        "removal_impact": "mixed",
-        "removal_note": "秘密别墅的概念在 Gen 6 通过「超级愿望系统」（Super Training）中部分回归（玩家可以在训练场中保存自己的记录），但从未完全恢复。Gen 9 朱/紫的 Picnic 系统可以视为秘密别墅的「现代化」版本——玩家在野外建立临时营地，邀请宝可梦和玩家朋友参与，但缺乏秘密别墅的「固定性」和「装饰性」。秘密别墅的「装饰」元素最终在 Pokemon HOME 的「个人主页」功能中得到延续，但已经脱离了游戏内的空间概念。",
-        "data_confidence": "official",
-        "ban_type": "content_removal",
-        "chain_related": [
-          "秘密别墅（Secret Base）：玩家空间概念的原型"
-        ],
-        "freshness": "low",
-        "last_verified": "2026-04-21"
-      },
-      {
-        "year": 2006,
-        "gen": "Gen 4",
-        "title": "嘲讽（看我嘛）机制引入",
-        "detail": "Pokemon 钻石珍珠版引入「看我嘛」（Follow Me）——强制对方所有攻击优先以使用该技能的宝可梦为目标。这是 Pokemon 双打历史上最具战略价值的技能之一：它让「保护队友」成为可能，也使「看我嘛 + 高威力 AOE」的 combo 成为双打标配开局。嘲讽机制还开创了「强制集火」的概念——从「打我想打的」变为「打队友让我打的」。历代双打meta的演化，在很大程度上就是围绕「如何反制看我嘛」展开的。",
+        "title": "嘲讽机制 + Wi-Fi 联网对战 + VGC 起步",
+        "detail": "钻石/珍珠引入三大系统：(1)「看我嘛」嘲讽技能——强制敌方优先攻击指定目标；(2) Wi-Fi Corner 联网对战——通过好友代码系统首次支持跨地域的在线单打/双打对战（2008年4月 Wii Wi-Fi Connection）；(3) 首届 VGC 世界锦标赛（2009年）使用 D/P/Pt 作为正式比赛游戏，标志着官方竞技体系的正式建立。沙隐特性在 Gen 4 末被禁用，开创了「因机制而非数值禁用」的先例",
         "category": "pvp",
-        "data_confidence": "official",
-        "chain_category": "protection",
-        "chain_order": 1,
-        "chain_prev": null,
-        "chain_next": null,
-        "chain_related": [
-          "双打对战正式成为标准模式"
-        ],
-        "freshness": "low",
-        "last_verified": "2026-04-21"
-      },
-      {
-        "year": 2007,
-        "gen": "Gen 4",
-        "title": "Nintendo Wi-Fi Connection 正式支持 Pokemon 多人联机",
-        "detail": "Pokemon 钻石/珍珠/白金首次全面支持 Nintendo Wi-Fi Connection（NFC），提供官方线上联机服务。玩家可以通过互联网进行宝可梦交换、对战（随机配对和好友对战），以及无线口袋银行（Wireless GTS）。这是 Pokemon 从「线下社交」向「线上社交」过渡的关键节点，也是 Pokemon 全球对战（VGC）走向职业化的技术基础。",
-        "category": "social",
-        "removed": false,
-        "data_confidence": "official",
-        "freshness": "low",
-        "last_verified": "2026-04-21"
-      },
-      {
-        "year": 2007,
-        "gen": "Gen 4",
-        "title": "GTS（全球语音交换系统）登场",
-        "detail": "Pokemon 钻石/珍珠通过 Nintendo Wi-Fi Connection 引入了 GTS（Global Trade Station），这是 Pokemon 历史上第一个全天候的线上交换系统。玩家可以将自己想要交换的宝可梦挂上 GTS，设定想要的交换条件（指定宝可梦或指定属性/等级范围），其他玩家可以在任何时间通过 GTS 搜索并完成交换。GTS 大幅降低了 Pokemon 交换的门槛——不再需要双方同时在线。",
-        "category": "social",
-        "removed": false,
-        "data_confidence": "official",
-        "freshness": "low",
-        "last_verified": "2026-04-21"
-      },
-      {
-        "year": 2007,
-        "gen": "Gen 4",
-        "title": "Pokemon Battle Revolution：战斗舞台的最后绝唱",
-        "detail": "Pokemon Battle Revolution（Wii，2007）是 Pokemon 主系列对战在任天堂主机上的最后一款独立作品，配合 Gen 4 钻石/珍珠/白金使用。Pokemon Battle Revolution 提供了华丽的 3D 对战场景、自定义角色外观、以及「连续战斗」模式。作为一款对战观赏性工具，它在核心玩家群体中有一定的追随者，但销量和影响力都远不及 Pokemon Stadium 时代。",
-        "category": "foundation",
-        "removed": false,
-        "data_confidence": "official",
-        "freshness": "low",
-        "last_verified": "2026-04-21"
-      },
-      {
-        "year": 2008,
-        "gen": "Gen 4",
-        "title": "Wi-Fi 联网对战正式上线",
-        "detail": "2008年4月，Nintendo Wii Wi-Fi Connection 正式支持 Pokemon 钻石珍珠/白金在线对战——通过好友代码系统首次实现跨地域的在线单打和双打对战，无需连接线。这是 Pokemon 从「线下社交」转向「全球线上竞技」的历史性转折点。Wi-Fi 对战使 VGC 积分赛和世界锦标赛的线上预选成为可能，也催生了第一批 Pokemon 在线社区。",
-        "category": "social",
-        "data_confidence": "official",
-        "chain_category": "online",
-        "chain_order": 1,
-        "chain_prev": null,
-        "chain_next": "VGC 世界锦标赛首届举办",
-        "chain_related": [
-          "VGC 世界锦标赛首届举办"
-        ],
-        "freshness": "low",
-        "last_verified": "2026-04-21"
-      },
-      {
-        "year": 2009,
-        "gen": "Gen 4",
-        "title": "Pokewalker 将真实步行与游戏奖励绑定",
-        "detail": "Pokemon 心金/魂银的 Pokewalker 是 Pokemon 历史上唯一将实体设备（GBA 到 NDS 的红外通信）与游戏内奖励直接绑定的系统。玩家将心金/魂银的步数通过红外传输到 Pokewalker 设备，在设备上可以遇到野生宝可梦、收集道具、在特定路线上发现稀有宝可梦。这是 Pokemon「健康生活」与「游戏乐趣」融合的第一次系统性尝试。Pokewalker 还引入了多个不同主题的「散步路线」，每条路线有独特的遭遇表和道具。",
-        "category": "foundation",
-        "removed": false,
-        "data_confidence": "official",
-        "chain_category": "palworld_analog",
-        "freshness": "medium",
-        "last_verified": "2026-04-21"
-      },
-      {
-        "year": 2009,
-        "gen": "Gen 4",
-        "title": "VGC 世界锦标赛首届举办",
-        "detail": "2009年8月，Pokemon 世界锦标赛（VGC Worlds）首届正式举办，使用钻石珍珠/白金作为比赛游戏。这是 Pokemon 从「休闲游戏」走向「电竞项目」的标志性事件。首届世锦赛由 Media Create 赞助，在日本举办；之后每年一届，逐渐成为 Pokemon 最高级别的官方赛事。VGC 世锦赛的举办也催生了 Smogon 等社区的竞技规则讨论，推动了 Pokemon 竞技理论的发展。",
-        "category": "pvp",
-        "data_confidence": "official",
-        "chain_category": "esports",
-        "chain_order": 1,
-        "chain_prev": null,
-        "chain_next": null,
-        "chain_related": [
-          "Wi-Fi 联网对战正式上线"
-        ],
-        "freshness": "low",
-        "last_verified": "2026-04-21"
-      },
-      {
-        "year": 2010,
-        "gen": "Gen 5",
-        "title": "Pokewalker 随心金/魂银结束，未进入 Gen 5",
-        "detail": "Pokemon 黑/白发布时不再包含 Pokewalker 支持，这是该系统最后的官方使用记录。尽管心金/魂银可以在黑/白中使用红外通信，但 Pokewalker 本身作为独立设备已停止生产，且没有在黑/白中引入任何替代性的步行-奖励机制。Gen 5 的 BW2 也没有恢复该功能。",
-        "category": "meta",
-        "removed": true,
-        "removal_year": 2010,
-        "removal_reason": "Pokewalker 的消失有技术和商业双重原因：(1) 它依赖专用的红外通信硬件，而后续的 Nintendo DS/DSi/3DS 系列逐渐淡化了红外端口（NDS Lite 之后 DS 系列大多移除了红外）；(2) 作为一个需要「额外硬件」的系统，它增加了玩家的进入门槛（需要同时拥有心金/魂银+Pokewalker）；(3) Pokemon 的目标受众从「携带设备步行」转向「随时随地游玩」的掌机模式。",
-        "removal_cause": "Pokewalker 的设计逻辑是「行为绑定奖励」——将现实世界的步行行为转化为游戏内奖励。但这个系统在 Gen 5 之后被放弃，表面上是因为硬件依赖，深层原因是「行为数据的采集方式」发生了变化。Gen 6 之后的 Pokemon GO 证明了「步行奖励」模式本身是可行的（Pokemon GO 的孵蛋和补给站机制），只是需要更轻量的技术方案（GPS 而非红外）。",
-        "removal_impact": "negative",
-        "removal_note": "Pokewalker 的教训是：深度集成硬件的系统有极高的「平台锁定」风险——一旦底层硬件发生变化，整个系统就需要重写。Pokemon GO 的成功部分源于它选择了「利用通用硬件（智能手机 GPS）」而非「创造专用硬件」。设计游戏系统时，应该优先选择「可迁移」的技术路径，而非与特定硬件深度绑定的方案。",
-        "data_confidence": "official",
-        "ban_type": "content_removal",
-        "chain_related": [
-          "Pokewalker 将真实步行与游戏奖励绑定"
-        ],
-        "freshness": "low",
-        "last_verified": "2026-04-21"
+        "data_confidence": "inferred_mid"
       },
       {
         "year": 2011,
@@ -1198,14 +913,12 @@
         "title": "VGC 赛季制度建立 + 顺风/黏黏网",
         "detail": "黑白版正式建立 VGC 赛季积分制度；引入顺风（全队加速，2回合）和黏黏网（群体降速）；天气民主化实验（梦世界网页平台）引发降雨+悠游自如组合危机",
         "category": "pvp",
-        "data_confidence": "official",
         "chain_category": "weather",
         "chain_order": 2,
         "chain_prev": "天气系统革命：永久化天气",
         "chain_next": null,
         "chain_related": [],
-        "freshness": "low",
-        "last_verified": "2026-04-21"
+        "data_confidence": "official"
       },
       {
         "year": 2011,
@@ -1213,9 +926,123 @@
         "title": "阿罗拉形态（地区变体）引入",
         "detail": "日月/究极日月引入阿罗拉形态（Alola Forms）——同一宝可梦在不同地理环境中演化为不同形态，拥有不同属性组合和外观。这是 Pokemon 历史上首次出现「同一物种在不同地区有差异」的设计，为后续所有地区形态（伽勒尔/洗翠/帕底亚）奠定基础。设计意义：将「角色身份」与「地理叙事」绑定，大幅丰富了收集和探索动机",
         "category": "foundation",
-        "data_confidence": "official",
-        "freshness": "low",
-        "last_verified": "2026-04-21"
+        "data_confidence": "inferred_mid"
+      },
+      {
+        "year": 2013,
+        "gen": "Gen 6",
+        "title": "超级进化 + 超级训练",
+        "detail": "XY 引入 Mega Evolution 和超级训练（Super Training）两大系统：Mega Evolution 提供 46 种专属强化形态，但仅约8种有显著竞技使用，揭示了「差异化在谁能用而非怎么用」的问题；超级训练则提供 EV 可视化培育——将 EV 培育从几十小时的重复劳动压缩到几分钟的点击操作，是「降低门槛不等于降低深度」的正面案例",
+        "category": "enhancement",
+        "chain_category": "enhancement",
+        "chain_order": 1,
+        "chain_prev": null,
+        "chain_next": "Z 招式 + 阿罗拉形态 + 友好协商",
+        "chain_related": [
+          "超级进化被移除（剑/盾）"
+        ],
+        "data_confidence": "inferred_mid"
+      },
+      {
+        "year": 2016,
+        "gen": "Gen 7",
+        "title": "Z 招式 + 阿罗拉形态 + 友好协商",
+        "detail": "日月引入三大系统：(1) Z-Move——全员可用的一次性强化招式，被批评「决策深度不足」和「秒杀型 Z 破坏积累感」；(2) 阿罗拉形态（续 Gen 5）——日月正式引入阿罗拉形态大量使用，使地区变体成为系列标配；(3) 友好协商（Festival Plaza）——取代梦世界作为社交/交易平台，评价两极分化",
+        "category": "enhancement",
+        "chain_category": "enhancement",
+        "chain_order": 2,
+        "chain_prev": "超级进化 + 超级训练",
+        "chain_next": "极巨化与旷野地带",
+        "chain_related": [
+          "Z 招式被移除（剑/盾）"
+        ],
+        "data_confidence": "official"
+      },
+      {
+        "year": 2019,
+        "gen": "Gen 8",
+        "title": "极巨化与旷野地带",
+        "detail": "剑/盾引入极巨化（全队可用/3回合限时/群体效果）；极巨团体战；极巨防壁将保护与强化绑定；旷野地带首次大规模多人开放世界尝试",
+        "category": "pve",
+        "chain_category": "pve_group",
+        "chain_order": 1,
+        "chain_prev": null,
+        "chain_next": "冠之雪原 DLC + Dynamax Adventures",
+        "chain_related": [
+          "极巨化被移除（朱/紫）"
+        ],
+        "data_confidence": "official"
+      },
+      {
+        "year": 2020,
+        "gen": "Gen 8",
+        "title": "冠之雪原 DLC + Dynamax Adventures",
+        "detail": "剑/盾首部 DLC「冠之雪原」（Crown Tundra）于2020年10月发售，引入 Dynamax Adventures（极巨冒险）——4人合作租用宝可梦攻略随机地城、捕捉传说宝可梦的合作 PvE 模式。极巨冒险将租用系统、随机地城和 100% 捕获传说宝可梦结合，是历代最具深度的 PvE 合作设计之一",
+        "category": "pve",
+        "chain_category": "pve_group",
+        "chain_order": 2,
+        "chain_prev": "极巨化与旷野地带",
+        "chain_next": "太晶化",
+        "chain_related": [],
+        "data_confidence": "official"
+      },
+      {
+        "year": 2021,
+        "gen": "Gen 8",
+        "title": "凯之孤岛 DLC + 异形宝可梦全形态回归",
+        "detail": "第二部 DLC「凯之孤岛」（The Isle of Armor）于2021年6月发售；同时 GF 同步宣布异形（Vivillon）等 Gen 6 异色形态可从 Home 转入剑/盾，标志着 Gen 6 以来异形宝可梦的首次全形态大规模回归",
+        "category": "pve",
+        "data_confidence": "inferred_mid"
+      },
+      {
+        "year": 2022,
+        "gen": "Gen 9",
+        "title": "太晶化",
+        "detail": "朱/紫引入太晶化（全员可用/1回合/灵活属性切换）；三维度决策（时机/目标/属性）成为历代最强强化机制；太晶团体战引入时间轴机制改善等待问题",
+        "category": "enhancement",
+        "chain_category": "pve_group",
+        "chain_order": 3,
+        "chain_prev": "冠之雪原 DLC + Dynamax Adventures",
+        "chain_next": null,
+        "chain_related": [],
+        "data_confidence": "official"
+      },
+      {
+        "year": 2023,
+        "gen": "Gen 9",
+        "title": "朱/紫 DLC 第一弹：碧之假面",
+        "detail": "朱/紫首部 DLC「碧之假面」（The Teal Mask）于2023年9月发售，引入 Kitakami（鬼落叶）地区和第二个道馆挑战路线；玩家可使用合作模式（2人同屏）共同探索和战斗",
+        "category": "foundation",
+        "data_confidence": "official"
+      },
+      {
+        "year": 2023,
+        "gen": "Gen 9",
+        "title": "朱/紫 DLC 第二弹：蓝之圆盘",
+        "detail": "朱/紫第二部 DLC「蓝之圆盘」（The Indigo Disk）于2023年12月发售，引入 Blueberry Academy（新角色）以及第19个属性「Tera」类型；全部战斗强制双打对战，为历代最具竞技性的 DLC 内容",
+        "category": "foundation",
+        "data_confidence": "official"
+      },
+      {
+        "year": 2025,
+        "gen": "Gen 9",
+        "title": "Pokemon Legends: Z-A 与 Z-A Battle Club",
+        "detail": "Pokemon Legends: Z-A 于2025年10月16日发售，引入 Z-A Battle Club——4人自由混战实时对战模式（3分钟/非回合制/Mega Evolution为核心/计分制）；朱/紫最后官方赛季，世锦赛使用Regulation I；Mega Evolution将在Pokemon Champions中正式回归",
+        "category": "pvp",
+        "data_confidence": "official"
+      },
+      {
+        "year": 2026,
+        "gen": "Gen 9",
+        "title": "Pokemon Champions 时代开启",
+        "detail": "Pokemon Champions 于2026年4月8日正式上线（Switch/Switch 2），VGC正式过渡至新平台；首个规则Regulation M-A允许Mega Evolution与太晶化同时存在；世锦赛2026年8月28-30日在旧金山Moscone Center举办",
+        "category": "pvp",
+        "chain_category": "enhancement",
+        "chain_order": 5,
+        "chain_prev": "太晶化",
+        "chain_next": null,
+        "chain_related": [],
+        "data_confidence": "future"
       },
       {
         "year": 2011,
@@ -1229,456 +1056,7 @@
         "removal_cause": "「战斗前沿」的核心用户是核心粉丝群体，他们愿意花数十小时挑战高难度战斗树。移除它的逻辑与 Gen 5 的整体设计方向一致——Gen 5 是 Pokemon 系列首次尝试「软重启」，有意降低门槛吸引新玩家。但代价是失去了核心粉丝最珍视的「深度 PvP 练习场」。讽刺的是，战斗前沿是 Gen 5 期间玩家最怀念的功能之一。",
         "removal_impact": "negative",
         "removal_note": "「降低门槛」与「移除深度」是两件不同的事。当移除一个深度内容时，必须同时评估：有没有为深度用户准备的替代品？战斗前沿被移除后，核心粉丝失去了「安全练习高难度对战」的场所，这加速了核心用户向第三方模拟器（Showdown）的流失。设计提示：当你为了吸引新用户而降低门槛时，不要让老用户感到被抛弃。",
-        "data_confidence": "community",
-        "ban_type": "content_removal",
-        "chain_related": [
-          "对战塔（Battle Tower）：回合制竞技场的原型",
-          "对战塔在 Gen 8 剑/盾中彻底消失"
-        ],
-        "freshness": "low",
-        "last_verified": "2026-04-21"
-      },
-      {
-        "year": 2011,
-        "gen": "Gen 5",
-        "title": "季节系统被移除",
-        "detail": "Pokemon 黑/白引入的季节系统（春/夏/秋/冬，每代约持续游戏内28天）在黑白2/白2后未被延续至 Gen 6 X/Y。季节系统使不同季节可以遇到不同的宝可梦和物品，并影响道路的外观、音乐和部分 NPC 行为，是 Gen 5「真实世界感」设计理念的重要组成部分。",
-        "category": "foundation",
-        "removed": true,
-        "removal_year": 2013,
-        "removal_reason": "Game Freak 解释：季节系统的开发和维护成本较高（需要为每个季节设计不同的宝可梦刷新表、道具分布、NPC 对话和地图外观），但实际体验到的玩家比例有限。Gen 6 转向「玩家自由度」和「社交功能」为核心，季节系统被视为「高成本低收益」的维护负担。",
-        "removal_cause": "季节系统的核心价值是「环境叙事」——通过季节变化让玩家感受到时间的流逝和世界的「呼吸感」。但这个价值是隐性的、长期的，不像战斗系统那样每次对局都能体验到。当 Game Freak 需要缩减开发资源时，首先被牺牲的就是这些「体验价值隐性」的系统。",
-        "removal_impact": "mixed",
-        "removal_note": "季节系统的消失提醒我们：「沉浸感设计」的长期价值往往被低估，但在资源紧张时最容易被优先削减。设计提示：如果你有一个「沉浸感系统」（如季节、昼夜、天气变化），在评估其价值时不仅要计算「直接收益」，还要评估它对「玩家留存」和「世界真实感」的隐性贡献。牺牲隐性体验来换取显性功能，往往是短视的。",
-        "data_confidence": "community",
-        "ban_type": "content_removal",
-        "chain_related": [],
-        "freshness": "low",
-        "last_verified": "2026-04-21"
-      },
-      {
-        "year": 2011,
-        "gen": "Gen 5",
-        "title": "华丽大赛从主系列中消失",
-        "detail": "Pokemon 黑/白宣布不再包含华丽大赛系统。尽管 BW2/白2 作为资料片短暂恢复了 Gen 5 的华丽大赛（称为「华丽对战」），但 Gen 6 X/Y 正式将其从正作中移除，再未回归。作为替代，Game Freak 在 Gen 6 引入了「超级愿望系统」（Super Training）和更丰富的对战内容。",
-        "category": "foundation",
-        "removed": true,
-        "removal_year": 2013,
-        "removal_reason": "Game Freak 官方未给出明确解释，但业界分析：(1) 华丽大赛与主战斗系统的受众分离度高——喜欢对战的玩家往往不参与华丽大赛，反之亦然，开发资源被分散；(2) 技能作为华丽值载体的设计有局限性，「最强技能」往往「最不华丽」，导致玩家策略与追求目标产生割裂；(3) Gen 6 的 3D 化转型需要大量美术资源，华丽大赛的表演动画是额外的负担。",
-        "removal_cause": "华丽大赛的核心矛盾是「双重目标冲突」：玩家在战斗中追求技能的效果和威力，而在华丽大赛中追求技能的视觉效果。这导致同一个技能对两类玩家产生了不同的价值判断。更深层的矛盾是「谁来评判」——Gen 3/4 的华丽大赛由 NPC 评判，缺乏社交互动，而 Gen 6 之后的 Pokemon 越来越强调玩家之间的连接。",
-        "removal_impact": "negative",
-        "removal_note": "华丽大赛的消失是 Pokemon「功能整合」策略的一个失败案例。Game Freak 最终没有找到一个让「战斗展示」和「战斗实力」共存的设计模式——要么分离（导致受众分裂），要么合并（导致两边都平庸）。这个教训在 Gen 9 的「太晶化」中有所体现：太晶化将「属性变化」和「视觉表演」融合在同一个动作中，不需要额外的评判系统，但仍然有「回合内操作密度过高」的问题。",
-        "data_confidence": "community",
-        "ban_type": "content_removal",
-        "chain_related": [
-          "华丽大赛作为「非战斗内容」登场",
-          "华丽大赛升级：添加华丽舞台与旁观模式"
-        ],
-        "freshness": "low",
-        "last_verified": "2026-04-21"
-      },
-      {
-        "year": 2011,
-        "gen": "Gen 5",
-        "title": "反转对战（Inverse Battle）模式登场",
-        "detail": "Pokemon 黑/白引入了反转对战（Inverse Battle）模式，这是 Pokemon 历史上唯一一个系统性改变属性相克规则的模式。在反转对战中，所有属性相克关系完全逆转：火系克水系，水系克草系，草系克火系，冰系克龙系变为龙系克冰系，等等。这是一个纯粹的对战实验，为玩家提供了「重新学习属性克制」的新鲜体验。Gen 5 的反转对战仅在「宝可梦世界联赛」（Battle Subway）的特定模式中可用。",
-        "category": "foundation",
-        "removed": false,
-        "data_confidence": "official",
-        "freshness": "low",
-        "last_verified": "2026-04-21"
-      },
-      {
-        "year": 2011,
-        "gen": "Gen 5",
-        "title": "对战铁路/对战地铁（Battle Subway）：单人对战设施登场",
-        "detail": "Pokemon 黑/白引入了对战铁路（Battle Subway），这是 Pokemon 历史上第一个「单人不联机」的对战设施系统。玩家可以在对战铁路中选择单人对战（Super Single）、双人对战（Super Double）或多人对战（Multi）模式，与一系列 NPC 训练家进行连续对战，如同「地铁」一般一站接一站前进。对战铁路取代了 Gen 4 的「对战塔」（Battle Tower），引入了「BP 积分」系统作为奖励，是 Gen 5 竞技培育玩家的主要刷分场所。",
-        "category": "pvp",
-        "removed": false,
-        "data_confidence": "official",
-        "freshness": "low",
-        "last_verified": "2026-04-21"
-      },
-      {
-        "year": 2011,
-        "gen": "Gen 5",
-        "title": "Pokemon Battle Revolution 之后，主机对战工全面终止",
-        "detail": "Pokemon 黑/白没有配套的独立主机对战游戏，Pokemon 的对战体验全面进入掌机（DS/3DS）和移动端（手机Pokemon GO）时代。Pokemon Showdown（2014）是社区自发建立的在线对战平台，在 Pokemon 没有官方主机对战工具的情况下填补了这一空白——但它是一个网页工具而非商业游戏。",
-        "category": "foundation",
-        "removed": true,
-        "removal_year": 2011,
-        "removal_reason": "独立主机对战工具的消失是因为：(1) Pokemon 主系列游戏本身的 3D 表现力已经接近或超越了独立对战工具（如 Pokemon Stadium）；(2) 开发独立对战工具的商业吸引力不足——这类游戏缺乏故事内容，主要是功能性的对战展示；(3) Pokemon Showdown 等社区工具提供了更丰富的对战体验（支持所有世代、实时平衡调整），在非商业层面满足了核心对战玩家的需求。",
-        "removal_cause": "Pokemon Stadium 谱系的消失揭示了「功能工具化」与「游戏体验化」的边界问题。当 Pokemon 主游戏本身已经足够好时，独立的「对战展示工具」就没有存在必要。但 Pokemon Showdown 的成功说明：玩家对「对战平台」的需求并没有消失，只是需要一个「无限制」（支持所有世代、所有规则）的对战平台，而这是商业游戏无法提供的。",
-        "removal_impact": "mixed",
-        "removal_note": "Pokemon Showdown 的存在是 Pokemon 商业策略的一个有趣的「漏洞」——它由社区维护，提供了比官方工具更丰富的对战体验，但完全不产生收入。对于 Game Freak 来说，Pokemon Showdown 是一个双刃剑：它维持了核心对战社区的活跃度（从而支撑了 VGC 赛事的参与度），但也降低了玩家购买新游戏的动力（可以在 Showdown 上免费体验所有对战内容）。Game Freak 的应对策略是在主游戏中加入 Showdown 无法提供的独占内容（太晶化、Mega 进化等），将「对战基础」留在 Showdown 上，而「对战进化」留在商业游戏中。",
-        "data_confidence": "official",
-        "ban_type": "content_removal",
-        "freshness": "low",
-        "last_verified": "2026-04-21"
-      },
-      {
-        "year": 2012,
-        "gen": "Gen 5",
-        "title": "Pokemon Dream Radar（口袋妖怪梦的光源）：AR 捕捉的实验",
-        "detail": "Pokemon Dream Radar 是 Nintendo 3DS 的专用 AR 应用，配合 Pokemon 黑2/白2 使用。玩家通过 3DS 的摄像头在「现实世界」中捕捉宝可梦，并将捕捉到的宝可梦传输到黑2/白2中。更重要的是，Dream Radar 是 Gen 5 中获取「黑影宝可梦」（Shadow Pokemon——被火箭队等人心操控的宝可梦）以及「传说宝可梦」的官方渠道。Dream Radar 将 AR 捕捉、3DS 摄像头交互与宝可梦培育进行了初步整合。",
-        "category": "foundation",
-        "removed": false,
-        "data_confidence": "official",
-        "freshness": "low",
-        "last_verified": "2026-04-21"
-      },
-      {
-        "year": 2013,
-        "gen": "Gen 6",
-        "title": "超级进化 + 超级训练",
-        "detail": "XY 引入 Mega Evolution 和超级训练（Super Training）两大系统：Mega Evolution 提供 46 种专属强化形态，但仅约8种有显著竞技使用，揭示了「差异化在谁能用而非怎么用」的问题；超级训练则提供 EV 可视化培育——将 EV 培育从几十小时的重复劳动压缩到几分钟的点击操作，是「降低门槛不等于降低深度」的正面案例",
-        "category": "enhancement",
-        "data_confidence": "official",
-        "chain_category": "enhancement",
-        "chain_order": 1,
-        "chain_prev": null,
-        "chain_next": "Z 招式 + 阿罗拉形态 + 友好协商",
-        "chain_related": [
-          "超级进化被移除（剑/盾）"
-        ],
-        "freshness": "low",
-        "last_verified": "2026-04-21"
-      },
-      {
-        "year": 2013,
-        "gen": "Gen 6",
-        "title": "超级进化被移除（剑/盾）",
-        "detail": "Pokemon 剑/盾发售，超级进化未包含在游戏中，由极巨化替代。超级进化的「最后一战」发生在 Gen 7 日月（2016）——作为官方 VGC 允许使用的机制，Mega Evolution 在 Gen 7 日月达到设计巅峰（含 ORAS 新增的 Mega Latias/Latios，总计56种形态）。但 Gen 8 剑/盾发布时，Masuda 确认移除，原因是：(1) Switch 高清建模工作量倍增，无法同时兼顾 Mega/Z/极巨三套机制的高质量动画；(2) 维护三套强化机制的平衡成本过高；(3) Mega 进化「48选8」的低使用率问题尚未解决。Gen 9 朱/紫继续缺席。Pokemon Champions（2026）将作为 DLC 内容使 Mega Evolution 正式回归。",
-        "category": "enhancement",
-        "removed": true,
-        "removal_year": 2019,
-        "removal_reason": "Game Freak 优先极巨化作为 Gen 8 唯一的强化机制；Switch 建模工作量倍增；维护三套强化机制（Mega/Z/极巨）的平衡成本过高；Mega 进化的低使用率问题（仅约10%的Mega形态有显著竞技价值）。",
-        "removal_cause": "超级进化依赖「专属强化道具」（Mega Stone），加剧了「谁能用」的差异化问题——没有对应石头的宝可梦完全无法参与。相比之下，极巨化改为「全队共用次数」后，每个玩家的参与感更平等。但代价是失去了 Mega 进化的「角色认同感」和多样化的视觉设计。",
-        "removal_impact": "mixed",
-        "removal_note": "强化机制的「退出策略」与「引入策略」同样重要。Mega 进化的教训：大量专属内容（56种形态）最终被整体放弃，意味着差异化策略在「谁能用」维度上的投入可能血本无归。设计强化机制时应同步考虑「如果下个世代要放弃，哪些投入要打水漂」。同时，Mega 进化的「消失-回归」轨迹也证明：有强烈情感绑定的机制，即使被移除也可能因社区呼声而复活。",
-        "data_confidence": "official",
-        "ban_type": "content_removal",
-        "chain_category": "enhancement",
-        "chain_order": 1,
-        "chain_prev": null,
-        "chain_next": null,
-        "chain_related": [
-          "Z 招式 + 阿罗拉形态 + 友好协商",
-          "超级进化 + 超级训练"
-        ],
-        "freshness": "low",
-        "last_verified": "2026-04-21"
-      },
-      {
-        "year": 2013,
-        "gen": "Gen 6",
-        "title": "DexNav：口袋探险队系统的集大成者",
-        "detail": "Pokemon X/Y 的 ORAS（Omega Ruby/Alpha Sapphire，2014）引入 DexNav，这是对 Gen 5 口袋狩猎（Black City/Shadow）以及 Gen 6 口袋探险队（Pokémon Adventure Games）系统的整合与升华。DexNav 允许玩家在草丛中搜索特定的宝可梦，具有三大创新：(1) 无限连锁高个体值/隐藏特性遭遇；(2) 搜索技能——在进入战斗前预判即将遭遇的宝可梦属性和特性；(3) 首次遭遇时的技能学习提升（有机会以高于正常等级的技能开局）。",
-        "category": "foundation",
-        "removed": false,
-        "data_confidence": "official",
-        "freshness": "low",
-        "last_verified": "2026-04-21"
-      },
-      {
-        "year": 2013,
-        "gen": "Gen 6",
-        "title": "反转对战在 Gen 6 升级后被移除",
-        "detail": "Pokemon X/Y 引入「超级愿望系统」（Super Training）作为对战训练的核心，并大幅扩展了「旋转对战」设施，但反转对战模式本身被移除。Game Freak 曾在 X/Y 的早期补丁中短暂修复了 Gen 5 的一个与属性相关的 Bug，但并未将反转对战纳入 Gen 6 的对战体系。之后所有世代均未再出现反转对战。",
-        "category": "pvp",
-        "removed": true,
-        "removal_year": 2013,
-        "removal_reason": "反转对战的消失主要原因：(1) 受众面极窄——绝大多数 Pokemon 玩家将「记住属性克制」视为已掌握的基础知识，「反转克制」对他们来说是一种认知负担而非乐趣；(2) 平衡性难以保证——反转模式会打破大量技能的伤害计算基础，导致某些宝可梦或技能变得极强或极弱；(3) 对战规则的复杂性已足够高——Game Freak 在 Gen 6 引入了 Mega 进化的同时，也在简化其他对战规则以避免「信息过载」。",
-        "removal_cause": "反转对战本质上是一个「认知翻转实验」——它迫使玩家放弃长期积累的直觉，用逆向思维来参与对战。这个设计的趣味性来自「新鲜感」，但新鲜感会快速消退。当玩家习惯了反转模式后，它就不再有趣；而对于不喜欢的玩家来说，它从第一天起就是一个障碍。Game Freak 最终选择将这个实验性内容完全移除，而非维护两套并行的对战规则。",
-        "removal_impact": "mixed",
-        "removal_note": "反转对战的案例揭示了「实验性设计」的可持续性问题：当一个玩法的乐趣来自「打破常规」时，它本质上是一个「一次性体验」而非一个可重复玩的模式。真正的可重复性游戏内容需要有「深度」而非仅仅「不同」。这个教训在 Gen 9 的「太晶化」中有所体现：太晶化不是改变规则（像反转对战那样），而是扩展规则（在现有克制体系上增加一层维度），因此具有更长期的趣味深度。",
-        "data_confidence": "community",
-        "ban_type": "content_removal",
-        "chain_related": [
-          "反转对战（Inverse Battle）模式登场"
-        ],
-        "freshness": "low",
-        "last_verified": "2026-04-21"
-      },
-      {
-        "year": 2013,
-        "gen": "Gen 6",
-        "title": "O-Powers：朋友联机buff系统的巅峰",
-        "detail": "Pokemon X/Y 引入了 O-Powers（继承自 Pokemon GO 和 Pokemon Dream Radar 的在线奖励概念），这是一套专为朋友联机设计的临时强化系统。O-Powers 共7种，涵盖经验值加成（EXP All Power）、金钱加成（Doubles Power）、个体值提升（Affection Power）等。玩家可以通过 StreetPass 或在线联机向朋友发送 O-Power，是 Gen 6「朋友联机」主题的核心功能之一。",
-        "category": "social",
-        "removed": false,
-        "data_confidence": "official",
-        "freshness": "low",
-        "last_verified": "2026-04-21"
-      },
-      {
-        "year": 2013,
-        "gen": "Gen 6",
-        "title": "超级训练（Super Training）：替代 HM 的新训练体系",
-        "detail": "Pokemon X/Y 引入了超级训练（Super Training）作为个体值（IV）和努力值（EV）训练的核心界面。超级训练通过「训练药物」（如 Protein、Rare Candy）和「虚拟训练场」取代了传统的「打特定怪刷努力值」方式，让玩家可以可视化地分配 EV 点数（用足球训练小游戏引导），并通过训练药物直接提升 IV。这是 Pokemon 培育系统的一次重大民主化——新手玩家无需了解复杂的 EV/IV 机制，也能快速让自己的宝可梦达到竞技标准。",
-        "category": "foundation",
-        "removed": false,
-        "data_confidence": "official",
-        "freshness": "low",
-        "last_verified": "2026-04-21"
-      },
-      {
-        "year": 2013,
-        "gen": "Gen 6",
-        "title": "Pokemon 虚拟银行（Pokemon Bank）上线，云端存储时代开启",
-        "detail": "Pokemon X/Y 发售同期，任天堂和 The Pokemon Company 推出了 Pokemon 虚拟银行（Pokemon Bank）服务——这是 Pokemon 历史上第一个正式的云端宝可梦存储系统。玩家支付年费（约5美元）即可在云端存储多达3000只宝可梦，并可通过「Pokemon Bank」应用在 Gen 5 和 Gen 6 之间跨代传输宝可梦。Pokemon 虚拟银行极大地扩展了 Pokemon 收藏的可能性，打破了各世代之间「宝可梦孤岛」的限制。",
-        "category": "social",
-        "removed": false,
-        "data_confidence": "official",
-        "freshness": "low",
-        "last_verified": "2026-04-21"
-      },
-      {
-        "year": 2013,
-        "gen": "Gen 6",
-        "title": "跟随系统在 Gen 6 X/Y 中被移除",
-        "detail": "Pokemon X/Y 移除了跟随系统，这是 Gen 4 以来首次在正作中缺失该功能。Game Freak 解释是因为 3D 化建模工作量巨大——让所有宝可梦都制作行走动画的工作量是 2D 时代的数倍。在 X/Y 中，玩家只能通过 Pokémon-Amie 与宝可梦进行情感互动，而非直接跟随行走。",
-        "category": "foundation",
-        "removed": true,
-        "removal_year": 2013,
-        "removal_reason": "3D 化转型是跟随系统消失的直接原因。心金/魂银是 2D 游戏，跟随系统只需要精灵图动画；而 X/Y 是 3D 游戏，每个宝可梦需要完整的 3D 行走模型和动画。Game Freak 在 3D 化初期优先保证了角色（玩家）本身的 3D 表现，而将宝可梦的 3D 表现主要放在战斗场景中（那里有特写镜头），而非开放世界中。",
-        "removal_cause": "跟随系统消失的深层原因是「3D 化的技术债务」——当游戏从 2D 转向 3D 时，所有 2D 时代的系统都需要重新评估哪些值得被 3D 化。Game Freak 做出了「先保证战斗表现，暂缓世界表现」的选择。这个选择在短期内是合理的（战斗是 Pokemon 的核心），但长期来看失去了「与宝可梦一起探索世界」的独特体验。",
-        "removal_impact": "negative",
-        "removal_note": "跟随系统的缺失从 Gen 6 持续到 Gen 8，是 Pokemon 3D 化过程中最明显的「体验降级」之一。许多玩家在社区中表达了强烈的不满，这直接推动了 Gen 8 DLC「冠之雪原」和 Gen 9 朱/紫中部分宝可梦的跟随功能回归。值得注意的是，Gen 9 的朱/紫虽然加入了跟随功能，但并非所有宝可梦都支持（大型宝可梦无法跟随），说明 3D 化的工作量问题仍然存在。这个案例证明：「粉丝呼声」可以成为系统回归的驱动力，但完全恢复的成本仍然很高。",
-        "data_confidence": "community",
-        "ban_type": "content_removal",
-        "chain_related": [
-          "跟随系统（Following Pokemon）在心金/魂银中首次实现"
-        ],
-        "freshness": "low",
-        "last_verified": "2026-04-21"
-      },
-      {
-        "year": 2013,
-        "gen": "Gen 6",
-        "title": "GTS 在 Gen 6 演化为「朋友 GTS」",
-        "detail": "Pokemon X/Y 的 GTS 增加了「朋友 GTS」功能，允许玩家仅与自己的 Nintendo 3DS 朋友列表中的好友进行交换，提供了更私密的交换环境。同时，Gen 6 还引入了「奇迹交换」（Wonder Trade）——随机与陌生人交换宝可梦，极大地增加了 GTS 的社交随机性和趣味性。",
-        "category": "social",
-        "removed": false,
-        "data_confidence": "official",
-        "freshness": "low",
-        "last_verified": "2026-04-21"
-      },
-      {
-        "year": 2013,
-        "gen": "Gen 6",
-        "title": "2v2 双打集火策略在 Gen 6 中被确立为核心战术",
-        "detail": "Pokemon X/Y 的双打对战确立了「集火机制」：当两只宝可梦对同一目标发动攻击时，两次攻击会分别判定，可以触发两次命中效果（如灼伤状态等）。这是 Pokemon 双打战术的基础——通过集火快速消灭一只宝可梦，使对方进入 2v1 的优势局面。集火机制让双打从「两只宝可梦各打各的」升级为「需要战术协调的团队游戏」。",
-        "category": "enhancement",
-        "removed": false,
-        "data_confidence": "official",
-        "freshness": "low",
-        "last_verified": "2026-04-21"
-      },
-      {
-        "year": 2013,
-        "gen": "Gen 6",
-        "title": "对战塔升级为「旋转战斗设施」（Battle Spot），轮盘对战登场",
-        "detail": "Pokemon X/Y 将对战铁路升级为「旋转战斗设施」（Battle Spot），将单人对战、多人对战和在线对战整合在一个入口下。旋转战斗设施是 Gen 6 VGC 的官方对战入口，提供等级50和等级100两种规则，并引入了「排位匹配」功能。对战塔/对战地铁的「连续对战」模式被简化为「随机匹配」模式——玩家不再需要连续获胜才能进入高级对战区，而是通过 MMR 匹配系统来配对。",
-        "category": "pvp",
-        "removed": false,
-        "data_confidence": "official",
-        "freshness": "low",
-        "last_verified": "2026-04-21"
-      },
-      {
-        "year": 2013,
-        "gen": "Gen 6",
-        "title": "Pokemon Dream Radar 随 Gen 5 结束而终止，未进入 Gen 6",
-        "detail": "Pokemon X/Y 发布时没有推出新的 Dream Radar 版本，Dream Radar 的 AR 捕捉功能没有得到延续。黑2/白2 的玩家仍然可以使用 Dream Radar，但 Gen 6 X/Y 的玩家无法使用任何类似的 AR 捕捉系统。Pokemon GO（2016）才是 AR 捕捉功能的真正成熟形态。",
-        "category": "foundation",
-        "removed": true,
-        "removal_year": 2013,
-        "removal_reason": "Dream Radar 的消失是因为它是一个「跨代绑定」的内容——它需要特定的 3DS 硬件、特定的 Pokemon 游戏配合，且只能产出 Gen 5 的宝可梦。当 Game Freak 进入 Gen 6 的 3D 化时代后，AR 捕捉的优先级被降低——所有开发资源都集中在了 3D 宝可梦建模、对战系统和 Mega 进化上。",
-        "removal_cause": "Dream Radar 的设计问题是「AR 的工具性」——它将 AR 作为一个「传输渠道」而非「体验本身」。玩家使用 Dream Radar 的动机是「获得特定宝可梦」，而非「体验 AR 捕捉的乐趣」。当这个「获取渠道」在 Gen 6 中不再必要（所有宝可梦可以直接在 X/Y 中获得）时，Dream Radar 就失去了存在价值。这与 Pokemon GO 的 AR 捕捉不同——Pokemon GO 的 AR 是体验的核心组成部分（捕捉宝可梦本身），而非获取特定宝可梦的工具。",
-        "removal_impact": "mixed",
-        "removal_note": "Dream Radar 的教训是：AR/VR 功能的「工具化」是一条死路——当 AR 只是「到达目的地的手段」时，它无法独立存在。Pokemon GO 的成功在于它让 AR 成为了「捕捉体验的放大器」——每一次捕捉都是 AR 体验，而不仅仅是捕捉本身。设计 AR 功能时，应该让 AR 本身成为乐趣的来源，而非实现某个非 AR 目标的工具。",
-        "data_confidence": "official",
-        "ban_type": "content_removal",
-        "freshness": "low",
-        "last_verified": "2026-04-21"
-      },
-      {
-        "year": 2014,
-        "gen": "Gen 6",
-        "title": "Pokemon Global Link（PGL）作为 NFC 替代品登场",
-        "detail": "Pokemon X/Y 推出 Pokemon Global Link（PGL），将线上对战和排位系统迁移至 Web 平台。PGL 提供了更丰富的统计功能、排位积分（Rating）、以及对战场次记录，是 Pokemon 竞技对战的第一个独立线上平台。PGL 取代了 Gen 4/5 时代的 Nintendo Wi-Fi Connection 的 Pokemon 专用功能，标志着 Pokemon 线上生态从「任天堂平台服务」向「Pokemon 专属平台」的独立演进。",
-        "category": "social",
-        "removed": false,
-        "data_confidence": "official",
-        "chain_category": "online",
-        "chain_order": 3,
-        "chain_prev": "VGC 世界锦标赛首届举办",
-        "chain_next": "Nintendo Wi-Fi Connection 关闭（Pokemon 在线服务受重大影响）",
-        "chain_related": [
-          "Wi-Fi 联网对战正式上线"
-        ],
-        "freshness": "low",
-        "last_verified": "2026-04-21"
-      },
-      {
-        "year": 2016,
-        "gen": "Gen 7",
-        "title": "Z 招式 + 阿罗拉形态 + 友好协商",
-        "detail": "日月引入三大系统：(1) Z-Move——全员可用的一次性强化招式，被批评「决策深度不足」和「秒杀型 Z 破坏积累感」；(2) 阿罗拉形态（续 Gen 5）——日月正式引入阿罗拉形态大量使用，使地区变体成为系列标配；(3) 友好协商（Festival Plaza）——取代梦世界作为社交/交易平台，评价两极分化",
-        "category": "enhancement",
-        "data_confidence": "official",
-        "chain_category": "enhancement",
-        "chain_order": 2,
-        "chain_prev": "超级进化 + 超级训练",
-        "chain_next": "极巨化与旷野地带",
-        "chain_related": [
-          "Z 招式被移除（剑/盾）"
-        ],
-        "freshness": "low",
-        "last_verified": "2026-04-21"
-      },
-      {
-        "year": 2016,
-        "gen": "Gen 7",
-        "title": "秘传学习器系统被完全移除",
-        "detail": "Pokemon 日/月完全移除了秘传学习器（HM）系统——自 Gen 1（1996）延续至今的「用招式解锁地图障碍」机制宣告终结。被 Poké Ride（骑乘宝可梦）系统替代：玩家可以在任何时候召唤专用骑乘宝可梦执行特定动作，不再占用宝可梦的招式栏或队伍槽位。Gen 8 剑/盾继续无 HM，Gen 9 升级为骑乘系统（可骑任何宝可梦）。",
-        "category": "foundation",
-        "removed": true,
-        "removal_year": 2016,
-        "removal_reason": "HM 系统被普遍认为是系列最恼人的机制之一：需要永久占用宝可梦招式栏、只能用技能遗忘者删除、骑乘时影响战斗配置，玩家对 HM 的厌恶从 Gen 1 持续到 Gen 6。Game Freak 在多个访谈中承认 HM 的设计存在根本问题。",
-        "removal_cause": "HM 的核心矛盾在于「功能性需求」与「战斗配置需求」的不可调和：一只需要用来开路的宝可梦（需要 HM 招式）往往不是最强的对战宝可梦，这导致玩家要么牺牲对战实力、要么牺牲探索便利。Poké Ride 通过「开路与对战完全分离」解决了这个问题。",
-        "removal_impact": "positive",
-        "removal_note": "HM 的移除是「设计问题」的经典案例：它存在了20年（Gen 1-6），被大量玩家诟病，却一直没有被解决，直到 Gen 7 才彻底重构。教训：如果一个机制有根本性设计缺陷，不要等20年才修复——越早重构，用户的沉没成本越低。同时，「功能分离」（开路用骑乘宝可梦，战斗用对战宝可梦）是解决「多功能冲突」的经典设计模式。",
-        "data_confidence": "community",
-        "ban_type": "content_removal",
-        "chain_related": [],
-        "freshness": "low",
-        "last_verified": "2026-04-21"
-      },
-      {
-        "year": 2016,
-        "gen": "Gen 7",
-        "title": "DexNav 在 Gen 7 日月中被移除",
-        "detail": "Pokemon 太阳/月亮（Gen 7）移除了 DexNav 系统，转而用「岛屿扫描」（Island Scan）作为替代。岛屿扫描通过 QR 码和 Amie 组合来发现特定宝可梦，设计上与 DexNav 的「自主搜索」逻辑完全不同。Gen 7 的野生遭遇系统回归更传统的方式：高等级草丛、波浪水面、暗香草等。",
-        "category": "foundation",
-        "removed": true,
-        "removal_year": 2016,
-        "removal_reason": "Gen 7 日月是 Pokemon 系列转向「地区形式」（Regional Forms）和「极简化」设计语言的重要节点。日月的地图设计采用了「无缝隙探索」结构（取消了传统道路连接），大幅简化了野外遭遇的「等待成本」。DexNav 的「无限连锁搜索」与日月追求的「低门槛快速体验」理念存在冲突。",
-        "removal_cause": "DexNav 的核心问题是「过度优化」：当玩家可以通过 DexNav 无限连锁来刷出完美个体值时，野生遭遇的「随机性」价值几乎降为零。这破坏了 Pokemon 捕捉系统的「惊喜感」——玩家的搜索行为从「探索未知」变成了「精确计算」。而日月的设计哲学强调「让一切更自然」，因此需要回归更不可预测的遭遇系统。",
-        "removal_impact": "mixed",
-        "removal_note": "DexNav 的教训是「随机性是有设计价值的」。当一个系统把随机性完全消除（或允许无限重试），它就变成了一个「工业化流程」而非「冒险体验」。但同时，也要承认 DexNav 的「搜索技能」是一个极具创意的设计创新——它让「预判」本身成为了一种可学习的技能，这种「信息前置」的设计思路在后续的「太晶团体战」的读招环节中有回响。",
-        "data_confidence": "community",
-        "ban_type": "content_removal",
-        "chain_related": [
-          "DexNav：口袋探险队系统的集大成者"
-        ],
-        "freshness": "low",
-        "last_verified": "2026-04-21"
-      },
-      {
-        "year": 2016,
-        "gen": "Gen 7",
-        "title": "O-Powers 在 Gen 7 日月被完全移除",
-        "detail": "Pokemon 太阳/月亮移除了 O-Powers 系统，尽管保留了部分朋友联机功能。O-Powers 没有被任何直接替代的系统所取代——朋友联机的奖励机制被大幅简化，不再有专门的 buff 共享界面。",
-        "category": "social",
-        "removed": true,
-        "removal_year": 2016,
-        "removal_reason": "O-Powers 的移除与 Gen 7 日月的「极简化」设计理念一致。日月大幅精简了 UI 和菜单层级（从传统六道具选单改为环形菜单），O-Powers 作为「朋友联机辅助系统」被认定为「非核心功能」。此外，O-Powers 的有效范围较窄——它主要对「有朋友一起玩的玩家」有显著价值，对单人玩家的体验提升为零。",
-        "removal_cause": "O-Powers 的设计问题是「社交功能的单向性」：发送 buff 的玩家实际上没有任何收益（除了朋友变得更强大），这使得 O-Powers 形成了一个「给予者没有激励」的公益系统。相比之下，Pokemon GO 的「友谊等级」和「礼物系统」通过双向收益（双方都能获得礼物）解决了这一问题。O-Powers 的消失早于 Pokemon 建立更成熟的友谊系统（Gen 7 才引入「朋友快递」）。",
-        "removal_impact": "negative",
-        "removal_note": "O-Powers 的教训是：社交功能必须有「双向激励」才能持久。「单方面施惠」的社交系统即使在短期内有效，长期也会因为「给予者的冷漠」而失去活力。好的社交功能设计应该让参与各方都有收益或有足够的社交认可回报。Pokemon 后续在 Gen 7 引入的「朋友快递」和 Gen 8 的「极巨火锅」都遵循了这一原则——朋友之间互相帮助时，双方都有实质奖励。",
-        "data_confidence": "community",
-        "ban_type": "content_removal",
-        "chain_related": [],
-        "freshness": "low",
-        "last_verified": "2026-04-21"
-      },
-      {
-        "year": 2016,
-        "gen": "Gen 7",
-        "title": "超级训练在 Gen 7 被移除，培育系统再次简化",
-        "detail": "Pokemon 太阳/月亮移除了独立的超级训练界面，培育系统迁移回更传统的「战斗中获得努力值」和「培育屋」（Festival Plaza）模式。培育屋继承了超级训练的部分功能（金钱购买 EV 药物），但取消了可视化的「训练小游戏」。值得注意的是，日月引入了「 Bottle Cap」和「Gold Bottle Cap」道具，使玩家可以通过道具直接提升 IV 到最大，取代了超级训练的 IV 训练功能。",
-        "category": "foundation",
-        "removed": true,
-        "removal_year": 2016,
-        "removal_reason": "超级训练的小游戏被许多玩家视为「时间消耗」而非「趣味体验」——在完成第一次体验后，反复进行训练赛变成了一个无趣的重复操作。Gen 7 日月的开发团队选择将培育功能回归游戏主循环（培育屋+道具），同时通过 Bottle Cap 大幅简化了 IV 提升路径（不需要反复刷个体值，直接用道具锁定）。",
-        "removal_cause": "超级训练的核心设计问题在于「游戏化过度」——它试图用一个简单的足球小游戏来包装复杂的 EV/IV 培育体系，但这个小游戏本身缺乏深度。玩家在掌握培育机制后，就会将超级训练视为「必须完成但无趣」的每日任务。Gen 7 的解决思路是：保持培育系统的复杂度，但通过道具化（Bottle Cap）和游戏内经济（培育屋购买）来降低操作门槛，而不是用小游戏来「教化」玩家。",
-        "removal_impact": "mixed",
-        "removal_note": "超级训练的演变揭示了「游戏化教学」的一个陷阱：当游戏化内容本身缺乏足够的深度和变化时，它反而会成为玩家的负担。好的教程设计应该是「让玩家在真实游戏中学习」（如在第一次捕捉野生宝可梦时自然理解 HP 和等级），而不是创造一个隔离的「教学场景」。Gen 7 的 Bottle Cap 设计更胜一筹——它承认了「培育是重复劳动」，用道具来解决重复问题，而不是用游戏化来掩盖重复。",
-        "data_confidence": "community",
-        "ban_type": "content_removal",
-        "chain_related": [
-          "超级进化 + 超级训练"
-        ],
-        "freshness": "low",
-        "last_verified": "2026-04-21"
-      },
-      {
-        "year": 2016,
-        "gen": "Gen 7",
-        "title": "Pokémon Refresh（宝可清爽乐）登场：超越喂食机的情感系统",
-        "detail": "Pokemon 太阳/月亮引入了 Pokémon Refresh（部分中文翻译为「宝可清爽乐」），这是对 Gen 6 的 Pokémon-Amie（宝可梦阿米）的全面升级。Pokémon Refresh 允许玩家通过触摸、喂食和玩耍与宝可梦互动，核心创新是「友好度」系统可视化——宝可梦的表情会随着友好度变化而变化，且高友好度会影响战斗中的「奇妙分心」（当敌人攻击自己时有概率不攻击）。Pokémon Refresh 还在日月的故事线中扮演重要角色（霸主宝可梦和友好度机制直接关联）。",
-        "category": "foundation",
-        "removed": false,
-        "data_confidence": "official",
-        "freshness": "low",
-        "last_verified": "2026-04-21"
-      },
-      {
-        "year": 2016,
-        "gen": "Gen 7",
-        "title": "SOS 呼叫：Gen 7 的动态连锁系统",
-        "detail": "Pokemon 太阳/月亮引入了 SOS 呼叫机制，替代了 Gen 6 的 DexNav 连锁系统。在 SOS 呼叫中，野生宝可梦在战斗中可以通过呼叫同伴来寻求帮助，被呼叫的同伴有概率以「暗号状态」（Agitated）出现——暗号状态下可能使用特定技能或具有隐藏特性（Ability）。玩家可以通过消耗 PP 或使用「兰螽花」等道具来增加暗号呼叫的概率，最长可以连锁至 255 次。这套系统的随机性比 DexNav 更低（因为发生在战斗内），但暗号状态提供了一层额外的遭遇惊喜。",
-        "category": "foundation",
-        "removed": false,
-        "data_confidence": "official",
-        "freshness": "low",
-        "last_verified": "2026-04-21"
-      },
-      {
-        "year": 2016,
-        "gen": "Gen 7",
-        "title": "阿罗拉形态（Alola Forms）：地区形态概念的诞生",
-        "detail": "Pokemon 太阳/月亮首次引入了「阿罗拉形态」（Alola Forms）——这是 Pokemon 历史上首次对已有宝可梦进行地区性变体设计。约18种宝可梦（主要是第一世代的御三家和小拉达等）在阿罗拉地区演化出了新的形态，这些形态拥有不同的属性组合和外观，例如阿罗拉拉达获得了恶属性，阿罗拉六尾获得了冰属性。阿罗拉形态的核心设计理念是「环境塑造生物」——不同的生态塑造了不同的生物特征。",
-        "category": "foundation",
-        "removed": false,
-        "data_confidence": "official",
-        "freshness": "low",
-        "last_verified": "2026-04-21"
-      },
-      {
-        "year": 2016,
-        "gen": "Gen 7",
-        "title": "Festival Plaza（培育殿堂）：Gen 7 的社交与培育核心",
-        "detail": "Pokemon 太阳/月亮引入了 Festival Plaza（培育殿堂），作为 Gen 7 的社交与培育核心枢纽。培育殿堂取代了 Gen 6 的多种独立设施（超级训练、华丽大赛入口、宝可梦阿米等），将交换、对战、培育、小游戏等功能整合在一个「广场」界面下。培育殿堂还引入了「集市」（Boutique，购买外观道具）和「广场剧场」（Plaza Theater）等社交场所，是 Gen 7 追求「单点社交」的集中体现。",
-        "category": "foundation",
-        "removed": false,
-        "data_confidence": "official",
-        "freshness": "low",
-        "last_verified": "2026-04-21"
-      },
-      {
-        "year": 2016,
-        "gen": "Gen 7",
-        "title": "Poke Pelago（宝可梦乐园）：岛屿探险替代野外培育",
-        "detail": "Pokemon 太阳/月亮引入了 Poke Pelago（宝可梦乐园），一个可以让宝可梦在「虚拟岛屿」上自由活动的系统。玩家可以派遣宝可梦去不同的岛屿执行任务，如采集道具、刷取经验值、发掘化石等。Poke Pelago 的设计理念是「后台培育」——玩家不需要持续操作，系统会自动积累培育成果。",
-        "category": "foundation",
-        "removed": false,
-        "data_confidence": "official",
-        "freshness": "low",
-        "last_verified": "2026-04-21"
-      },
-      {
-        "year": 2016,
-        "gen": "Gen 7",
-        "title": "Pokemon GO 联动初步：仅限 Gen 1 的「特殊捕捉」",
-        "detail": "Pokemon GO（2016）发布后，Pokemon 太阳/月亮提供了与 Pokemon GO 的有限联动：玩家可以通过 Pokemon GO 获得「特别礼物验证码」，在日月中兑换特定宝可梦（如 Surprised Pikachu）。这次联动的规模极小，但建立了 Pokemon GO 与主系列游戏的第一条通道。",
-        "category": "social",
-        "removed": false,
-        "data_confidence": "official",
-        "freshness": "low",
-        "last_verified": "2026-04-21"
+        "data_confidence": "official"
       },
       {
         "year": 2017,
@@ -1692,17 +1070,12 @@
         "removal_cause": "三打的核心问题不是设计本身有缺陷，而是「先手优势」在 6v6 中被极度放大：先手方可以同时压制三个位置，导致「三面包围」的战术极端化。三打的设计没有找到足够的「反制先手」机制，使得「谁先手谁赢」成为主旋律。Smogon 社区在 2016 年访谈中回忆：「三打实际上比想象中有趣，但根本没人玩，所以 Game Freak 觉得不值得维护。」",
         "removal_impact": "neutral",
         "removal_note": "三打的消失是一个「恶性循环」的典型案例：没有官方 VGC 支持 → 没有玩家基础 → 没人玩 → 被移除 → 更加没有官方支持。设计提示：如果一个模式的设计逻辑有价值，但用户基础薄弱，正确的做法不是移除它，而是主动投入资源培育社区（如举办官方赛事、提供匹配支持）。Pokemon 缺乏这种「培育非主流模式」的耐心，导致大量有价值的玩法设计永远消失。",
-        "data_confidence": "community",
-        "ban_type": "content_removal",
         "chain_category": "meta_management",
         "chain_order": 1,
         "chain_prev": null,
         "chain_next": "轮转对战（Rotation Battle）被移除",
-        "chain_related": [
-          "轮转对战（Rotation Battle）被移除"
-        ],
-        "freshness": "low",
-        "last_verified": "2026-04-21"
+        "chain_related": [],
+        "data_confidence": "inferred_mid"
       },
       {
         "year": 2017,
@@ -1716,34 +1089,12 @@
         "removal_cause": "轮转对战的本质是「位置博弈」——玩家通过轮转选择「哪个宝可梦当前排」的决策创造价值。但这个决策维度的受众确实较窄：它更适合「策略型核心玩家」，而非休闲受众。在 Game Freak Gen 7 全面转向「降低门槛」的背景下，轮转对战的「高认知成本」使其成为必然被移除的对象。讽刺的是，它的战术深度远超 Doubles，却从未得到 VGC 级别的支持。",
         "removal_impact": "negative",
         "removal_note": "轮转对战的消失说明了一件事：「深度」本身不是护身符，「受众」才是。如果一个深度机制的目标用户群太小且无法扩大，Game Freak 会选择放弃它。但这恰恰是社区运营可以填补的空白——Pokemon 缺乏「官方培育细分竞技社区」的机制，导致所有非主流模式都死于「无人维护→无人玩→彻底消失」。设计提示：对于小众但有深度的玩法，与其移除，不如交给社区运营（提供工具/API/赛事支持）。",
-        "data_confidence": "community",
-        "ban_type": "content_removal",
         "chain_category": "meta_management",
         "chain_order": 2,
         "chain_prev": "三打（Triple Battle）被移除",
         "chain_next": null,
-        "chain_related": [
-          "三打（Triple Battle）被移除"
-        ],
-        "freshness": "low",
-        "last_verified": "2026-04-21"
-      },
-      {
-        "year": 2019,
-        "gen": "Gen 8",
-        "title": "极巨化与旷野地带",
-        "detail": "剑/盾引入极巨化（全队可用/3回合限时/群体效果）；极巨团体战；极巨防壁将保护与强化绑定；旷野地带首次大规模多人开放世界尝试",
-        "category": "pve",
-        "data_confidence": "official",
-        "chain_category": "pve_group",
-        "chain_order": 1,
-        "chain_prev": null,
-        "chain_next": "冠之雪原 DLC + Dynamax Adventures",
-        "chain_related": [
-          "极巨化被移除（朱/紫）"
-        ],
-        "freshness": "low",
-        "last_verified": "2026-04-21"
+        "chain_related": [],
+        "data_confidence": "official"
       },
       {
         "year": 2019,
@@ -1757,8 +1108,6 @@
         "removal_cause": "「一次性消耗品」设计天然限制了决策深度——玩家最优解是「关键时刻再用」而非「如何用得更好」。这与「策略选择优于数值碾压」原则相悖。虽然 Z 招式的「全员可用」是正确方向（解决了 Mega 进化的公平性问题），但「一次性」特性让时机博弈变成了非此即彼的选择。",
         "removal_impact": "mixed",
         "removal_note": "Z 招式失败的根源不在于「一次性」本身，而在于没有为不同玩家提供不同的使用路径。设计提示：如果一个机制无法同时满足休闲玩家（简单爽感）和硬核玩家（精细决策），至少要为一方提供完整的体验。Z 招式两方都没服务好，是「中间路线失败」的典型。",
-        "data_confidence": "community",
-        "ban_type": "content_removal",
         "chain_category": "enhancement",
         "chain_order": 2,
         "chain_prev": null,
@@ -1767,8 +1116,7 @@
           "Z 招式 + 阿罗拉形态 + 友好协商",
           "极巨化与旷野地带"
         ],
-        "freshness": "low",
-        "last_verified": "2026-04-21"
+        "data_confidence": "community"
       },
       {
         "year": 2019,
@@ -1782,242 +1130,7 @@
         "removal_cause": "「所有内容都要」的设计哲学在硬件升级时遭遇了瓶颈。全国图鉴的「完整性承诺」是 Pokemon 品牌30年的核心资产之一，削减它直接动摇了「收集」这一核心乐趣的完整性。玩家社群的「Dexit」运动反映出：当「完整性」被打破时，品牌信任会受到严重损害。",
         "removal_impact": "negative",
         "removal_note": "「全部内容」是双刃剑。Dexit 的教训是：设计时不要过度承诺「所有内容永远可用」。当技术约束迫使削减时，提前告知玩家并提供替代方案（如「部分可用」「未来逐步回归」）比「直接砍掉」对品牌伤害更小。全国图鉴问题在 Gen 9「开放全图鉴」后得到修复，但玩家心中的伤痕持续更久。",
-        "data_confidence": "official",
-        "ban_type": "content_removal",
-        "chain_related": [],
-        "freshness": "low",
-        "last_verified": "2026-04-21"
-      },
-      {
-        "year": 2019,
-        "gen": "Gen 8",
-        "title": "Pokémon Refresh 被简化为「喂食」，Gen 8 缺少情感互动界面",
-        "detail": "Pokemon 剑/盾大幅简化了宝可梦互动系统——Pokémon Refresh 被替换为一个简单的喂食界面（通过 Camp 营地喂食和玩耍），但不再有触摸交互和表情反馈。友好度机制仍然存在（通过「咖喱饭」和「露营」等活动中体现），但缺乏可视化的情感反馈界面。许多玩家批评 Gen 8「失去了与宝可梦的情感连接」。",
-        "category": "foundation",
-        "removed": true,
-        "removal_year": 2019,
-        "removal_reason": "Pokémon Refresh 被简化有多个因素：(1) Gen 8 的开放世界化开发导致开发资源被重新分配，精细的情感互动界面（需要大量宝可梦表情动画）是高成本内容；(2) Gen 8 的「极巨化」和「旷野地带」设计已经占据了大量 UI 空间，Pokémon Refresh 被视为非核心功能；(3) Game Freak 在 Gen 8 的时间压力（Switch 首作，开发周期短）导致许多 Gen 7 的精细系统被削减。",
-        "removal_cause": "Pokémon Refresh 的消失背后是一个长期矛盾：Pokemon 的「伙伴关系」叙事与「竞技强度」需求之间的冲突。在竞技对战中，玩家关心的核心是数值（个体值、性格、EV），而 Pokémon Refresh 的情感系统对此没有直接贡献。当 Game Freak 需要在「叙事内容」和「竞技内容」之间做取舍时，时间压力下往往先牺牲叙事相关的情感系统。",
-        "removal_impact": "negative",
-        "removal_note": "Pokémon Refresh 的消失是 Game Freak 在 Gen 8「竞技化」转型中的一个牺牲品。这个案例提醒我们：情感系统的价值难以量化，因此在资源竞争中处于劣势。如果一个系统对「战斗数值」没有直接贡献，它需要被赋予更多功能性价值（如「奇妙分心」机制）来保证其存在。Gen 9 朱/紫部分恢复了「伙伴互动」（通过 Picnic 系统），但仍然是 Gen 7 体验的简化版本。",
-        "data_confidence": "community",
-        "ban_type": "content_removal",
-        "chain_related": [
-          "Pokémon Refresh（宝可清爽乐）登场：超越喂食机的情感系统"
-        ],
-        "freshness": "low",
-        "last_verified": "2026-04-21"
-      },
-      {
-        "year": 2019,
-        "gen": "Gen 8",
-        "title": "SOS 呼叫在 Gen 8 剑/盾中被移除",
-        "detail": "Pokemon 剑/盾移除了 SOS 呼叫机制，改用「极巨化」和「旷野地带」的明雷遇敌系统作为主要野生宝可梦遭遇方式。Gen 8 没有引入任何替代性的连锁系统——野生遭遇回归完全随机的模式，玩家无法通过任何机制主动改变遭遇表或提升特定状态（如隐藏特性）的概率。",
-        "category": "pvp",
-        "removed": true,
-        "removal_year": 2019,
-        "removal_reason": "SOS 呼叫的移除与 Gen 8 的「旷野地带」设计直接相关——旷野地带是一个大规模开放区域，采用明雷遇敌（可以看到野生宝可梦再选择是否对战），而非暗雷遇敌（随机进入战斗）。这种设计下，SOS 呼叫的「战斗内连锁」逻辑不再适用，因为玩家可以主动选择与哪只宝可梦对战，而不需要通过战斗内呼叫来改变遭遇表。",
-        "removal_cause": "SOS 呼叫消失的根本原因是「遇敌方式的转变」。从暗雷遇敌（Gen 1-7）到明雷遇敌（Gen 8-9）的转变，意味着「遭遇的控制权」从系统（随机）转移到了玩家（选择）。SOS 呼叫是一个「在随机中寻找可控性」的系统；而明雷遇敌则是「给予玩家完全控制」的系统。两者代表了不同的设计哲学：前者强调「意外惊喜」，后者强调「主动选择」。",
-        "removal_impact": "mixed",
-        "removal_note": "SOS 呼叫与 DexNav 的消失共同揭示了「遭遇系统的世代转型」——从「随机惊喜」向「主动选择」的转变。明雷遇敌给予了玩家更多的控制感和尊重感，但代价是失去了「不可预测性带来的惊喜」。Pokemon GO 的成功（大部分基于明雷遇敌）证明了这一转变在大众市场是受欢迎的。然而，对于追求「不可控随机性」的硬核玩家来说，这一转变是一种「体验降级」。这是一个经典的「设计民主化」困境：让更多玩家满意的设计，往往会让核心玩家感到被剥夺了一部分深度体验。",
-        "data_confidence": "community",
-        "ban_type": "content_removal",
-        "chain_related": [
-          "SOS 呼叫：Gen 7 的动态连锁系统",
-          "DexNav 在 Gen 7 日月中被移除"
-        ],
-        "freshness": "low",
-        "last_verified": "2026-04-21"
-      },
-      {
-        "year": 2019,
-        "gen": "Gen 8",
-        "title": "2v2 双打集火机制的隐性变化：优先度与保护交互",
-        "detail": "Pokemon 剑/盾（以及后续的 Gen 9 朱/紫）在集火机制上引入了大量隐性平衡调整：(1) 广域战力（Wide Guard）从对手全体保护升级为「保护所有攻击目标」，改变了集火窗口；(2) 电磁波/黏黏网等状态施加的判定时机发生变化，影响了集火前的准备阶段；(3) Gen 9 引入了「掉人」机制（当宝可梦被击倒时，可以立即切换），使集火的「秒杀价值」有所降低。整体趋势是：集火仍然是核心战术，但「集火什么」和「何时集火」的决策复杂度增加了。",
-        "category": "enhancement",
-        "removed": false,
-        "data_confidence": "inferred_low",
-        "freshness": "low",
-        "last_verified": "2026-04-21"
-      },
-      {
-        "year": 2019,
-        "gen": "Gen 8",
-        "title": "旋转战斗设施被「排名对战」（Ranked Battle）取代",
-        "detail": "Pokemon 剑/盾引入了「排名对战」系统，完全替代了旋转战斗设施的界面和流程。排名对战采用了标准的竞技游戏匹配逻辑：MMR 积分（Showdown 风格的 Rating）、赛季制度、每月重置。玩家不再需要进入特定的「战斗设施」界面，而是在游戏主菜单直接访问排名对战，并可以通过互联网与全世界的玩家对战。",
-        "category": "pvp",
-        "removed": true,
-        "removal_year": 2019,
-        "removal_reason": "对战设施的「消失」代表了 Pokemon 对战从「探索式内容」向「竞技化服务」的转变。对战铁路/旋转战斗设施本质上是一个「内容」，玩家去那里是为了「完成内容」（打败所有训练家）；而排名对战是一个「服务」，玩家参与是为了「提升排名」。前者是有终点的，后者是无限的。对于 Game Freak 来说，排名对战服务提供了更长期的玩家活跃度和付费意愿（VGC 赛事门票、官方活动等）。",
-        "removal_cause": "对战设施消失的深层原因是「内容复制度高」：对战塔/对战铁路的每个世代都需要重新制作 NPC 训练家数据，而这些内容是一次性的——玩家在第一遍体验后就不会再重复挑战。排名对战则是一个「无限内容」——每次对战的对手都是不同的玩家，永远不会有「重复」的感觉。这是一个从「内容设计」到「系统设计」的转变，前者有终点，后者没有。",
-        "removal_impact": "mixed",
-        "removal_note": "对战设施的消失是 Pokemon「服务化转型」的一个缩影。当游戏从「买断制内容」转向「持续运营服务」时，「有终点的内容」被「无限的服务」所取代。这个转变对核心玩家来说是一种失去——对战塔的「连续对战」提供了一种「Roguelike」式的紧张感，而排名对战的单局之间是断开的。但对于休闲玩家来说，排名对战更加友好——不需要投入大量时间「肝」BP，可以随时开始匹配。这个转变的代价是：Pokemon 的单人内容丰富度降低了，但多人竞技深度增加了。",
-        "data_confidence": "community",
-        "ban_type": "content_removal",
-        "chain_related": [
-          "对战塔（Battle Tower）：回合制竞技场的原型"
-        ],
-        "freshness": "low",
-        "last_verified": "2026-04-21"
-      },
-      {
-        "year": 2019,
-        "gen": "Gen 8",
-        "title": "对战塔在 Gen 8 剑/盾中彻底消失",
-        "detail": "Pokemon 剑/盾没有包含任何形式的对战塔、对战铁路或旋转战斗设施等「线下竞技挑战」内容。剑/盾的竞技内容完全迁移至线上：排名对战（Ranked Battle）和道馆挑战（Champion Cup）。这一变化意味着 Gen 8 的单机体验中，缺少了一个「不依赖网络的对战练习场所」——新手玩家无法在单机环境下练习对战技巧。",
-        "category": "pvp",
-        "removed": true,
-        "removal_year": 2019,
-        "removal_reason": "Gen 8 剑/盾的对战塔消失是因为 Game Freak 将竞技对战完全服务化——所有对战内容都需要网络连接才能获得完整价值。排名对战提供 MMR 积分和赛季奖励，是更有持续吸引力的竞技形式；而对战塔是一次性内容，开发和维护成本高但长期价值低。此外，Gen 8 的 DLC「铠之孤岛」和「冠之雪原」引入了「对战竞技场」（Battle Tower 的精神继承者），证明 Game Freak 并未完全放弃这一概念，只是将其降级为 DLC 内容。",
-        "removal_cause": "对战塔消失的根本原因是「内容价值与开发成本的不匹配」。Gen 4-6 期间，Game Freak 每代都需要投入大量资源来创建新的对战设施 NPC（设计训练家队伍、编写对话、设置奖励表），但这些内容对玩家的吸引力逐代下降——核心玩家更倾向于线上对战，休闲玩家则不会投入连续对战的时间。当这个「一次性内容」的 ROI（投资回报率）降到临界点以下，Game Freak 选择了彻底放弃。",
-        "removal_impact": "mixed",
-        "removal_note": "对战塔的消失是「服务化转型」的另一个牺牲品，但它揭示了一个重要的设计权衡：「竞技教学」需要一个「低风险练习场」——玩家可以在对战塔中尝试新策略，失败的成本只是终止连胜（没有实际的积分损失）。排名对战没有这种「安全练习」的空间，所有对局都有 MMR 风险。这对新手玩家的学习曲线是不友好的。Game Freak 在 Gen 9 朱/紫中通过「超级团体战」的练习模式和「太晶化」的预热机制部分解决了这一问题，但仍然没有恢复到对战塔的「零风险练习」体验。",
-        "data_confidence": "community",
-        "ban_type": "content_removal",
-        "chain_related": [
-          "对战塔（Battle Tower）：回合制竞技场的原型",
-          "战斗前沿被移除（黑白版）"
-        ],
-        "freshness": "low",
-        "last_verified": "2026-04-21"
-      },
-      {
-        "year": 2019,
-        "gen": "Gen 8",
-        "title": "伽勒尔形态（Galar Forms）登场，阿罗拉形态被排除在 Gen 8 之外",
-        "detail": "Pokemon 剑/盾引入了伽勒尔形态（Galar Forms），延续了地区形态的概念。但阿罗拉形态的宝可梦无法在剑/盾中使用——它们被归类为「只能通过 Pokemon HOME 传输但不能参与对战」的特殊类别，直到 Home 的更新补丁添加了对阿罗拉形态的支持。",
-        "category": "foundation",
-        "removed": false,
-        "data_confidence": "official",
-        "freshness": "low",
-        "last_verified": "2026-04-21"
-      },
-      {
-        "year": 2019,
-        "gen": "Gen 8",
-        "title": "Festival Plaza 被拆分为多个独立系统",
-        "detail": "Pokemon 剑/盾移除了 Festival Plaza，将其中的功能拆分至独立界面：培育功能进入「Box」系统，社交功能被「排名对战」和「朋友」系统取代，购物功能回归「商店」，小游戏功能则演变为「咖喱饭」（Camp）。这次「拆分」反映了 Gen 8 的设计哲学：不再追求「单点枢纽」，而是让每个功能回归其最自然的入口。",
-        "category": "foundation",
-        "removed": true,
-        "removal_year": 2019,
-        "removal_reason": "Festival Plaza 被批评为「导航混乱」——它将大量不相关的功能强行整合在一个界面下，导致玩家需要多次点击才能到达目标功能。Gen 8 的「拆分」是对这一批评的直接回应。Game Freak 在 Gen 8 的设计语言追求简洁和直接：每个功能有明确的入口，不需要通过一个「中间层」来访问。",
-        "removal_cause": "Festival Plaza 的设计问题是「整合过度」——它试图用一个统一的 UI 来承载所有社交和培育需求，但这些需求的使用频率和使用场景差异巨大。玩家需要的是一个「培育时去培育界面，对战时去对战界面」的直觉导航，而非通过广场的「绕路」来访问这些功能。Gen 8 的拆分是「用户界面经济学」的体现：经常使用的功能应该更容易访问，不常用的功能不需要占用主界面空间。",
-        "removal_impact": "mixed",
-        "removal_note": "Festival Plaza 的案例与「旋转战斗设施」的案例形成了有趣的对比——后者是「将多个入口合并为一个」，前者也是「将多个入口合并为一个」，但两者的命运相反。关键差异在于「合并的逻辑是否合理」：旋转战斗设施的合并是功能相关的（所有对战模式），所以被保留；Festival Plaza 的合并是人为的（将不相关的功能强行放在一起），所以被拆分。设计「枢纽」时，必须确保枢纽内的功能有内在逻辑关联，否则「枢纽」会变成「迷宫」。",
-        "data_confidence": "inferred_mid",
-        "ban_type": "content_removal",
-        "freshness": "low",
-        "last_verified": "2026-04-21"
-      },
-      {
-        "year": 2019,
-        "gen": "Gen 8",
-        "title": "Poke Pelago 在 Gen 8 被「宝可梦露营」所取代",
-        "detail": "Pokemon 剑/盾引入了「宝可梦露营」（Pokemon Camp），将 Poke Pelago 的部分功能整合到了野外露营场景中。宝可梦露营允许玩家与宝可梦互动、喂食、制作咖喱饭，但没有 Poke Pelago 的「任务派遣」和「道具采集」功能。Gen 8 的露营更注重「情感互动」而非「后台培育」，是一个功能简化但情感深化的版本。",
-        "category": "foundation",
-        "removed": true,
-        "removal_year": 2019,
-        "removal_reason": "Poke Pelago 的「任务派遣」功能在 Gen 8 被放弃，因为其奖励内容（道具、经验值）与 Gen 8 的其他系统（如极巨化汤、Watt 商店）存在功能重叠。Game Freak 选择保留「情感互动」部分（Camp），而将「实用培育」部分交给传统的战斗和道具系统。",
-        "removal_cause": "Poke Pelago 的消失揭示了「后台系统」的可持续性问题——当一个系统的功能可以被其他更自然的系统所覆盖时，它的存在价值就降低了。Gen 8 的宝可梦露营选择了更「有情感」的互动方式（与宝可梦一起做饭），而非 Poke Pelago 的「无感任务派遣」，这是一个「体验质量」优先于「效率」的设计决策。",
-        "removal_impact": "mixed",
-        "removal_note": "Poke Pelago vs 宝可梦露营的对比是 Pokemon「培育系统」演变的一个缩影：从「效率工具」向「情感体验」的转变。Gen 7 的 Poke Pelago 是一个「外挂式」的培育系统（完全脱离战斗场景）；Gen 8 的宝可梦露营是一个「嵌入式」的培育系统（培育发生在玩家正在游玩的场景中）。后者虽然效率较低，但与玩家的游玩节奏更融合，没有「打开另一个界面」的中断感。这是「沉浸感优先」还是「效率优先」的经典设计权衡，Pokemon 在不同世代给出了不同的答案。",
-        "data_confidence": "inferred_mid",
-        "ban_type": "content_removal",
-        "freshness": "low",
-        "last_verified": "2026-04-21"
-      },
-      {
-        "year": 2020,
-        "gen": "Gen 8",
-        "title": "冠之雪原 DLC + Dynamax Adventures",
-        "detail": "剑/盾首部 DLC「冠之雪原」（Crown Tundra）于2020年10月发售，引入 Dynamax Adventures（极巨冒险）——4人合作租用宝可梦攻略随机地城、捕捉传说宝可梦的合作 PvE 模式。极巨冒险将租用系统、随机地城和 100% 捕获传说宝可梦结合，是历代最具深度的 PvE 合作设计之一",
-        "category": "pve",
-        "data_confidence": "official",
-        "chain_category": "pve_group",
-        "chain_order": 2,
-        "chain_prev": "极巨化与旷野地带",
-        "chain_next": "太晶化",
-        "chain_related": [],
-        "freshness": "low",
-        "last_verified": "2026-04-21"
-      },
-      {
-        "year": 2020,
-        "gen": "Gen 8",
-        "title": "Pokemon HOME 正式连接 Pokemon GO，跨平台传输时代开启",
-        "detail": "Pokemon HOME（2020）正式支持 Pokemon GO 的宝可梦传输，玩家可以通过 HOME 将 GO 中的宝可梦传输到剑/盾中。这是 Pokemon 历史上第一次实现了从移动端到主机端的宝可梦迁移，打破了「Pokemon GO 是独立生态」的局面。Pokemon GO 的宝可梦开始拥有「主游戏价值」——在 GO 中捕捉的宝可梦可以被带到任何支持 HOME 的主系列游戏中使用。",
-        "category": "social",
-        "removed": false,
-        "data_confidence": "official",
-        "freshness": "low",
-        "last_verified": "2026-04-21"
-      },
-      {
-        "year": 2021,
-        "gen": "Gen 8",
-        "title": "凯之孤岛 DLC + 异形宝可梦全形态回归",
-        "detail": "第二部 DLC「凯之孤岛」（The Isle of Armor）于2021年6月发售；同时 GF 同步宣布异形（Vivillon）等 Gen 6 异色形态可从 Home 转入剑/盾，标志着 Gen 6 以来异形宝可梦的首次全形态大规模回归",
-        "category": "pve",
-        "data_confidence": "official",
-        "freshness": "medium",
-        "last_verified": "2026-04-21"
-      },
-      {
-        "year": 2022,
-        "gen": "Gen 8",
-        "title": "Nintendo Wi-Fi Connection 关闭（Pokemon 在线服务受重大影响）",
-        "detail": "2022年5月，Nintendo 正式关闭 Nintendo Wi-Fi Connection 服务，这直接影响了 Pokemon 黑2/X2 及更早游戏的线上功能：随机匹配对战、朋友对战中的线上模式、以及 GTS 全球语音交换系统全部停止服务。Pokemon 剑/盾及之后作品不受影响，因为它们使用的是 Pokemon 自己的服务器架构（PGL → Live。",
-        "category": "social",
-        "removed": true,
-        "removal_year": 2022,
-        "removal_reason": "Nintendo 关闭 NFC 是因为该服务基于 20 年前的服务器架构，维护成本高而用户量低（现代玩家更多使用有线/无线直连或独立平台）。从 Pokemon 的角度，这意味着 Gen 1~5 的线上功能全部变成单机内容，加速了这些世代游戏的「博物馆化」。",
-        "removal_cause": "Nintendo Wi-Fi Connection 的关闭揭示了一个根本性的服务设计问题：「平台依赖型」的服务缺乏独立性和可持续性。当底层平台服务关闭时，上层应用的所有在线功能也随之消亡。这与 Pokemon Global Link 的后续演变形成对比——PGL 演变为 Pokemon HOME，再到 Pokemon LIVE，服务一直在独立演进，没有被单一平台绑定。",
-        "removal_impact": "negative",
-        "removal_note": "NFC 的关闭是「服务寿命设计」的经典案例。对于需要长期运营的游戏，「服务器依赖程度」是一个关键决策点。Nintendo Wi-Fi Connection 没有考虑到「服务的独立可迁移性」，导致整个 Pokemon 在线一代体验随平台关闭而消失。而 Pokemon 选择逐步建立自己的服务体系（PGL→HOME→LIVE），正是对这一风险的对冲。",
-        "data_confidence": "official",
-        "ban_type": "content_removal",
-        "chain_category": "online",
-        "chain_order": 4,
-        "chain_prev": "Pokemon Global Link（PGL）作为 NFC 替代品登场",
-        "chain_next": "Pokemon Live（PGL 后继）上线，Pokemon Global Link 关闭",
-        "chain_related": [
-          "Wi-Fi 联网对战正式上线",
-          "Pokemon Global Link（PGL）作为 NFC 替代品登场"
-        ],
-        "freshness": "medium",
-        "last_verified": "2026-04-21"
-      },
-      {
-        "year": 2022,
-        "gen": "Gen 8",
-        "title": "Nintendo Wi-Fi Connection 关闭，GTS 传统版本服务终止",
-        "detail": "2022年5月 Nintendo Wi-Fi Connection 关闭后，Gen 4 到 Gen 5 的 GTS 服务彻底终止。这些世代的玩家只能通过线下或本地通信进行宝可梦交换。从 Gen 6 开始，Pokemon 线上服务迁移至 Pokemon 自己的服务器架构，GTS 功能通过 Pokemon Bank/Pokemon HOME 的「朋友交换」和「奇迹交换」延续。",
-        "category": "social",
-        "removed": true,
-        "removal_year": 2022,
-        "removal_reason": "GTS 的传统版本（基于 Nintendo Wi-Fi Connection）随平台服务关闭而终止。这是「平台绑定」服务的必然命运——当底层基础设施消失时，应用层的服务也随之消亡。Pokemon 的应对策略是将 GTS 功能整合到自己的服务体系中（HOME），而非依赖第三方平台。",
-        "removal_cause": "GTS 的演变揭示了一个重要的设计演进路径：从「公共广场」（任何人都可以交换）到「私人房间」（朋友专属）和「惊喜房间」（随机交换）。原始 GTS 的「公开交换」模式存在严重问题：大量玩家挂出价值极低的宝可梦（如 LV5 鲤鱼王）来换取高价值宝可梦，导致交换体验质量下降。而奇迹交换通过引入「随机性」创造了一种新的社交趣味——你不知道会收到什么，但你知道对方是真诚参与的。",
-        "removal_impact": "mixed",
-        "removal_note": "GTS 的设计演进是「信任机制」设计的教科书案例。公开 GTS 的失败不是因为「交换」这个行为本身有问题，而是因为「没有准入门槛」导致恶意行为无法被惩罚。Pokemon 后续通过「朋友交换」（信任网络）和「奇迹交换」（善意假设）解决了这一问题。设计社交系统时，「信任基础」是关键——要么建立身份识别（朋友网络），要么建立善意假设（随机交换），两者都不做的公开平台最终会被恶意行为污染。",
-        "data_confidence": "official",
-        "ban_type": "content_removal",
-        "freshness": "medium",
-        "last_verified": "2026-04-21"
-      },
-      {
-        "year": 2022,
-        "gen": "Gen 9",
-        "title": "太晶化",
-        "detail": "朱/紫引入太晶化（全员可用/1回合/灵活属性切换）；三维度决策（时机/目标/属性）成为历代最强强化机制；太晶团体战引入时间轴机制改善等待问题",
-        "category": "enhancement",
-        "data_confidence": "official",
-        "chain_category": "pve_group",
-        "chain_order": 3,
-        "chain_prev": "冠之雪原 DLC + Dynamax Adventures",
-        "chain_next": "Pokemon Champions 时代开启",
-        "freshness": "medium",
-        "last_verified": "2026-04-21",
-        "chain_category_secondary": "enhancement"
+        "data_confidence": "official"
       },
       {
         "year": 2022,
@@ -2031,8 +1144,6 @@
         "removal_cause": "极巨化的核心问题是「变大变强」缺乏层次感：玩家感受到的是「数值增加」而非「策略变化」。与太晶化的三维决策相比，极巨化几乎不需要预判——只要血量够低就极巨化，等于提供了一个免费的数值保险。这与「策略选择优于数值碾压」原则背道而驰。",
         "removal_impact": "positive",
         "removal_note": "极巨化的退出证明了一件事：即使官方 VGC 允许使用，也不足以拯救一个「无趣」的强化机制。玩家的「趣味感」与「竞技强度」同样重要——一个机制如果不能让双方都感受到策略博弈的乐趣，仅靠强度支撑终究会被抛弃。设计强化机制时，「好不好玩」与「强不强」必须同时满足。",
-        "data_confidence": "community",
-        "ban_type": "content_removal",
         "chain_category": "enhancement",
         "chain_order": 3,
         "chain_prev": null,
@@ -2041,26 +1152,21 @@
           "极巨化与旷野地带",
           "太晶化"
         ],
-        "freshness": "medium",
-        "last_verified": "2026-04-21"
+        "data_confidence": "community"
       },
       {
         "year": 2022,
         "gen": "Gen 9",
         "title": "招式教学被移除（朱/紫）",
         "detail": "Pokemon 朱/紫完全移除了招式教学（Move Tutor）系统——历代游戏中允许用战斗点数或道具学习特定招式的 NPC 全部消失。取而代之的是 Gen 8 引入的「秘传之叶/冰叶/土叶」直接遗忘/重学系统，以及 Gen 9 的菜单内直接遗忘招式。",
-        "category": "foundation",
+        "category": "meta",
         "removed": true,
         "removal_year": 2022,
         "removal_reason": "Game Freak 在 Gen 8 开始将招式遗忘/重学权限直接下放给玩家，不再需要找 NPC。这简化了流程，但代价是失去了「招式教学」作为稀有奖励的价值感——玩家可以无限制地切换招式，培育的策略深度有所下降。",
         "removal_cause": "招式的「稀缺性」设计有助于创造差异化——如果每个玩家都能随意切换招式，队伍构筑的「取舍感」就会消失。但 Game Freak 选择用「无限制遗忘/重学」替代「有限教学」，实质上是把「获取门槛」降到了零。",
         "removal_impact": "mixed",
         "removal_note": "培育系统简化是大趋势，但简化到什么程度需要权衡。「无限制遗忘」降低了门槛，也降低了「选择」的重量感——因为任何选择都可以轻易撤销。设计提示：培育系统的简化应保留「取舍感」，即使选择可以后悔，后悔的代价也要存在（如消耗资源/有冷却时间）。",
-        "data_confidence": "inferred_mid",
-        "ban_type": "content_removal",
-        "chain_related": [],
-        "freshness": "medium",
-        "last_verified": "2026-04-21"
+        "data_confidence": "community"
       },
       {
         "year": 2022,
@@ -2074,52 +1180,7 @@
         "removal_cause": "地区形态的成功依赖「环境叙事」——玩家知道「去雪山的宝可梦是冰系阿罗拉形态」，这种地理-形态-文化的一致性创造了沉浸感。开放世界打破了这种线性叙事，使地区形态的设计逻辑需要完全重构。",
         "removal_impact": "neutral",
         "removal_note": "地区形态是「叙事型差异化」的代表——它用环境来创造角色的独特性。当游戏从线性世界转向开放世界时，「叙事型差异化」需要找到新的承载方式（如悖论宝可梦的「时间悖论」设定）。设计开放世界内容时，要提前评估哪些「叙事绑定」的设计会失效。",
-        "data_confidence": "inferred_mid",
-        "ban_type": "content_removal",
-        "freshness": "medium",
-        "last_verified": "2026-04-21"
-      },
-      {
-        "year": 2022,
-        "gen": "Gen 9",
-        "title": "2v2 双打从 VGC 规则中移除，改为 VGC 3v3",
-        "detail": "Pokemon 朱/紫的 VGC 规则从 2v2 改为 3v3 规则（双打仍存在但不再是 VGC 核心），这是一个重大的规则变革。3v3 规则下的战术深度发生了本质变化：集火的目标选择更多（从 2 个变为 3 个），而「掉人」机制让残阵状态更有价值（一只宝可梦倒下时留下的「空位」可以被利用）。3v3 也降低了「首回合集火秒杀」的决定了局率，增加了中后期的运营权重。",
-        "category": "enhancement",
-        "removed": false,
-        "data_confidence": "official",
-        "freshness": "medium",
-        "last_verified": "2026-04-21"
-      },
-      {
-        "year": 2022,
-        "gen": "Gen 9",
-        "title": "阿罗拉形态和伽勒尔形态在 Gen 9 朱/紫中正式回归",
-        "detail": "Pokemon 朱/紫正式支持阿罗拉形态和伽勒尔形态的所有宝可梦参与对战，结束了自 Gen 7 以来的「形态孤岛」问题。朱/紫还引入了帕希亚形态（Paldean Forms），进一步扩展了地区形态的概念。",
-        "category": "foundation",
-        "removed": false,
-        "data_confidence": "official",
-        "freshness": "medium",
-        "last_verified": "2026-04-21"
-      },
-      {
-        "year": 2023,
-        "gen": "Gen 9",
-        "title": "朱/紫 DLC 第一弹：碧之假面",
-        "detail": "朱/紫首部 DLC「碧之假面」（The Teal Mask）于2023年9月发售，引入 Kitakami（鬼落叶）地区和第二个道馆挑战路线；玩家可使用合作模式（2人同屏）共同探索和战斗",
-        "category": "foundation",
-        "data_confidence": "official",
-        "freshness": "medium",
-        "last_verified": "2026-04-21"
-      },
-      {
-        "year": 2023,
-        "gen": "Gen 9",
-        "title": "朱/紫 DLC 第二弹：蓝之圆盘",
-        "detail": "朱/紫第二部 DLC「蓝之圆盘」（The Indigo Disk）于2023年12月发售，引入 Blueberry Academy（新角色）以及第19个属性「Tera」类型；全部战斗强制双打对战，为历代最具竞技性的 DLC 内容",
-        "category": "foundation",
-        "data_confidence": "official",
-        "freshness": "medium",
-        "last_verified": "2026-04-21"
+        "data_confidence": "community"
       },
       {
         "year": 2023,
@@ -2133,24 +1194,155 @@
         "removal_cause": "战斗设施的「硬核」定位与 Gen 6 以来的「降低门槛」策略相悖。但讽刺的是，移除战斗设施的同时，Game Freak 并没有为休闲 PvP 玩家提供足够的替代内容——朱/紫的单机 PvP 内容几乎为零，迫使想要练习对战的玩家只能进入排名对战，被 Meta 环境碾压。",
         "removal_impact": "negative",
         "removal_note": "「降低门槛」不等于「移除深度」。战斗设施被移除后，休闲 PvP 玩家失去了「安全的练习环境」——直接进入排名对战面对氪金玩家/刷子，环境极差。设计提示：当你移除一个「硬核」内容时，必须同时确认是否有足够的「入门级」替代品。单纯移除而不补充，会造成「中端用户」的体验真空。",
-        "data_confidence": "community",
-        "ban_type": "content_removal",
-        "chain_related": [
-          "战斗前沿被移除（黑白版）",
-          "对战塔在 Gen 8 剑/盾中彻底消失"
-        ],
-        "freshness": "medium",
-        "last_verified": "2026-04-21"
+        "data_confidence": "official"
       },
       {
-        "year": 2025,
-        "gen": "Gen 9",
-        "title": "Pokemon Legends: Z-A 与 Z-A Battle Club",
-        "detail": "Pokemon Legends: Z-A 于2025年10月16日发售，引入 Z-A Battle Club——4人自由混战实时对战模式（3分钟/非回合制/Mega Evolution为核心/计分制）；朱/紫最后官方赛季，世锦赛使用Regulation I；Mega Evolution将在Pokemon Champions中正式回归",
-        "category": "pvp",
-        "data_confidence": "official",
-        "freshness": "high",
-        "last_verified": "2026-04-21"
+        "year": 2016,
+        "gen": "Gen 7",
+        "title": "秘传学习器系统被完全移除",
+        "detail": "Pokemon 日/月完全移除了秘传学习器（HM）系统——自 Gen 1（1996）延续至今的「用招式解锁地图障碍」机制宣告终结。被 Poké Ride（骑乘宝可梦）系统替代：玩家可以在任何时候召唤专用骑乘宝可梦执行特定动作，不再占用宝可梦的招式栏或队伍槽位。Gen 8 剑/盾继续无 HM，Gen 9 升级为骑乘系统（可骑任何宝可梦）。",
+        "category": "foundation",
+        "removed": true,
+        "removal_year": 2016,
+        "removal_reason": "HM 系统被普遍认为是系列最恼人的机制之一：需要永久占用宝可梦招式栏、只能用技能遗忘者删除、骑乘时影响战斗配置，玩家对 HM 的厌恶从 Gen 1 持续到 Gen 6。Game Freak 在多个访谈中承认 HM 的设计存在根本问题。",
+        "removal_cause": "HM 的核心矛盾在于「功能性需求」与「战斗配置需求」的不可调和：一只需要用来开路的宝可梦（需要 HM 招式）往往不是最强的对战宝可梦，这导致玩家要么牺牲对战实力、要么牺牲探索便利。Poké Ride 通过「开路与对战完全分离」解决了这个问题。",
+        "removal_impact": "positive",
+        "removal_note": "HM 的移除是「设计问题」的经典案例：它存在了20年（Gen 1-6），被大量玩家诟病，却一直没有被解决，直到 Gen 7 才彻底重构。教训：如果一个机制有根本性设计缺陷，不要等20年才修复——越早重构，用户的沉没成本越低。同时，「功能分离」（开路用骑乘宝可梦，战斗用对战宝可梦）是解决「多功能冲突」的经典设计模式。",
+        "data_confidence": "community"
+      },
+      {
+        "year": 2013,
+        "gen": "Gen 6",
+        "title": "超级进化被移除（剑/盾）",
+        "detail": "Pokemon 剑/盾发售，超级进化未包含在游戏中，由极巨化替代。超级进化的「最后一战」发生在 Gen 7 日月（2016）——作为官方 VGC 允许使用的机制，Mega Evolution 在 Gen 7 日月达到设计巅峰（含 ORAS 新增的 Mega Latias/Latios，总计56种形态）。但 Gen 8 剑/盾发布时，Masuda 确认移除，原因是：(1) Switch 高清建模工作量倍增，无法同时兼顾 Mega/Z/极巨三套机制的高质量动画；(2) 维护三套强化机制的平衡成本过高；(3) Mega 进化「48选8」的低使用率问题尚未解决。Gen 9 朱/紫继续缺席。Pokemon Champions（2026）将作为 DLC 内容使 Mega Evolution 正式回归。",
+        "category": "enhancement",
+        "removed": true,
+        "removal_year": 2019,
+        "removal_reason": "Game Freak 优先极巨化作为 Gen 8 唯一的强化机制；Switch 建模工作量倍增；维护三套强化机制（Mega/Z/极巨）的平衡成本过高；Mega 进化的低使用率问题（仅约10%的Mega形态有显著竞技价值）。",
+        "removal_cause": "超级进化依赖「专属强化道具」（Mega Stone），加剧了「谁能用」的差异化问题——没有对应石头的宝可梦完全无法参与。相比之下，极巨化改为「全队共用次数」后，每个玩家的参与感更平等。但代价是失去了 Mega 进化的「角色认同感」和多样化的视觉设计。",
+        "removal_impact": "mixed",
+        "removal_note": "强化机制的「退出策略」与「引入策略」同样重要。Mega 进化的教训：大量专属内容（56种形态）最终被整体放弃，意味着差异化策略在「谁能用」维度上的投入可能血本无归。设计强化机制时应同步考虑「如果下个世代要放弃，哪些投入要打水漂」。同时，Mega 进化的「消失-回归」轨迹也证明：有强烈情感绑定的机制，即使被移除也可能因社区呼声而复活。",
+        "chain_category": "enhancement",
+        "chain_order": 1,
+        "chain_prev": null,
+        "chain_next": null,
+        "chain_related": [
+          "超级进化 + 超级训练",
+          "Z 招式 + 阿罗拉形态 + 友好协商"
+        ],
+        "data_confidence": "community"
+      },
+      {
+        "year": 2011,
+        "gen": "Gen 5",
+        "title": "季节系统被移除",
+        "detail": "Pokemon 黑/白引入的季节系统（春/夏/秋/冬，每代约持续游戏内28天）在黑白2/白2后未被延续至 Gen 6 X/Y。季节系统使不同季节可以遇到不同的宝可梦和物品，并影响道路的外观、音乐和部分 NPC 行为，是 Gen 5「真实世界感」设计理念的重要组成部分。",
+        "category": "foundation",
+        "removed": true,
+        "removal_year": 2013,
+        "removal_reason": "Game Freak 解释：季节系统的开发和维护成本较高（需要为每个季节设计不同的宝可梦刷新表、道具分布、NPC 对话和地图外观），但实际体验到的玩家比例有限。Gen 6 转向「玩家自由度」和「社交功能」为核心，季节系统被视为「高成本低收益」的维护负担。",
+        "removal_cause": "季节系统的核心价值是「环境叙事」——通过季节变化让玩家感受到时间的流逝和世界的「呼吸感」。但这个价值是隐性的、长期的，不像战斗系统那样每次对局都能体验到。当 Game Freak 需要缩减开发资源时，首先被牺牲的就是这些「体验价值隐性」的系统。",
+        "removal_impact": "mixed",
+        "removal_note": "季节系统的消失提醒我们：「沉浸感设计」的长期价值往往被低估，但在资源紧张时最容易被优先削减。设计提示：如果你有一个「沉浸感系统」（如季节、昼夜、天气变化），在评估其价值时不仅要计算「直接收益」，还要评估它对「玩家留存」和「世界真实感」的隐性贡献。牺牲隐性体验来换取显性功能，往往是短视的。",
+        "data_confidence": "community"
+      },
+      {
+        "year": 2002,
+        "gen": "Gen 3",
+        "title": "华丽大赛作为「非战斗内容」登场",
+        "detail": "Pokemon 红/蓝/绿宝石引入华丽大赛（Contest），这是 Game Freak 首次将「宝可梦表现力」独立为一套与战斗平行的系统。玩家通过让宝可梦使用技能来积累「华丽值」，评判标准涵盖魅力、帅气、可爱、聪明、强壮五个属性，每场比赛四轮，最终争夺缎带勋章。Gen 3 的华丽大赛在丰缘地区举办，是 Pokemon「角色扮演」属性的一次外延实验。",
+        "category": "foundation",
+        "removed": false,
+        "data_confidence": "official"
+      },
+      {
+        "year": 2006,
+        "gen": "Gen 4",
+        "title": "华丽大赛升级：添加华丽舞台与旁观模式",
+        "detail": "Pokemon 钻石/珍珠/白金将华丽大赛迁移至神奥地区，并大幅扩展：新增「超级华丽大赛」和「最高级华丽大赛」两个更高难度层级，引入旁观者可以让朋友投票参与，同时加入「华丽纪录」功能可记录个人最佳成绩。Gen 4 版本首次将华丽大赛与对战内容交叉（部分比赛会限制特定属性技能）。",
+        "category": "foundation",
+        "removed": false,
+        "data_confidence": "official"
+      },
+      {
+        "year": 2011,
+        "gen": "Gen 5",
+        "title": "华丽大赛从主系列中消失",
+        "detail": "Pokemon 黑/白宣布不再包含华丽大赛系统。尽管 BW2/白2 作为资料片短暂恢复了 Gen 5 的华丽大赛（称为「华丽对战」），但 Gen 6 X/Y 正式将其从正作中移除，再未回归。作为替代，Game Freak 在 Gen 6 引入了「超级愿望系统」（Super Training）和更丰富的对战内容。",
+        "category": "foundation",
+        "removed": true,
+        "removal_year": 2013,
+        "removal_reason": "Game Freak 官方未给出明确解释，但业界分析：(1) 华丽大赛与主战斗系统的受众分离度高——喜欢对战的玩家往往不参与华丽大赛，反之亦然，开发资源被分散；(2) 技能作为华丽值载体的设计有局限性，「最强技能」往往「最不华丽」，导致玩家策略与追求目标产生割裂；(3) Gen 6 的 3D 化转型需要大量美术资源，华丽大赛的表演动画是额外的负担。",
+        "removal_cause": "华丽大赛的核心矛盾是「双重目标冲突」：玩家在战斗中追求技能的效果和威力，而在华丽大赛中追求技能的视觉效果。这导致同一个技能对两类玩家产生了不同的价值判断。更深层的矛盾是「谁来评判」——Gen 3/4 的华丽大赛由 NPC 评判，缺乏社交互动，而 Gen 6 之后的 Pokemon 越来越强调玩家之间的连接。",
+        "removal_impact": "negative",
+        "removal_note": "华丽大赛的消失是 Pokemon「功能整合」策略的一个失败案例。Game Freak 最终没有找到一个让「战斗展示」和「战斗实力」共存的设计模式——要么分离（导致受众分裂），要么合并（导致两边都平庸）。这个教训在 Gen 9 的「太晶化」中有所体现：太晶化将「属性变化」和「视觉表演」融合在同一个动作中，不需要额外的评判系统，但仍然有「回合内操作密度过高」的问题。",
+        "data_confidence": "community"
+      },
+      {
+        "year": 2009,
+        "gen": "Gen 4",
+        "title": "Pokewalker 将真实步行与游戏奖励绑定",
+        "detail": "Pokemon 心金/魂银的 Pokewalker 是 Pokemon 历史上唯一将实体设备（GBA 到 NDS 的红外通信）与游戏内奖励直接绑定的系统。玩家将心金/魂银的步数通过红外传输到 Pokewalker 设备，在设备上可以遇到野生宝可梦、收集道具、在特定路线上发现稀有宝可梦。这是 Pokemon「健康生活」与「游戏乐趣」融合的第一次系统性尝试。Pokewalker 还引入了多个不同主题的「散步路线」，每条路线有独特的遭遇表和道具。",
+        "category": "foundation",
+        "removed": false,
+        "chain_category": "palworld_analog",
+        "data_confidence": "future"
+      },
+      {
+        "year": 2010,
+        "gen": "Gen 5",
+        "title": "Pokewalker 随心金/魂银结束，未进入 Gen 5",
+        "detail": "Pokemon 黑/白发布时不再包含 Pokewalker 支持，这是该系统最后的官方使用记录。尽管心金/魂银可以在黑/白中使用红外通信，但 Pokewalker 本身作为独立设备已停止生产，且没有在黑/白中引入任何替代性的步行-奖励机制。Gen 5 的 BW2 也没有恢复该功能。",
+        "category": "foundation",
+        "removed": true,
+        "removal_year": 2010,
+        "removal_reason": "Pokewalker 的消失有技术和商业双重原因：(1) 它依赖专用的红外通信硬件，而后续的 Nintendo DS/DSi/3DS 系列逐渐淡化了红外端口（NDS Lite 之后 DS 系列大多移除了红外）；(2) 作为一个需要「额外硬件」的系统，它增加了玩家的进入门槛（需要同时拥有心金/魂银+Pokewalker）；(3) Pokemon 的目标受众从「携带设备步行」转向「随时随地游玩」的掌机模式。",
+        "removal_cause": "Pokewalker 的设计逻辑是「行为绑定奖励」——将现实世界的步行行为转化为游戏内奖励。但这个系统在 Gen 5 之后被放弃，表面上是因为硬件依赖，深层原因是「行为数据的采集方式」发生了变化。Gen 6 之后的 Pokemon GO 证明了「步行奖励」模式本身是可行的（Pokemon GO 的孵蛋和补给站机制），只是需要更轻量的技术方案（GPS 而非红外）。",
+        "removal_impact": "negative",
+        "removal_note": "Pokewalker 的教训是：深度集成硬件的系统有极高的「平台锁定」风险——一旦底层硬件发生变化，整个系统就需要重写。Pokemon GO 的成功部分源于它选择了「利用通用硬件（智能手机 GPS）」而非「创造专用硬件」。设计游戏系统时，应该优先选择「可迁移」的技术路径，而非与特定硬件深度绑定的方案。",
+        "data_confidence": "inferred_mid"
+      },
+      {
+        "year": 2007,
+        "gen": "Gen 4",
+        "title": "Nintendo Wi-Fi Connection 正式支持 Pokemon 多人联机",
+        "detail": "Pokemon 钻石/珍珠/白金首次全面支持 Nintendo Wi-Fi Connection（NFC），提供官方线上联机服务。玩家可以通过互联网进行宝可梦交换、对战（随机配对和好友对战），以及无线口袋银行（Wireless GTS）。这是 Pokemon 从「线下社交」向「线上社交」过渡的关键节点，也是 Pokemon 全球对战（VGC）走向职业化的技术基础。",
+        "category": "social",
+        "removed": false,
+        "data_confidence": "official"
+      },
+      {
+        "year": 2014,
+        "gen": "Gen 6",
+        "title": "Pokemon Global Link（PGL）作为 NFC 替代品登场",
+        "detail": "Pokemon X/Y 推出 Pokemon Global Link（PGL），将线上对战和排位系统迁移至 Web 平台。PGL 提供了更丰富的统计功能、排位积分（Rating）、以及对战场次记录，是 Pokemon 竞技对战的第一个独立线上平台。PGL 取代了 Gen 4/5 时代的 Nintendo Wi-Fi Connection 的 Pokemon 专用功能，标志着 Pokemon 线上生态从「任天堂平台服务」向「Pokemon 专属平台」的独立演进。",
+        "category": "social",
+        "removed": false,
+        "chain_category": "online",
+        "chain_order": 3,
+        "chain_prev": "VGC 世界锦标赛首届举办",
+        "chain_next": "Nintendo Wi-Fi Connection 关闭（Pokemon 在线服务受重大影响）",
+        "chain_related": [],
+        "data_confidence": "inferred_mid"
+      },
+      {
+        "year": 2022,
+        "gen": "Gen 8",
+        "title": "Nintendo Wi-Fi Connection 关闭（Pokemon 在线服务受重大影响）",
+        "detail": "2022年5月，Nintendo 正式关闭 Nintendo Wi-Fi Connection 服务，这直接影响了 Pokemon 黑2/X2 及更早游戏的线上功能：随机匹配对战、朋友对战中的线上模式、以及 GTS 全球语音交换系统全部停止服务。Pokemon 剑/盾及之后作品不受影响，因为它们使用的是 Pokemon 自己的服务器架构（PGL → Live。",
+        "category": "social",
+        "removed": true,
+        "removal_year": 2022,
+        "removal_reason": "Nintendo 关闭 NFC 是因为该服务基于 20 年前的服务器架构，维护成本高而用户量低（现代玩家更多使用有线/无线直连或独立平台）。从 Pokemon 的角度，这意味着 Gen 1~5 的线上功能全部变成单机内容，加速了这些世代游戏的「博物馆化」。",
+        "removal_cause": "Nintendo Wi-Fi Connection 的关闭揭示了一个根本性的服务设计问题：「平台依赖型」的服务缺乏独立性和可持续性。当底层平台服务关闭时，上层应用的所有在线功能也随之消亡。这与 Pokemon Global Link 的后续演变形成对比——PGL 演变为 Pokemon HOME，再到 Pokemon LIVE，服务一直在独立演进，没有被单一平台绑定。",
+        "removal_impact": "negative",
+        "removal_note": "NFC 的关闭是「服务寿命设计」的经典案例。对于需要长期运营的游戏，「服务器依赖程度」是一个关键决策点。Nintendo Wi-Fi Connection 没有考虑到「服务的独立可迁移性」，导致整个 Pokemon 在线一代体验随平台关闭而消失。而 Pokemon 选择逐步建立自己的服务体系（PGL→HOME→LIVE），正是对这一风险的对冲。",
+        "chain_category": "online",
+        "chain_order": 4,
+        "chain_prev": "Pokemon Global Link（PGL）作为 NFC 替代品登场",
+        "chain_next": "Pokemon Live（PGL 后继）上线，Pokemon Global Link 关闭",
+        "chain_related": [],
+        "data_confidence": "inferred_mid"
       },
       {
         "year": 2025,
@@ -2159,16 +1351,113 @@
         "detail": "Pokemon 朱/紫上线 Pokemon Live，整合了 PGL 的排位功能和 Pokemon HOME 的宝可梦存储功能，提供统一的 Pokemon 线上服务体验。Pokemon Global Link 正式退役。",
         "category": "social",
         "removed": false,
-        "data_confidence": "official",
         "chain_category": "online",
         "chain_order": 5,
         "chain_prev": "Nintendo Wi-Fi Connection 关闭（Pokemon 在线服务受重大影响）",
         "chain_next": null,
-        "chain_related": [
-          "Pokemon Global Link（PGL）作为 NFC 替代品登场"
-        ],
-        "freshness": "medium",
-        "last_verified": "2026-04-21"
+        "chain_related": [],
+        "data_confidence": "official"
+      },
+      {
+        "year": 2013,
+        "gen": "Gen 6",
+        "title": "DexNav：口袋探险队系统的集大成者",
+        "detail": "Pokemon X/Y 的 ORAS（Omega Ruby/Alpha Sapphire，2014）引入 DexNav，这是对 Gen 5 口袋狩猎（Black City/Shadow）以及 Gen 6 口袋探险队（Pokémon Adventure Games）系统的整合与升华。DexNav 允许玩家在草丛中搜索特定的宝可梦，具有三大创新：(1) 无限连锁高个体值/隐藏特性遭遇；(2) 搜索技能——在进入战斗前预判即将遭遇的宝可梦属性和特性；(3) 首次遭遇时的技能学习提升（有机会以高于正常等级的技能开局）。",
+        "category": "foundation",
+        "removed": false,
+        "data_confidence": "official"
+      },
+      {
+        "year": 2016,
+        "gen": "Gen 7",
+        "title": "DexNav 在 Gen 7 日月中被移除",
+        "detail": "Pokemon 太阳/月亮（Gen 7）移除了 DexNav 系统，转而用「岛屿扫描」（Island Scan）作为替代。岛屿扫描通过 QR 码和 Amie 组合来发现特定宝可梦，设计上与 DexNav 的「自主搜索」逻辑完全不同。Gen 7 的野生遭遇系统回归更传统的方式：高等级草丛、波浪水面、暗香草等。",
+        "category": "foundation",
+        "removed": true,
+        "removal_year": 2016,
+        "removal_reason": "Gen 7 日月是 Pokemon 系列转向「地区形式」（Regional Forms）和「极简化」设计语言的重要节点。日月的地图设计采用了「无缝隙探索」结构（取消了传统道路连接），大幅简化了野外遭遇的「等待成本」。DexNav 的「无限连锁搜索」与日月追求的「低门槛快速体验」理念存在冲突。",
+        "removal_cause": "DexNav 的核心问题是「过度优化」：当玩家可以通过 DexNav 无限连锁来刷出完美个体值时，野生遭遇的「随机性」价值几乎降为零。这破坏了 Pokemon 捕捉系统的「惊喜感」——玩家的搜索行为从「探索未知」变成了「精确计算」。而日月的设计哲学强调「让一切更自然」，因此需要回归更不可预测的遭遇系统。",
+        "removal_impact": "mixed",
+        "removal_note": "DexNav 的教训是「随机性是有设计价值的」。当一个系统把随机性完全消除（或允许无限重试），它就变成了一个「工业化流程」而非「冒险体验」。但同时，也要承认 DexNav 的「搜索技能」是一个极具创意的设计创新——它让「预判」本身成为了一种可学习的技能，这种「信息前置」的设计思路在后续的「太晶团体战」的读招环节中有回响。",
+        "data_confidence": "inferred_mid"
+      },
+      {
+        "year": 2011,
+        "gen": "Gen 5",
+        "title": "反转对战（Inverse Battle）模式登场",
+        "detail": "Pokemon 黑/白引入了反转对战（Inverse Battle）模式，这是 Pokemon 历史上唯一一个系统性改变属性相克规则的模式。在反转对战中，所有属性相克关系完全逆转：火系克水系，水系克草系，草系克火系，冰系克龙系变为龙系克冰系，等等。这是一个纯粹的对战实验，为玩家提供了「重新学习属性克制」的新鲜体验。Gen 5 的反转对战仅在「宝可梦世界联赛」（Battle Subway）的特定模式中可用。",
+        "category": "enhancement",
+        "removed": false,
+        "data_confidence": "official"
+      },
+      {
+        "year": 2013,
+        "gen": "Gen 6",
+        "title": "反转对战在 Gen 6 升级后被移除",
+        "detail": "Pokemon X/Y 引入「超级愿望系统」（Super Training）作为对战训练的核心，并大幅扩展了「旋转对战」设施，但反转对战模式本身被移除。Game Freak 曾在 X/Y 的早期补丁中短暂修复了 Gen 5 的一个与属性相关的 Bug，但并未将反转对战纳入 Gen 6 的对战体系。之后所有世代均未再出现反转对战。",
+        "category": "enhancement",
+        "removed": true,
+        "removal_year": 2013,
+        "removal_reason": "反转对战的消失主要原因：(1) 受众面极窄——绝大多数 Pokemon 玩家将「记住属性克制」视为已掌握的基础知识，「反转克制」对他们来说是一种认知负担而非乐趣；(2) 平衡性难以保证——反转模式会打破大量技能的伤害计算基础，导致某些宝可梦或技能变得极强或极弱；(3) 对战规则的复杂性已足够高——Game Freak 在 Gen 6 引入了 Mega 进化的同时，也在简化其他对战规则以避免「信息过载」。",
+        "removal_cause": "反转对战本质上是一个「认知翻转实验」——它迫使玩家放弃长期积累的直觉，用逆向思维来参与对战。这个设计的趣味性来自「新鲜感」，但新鲜感会快速消退。当玩家习惯了反转模式后，它就不再有趣；而对于不喜欢的玩家来说，它从第一天起就是一个障碍。Game Freak 最终选择将这个实验性内容完全移除，而非维护两套并行的对战规则。",
+        "removal_impact": "mixed",
+        "removal_note": "反转对战的案例揭示了「实验性设计」的可持续性问题：当一个玩法的乐趣来自「打破常规」时，它本质上是一个「一次性体验」而非一个可重复玩的模式。真正的可重复性游戏内容需要有「深度」而非仅仅「不同」。这个教训在 Gen 9 的「太晶化」中有所体现：太晶化不是改变规则（像反转对战那样），而是扩展规则（在现有克制体系上增加一层维度），因此具有更长期的趣味深度。",
+        "data_confidence": "inferred_mid"
+      },
+      {
+        "year": 2013,
+        "gen": "Gen 6",
+        "title": "O-Powers：朋友联机buff系统的巅峰",
+        "detail": "Pokemon X/Y 引入了 O-Powers（继承自 Pokemon GO 和 Pokemon Dream Radar 的在线奖励概念），这是一套专为朋友联机设计的临时强化系统。O-Powers 共7种，涵盖经验值加成（EXP All Power）、金钱加成（Doubles Power）、个体值提升（Affection Power）等。玩家可以通过 StreetPass 或在线联机向朋友发送 O-Power，是 Gen 6「朋友联机」主题的核心功能之一。",
+        "category": "social",
+        "removed": false,
+        "data_confidence": "official"
+      },
+      {
+        "year": 2016,
+        "gen": "Gen 7",
+        "title": "O-Powers 在 Gen 7 日月被完全移除",
+        "detail": "Pokemon 太阳/月亮移除了 O-Powers 系统，尽管保留了部分朋友联机功能。O-Powers 没有被任何直接替代的系统所取代——朋友联机的奖励机制被大幅简化，不再有专门的 buff 共享界面。",
+        "category": "social",
+        "removed": true,
+        "removal_year": 2016,
+        "removal_reason": "O-Powers 的移除与 Gen 7 日月的「极简化」设计理念一致。日月大幅精简了 UI 和菜单层级（从传统六道具选单改为环形菜单），O-Powers 作为「朋友联机辅助系统」被认定为「非核心功能」。此外，O-Powers 的有效范围较窄——它主要对「有朋友一起玩的玩家」有显著价值，对单人玩家的体验提升为零。",
+        "removal_cause": "O-Powers 的设计问题是「社交功能的单向性」：发送 buff 的玩家实际上没有任何收益（除了朋友变得更强大），这使得 O-Powers 形成了一个「给予者没有激励」的公益系统。相比之下，Pokemon GO 的「友谊等级」和「礼物系统」通过双向收益（双方都能获得礼物）解决了这一问题。O-Powers 的消失早于 Pokemon 建立更成熟的友谊系统（Gen 7 才引入「朋友快递」）。",
+        "removal_impact": "negative",
+        "removal_note": "O-Powers 的教训是：社交功能必须有「双向激励」才能持久。「单方面施惠」的社交系统即使在短期内有效，长期也会因为「给予者的冷漠」而失去活力。好的社交功能设计应该让参与各方都有收益或有足够的社交认可回报。Pokemon 后续在 Gen 7 引入的「朋友快递」和 Gen 8 的「极巨火锅」都遵循了这一原则——朋友之间互相帮助时，双方都有实质奖励。",
+        "data_confidence": "community"
+      },
+      {
+        "year": 2013,
+        "gen": "Gen 6",
+        "title": "超级训练（Super Training）：替代 HM 的新训练体系",
+        "detail": "Pokemon X/Y 引入了超级训练（Super Training）作为个体值（IV）和努力值（EV）训练的核心界面。超级训练通过「训练药物」（如 Protein、Rare Candy）和「虚拟训练场」取代了传统的「打特定怪刷努力值」方式，让玩家可以可视化地分配 EV 点数（用足球训练小游戏引导），并通过训练药物直接提升 IV。这是 Pokemon 培育系统的一次重大民主化——新手玩家无需了解复杂的 EV/IV 机制，也能快速让自己的宝可梦达到竞技标准。",
+        "category": "foundation",
+        "removed": false,
+        "data_confidence": "official"
+      },
+      {
+        "year": 2016,
+        "gen": "Gen 7",
+        "title": "超级训练在 Gen 7 被移除，培育系统再次简化",
+        "detail": "Pokemon 太阳/月亮移除了独立的超级训练界面，培育系统迁移回更传统的「战斗中获得努力值」和「培育屋」（Festival Plaza）模式。培育屋继承了超级训练的部分功能（金钱购买 EV 药物），但取消了可视化的「训练小游戏」。值得注意的是，日月引入了「 Bottle Cap」和「Gold Bottle Cap」道具，使玩家可以通过道具直接提升 IV 到最大，取代了超级训练的 IV 训练功能。",
+        "category": "foundation",
+        "removed": true,
+        "removal_year": 2016,
+        "removal_reason": "超级训练的小游戏被许多玩家视为「时间消耗」而非「趣味体验」——在完成第一次体验后，反复进行训练赛变成了一个无趣的重复操作。Gen 7 日月的开发团队选择将培育功能回归游戏主循环（培育屋+道具），同时通过 Bottle Cap 大幅简化了 IV 提升路径（不需要反复刷个体值，直接用道具锁定）。",
+        "removal_cause": "超级训练的核心设计问题在于「游戏化过度」——它试图用一个简单的足球小游戏来包装复杂的 EV/IV 培育体系，但这个小游戏本身缺乏深度。玩家在掌握培育机制后，就会将超级训练视为「必须完成但无趣」的每日任务。Gen 7 的解决思路是：保持培育系统的复杂度，但通过道具化（Bottle Cap）和游戏内经济（培育屋购买）来降低操作门槛，而不是用小游戏来「教化」玩家。",
+        "removal_impact": "mixed",
+        "removal_note": "超级训练的演变揭示了「游戏化教学」的一个陷阱：当游戏化内容本身缺乏足够的深度和变化时，它反而会成为玩家的负担。好的教程设计应该是「让玩家在真实游戏中学习」（如在第一次捕捉野生宝可梦时自然理解 HP 和等级），而不是创造一个隔离的「教学场景」。Gen 7 的 Bottle Cap 设计更胜一筹——它承认了「培育是重复劳动」，用道具来解决重复问题，而不是用游戏化来掩盖重复。",
+        "data_confidence": "community"
+      },
+      {
+        "year": 2013,
+        "gen": "Gen 6",
+        "title": "Pokemon 虚拟银行（Pokemon Bank）上线，云端存储时代开启",
+        "detail": "Pokemon X/Y 发售同期，任天堂和 The Pokemon Company 推出了 Pokemon 虚拟银行（Pokemon Bank）服务——这是 Pokemon 历史上第一个正式的云端宝可梦存储系统。玩家支付年费（约5美元）即可在云端存储多达3000只宝可梦，并可通过「Pokemon Bank」应用在 Gen 5 和 Gen 6 之间跨代传输宝可梦。Pokemon 虚拟银行极大地扩展了 Pokemon 收藏的可能性，打破了各世代之间「宝可梦孤岛」的限制。",
+        "category": "social",
+        "removed": false,
+        "data_confidence": "official"
       },
       {
         "year": 2025,
@@ -2182,13 +1471,158 @@
         "removal_cause": "Pokemon Bank 的关闭揭示了「付费服务的替代风险」：当一个服务被后继者完全取代时，用户积累的内容资产（存储在 Bank 中的宝可梦）面临迁移压力。虽然 Nintendo 提供了充足的迁移窗口期，但这个过程对非活跃玩家（有 Bank 账号但不再关注 Pokemon 的玩家）来说可能是突然的——他们的宝可梦如果没有及时转移，就会永远消失。",
         "removal_impact": "mixed",
         "removal_note": "Pokemon Bank 的案例是「数字资产持久性」的警示。游戏内的收藏品（宝可梦、道具、存档）对于玩家来说具有情感价值，但这些资产的寿命取决于运营服务的存续。Pokemon HOME 的存在部分缓解了这一问题（因为它是免费的基础层级），但任何依赖服务器存储的内容都有「服务终止」的风险。Game Freak 在 HOME 中引入「免费100只存储空间」的策略，降低了用户对「付费后服务终止」的焦虑——即使 HOME 未来也关闭，基础功能可能永远保留。",
-        "data_confidence": "official",
-        "ban_type": "content_removal",
-        "chain_related": [
-          "Pokemon 虚拟银行（Pokemon Bank）上线，云端存储时代开启"
-        ],
-        "freshness": "low",
-        "last_verified": "2026-04-21"
+        "data_confidence": "inferred_mid"
+      },
+      {
+        "year": 2016,
+        "gen": "Gen 7",
+        "title": "Pokémon Refresh（宝可清爽乐）登场：超越喂食机的情感系统",
+        "detail": "Pokemon 太阳/月亮引入了 Pokémon Refresh（部分中文翻译为「宝可清爽乐」），这是对 Gen 6 的 Pokémon-Amie（宝可梦阿米）的全面升级。Pokémon Refresh 允许玩家通过触摸、喂食和玩耍与宝可梦互动，核心创新是「友好度」系统可视化——宝可梦的表情会随着友好度变化而变化，且高友好度会影响战斗中的「奇妙分心」（当敌人攻击自己时有概率不攻击）。Pokémon Refresh 还在日月的故事线中扮演重要角色（霸主宝可梦和友好度机制直接关联）。",
+        "category": "foundation",
+        "removed": false,
+        "data_confidence": "official"
+      },
+      {
+        "year": 2019,
+        "gen": "Gen 8",
+        "title": "Pokémon Refresh 被简化为「喂食」，Gen 8 缺少情感互动界面",
+        "detail": "Pokemon 剑/盾大幅简化了宝可梦互动系统——Pokémon Refresh 被替换为一个简单的喂食界面（通过 Camp 营地喂食和玩耍），但不再有触摸交互和表情反馈。友好度机制仍然存在（通过「咖喱饭」和「露营」等活动中体现），但缺乏可视化的情感反馈界面。许多玩家批评 Gen 8「失去了与宝可梦的情感连接」。",
+        "category": "foundation",
+        "removed": true,
+        "removal_year": 2019,
+        "removal_reason": "Pokémon Refresh 被简化有多个因素：(1) Gen 8 的开放世界化开发导致开发资源被重新分配，精细的情感互动界面（需要大量宝可梦表情动画）是高成本内容；(2) Gen 8 的「极巨化」和「旷野地带」设计已经占据了大量 UI 空间，Pokémon Refresh 被视为非核心功能；(3) Game Freak 在 Gen 8 的时间压力（Switch 首作，开发周期短）导致许多 Gen 7 的精细系统被削减。",
+        "removal_cause": "Pokémon Refresh 的消失背后是一个长期矛盾：Pokemon 的「伙伴关系」叙事与「竞技强度」需求之间的冲突。在竞技对战中，玩家关心的核心是数值（个体值、性格、EV），而 Pokémon Refresh 的情感系统对此没有直接贡献。当 Game Freak 需要在「叙事内容」和「竞技内容」之间做取舍时，时间压力下往往先牺牲叙事相关的情感系统。",
+        "removal_impact": "negative",
+        "removal_note": "Pokémon Refresh 的消失是 Game Freak 在 Gen 8「竞技化」转型中的一个牺牲品。这个案例提醒我们：情感系统的价值难以量化，因此在资源竞争中处于劣势。如果一个系统对「战斗数值」没有直接贡献，它需要被赋予更多功能性价值（如「奇妙分心」机制）来保证其存在。Gen 9 朱/紫部分恢复了「伙伴互动」（通过 Picnic 系统），但仍然是 Gen 7 体验的简化版本。",
+        "data_confidence": "inferred_mid"
+      },
+      {
+        "year": 2006,
+        "gen": "Gen 4",
+        "title": "跟随系统（Following Pokemon）在心金/魂银中首次实现",
+        "detail": "Pokemon 心金/魂银首次实现了宝可梦跟随系统——玩家的第一只宝可梦会跟在玩家身后行走，这在 Gen 1/2 的游戏中是缺失的（Gen 1/2 仅有宝可梦跟随在城镇中，但城市间移动时宝可梦会进入球中）。心金/魂银将跟随系统扩展到了所有非战斗场景，并加入了宝可梦在特定地点的特殊反应动画（如皮卡丘在森林中会有特殊动画）。",
+        "category": "foundation",
+        "removed": false,
+        "data_confidence": "official"
+      },
+      {
+        "year": 2013,
+        "gen": "Gen 6",
+        "title": "跟随系统在 Gen 6 X/Y 中被移除",
+        "detail": "Pokemon X/Y 移除了跟随系统，这是 Gen 4 以来首次在正作中缺失该功能。Game Freak 解释是因为 3D 化建模工作量巨大——让所有宝可梦都制作行走动画的工作量是 2D 时代的数倍。在 X/Y 中，玩家只能通过 Pokémon-Amie 与宝可梦进行情感互动，而非直接跟随行走。",
+        "category": "foundation",
+        "removed": true,
+        "removal_year": 2013,
+        "removal_reason": "3D 化转型是跟随系统消失的直接原因。心金/魂银是 2D 游戏，跟随系统只需要精灵图动画；而 X/Y 是 3D 游戏，每个宝可梦需要完整的 3D 行走模型和动画。Game Freak 在 3D 化初期优先保证了角色（玩家）本身的 3D 表现，而将宝可梦的 3D 表现主要放在战斗场景中（那里有特写镜头），而非开放世界中。",
+        "removal_cause": "跟随系统消失的深层原因是「3D 化的技术债务」——当游戏从 2D 转向 3D 时，所有 2D 时代的系统都需要重新评估哪些值得被 3D 化。Game Freak 做出了「先保证战斗表现，暂缓世界表现」的选择。这个选择在短期内是合理的（战斗是 Pokemon 的核心），但长期来看失去了「与宝可梦一起探索世界」的独特体验。",
+        "removal_impact": "negative",
+        "removal_note": "跟随系统的缺失从 Gen 6 持续到 Gen 8，是 Pokemon 3D 化过程中最明显的「体验降级」之一。许多玩家在社区中表达了强烈的不满，这直接推动了 Gen 8 DLC「冠之雪原」和 Gen 9 朱/紫中部分宝可梦的跟随功能回归。值得注意的是，Gen 9 的朱/紫虽然加入了跟随功能，但并非所有宝可梦都支持（大型宝可梦无法跟随），说明 3D 化的工作量问题仍然存在。这个案例证明：「粉丝呼声」可以成为系统回归的驱动力，但完全恢复的成本仍然很高。",
+        "data_confidence": "inferred_mid"
+      },
+      {
+        "year": 2007,
+        "gen": "Gen 4",
+        "title": "GTS（全球语音交换系统）登场",
+        "detail": "Pokemon 钻石/珍珠通过 Nintendo Wi-Fi Connection 引入了 GTS（Global Trade Station），这是 Pokemon 历史上第一个全天候的线上交换系统。玩家可以将自己想要交换的宝可梦挂上 GTS，设定想要的交换条件（指定宝可梦或指定属性/等级范围），其他玩家可以在任何时间通过 GTS 搜索并完成交换。GTS 大幅降低了 Pokemon 交换的门槛——不再需要双方同时在线。",
+        "category": "social",
+        "removed": false,
+        "data_confidence": "official"
+      },
+      {
+        "year": 2013,
+        "gen": "Gen 6",
+        "title": "GTS 在 Gen 6 演化为「朋友 GTS」",
+        "detail": "Pokemon X/Y 的 GTS 增加了「朋友 GTS」功能，允许玩家仅与自己的 Nintendo 3DS 朋友列表中的好友进行交换，提供了更私密的交换环境。同时，Gen 6 还引入了「奇迹交换」（Wonder Trade）——随机与陌生人交换宝可梦，极大地增加了 GTS 的社交随机性和趣味性。",
+        "category": "social",
+        "removed": false,
+        "data_confidence": "official"
+      },
+      {
+        "year": 2022,
+        "gen": "Gen 8",
+        "title": "Nintendo Wi-Fi Connection 关闭，GTS 传统版本服务终止",
+        "detail": "2022年5月 Nintendo Wi-Fi Connection 关闭后，Gen 4 到 Gen 5 的 GTS 服务彻底终止。这些世代的玩家只能通过线下或本地通信进行宝可梦交换。从 Gen 6 开始，Pokemon 线上服务迁移至 Pokemon 自己的服务器架构，GTS 功能通过 Pokemon Bank/Pokemon HOME 的「朋友交换」和「奇迹交换」延续。",
+        "category": "social",
+        "removed": true,
+        "removal_year": 2022,
+        "removal_reason": "GTS 的传统版本（基于 Nintendo Wi-Fi Connection）随平台服务关闭而终止。这是「平台绑定」服务的必然命运——当底层基础设施消失时，应用层的服务也随之消亡。Pokemon 的应对策略是将 GTS 功能整合到自己的服务体系中（HOME），而非依赖第三方平台。",
+        "removal_cause": "GTS 的演变揭示了一个重要的设计演进路径：从「公共广场」（任何人都可以交换）到「私人房间」（朋友专属）和「惊喜房间」（随机交换）。原始 GTS 的「公开交换」模式存在严重问题：大量玩家挂出价值极低的宝可梦（如 LV5 鲤鱼王）来换取高价值宝可梦，导致交换体验质量下降。而奇迹交换通过引入「随机性」创造了一种新的社交趣味——你不知道会收到什么，但你知道对方是真诚参与的。",
+        "removal_impact": "mixed",
+        "removal_note": "GTS 的设计演进是「信任机制」设计的教科书案例。公开 GTS 的失败不是因为「交换」这个行为本身有问题，而是因为「没有准入门槛」导致恶意行为无法被惩罚。Pokemon 后续通过「朋友交换」（信任网络）和「奇迹交换」（善意假设）解决了这一问题。设计社交系统时，「信任基础」是关键——要么建立身份识别（朋友网络），要么建立善意假设（随机交换），两者都不做的公开平台最终会被恶意行为污染。",
+        "data_confidence": "inferred_mid"
+      },
+      {
+        "year": 2016,
+        "gen": "Gen 7",
+        "title": "SOS 呼叫：Gen 7 的动态连锁系统",
+        "detail": "Pokemon 太阳/月亮引入了 SOS 呼叫机制，替代了 Gen 6 的 DexNav 连锁系统。在 SOS 呼叫中，野生宝可梦在战斗中可以通过呼叫同伴来寻求帮助，被呼叫的同伴有概率以「暗号状态」（Agitated）出现——暗号状态下可能使用特定技能或具有隐藏特性（Ability）。玩家可以通过消耗 PP 或使用「兰螽花」等道具来增加暗号呼叫的概率，最长可以连锁至 255 次。这套系统的随机性比 DexNav 更低（因为发生在战斗内），但暗号状态提供了一层额外的遭遇惊喜。",
+        "category": "enhancement",
+        "removed": false,
+        "data_confidence": "official"
+      },
+      {
+        "year": 2019,
+        "gen": "Gen 8",
+        "title": "SOS 呼叫在 Gen 8 剑/盾中被移除",
+        "detail": "Pokemon 剑/盾移除了 SOS 呼叫机制，改用「极巨化」和「旷野地带」的明雷遇敌系统作为主要野生宝可梦遭遇方式。Gen 8 没有引入任何替代性的连锁系统——野生遭遇回归完全随机的模式，玩家无法通过任何机制主动改变遭遇表或提升特定状态（如隐藏特性）的概率。",
+        "category": "enhancement",
+        "removed": true,
+        "removal_year": 2019,
+        "removal_reason": "SOS 呼叫的移除与 Gen 8 的「旷野地带」设计直接相关——旷野地带是一个大规模开放区域，采用明雷遇敌（可以看到野生宝可梦再选择是否对战），而非暗雷遇敌（随机进入战斗）。这种设计下，SOS 呼叫的「战斗内连锁」逻辑不再适用，因为玩家可以主动选择与哪只宝可梦对战，而不需要通过战斗内呼叫来改变遭遇表。",
+        "removal_cause": "SOS 呼叫消失的根本原因是「遇敌方式的转变」。从暗雷遇敌（Gen 1-7）到明雷遇敌（Gen 8-9）的转变，意味着「遭遇的控制权」从系统（随机）转移到了玩家（选择）。SOS 呼叫是一个「在随机中寻找可控性」的系统；而明雷遇敌则是「给予玩家完全控制」的系统。两者代表了不同的设计哲学：前者强调「意外惊喜」，后者强调「主动选择」。",
+        "removal_impact": "mixed",
+        "removal_note": "SOS 呼叫与 DexNav 的消失共同揭示了「遭遇系统的世代转型」——从「随机惊喜」向「主动选择」的转变。明雷遇敌给予了玩家更多的控制感和尊重感，但代价是失去了「不可预测性带来的惊喜」。Pokemon GO 的成功（大部分基于明雷遇敌）证明了这一转变在大众市场是受欢迎的。然而，对于追求「不可控随机性」的硬核玩家来说，这一转变是一种「体验降级」。这是一个经典的「设计民主化」困境：让更多玩家满意的设计，往往会让核心玩家感到被剥夺了一部分深度体验。",
+        "data_confidence": "community"
+      },
+      {
+        "year": 2000,
+        "gen": "Gen 2",
+        "title": "Mobile System GB：日本专用移动互联功能",
+        "detail": "Pokemon 金/银（以及 Crystal）的 Mobile System GB（移动游戏 Boys）是 Pokemon 历史上最早的网络功能实验——在日本，通过 Game Boy 的专用移动附件（Mobile GB），玩家可以连接至 Pokemon 的专用网站「Pokemon Mobile System GB」，进行宝可梦交换、登录小游戏得分、管理存储的宝可梦等功能。这是 Pokemon 线上化的最早尝试，但因硬件限制（仅在日本发行）而影响有限。",
+        "category": "social",
+        "removed": false,
+        "data_confidence": "official"
+      },
+      {
+        "year": 2001,
+        "gen": "Gen 2",
+        "title": "Mobile System GB 随 GBC 时代结束而终止",
+        "detail": "Mobile System GB 随 Game Boy Color 时代的结束和 Mobile Game Boy 配件的停产而正式终止服务。它没有进入 Pokemon Ruby/Sapphire 或其他后续世代，被 Nintendo Wi-Fi Connection（Gen 4）所代表的现代网络系统彻底取代。",
+        "category": "social",
+        "removed": true,
+        "removal_year": 2001,
+        "removal_reason": "Mobile System GB 的消失是因为它依赖于专用硬件（Mobile GB 附件），当 GBC 被 GBA 取代时，这一硬件平台也随之消亡。Nintendo 在 GBA 时代转向了不同的网络连接策略（e-Reader、Wifi），Mobile System GB 的架构无法迁移。",
+        "removal_cause": "Mobile System GB 是 Pokemon「服务连续性」问题的最早案例：它在一个已淘汰的硬件平台上建立了一个与游戏深度绑定的服务，当硬件更新时，服务无法跟随迁移。这是一个技术架构问题，而非服务理念问题——Pokemon 的网络化愿景早在 2000 年就已经存在，只是实现路径被硬件限制所绑架。",
+        "removal_impact": "negative",
+        "removal_note": "Mobile System GB 的历史地位常被忽视：它证明了 Pokemon 的玩家有强烈的网络化需求（交换、存储、积分），这在 Gen 4 的 Nintendo Wi-Fi Connection 中得到了完整实现。从 Mobile System GB 到 NFC 的历程说明：Pokemon 一直有线上化的意愿，但每一次都因为底层平台的变化而需要重新实现。Pokemon HOME 的出现，正是为了打破这一循环——建立一个不依赖特定游戏硬件的持久化服务层。",
+        "data_confidence": "community"
+      },
+      {
+        "year": 2013,
+        "gen": "Gen 6",
+        "title": "2v2 双打集火机制建立，「攻击集火」成为标准策略",
+        "detail": "Pokemon X/Y 的双打对战确立了「集火机制」：当两只宝可梦对同一目标发动攻击时，两次攻击会分别判定，可以触发两次命中效果（如灼伤、木eca粼粼粼效果）。这是 Pokemon 双打战术的基础——通过集火快速消灭一只宝可梦，使对方进入 2v1 的优势局面。集火机制让双打从「两只宝可梦各打各的」升级为「需要战术协调的团队游戏」。",
+        "category": "enhancement",
+        "removed": false,
+        "data_confidence": "official"
+      },
+      {
+        "year": 2019,
+        "gen": "Gen 8",
+        "title": "2v2 双打集火机制的隐性变化：优先度与保护交互",
+        "detail": "Pokemon 剑/盾（以及后续的 Gen 9 朱/紫）在集火机制上引入了大量隐性平衡调整：(1) 广域战力（Wide Guard）从对手全体保护升级为「保护所有攻击目标」，改变了集火窗口；(2) 电磁波/黏黏网等状态施加的判定时机发生变化，影响了集火前的准备阶段；(3) Gen 9 引入了「掉人」机制（当宝可梦被击倒时，可以立即切换），使集火的「秒杀价值」有所降低。整体趋势是：集火仍然是核心战术，但「集火什么」和「何时集火」的决策复杂度增加了。",
+        "category": "enhancement",
+        "removed": false,
+        "data_confidence": "official"
+      },
+      {
+        "year": 2022,
+        "gen": "Gen 9",
+        "title": "2v2 双打从 VGC 规则中移除，改为 VGC 3v3",
+        "detail": "Pokemon 朱/紫的 VGC 规则从 2v2 改为 3v3 规则（双打仍存在但不再是 VGC 核心），这是一个重大的规则变革。3v3 规则下的战术深度发生了本质变化：集火的目标选择更多（从 2 个变为 3 个），而「掉人」机制让残阵状态更有价值（一只宝可梦倒下时留下的「空位」可以被利用）。3v3 也降低了「首回合集火秒杀」的决定了局率，增加了中后期的运营权重。",
+        "category": "enhancement",
+        "removed": false,
+        "data_confidence": "official"
       },
       {
         "year": 2026,
@@ -2197,9 +1631,7 @@
         "detail": "Pokemon Champions（2026）将作为 Gen 9 朱/紫的 DLC 推出，并承诺在 VGC 规则上进行调整——具体规则尚未完全公开，但预计将回归 2v2 为核心的对战形式，同时保留 Gen 9 引入的「掉人」机制和「太晶化」系统。这意味着集火策略将在一个新的框架下重新被评估。",
         "category": "enhancement",
         "removed": false,
-        "data_confidence": "future",
-        "freshness": "high",
-        "last_verified": "2026-04-21"
+        "data_confidence": "future"
       },
       {
         "year": 2026,
@@ -2208,9 +1640,89 @@
         "detail": "从 Gen 6 到 Gen 10 的集火机制演化趋势来看，Pokemon 的双打设计在「个人操作空间」和「团队协作价值」之间持续摇摆。Gen 6 的集火是「高决定性」的（集火几乎总是最优解）；Gen 8-9 的调整方向是「增加集火的成本」（需要预判保护、需要考虑掉人机制）；Gen 10 预计将继续这一方向，让「何时集火」成为一个有意义的战术决策而非自动行为。",
         "category": "enhancement",
         "removed": false,
-        "data_confidence": "inferred_mid",
-        "freshness": "high",
-        "last_verified": "2026-04-21"
+        "data_confidence": "future"
+      },
+      {
+        "year": 2011,
+        "gen": "Gen 5",
+        "title": "对战铁路/对战地铁（Battle Subway）：单人对战设施登场",
+        "detail": "Pokemon 黑/白引入了对战铁路（Battle Subway），这是 Pokemon 历史上第一个「单人不联机」的对战设施系统。玩家可以在对战铁路中选择单人对战（Super Single）、双人对战（Super Double）或多人对战（Multi）模式，与一系列 NPC 训练家进行连续对战，如同「地铁」一般一站接一站前进。对战铁路取代了 Gen 4 的「对战塔」（Battle Tower），引入了「BP 积分」系统作为奖励，是 Gen 5 竞技培育玩家的主要刷分场所。",
+        "category": "pvp",
+        "removed": false,
+        "data_confidence": "official"
+      },
+      {
+        "year": 2013,
+        "gen": "Gen 6",
+        "title": "对战塔升级为「旋转战斗设施」（Battle Spot），轮盘对战登场",
+        "detail": "Pokemon X/Y 将对战铁路升级为「旋转战斗设施」（Battle Spot），将单人对战、多人对战和在线对战整合在一个入口下。旋转战斗设施是 Gen 6 VGC 的官方对战入口，提供等级50和等级100两种规则，并引入了「排位匹配」功能。对战塔/对战地铁的「连续对战」模式被简化为「随机匹配」模式——玩家不再需要连续获胜才能进入高级对战区，而是通过 MMR 匹配系统来配对。",
+        "category": "pvp",
+        "removed": false,
+        "data_confidence": "official"
+      },
+      {
+        "year": 2019,
+        "gen": "Gen 8",
+        "title": "旋转战斗设施被「排名对战」（Ranked Battle）取代",
+        "detail": "Pokemon 剑/盾引入了「排名对战」系统，完全替代了旋转战斗设施的界面和流程。排名对战采用了标准的竞技游戏匹配逻辑：MMR 积分（Showdown 风格的 Rating）、赛季制度、每月重置。玩家不再需要进入特定的「战斗设施」界面，而是在游戏主菜单直接访问排名对战，并可以通过互联网与全世界的玩家对战。",
+        "category": "pvp",
+        "removed": true,
+        "removal_year": 2019,
+        "removal_reason": "对战设施的「消失」代表了 Pokemon 对战从「探索式内容」向「竞技化服务」的转变。对战铁路/旋转战斗设施本质上是一个「内容」，玩家去那里是为了「完成内容」（打败所有训练家）；而排名对战是一个「服务」，玩家参与是为了「提升排名」。前者是有终点的，后者是无限的。对于 Game Freak 来说，排名对战服务提供了更长期的玩家活跃度和付费意愿（VGC 赛事门票、官方活动等）。",
+        "removal_cause": "对战设施消失的深层原因是「内容复制度高」：对战塔/对战铁路的每个世代都需要重新制作 NPC 训练家数据，而这些内容是一次性的——玩家在第一遍体验后就不会再重复挑战。排名对战则是一个「无限内容」——每次对战的对手都是不同的玩家，永远不会有「重复」的感觉。这是一个从「内容设计」到「系统设计」的转变，前者有终点，后者没有。",
+        "removal_impact": "mixed",
+        "removal_note": "对战设施的消失是 Pokemon「服务化转型」的一个缩影。当游戏从「买断制内容」转向「持续运营服务」时，「有终点的内容」被「无限的服务」所取代。这个转变对核心玩家来说是一种失去——对战塔的「连续对战」提供了一种「Roguelike」式的紧张感，而排名对战的单局之间是断开的。但对于休闲玩家来说，排名对战更加友好——不需要投入大量时间「肝」BP，可以随时开始匹配。这个转变的代价是：Pokemon 的单人内容丰富度降低了，但多人竞技深度增加了。",
+        "data_confidence": "inferred_mid"
+      },
+      {
+        "year": 2002,
+        "gen": "Gen 3",
+        "title": "对战塔（Battle Tower）：回合制竞技场的原型",
+        "detail": "Pokemon 红/蓝/绿宝石引入对战塔（Battle Tower），这是 Pokemon 第一个正式的「竞技挑战」设施。玩家携带6只宝可梦，与一系列 NPC 训练家进行连续对战，目标是尽可能多地连续获胜。对战塔奠定了「挑战制」竞技的基础——失败即终止连胜，逼出玩家的最优策略。之后 Gen 4 的对战塔（Battle Tower）、Gen 5 的对战铁路（Battle Subway）、Gen 6 的旋转战斗设施（Battle Spot）都是对战塔精神的延续。",
+        "category": "pvp",
+        "removed": false,
+        "data_confidence": "official"
+      },
+      {
+        "year": 2019,
+        "gen": "Gen 8",
+        "title": "对战塔在 Gen 8 剑/盾中彻底消失",
+        "detail": "Pokemon 剑/盾没有包含任何形式的对战塔、对战铁路或旋转战斗设施等「线下竞技挑战」内容。剑/盾的竞技内容完全迁移至线上：排名对战（Ranked Battle）和道馆挑战（Champion Cup）。这一变化意味着 Gen 8 的单机体验中，缺少了一个「不依赖网络的对战练习场所」——新手玩家无法在单机环境下练习对战技巧。",
+        "category": "pvp",
+        "removed": true,
+        "removal_year": 2019,
+        "removal_reason": "Gen 8 剑/盾的对战塔消失是因为 Game Freak 将竞技对战完全服务化——所有对战内容都需要网络连接才能获得完整价值。排名对战提供 MMR 积分和赛季奖励，是更有持续吸引力的竞技形式；而对战塔是一次性内容，开发和维护成本高但长期价值低。此外，Gen 8 的 DLC「铠之孤岛」和「冠之雪原」引入了「对战竞技场」（Battle Tower 的精神继承者），证明 Game Freak 并未完全放弃这一概念，只是将其降级为 DLC 内容。",
+        "removal_cause": "对战塔消失的根本原因是「内容价值与开发成本的不匹配」。Gen 4-6 期间，Game Freak 每代都需要投入大量资源来创建新的对战设施 NPC（设计训练家队伍、编写对话、设置奖励表），但这些内容对玩家的吸引力逐代下降——核心玩家更倾向于线上对战，休闲玩家则不会投入连续对战的时间。当这个「一次性内容」的 ROI（投资回报率）降到临界点以下，Game Freak 选择了彻底放弃。",
+        "removal_impact": "mixed",
+        "removal_note": "对战塔的消失是「服务化转型」的另一个牺牲品，但它揭示了一个重要的设计权衡：「竞技教学」需要一个「低风险练习场」——玩家可以在对战塔中尝试新策略，失败的成本只是终止连胜（没有实际的积分损失）。排名对战没有这种「安全练习」的空间，所有对局都有 MMR 风险。这对新手玩家的学习曲线是不友好的。Game Freak 在 Gen 9 朱/紫中通过「超级团体战」的练习模式和「太晶化」的预热机制部分解决了这一问题，但仍然没有恢复到对战塔的「零风险练习」体验。",
+        "data_confidence": "community"
+      },
+      {
+        "year": 2016,
+        "gen": "Gen 7",
+        "title": "阿罗拉形态（Alola Forms）：地区形态概念的诞生",
+        "detail": "Pokemon 太阳/月亮首次引入了「阿罗拉形态」（Alola Forms）——这是 Pokemon 历史上首次对已有宝可梦进行地区性变体设计。约18种宝可梦（主要是第一世代的御三家和小拉达等）在阿罗拉地区演化出了新的形态，这些形态拥有不同的属性组合和外观，例如阿罗拉拉达获得了恶属性，阿罗拉六尾获得了冰属性。阿罗拉形态的核心设计理念是「环境塑造生物」——不同的生态塑造了不同的生物特征。",
+        "category": "foundation",
+        "removed": false,
+        "data_confidence": "official"
+      },
+      {
+        "year": 2019,
+        "gen": "Gen 8",
+        "title": "伽勒尔形态（Galar Forms）登场，阿罗拉形态被排除在 Gen 8 之外",
+        "detail": "Pokemon 剑/盾引入了伽勒尔形态（Galar Forms），延续了地区形态的概念。但阿罗拉形态的宝可梦无法在剑/盾中使用——它们被归类为「只能通过 Pokemon HOME 传输但不能参与对战」的特殊类别，直到 Home 的更新补丁添加了对阿罗拉形态的支持。",
+        "category": "foundation",
+        "removed": false,
+        "data_confidence": "official"
+      },
+      {
+        "year": 2022,
+        "gen": "Gen 9",
+        "title": "阿罗拉形态和伽勒尔形态在 Gen 9 朱/紫中正式回归",
+        "detail": "Pokemon 朱/紫正式支持阿罗拉形态和伽勒尔形态的所有宝可梦参与对战，结束了自 Gen 7 以来的「形态孤岛」问题。朱/紫还引入了帕希亚形态（Paldean Forms），进一步扩展了地区形态的概念。",
+        "category": "foundation",
+        "removed": false,
+        "data_confidence": "official"
       },
       {
         "year": 2026,
@@ -2219,9 +1731,7 @@
         "detail": "Pokemon Champions（2026）承诺将在 Gen 10 中统一呈现历代所有地区形态的宝可梦（包括阿罗拉、伽勒尔、帕希亚、以及 Gen 10 新引入的形态），这将实现 Pokemon「形态完整性的持续累积」目标。",
         "category": "foundation",
         "removed": false,
-        "data_confidence": "future",
-        "freshness": "high",
-        "last_verified": "2026-04-21"
+        "data_confidence": "future"
       },
       {
         "year": 2026,
@@ -2231,9 +1741,149 @@
         "category": "foundation",
         "removed": false,
         "removal_note": "地区形态的案例是「内容膨胀」的经典游戏设计问题。当每个新功能都创造了「历史遗留」时，后续的开发成本会不断累积。阿罗拉形态虽然在 Gen 7 之后短暂「消失」，但最终被证实是一个「值得维护」的设计决策——它的情感价值和设计价值都足够高，足以支撑长期维护成本。这与「华丽大赛」和「跟随系统」等被移除后回归的内容形成了对比：不是所有被移除的内容都值得回归，地区形态回归是因为它的「对战差异化价值」是持续的，而华丽大赛的「表演价值」是递减的。",
-        "data_confidence": "inferred_mid",
-        "freshness": "high",
-        "last_verified": "2026-04-21"
+        "data_confidence": "inferred_mid"
+      },
+      {
+        "year": 2012,
+        "gen": "Gen 5",
+        "title": "Pokemon Dream Radar（口袋妖怪梦的光源）：AR 捕捉的实验",
+        "detail": "Pokemon Dream Radar 是 Nintendo 3DS 的专用 AR 应用，配合 Pokemon 黑2/白2 使用。玩家通过 3DS 的摄像头在「现实世界」中捕捉宝可梦，并将捕捉到的宝可梦传输到黑2/白2中。更重要的是，Dream Radar 是 Gen 5 中获取「黑影宝可梦」（Shadow Pokemon——被火箭队等人心操控的宝可梦）以及「传说宝可梦」的官方渠道。Dream Radar 将 AR 捕捉、3DS 摄像头交互与宝可梦培育进行了初步整合。",
+        "category": "foundation",
+        "removed": false,
+        "data_confidence": "official"
+      },
+      {
+        "year": 2013,
+        "gen": "Gen 6",
+        "title": "Pokemon Dream Radar 随 Gen 5 结束而终止，未进入 Gen 6",
+        "detail": "Pokemon X/Y 发布时没有推出新的 Dream Radar 版本，Dream Radar 的 AR 捕捉功能没有得到延续。黑2/白2 的玩家仍然可以使用 Dream Radar，但 Gen 6 X/Y 的玩家无法使用任何类似的 AR 捕捉系统。Pokemon GO（2016）才是 AR 捕捉功能的真正成熟形态。",
+        "category": "foundation",
+        "removed": true,
+        "removal_year": 2013,
+        "removal_reason": "Dream Radar 的消失是因为它是一个「跨代绑定」的内容——它需要特定的 3DS 硬件、特定的 Pokemon 游戏配合，且只能产出 Gen 5 的宝可梦。当 Game Freak 进入 Gen 6 的 3D 化时代后，AR 捕捉的优先级被降低——所有开发资源都集中在了 3D 宝可梦建模、对战系统和 Mega 进化上。",
+        "removal_cause": "Dream Radar 的设计问题是「AR 的工具性」——它将 AR 作为一个「传输渠道」而非「体验本身」。玩家使用 Dream Radar 的动机是「获得特定宝可梦」，而非「体验 AR 捕捉的乐趣」。当这个「获取渠道」在 Gen 6 中不再必要（所有宝可梦可以直接在 X/Y 中获得）时，Dream Radar 就失去了存在价值。这与 Pokemon GO 的 AR 捕捉不同——Pokemon GO 的 AR 是体验的核心组成部分（捕捉宝可梦本身），而非获取特定宝可梦的工具。",
+        "removal_impact": "mixed",
+        "removal_note": "Dream Radar 的教训是：AR/VR 功能的「工具化」是一条死路——当 AR 只是「到达目的地的手段」时，它无法独立存在。Pokemon GO 的成功在于它让 AR 成为了「捕捉体验的放大器」——每一次捕捉都是 AR 体验，而不仅仅是捕捉本身。设计 AR 功能时，应该让 AR 本身成为乐趣的来源，而非实现某个非 AR 目标的工具。",
+        "data_confidence": "community"
+      },
+      {
+        "year": 2000,
+        "gen": "Gen 1",
+        "title": "Pokemon Stadium：主系列在主机上的第一次大型展示",
+        "detail": "Pokemon Stadium（N64，2000）是 Pokemon 在家用主机上的首次重要亮相，将 Pokemon 红/蓝/黄版的宝可梦以 3D 形式呈现在大屏幕上。Pokemon Stadium 提供了全 151 种宝可梦的 3D 建模（当时的 N64 机能限制意味着建模相对简化），并包含了对战模式、迷你游戏、以及「租借宝可梦」系统。Pokemon Stadium 奠定了「Pokemon 在主机上的视觉呈现」基础，后续的 Pokemon Stadium 2（金城归来）、Pokemon Battle Revolution（2007）都是这一精神谱系的延续。",
+        "category": "foundation",
+        "removed": false,
+        "data_confidence": "official"
+      },
+      {
+        "year": 2007,
+        "gen": "Gen 4",
+        "title": "Pokemon Battle Revolution：战斗舞台的最后绝唱",
+        "detail": "Pokemon Battle Revolution（Wii，2007）是 Pokemon 主系列对战在任天堂主机上的最后一款独立作品，配合 Gen 4 钻石/珍珠/白金使用。Pokemon Battle Revolution 提供了华丽的 3D 对战场景、自定义角色外观、以及「连续战斗」模式。作为一款对战观赏性工具，它在核心玩家群体中有一定的追随者，但销量和影响力都远不及 Pokemon Stadium 时代。",
+        "category": "foundation",
+        "removed": false,
+        "data_confidence": "official"
+      },
+      {
+        "year": 2011,
+        "gen": "Gen 5",
+        "title": "Pokemon Battle Revolution 之后，主机对战工全面终止",
+        "detail": "Pokemon 黑/白没有配套的独立主机对战游戏，Pokemon 的对战体验全面进入掌机（DS/3DS）和移动端（手机Pokemon GO）时代。Pokemon Showdown（2014）是社区自发建立的在线对战平台，在 Pokemon 没有官方主机对战工具的情况下填补了这一空白——但它是一个网页工具而非商业游戏。",
+        "category": "foundation",
+        "removed": true,
+        "removal_year": 2011,
+        "removal_reason": "独立主机对战工具的消失是因为：(1) Pokemon 主系列游戏本身的 3D 表现力已经接近或超越了独立对战工具（如 Pokemon Stadium）；(2) 开发独立对战工具的商业吸引力不足——这类游戏缺乏故事内容，主要是功能性的对战展示；(3) Pokemon Showdown 等社区工具提供了更丰富的对战体验（支持所有世代、实时平衡调整），在非商业层面满足了核心对战玩家的需求。",
+        "removal_cause": "Pokemon Stadium 谱系的消失揭示了「功能工具化」与「游戏体验化」的边界问题。当 Pokemon 主游戏本身已经足够好时，独立的「对战展示工具」就没有存在必要。但 Pokemon Showdown 的成功说明：玩家对「对战平台」的需求并没有消失，只是需要一个「无限制」（支持所有世代、所有规则）的对战平台，而这是商业游戏无法提供的。",
+        "removal_impact": "mixed",
+        "removal_note": "Pokemon Showdown 的存在是 Pokemon 商业策略的一个有趣的「漏洞」——它由社区维护，提供了比官方工具更丰富的对战体验，但完全不产生收入。对于 Game Freak 来说，Pokemon Showdown 是一个双刃剑：它维持了核心对战社区的活跃度（从而支撑了 VGC 赛事的参与度），但也降低了玩家购买新游戏的动力（可以在 Showdown 上免费体验所有对战内容）。Game Freak 的应对策略是在主游戏中加入 Showdown 无法提供的独占内容（太晶化、Mega 进化等），将「对战基础」留在 Showdown 上，而「对战进化」留在商业游戏中。",
+        "data_confidence": "community"
+      },
+      {
+        "year": 2016,
+        "gen": "Gen 7",
+        "title": "Festival Plaza（培育殿堂）：Gen 7 的社交与培育核心",
+        "detail": "Pokemon 太阳/月亮引入了 Festival Plaza（培育殿堂），作为 Gen 7 的社交与培育核心枢纽。培育殿堂取代了 Gen 6 的多种独立设施（超级训练、华丽大赛入口、宝可梦阿米等），将交换、对战、培育、小游戏等功能整合在一个「广场」界面下。培育殿堂还引入了「集市」（Boutique，购买外观道具）和「广场剧场」（Plaza Theater）等社交场所，是 Gen 7 追求「单点社交」的集中体现。",
+        "category": "foundation",
+        "removed": false,
+        "data_confidence": "official"
+      },
+      {
+        "year": 2019,
+        "gen": "Gen 8",
+        "title": "Festival Plaza 被拆分为多个独立系统",
+        "detail": "Pokemon 剑/盾移除了 Festival Plaza，将其中的功能拆分至独立界面：培育功能进入「Box」系统，社交功能被「排名对战」和「朋友」系统取代，购物功能回归「商店」，小游戏功能则演变为「咖喱饭」（Camp）。这次「拆分」反映了 Gen 8 的设计哲学：不再追求「单点枢纽」，而是让每个功能回归其最自然的入口。",
+        "category": "foundation",
+        "removed": true,
+        "removal_year": 2019,
+        "removal_reason": "Festival Plaza 被批评为「导航混乱」——它将大量不相关的功能强行整合在一个界面下，导致玩家需要多次点击才能到达目标功能。Gen 8 的「拆分」是对这一批评的直接回应。Game Freak 在 Gen 8 的设计语言追求简洁和直接：每个功能有明确的入口，不需要通过一个「中间层」来访问。",
+        "removal_cause": "Festival Plaza 的设计问题是「整合过度」——它试图用一个统一的 UI 来承载所有社交和培育需求，但这些需求的使用频率和使用场景差异巨大。玩家需要的是一个「培育时去培育界面，对战时去对战界面」的直觉导航，而非通过广场的「绕路」来访问这些功能。Gen 8 的拆分是「用户界面经济学」的体现：经常使用的功能应该更容易访问，不常用的功能不需要占用主界面空间。",
+        "removal_impact": "mixed",
+        "removal_note": "Festival Plaza 的案例与「旋转战斗设施」的案例形成了有趣的对比——后者是「将多个入口合并为一个」，前者也是「将多个入口合并为一个」，但两者的命运相反。关键差异在于「合并的逻辑是否合理」：旋转战斗设施的合并是功能相关的（所有对战模式），所以被保留；Festival Plaza 的合并是人为的（将不相关的功能强行放在一起），所以被拆分。设计「枢纽」时，必须确保枢纽内的功能有内在逻辑关联，否则「枢纽」会变成「迷宫」。",
+        "data_confidence": "community"
+      },
+      {
+        "year": 2016,
+        "gen": "Gen 7",
+        "title": "Poke Pelago（宝可梦乐园）：岛屿探险替代野外培育",
+        "detail": "Pokemon 太阳/月亮引入了 Poke Pelago（宝可梦乐园），一个可以让宝可梦在「虚拟岛屿」上自由活动的系统。玩家可以派遣宝可梦去不同的岛屿执行任务，如采集道具、刷取经验值、发掘化石等。Poke Pelago 的设计理念是「后台培育」——玩家不需要持续操作，系统会自动积累培育成果。",
+        "category": "foundation",
+        "removed": false,
+        "data_confidence": "official"
+      },
+      {
+        "year": 2019,
+        "gen": "Gen 8",
+        "title": "Poke Pelago 在 Gen 8 被「宝可梦露营」所取代",
+        "detail": "Pokemon 剑/盾引入了「宝可梦露营」（Pokemon Camp），将 Poke Pelago 的部分功能整合到了野外露营场景中。宝可梦露营允许玩家与宝可梦互动、喂食、制作咖喱饭，但没有 Poke Pelago 的「任务派遣」和「道具采集」功能。Gen 8 的露营更注重「情感互动」而非「后台培育」，是一个功能简化但情感深化的版本。",
+        "category": "foundation",
+        "removed": true,
+        "removal_year": 2019,
+        "removal_reason": "Poke Pelago 的「任务派遣」功能在 Gen 8 被放弃，因为其奖励内容（道具、经验值）与 Gen 8 的其他系统（如极巨化汤、Watt 商店）存在功能重叠。Game Freak 选择保留「情感互动」部分（Camp），而将「实用培育」部分交给传统的战斗和道具系统。",
+        "removal_cause": "Poke Pelago 的消失揭示了「后台系统」的可持续性问题——当一个系统的功能可以被其他更自然的系统所覆盖时，它的存在价值就降低了。Gen 8 的宝可梦露营选择了更「有情感」的互动方式（与宝可梦一起做饭），而非 Poke Pelago 的「无感任务派遣」，这是一个「体验质量」优先于「效率」的设计决策。",
+        "removal_impact": "mixed",
+        "removal_note": "Poke Pelago vs 宝可梦露营的对比是 Pokemon「培育系统」演变的一个缩影：从「效率工具」向「情感体验」的转变。Gen 7 的 Poke Pelago 是一个「外挂式」的培育系统（完全脱离战斗场景）；Gen 8 的宝可梦露营是一个「嵌入式」的培育系统（培育发生在玩家正在游玩的场景中）。后者虽然效率较低，但与玩家的游玩节奏更融合，没有「打开另一个界面」的中断感。这是「沉浸感优先」还是「效率优先」的经典设计权衡，Pokemon 在不同世代给出了不同的答案。",
+        "data_confidence": "inferred_mid"
+      },
+      {
+        "year": 2002,
+        "gen": "Gen 3",
+        "title": "秘密别墅（Secret Base）：玩家空间概念的原型",
+        "detail": "Pokemon 红/蓝/绿宝石引入了秘密别墅（Secret Base），允许玩家在特定草丛中「占领」一块地，建立自己的私人空间。玩家可以布置家具、放置旗帜（代表自己占领的基地），并邀请朋友来参观和战斗。秘密别墅是 Pokemon「玩家个人空间」概念的原型，在 Gen 3 的线上联机尚不发达的时代，它是重要的社交场所。",
+        "category": "foundation",
+        "removed": false,
+        "data_confidence": "official"
+      },
+      {
+        "year": 2006,
+        "gen": "Gen 4",
+        "title": "秘密别墅在 Gen 4 被移除",
+        "detail": "Pokemon 钻石/珍珠/白金移除了秘密别墅系统，尽管保留了「占领草丛」的视觉元素。Gen 4 增加了「宝可梦追梦人」（Spirit Link）等新功能来弥补秘密别墅的空缺，但「玩家个人空间」这一概念在 Gen 4 期间完全缺失。",
+        "category": "foundation",
+        "removed": true,
+        "removal_year": 2006,
+        "removal_reason": "Gen 4 删减秘密别墅的原因与 Gen 4 的「陆地移动探索」设计方向有关——神奥地区的地图结构不允许秘密别墅的「隐藏空间」设计。Nintendo Wi-Fi Connection 的线上功能在 Gen 4 已经足够成熟，秘密别墅的「本地私人空间」功能可以由线上交换和对战所取代。",
+        "removal_cause": "秘密别墅的消失揭示了「空间设计」与「地图结构」的绑定关系——当地图从「道路连接型」转向「开放区域型」时，秘密别墅的「隐藏草丛」设计就不再适用。这是 Pokemon 地图设计演变的副产品：当世界变得更「开放」时，「隐藏角落」的空间就变少了。",
+        "removal_impact": "mixed",
+        "removal_note": "秘密别墅的概念在 Gen 6 通过「超级愿望系统」（Super Training）中部分回归（玩家可以在训练场中保存自己的记录），但从未完全恢复。Gen 9 朱/紫的 Picnic 系统可以视为秘密别墅的「现代化」版本——玩家在野外建立临时营地，邀请宝可梦和玩家朋友参与，但缺乏秘密别墅的「固定性」和「装饰性」。秘密别墅的「装饰」元素最终在 Pokemon HOME 的「个人主页」功能中得到延续，但已经脱离了游戏内的空间概念。",
+        "data_confidence": "community"
+      },
+      {
+        "year": 2016,
+        "gen": "Gen 7",
+        "title": "Pokemon GO 联动初步：仅限 Gen 1 的「特殊捕捉」",
+        "detail": "Pokemon GO（2016）发布后，Pokemon 太阳/月亮提供了与 Pokemon GO 的有限联动：玩家可以通过 Pokemon GO 获得「特别礼物验证码」，在日月中兑换特定宝可梦（如 Surprised Pikachu）。这次联动的规模极小，但建立了 Pokemon GO 与主系列游戏的第一条通道。",
+        "category": "social",
+        "removed": false,
+        "data_confidence": "official"
+      },
+      {
+        "year": 2020,
+        "gen": "Gen 8",
+        "title": "Pokemon HOME 正式连接 Pokemon GO，跨平台传输时代开启",
+        "detail": "Pokemon HOME（2020）正式支持 Pokemon GO 的宝可梦传输，玩家可以通过 HOME 将 GO 中的宝可梦传输到剑/盾中。这是 Pokemon 历史上第一次实现了从移动端到主机端的宝可梦迁移，打破了「Pokemon GO 是独立生态」的局面。Pokemon GO 的宝可梦开始拥有「主游戏价值」——在 GO 中捕捉的宝可梦可以被带到任何支持 HOME 的主系列游戏中使用。",
+        "category": "social",
+        "removed": false,
+        "data_confidence": "official"
       },
       {
         "year": 2026,
@@ -2242,9 +1892,7 @@
         "detail": "Pokemon Champions（2026）预计将延续并扩展 Pokemon GO 与主系列的联动机制，实现从 Gen 1 到 Gen 10 全部宝可梦的跨平台流通。Pokemon GO 的「地区限定宝可梦」和「限定时间活动」将成为主系列游戏中「特定渠道」获取宝可梦的方式之一。",
         "category": "social",
         "removed": false,
-        "data_confidence": "official",
-        "freshness": "high",
-        "last_verified": "2026-04-21"
+        "data_confidence": "future"
       },
       {
         "year": 2026,
@@ -2254,9 +1902,7 @@
         "category": "social",
         "removed": false,
         "removal_note": "Pokemon GO 联动的案例是「跨平台生态设计」的经典案例。Pokemon 通过 HOME 建立了一个「跨平台中转站」，使得不同平台（手机、掌机、家用机）的玩家可以共享同一个宝可梦池。这个设计的优势是明显的：Pokemon GO 的活跃用户可以为主游戏提供宝可梦来源，增加了 Pokemon 品牌的整体活跃度。但它的挑战同样明显：不同平台的获取难度和成本不同，如何防止「付费平台」对「游戏平台」的竞争优势，是一个需要持续平衡的问题。目前 Pokemon 的解决方案是「限制特定强力宝可梦的传输来源」，但随着 Gen 10 的到来，这一平衡策略的可持续性还有待观察。",
-        "data_confidence": "inferred_mid",
-        "freshness": "high",
-        "last_verified": "2026-04-21"
+        "data_confidence": "community"
       },
       {
         "year": 2026,
@@ -2266,9 +1912,7 @@
         "category": "foundation",
         "removed": false,
         "removal_note": "HM 系统的历史是一面镜子，映照出 Pokemon 从「收集-战斗循环」向「伙伴关系叙事」的演进轨迹。HM 的存在曾经强化了「宝可梦是工具」的一面，而它的消失则让 Pokemon 的核心叙事更加纯粹。这个案例提醒我们：游戏系统的设计会影响玩家的情感认知——同一个系统在不同设计哲学下会得出完全不同的评价。",
-        "data_confidence": "inferred_mid",
-        "freshness": "high",
-        "last_verified": "2026-04-21"
+        "data_confidence": "community"
       },
       {
         "year": 2026,
@@ -2278,202 +1922,166 @@
         "category": "foundation",
         "removed": false,
         "removal_note": "这 30+ 个被移除的系统共同构成了 Pokemon 的「设计债务」。每一个被移除的系统都代表着一批玩家的情感记忆和投入——培育华丽大赛的技巧、掌握 DexNav 连锁的节奏、与 Pokewalker 的步行日记。Pokemon 的设计策略正在从「不断添加新系统」转向「谨慎选择、长期维护」，Gen 10 的「统一呈现历代形态」和「让 Mega 进化回归」的承诺，都指向同一个方向：Game Freak 正在学习「保留遗产」而非「不断推翻重来」。这是一个从「创造者视角」到「守护者视角」的转变，对于一个拥有 30 年历史、覆盖全球数十亿玩家的 IP 来说，这个转变是必要且及时的。",
-        "data_confidence": "inferred_mid",
-        "freshness": "high",
-        "last_verified": "2026-04-21"
-      },
-      {
-        "year": 2026,
-        "gen": "Gen 9",
-        "title": "Pokemon Champions 时代开启",
-        "detail": "Pokemon Champions 于2026年4月8日正式上线（Switch/Switch 2），VGC正式过渡至新平台；首个规则Regulation M-A允许Mega Evolution与太晶化同时存在；世锦赛2026年8月28-30日在旧金山Moscone Center举办",
-        "category": "pvp",
-        "data_confidence": "future",
-        "chain_category": "enhancement",
-        "chain_order": 5,
-        "chain_prev": "太晶化",
-        "chain_next": null,
-        "chain_related": [],
-        "freshness": "high",
-        "last_verified": "2026-04-21"
+        "data_confidence": "community"
       }
     ],
     "palworld": [
       {
         "year": 2024,
+        "version": "v0.1",
         "title": "首发：生存建造 + 核心捕捉循环",
         "detail": "2024年1月；多人服务器首发；无任何 PvP 机制；专注于 Pals 捕捉与基地建造——'先 PvE 后 PvP'的保守策略显著降低了口碑风险",
         "category": "foundation",
-        "data_confidence": "official",
-        "freshness": "high",
-        "last_verified": "2026-04-21",
-        "gen": "Palworld v0.1"
+        "data_verified": true,
+        "data_confidence": "official"
       },
       {
         "year": 2024,
+        "version": "v0.2",
         "title": "首个 Raid Boss：Bellanoir",
         "detail": "2024年4月；Summoning Altar 召唤祭坛上线；raid difficulty 机制；首个合作 PvE 团体战内容",
         "category": "pve",
-        "data_confidence": "official",
-        "freshness": "high",
-        "last_verified": "2026-04-21",
-        "gen": "Palworld v0.2"
+        "data_verified": true,
+        "data_confidence": "official"
       },
       {
         "year": 2024,
+        "version": "v0.3.1",
         "title": "Sakurajima 岛 + PvP Arena",
         "detail": "2024年6月；新岛 Sakurajima 上线；Arena 竞技场首次出现（多人 PvP）；Oil Rig 攻城战；Blazamut Ryu Raid",
         "category": "pvp",
-        "data_confidence": "official",
-        "freshness": "high",
-        "last_verified": "2026-04-21",
-        "gen": "Palworld v0.3.1"
+        "data_verified": true,
+        "data_confidence": "official"
       },
       {
         "year": 2024,
+        "version": "v0.4",
         "title": "Feybreak 大型更新",
         "detail": "2024年12月；新岛 Feybreak；Expedition 远征系统；Research Lab 研究系统；Predator Pals；世界事件强制合作内容",
         "category": "pve",
-        "data_confidence": "official",
-        "freshness": "high",
-        "last_verified": "2026-04-21",
-        "gen": "Palworld v0.4"
-      },
-      {
-        "year": 2024,
-        "gen": "Palworld v0.1",
-        "title": "Palworld 抢先体验版发售",
-        "detail": "2024年1月，Pocket Pair 开发的 Palworld 抢先体验版在 Steam 发售，5天内销量突破1000万，创下了 Steam 历史上最快的销量纪录。游戏融合了宝可梦式生物收集养成与生存建造玩法，「帕鲁」系统允许玩家捕捉、培育并指挥生物参与战斗、工作和探索。其 PvP 机制（PvP Combat）允许玩家间对战，成为多人内容的重要组成部分。",
-        "category": "foundation",
-        "removed": false,
-        "data_confidence": "inferred_mid",
-        "chain_category": "palworld_foundation",
-        "chain_order": 1,
-        "freshness": "high",
-        "last_verified": "2026-04-21"
-      },
-      {
-        "year": 2024,
-        "gen": "Palworld v0.1",
-        "title": "帕鲁捕捉与战斗系统建立",
-        "detail": "Palworld 的帕鲁捕捉系统与 Pokemon 类似（血量降至50%以下可捕捉），但战斗系统有根本性差异：帕鲁可以由玩家直接操控（类似射击游戏中的载具），也可以设置为自动战斗（类似 Pokemon 的放养）。玩家还可以骑乘飞行帕鲁进行空战，这是 Pokemon 历代都未实现的机制。这种「收集 + 直接操控」的双模战斗设计，是 Palworld 区别于 Pokemon 的核心创新。",
-        "category": "foundation",
-        "removed": false,
-        "data_confidence": "official",
-        "chain_category": "palworld_foundation",
-        "chain_order": 3,
-        "freshness": "high",
-        "last_verified": "2026-04-21"
-      },
-      {
-        "year": 2024,
-        "gen": "Palworld v0.2",
-        "title": "跨平台发布与 PvP 公会战系统",
-        "detail": "2024年3月，Palworld 宣布 Xbox Series X|S 和 Xbox Game Pass 同步发售，实现了 PC 和主机双平台运营。同月引入 PvP 公会战系统（PVP Guild Battles）——多个公会可以在特定服务器区域进行大规模对抗，这是 Palworld 首次引入有组织的 PvP 竞技内容，允许玩家以公会为单位争夺资源点和领地，标志着 Palworld 从纯 PvE 走向 PvP 混合生态。",
-        "category": "pvp",
-        "removed": false,
-        "data_confidence": "official",
-        "chain_category": "palworld_pvp",
-        "chain_order": 1,
-        "freshness": "high",
-        "last_verified": "2026-04-21"
-      },
-      {
-        "year": 2024,
-        "gen": "Palworld v0.2",
-        "title": "大型更新：基地帕鲁与自动生产",
-        "detail": "2024年4月，Palworld v0.2.4.6 更新引入基地帕鲁（Base Pals）自动生产系统——帕鲁可以在玩家基地中自动执行工作（采矿、伐木、种植、发电等），实现了「生物收集 + 自动化生产」的深度整合。这是 Palworld 与 Pokemon 在「收集物参与世界」设计上的最大差异：Pokemon 的宝可梦主要服务于对战，而 Palworld 的帕鲁深度嵌入生存建造循环。",
-        "category": "foundation",
-        "removed": false,
-        "data_confidence": "official",
-        "chain_category": "palworld_foundation",
-        "chain_order": 2,
-        "freshness": "high",
-        "last_verified": "2026-04-21"
-      },
-      {
-        "year": 2024,
-        "gen": "Palworld v0.2",
-        "title": "服务器架构与管理员工具完善",
-        "detail": "2024年5月，Palworld 正式支持自建专用服务器，提供完整的服务器管理工具、MOD 支持（通过 Steam Workshop）和配置文件自定义选项。官方还提供了 Docker 部署方案，降低了社区服务器的部署门槛。这是 Palworld 从「官方服务器为主」转向「社区自建服务器生态」的重要节点，使大规模多人合作和私有 PvP 赛事成为可能。",
-        "category": "social",
-        "removed": false,
-        "data_confidence": "official",
-        "chain_category": "palworld_online",
-        "chain_order": 1,
-        "freshness": "high",
-        "last_verified": "2026-04-21"
+        "data_verified": true,
+        "data_confidence": "official"
       },
       {
         "year": 2025,
+        "version": "v0.5",
         "title": "Crossplay + Global Palbox",
         "detail": "2025年3月；跨平台联机；Global Palbox 跨世界转移；Flea Market 经济系统",
         "category": "foundation",
-        "data_confidence": "official",
-        "freshness": "high",
-        "last_verified": "2026-04-21",
-        "gen": "Palworld v0.5"
+        "data_verified": true,
+        "data_confidence": "official"
       },
       {
         "year": 2025,
+        "version": "v0.6.x",
         "title": "Terraria 联动 + 大量 Bug 修复",
         "detail": "2025年6月-11月；Terraria 联动（Moon Lord Raid）；v0.6.0-0.6.9 持续修复 Dungeons / Multiplayer connectivity / Bug；Dimensional storage 上线",
         "category": "pve",
-        "data_confidence": "official",
-        "freshness": "high",
-        "last_verified": "2026-04-21",
-        "gen": "Palworld v0.6.x"
-      },
-      {
-        "year": 2025,
-        "gen": "Palworld v1.0",
-        "title": "Palworld 正式版发售",
-        "detail": "2025年，Palworld 正式版（v1.0）发售，标志其从抢先体验毕业。正式版引入新帕鲁（Pal）、新区域、新机制，并全面完善 PvP 系统。据 Pocket Pair 公告，正式版将大幅优化 PvP 平衡和竞技匹配系统，引入赛季制 PvP 竞技内容——这是 Palworld 首次正式拥抱电竞化方向。与 Pokemon 的 VGC 体系相比，Palworld 的 PvP 竞技化起步更晚但迭代更快。",
-        "category": "pvp",
-        "removed": false,
-        "data_confidence": "official",
-        "chain_category": "palworld_pvp",
-        "chain_order": 2,
-        "freshness": "high",
-        "last_verified": "2026-04-21"
-      },
-      {
-        "year": 2025,
-        "gen": "Palworld v1.x",
-        "title": "正式版 DLC：竞技场与 Raid 系统",
-        "detail": "2025年正式版 DLC 引入「竞技场」（Arena）模式——允许玩家组队进行4v4 或更大规模的结构化 PvP 对战，并引入 Ban/Pick 机制的雏形。同期引入「多人 Raid Boss」——需要8-16名玩家协作挑战的高难度内容，类似 Pokemon 的太晶团体战但规模更大（支持16人）。DLC 还首次引入「赛季通行证」货币化机制。",
-        "category": "pve",
-        "removed": false,
-        "data_confidence": "official",
-        "chain_category": "palworld_pvp",
-        "chain_order": 3,
-        "freshness": "high",
-        "last_verified": "2026-04-21"
+        "data_verified": true,
+        "data_confidence": "official"
       },
       {
         "year": 2026,
+        "version": "v0.7.0-0.7.3",
         "title": "正式 PvP 功能 + 战场分离",
         "detail": "2026年1-4月；v0.7.0 Experimental PvP 正式加入（基地入侵/Raid战场分离）；v0.7.1-0.7.3 持续平衡调整和 Bug 修复（最新 v0.7.3 于 2026-04-06）",
         "category": "pvp",
-        "data_confidence": "official",
-        "freshness": "high",
-        "last_verified": "2026-04-21",
-        "gen": "Palworld v0.7.0-0.7.3"
-      },
-      {
-        "year": 2026,
-        "gen": "Palworld v1.x",
-        "title": "电竞化探索：官方赛事与排名系统",
-        "detail": "2026年，Pocket Pair 开始探索 Palworld 的电竞化路径，在部分第三方赛事（如 PGC，即 Palworld Global Championship）中引入排名系统。与 Pokemon 相比，Palworld 的 PvP 竞技化起步晚了近20年，但受益于 Pokemon 的经验教训，可以更快速地借鉴成熟的 Ban/Pick 机制和赛事运营模式。Palworld 的差异化优势在于：其战斗包含「直接操控」维度，使得操作技术和战术战略同等重要——这与传统 Pokemon 的纯策略对战有本质区别。",
-        "category": "pvp",
-        "removed": false,
-        "data_confidence": "official",
-        "chain_category": "palworld_esports",
-        "chain_order": 1,
-        "freshness": "high",
-        "last_verified": "2026-04-21"
+        "data_verified": true,
+        "data_confidence": "official"
       }
     ]
+  },
+  "generation_metadata": {
+    "Gen 1": {
+      "year_range": "1996-1999",
+      "design_theme": "框架建立",
+      "theme_label": "回合制奠基",
+      "theme_subtitle": "回合制、属性克制、捕捉机制——所有后续演进的基础",
+      "key_shift": "回合制战斗基础建立。速度决定先手顺序——几乎完全由种族值决定，优先级体系几乎不存在（仅有电光一闪等极少数例外）。15种属性构成克制关系表，但因程序错误存在 bug：如幽灵系免疫超能力系（而非被克制）、冰系错误地克制火系等，这些失衡要到 Gen 2 才修复。捕捉时 HP 越低成功率越高，但压到 1/3 HP 后收益就到顶了；睡眠和冰冻才是捕捉成功的决定性因素。这个时期没有任何特性或道具差异化，招式池只有约150种且同属性招式几乎完全等价——一切胜负几乎完全取决于种族值。；物理特殊分类不分家。招式按属性决定是物理还是特殊（如水系招式全部是特殊招式），格斗系因此几乎无人使用，因为该系没有高特攻属性。这意味着对战中\"谁能用更硬的招式\"完全由属性决定，无法通过招式设计来平衡宝可梦之间的强弱。这在 Gen 3 物理/特殊分家后才得到根本解决，成为后续世代平衡调整的核心杠杆。；Link Cable 联机奠基。首次实现宝可梦的无线联机交换，让宝可梦从单人游戏道具升级为社交资产。单打对战格式受硬件限制未能支持双打，官方竞技体系尚未建立，但 Nintendo Cup 等线下赛事证明了玩家对竞技对战的需求是真实存在的。这是整个 VGC 30年竞技历史的起点。；种族值决定一切的遗产。超梦以590的总种族值（远超非传说宝可梦的430-440水平）统治初代对战，招式差异化极低导致对战胜负在选人阶段就已决定。这一失衡直接推动了 Gen 2 引入道具系统（通过携带道具创造差异化）和 Gen 3 引入特性系统（通过被动能力区分同物种），成为推动后续所有世代设计演进的核心动力",
+      "gimmick_focus": "无强化 gimmick，专注基础框架",
+      "design_stage": "foundation"
+    },
+    "Gen 2": {
+      "year_range": "1999-2002",
+      "design_theme": "系统扩展",
+      "theme_label": "培育的开始",
+      "theme_subtitle": "培育系统、道具强化及 HM——把'养'变成一门学问",
+      "key_shift": "从'选强'到'养强'的培育革命。Gen 2 引入了两个改变游戏规则的差异化维度。其一是携带道具——宝可梦可以携带一个被动道具，比如先制之爪（优先度+1）或磁铁（吸引电系招式），让同一只宝可梦因为携带物不同而产生完全不同的战术定位。这种同一种宝可梦可以有多种不同玩法的思路，成为之后所有世代设计多样化的核心。其二是培育系统的雏形——培育屋可以让两只宝可梦生下后代，遗传机制让后代有机会继承父母的招式，Stat Experience（努力值前身）则让培育方向成为差异化的关键。不过这个时期努力值没有上限约束，玩家可以无限制地刷任意属性——Gen 5 才加入的 252 上限让这套系统更加规范。；Special 分家改变能力格局。Gen 2 将 Gen 1 的单一 Special 属性拆分为独立的特攻和特防两个数值，这一改变直接重塑了对战格局。例如快龙因为同时拥有高特攻和高特防，在拆分后一跃成为极为全能的宝可梦；而耿鬼虽然特攻极高，但特防几乎为零，培育方向受到严格限制。这意味着许多从 Gen 1 传入的宝可梦需要重新评估——同一种族值的宝可梦因为特攻和特防分配不同，在新世代中的强度可能天差地别。携带道具系统也首次提供了弥合种族值差距的可能性：速度较慢但攻击更高的宝可梦可以通过携带先制之爪获得先手优势。；联网功能的局限性实验。Gen 2 通过 Mobile Adapter GB（有线连接日本移动网络，并非真正的无线设备）引入了联网功能，但主要用于 Celebi 活动等日本独占内容分发，西方玩家几乎无法获得完整体验。Wi-Fi 对战功能要到 Gen 4（2006年）才正式实现，因此 Gen 2 的联网更多是技术验证而非社交对战的基础设施。这一局限也导致 Gen 2 的竞技对战完全依赖线下聚会。；培育哲学的遗产。Gen 2 的核心遗产在于引入的'差异化'设计哲学——不再是选最强的宝可梦，而是通过培育、道具、属性配置让同一只宝可梦产生不同战术价值。这个思路贯穿了之后所有世代：Gen 3 特性、Gen 4 物理特殊分家、Gen 6 Mega 进化、Gen 7 Z 招式，都是在差异化这个命题上的不同解法。由于 Gen 2 尚无特性系统、招式池仍小（相比后世），差异化手段有限，种族值碾压一切的问题要到 Gen 3 引入特性后才能真正缓解",
+      "gimmick_focus": "无强化 gimmick，专注既有系统深化",
+      "design_stage": "expansion"
+    },
+    "Gen 3": {
+      "year_range": "2002-2006",
+      "design_theme": "机制爆炸",
+      "theme_label": "战斗系统奠基",
+      "theme_subtitle": "特性系统、双打正式化、招式机重构——把'战斗'变成一个精密系统",
+      "key_shift": "引入特性（被动能力），让宝可梦从'属性堆数值'进化为'特性组合博弈'；正式确立双打为竞技核心格式；天气系统从随机效果升级为可建立、可反制的战术资产；物理/特殊分家正式完成，招式池扩充至300+种",
+      "gimmick_focus": "特性系统（从0到1，从无到有）",
+      "design_stage": "mechanics"
+    },
+    "Gen 4": {
+      "year_range": "2006-2011",
+      "design_theme": "精细化与平衡",
+      "theme_label": "复杂度的巅峰",
+      "theme_subtitle": "物理/特殊分家正式完成、招式池扩充至300+种、隐藏能力——精细到每只PM都有独特解法",
+      "key_shift": "物理/特殊分家正式完成，招式池扩充至300+种；引入隐藏能力（HA）让每只PM同一物种出现个体差异；Wi-Fi 联网首次实现跨地域在线对战；首届 VGC 世界锦标赛（2009）标志官方竞技体系正式建立",
+      "gimmick_focus": "隐藏能力（个体差异化的终极形态）",
+      "design_stage": "expansion"
+    },
+    "Gen 5": {
+      "year_range": "2011-2013",
+      "design_theme": "框架重构",
+      "theme_label": "规则重建",
+      "theme_subtitle": "VGC 赛季制度建立、组合禁用先例、全国图鉴限制——从'添加'转向'管理'",
+      "key_shift": "首次限制全国图鉴（仅 Gen 5 宝可梦）引发「简化 vs 深度」核心矛盾；建立 VGC 赛季制度引入组合禁用；天气民主化（梦世界）实验引发降雨+悠游自如组合危机；首次全国图鉴限制开启「设计承诺与执行能力」的品牌信任议题",
+      "gimmick_focus": "无新强化 gimmick，开始管理既有系统的复杂度",
+      "design_stage": "rebuild"
+    },
+    "Gen 6": {
+      "year_range": "2013-2016",
+      "design_theme": "差异化探索",
+      "theme_label": "Mega 进化",
+      "theme_subtitle": "48/56种专属进化形态——探索'谁能用'的差异化设计",
+      "key_shift": "引入超级进化（Mega Evolution），开创'强化 gimmick'先河；但48~56种中只有约8种有显著竞技价值，揭示'差异化在谁能用'的设计陷阱；3D 化转型首次让对战有了视觉特写，但3D 化代价导致跟随系统被移除",
+      "gimmick_focus": "超级进化（Mega Evolution）——差异化在'谁能用'",
+      "design_stage": "expansion"
+    },
+    "Gen 7": {
+      "year_range": "2016-2019",
+      "design_theme": "全员参与",
+      "theme_label": "Z 招式",
+      "theme_subtitle": "全员可用的一次性强化——探索'怎么让所有人参与'",
+      "key_shift": "引入 Z 招式，从'谁能用'转向'全员可用'；但决策深度不足，被批评为'关键时刻用'的单选题；同时移除 HM 系统，首次引入地区形态（Alola 形态）概念",
+      "gimmick_focus": "Z 招式——全员可用，但决策变单选题",
+      "design_stage": "expansion"
+    },
+    "Gen 8": {
+      "year_range": "2019-2022",
+      "design_theme": "团体叙事",
+      "theme_label": "极巨化",
+      "theme_subtitle": "全队可用/群体效果——把强化从'个人选择'变成'团体事件'",
+      "key_shift": "引入极巨化，从'个体强化'转向'团体叙事'；Smogon 以 87% 投票禁用；同期 Dexit 危机引发品牌信任危机；DLC 扩展票模式（替代传统资料片）；Pokemon HOME 统一云存储服务",
+      "gimmick_focus": "极巨化——无趣但有效，Smogon 全面禁用",
+      "design_stage": "expansion"
+    },
+    "Gen 9": {
+      "year_range": "2022-2026",
+      "design_theme": "三维决策",
+      "theme_label": "太晶化",
+      "theme_subtitle": "时机/目标/属性三维决策——对 Gen 6 '差异化'命题的最终回答",
+      "key_shift": "引入太晶化，从'谁能用'回归'怎么用'，是30年演进后对强化机制命题的成熟回答；朱/紫首次半开放世界设计；悖论宝可梦（过去/未来形态）；TEAM UP 机制（2v2 集火）正式确立；取消Mega进化/Z-Crystal/超极巨化的统一替代",
+      "gimmick_focus": "太晶化（时机/目标/属性三维决策）",
+      "design_stage": "expansion"
+    },
+    "Gen 10": {
+      "year_range": "2026-未来",
+      "design_theme": "守护者视角",
+      "theme_label": "遗产整合",
+      "theme_subtitle": "历代形态统一呈现——从'创造者视角'转向'守护者视角'",
+      "key_shift": "历代地区形态将统一呈现；Mega 进化有望回归（呼应社区呼声）；从「不断添加新系统」转向「谨慎选择、长期维护」；建立跨世代的生态叙事承诺",
+      "gimmick_focus": "遗产整合与机制复兴",
+      "design_stage": "expansion"
+    }
   },
   "comparison": [
     {
@@ -2709,107 +2317,5 @@
         ]
       }
     ]
-  },
-  "generation_metadata": {
-    "Gen 1": {
-      "year_range": "1996-1999",
-      "design_theme": "框架建立",
-      "theme_label": "回合制奠基",
-      "theme_subtitle": "回合制、属性克制、捕捉机制——所有后续演进的基础",
-      "key_shift": "从无到有，定义了什么是一个'宝可梦游戏'；确立了回合制战斗框架（纯速度决定先手，无优先级机制）、属性克制表（15种属性、超过70组克制关系）、捕捉机制（HP越低成功率越高）三大支柱；同期通过 Link Cable 支持联机交换，为日后的官方多人对战奠定了理念基础",
-      "theme_detail": "1996年2月27日，任天堂和Game Freak在Game Boy平台上推出了《宝可梦 红·绿版》，创造了游戏史上最重要的系列之一。在当时的市场上，没有一款RPG能够同时提供如此深度的捕捉、培育和交换系统——而宝可梦做到了。\n\n回合制战斗方面，Gen 1 建立了一个基于速度先制的战斗框架：每回合根据宝可梦的速度数值决定出手顺序，没有优先级机制（Priority），也没有守住/顺移等现代通用招式。这种「纯速度决定」的先制系统虽然简单，但也带来了独特的战术博弈——比如用高速宠「抢占先手」成为了早期最核心的策略。而 HP 计量条的引入，让对战双方的状态完全透明——「对方还剩多少血」「我能不能击杀」成为每一次决策的核心变量，这是宝可梦信息透明度的根基，也是后来所有竞技设计的前提。\n\n属性克制系统是整个系列的基石。Gen 1 确立了15种属性和超过70组克制关系（部分沿用至今），形成了「属性选择 → 队伍构建 → 对战决策」的核心循环。这一系统在30年的演进中只新增了2种属性（恶、钢，Gen 2），其余几乎未被撼动。\n\n捕捉机制的设计同样具有开创性——HP越低、状态异常（睡眠、冰冻）下捕捉成功率越高。这一机制将「战斗」与「捕捉」两个核心循环有机结合，创造了一种「先削弱再捕捉」的独特游戏节奏。\n\n多人对战方面，Gen 1 通过 Link Cable 支持双卡联机交换和单打对战。「用自己培育的宝可梦与他人对战」这一核心理念，从一开始就被植入了系列的DNA——虽然当时没有正式的赛事体系，但玩家社区自发组织的联机对战已经证明了这个玩法的生命力。这为日后官方竞技赛事的建立提供了市场验证。\n\n此外，Gen 1 遗留了大量被后续世代修正的设计债务：追击（Follow Up）为 Gen 1 是物理招式（伤害比很多特攻招式还高）、睡觉（Rest）在 Gen 1 不消耗回合数（睡着的宝可梦可以继续行动）、冰冻（Freeze）在 Gen 1 是永久的无法自愈只能等待随机解冻。这些「Bug」后来都成为了高竞技水平的玩家必须掌握的博弈点，客观上增加了对战的知识深度。",
-      "gimmick_focus": "无强化 gimmick，专注基础框架",
-      "design_stage": "foundation"
-    },
-    "Gen 2": {
-      "year_range": "1999-2002",
-      "design_theme": "系统扩展",
-      "theme_label": "培育的开始",
-      "theme_subtitle": "培育系统、道具强化及 HM——把'养'变成一门学问",
-      "key_shift": "从'选强'到'养强'，引入培育作为差异化维度；新增的巧克力/银叶粉等道具与携带道具系统结合，让宝可梦从'天生决定论'走向'培育改变论'；同期引入无线联网功能，为 Wi-Fi 对战奠定技术基础",
-      "theme_detail": "1999年11月21日，《宝可梦 金·银版》在 Game Boy Color 平台上发售，被誉为系列最高评价的作品之一。GF 在 Gen 1 的基础上做了两件事：深化培育体系，以及扩展战斗维度。\n\n培育系统是 Gen 2 最重要的遗产。培育屋（Breeding）机制的引入，让「生蛋」成为获取优秀个体值（IV）宝可梦的主要手段；遗传机制（蛋招式遗传）让特定招式组合可以通过父母传递给孩子；而异色宝可梦（Shiny）的引入，则首次将「收集」行为赋予了审美层面的意义——异色的稀有性在社区中激发了远超普通收集的讨论热度，至今仍是社交媒体的热门话题。这三个机制共同构成了「培育」作为核心乐趣的完整闭环：你不是因为「刷到一只强的」而满足，而是因为「我亲手培育了一只独一无二的最强」而满足。\n\n战斗维度方面，Gen 2 引入了两个关键变量：(1) 携带道具（Held Items）——从 Gen 1 的单一道具栏扩展为可装备道具，让道具从「战斗消耗品」升级为「队伍配置项」，直接影响队伍构筑的复杂度；(2) Special 属性分家——Gen 1 的 Special 是单一数值，Gen 2 将其拆分为特攻（Sp.Atk）和特防（Sp.Def）两个数值。这一改动意义深远：它让原本「双刀」定位的宝可梦开始出现「特攻型」和「特防型」的分歧，增加了队伍构筑的策略深度。\n\n天气系统在 Gen 2 正式登场——太阳（Sun）、下雨（Rain）、沙暴（Sandstorm）、冰雹（Hail）四种天气各有效果，其中沙暴天气开创了「天气锁定」战术的先河，为 Gen 3 的天气革命埋下伏笔。\n\n多人对战方面，Gen 2 的最大贡献是无线联网功能的雏形——日本地区通过 Mobile Adapter GB 实现了早期互联网连接，虽然功能极为有限，但验证了「远程交换和对战」的市场需求。这直接为 Gen 3 的 Wi-Fi 对战功能开发提供了商业理由和技术积累。",
-      "gimmick_focus": "无强化 gimmick，专注既有系统深化",
-      "design_stage": "expansion"
-    },
-    "Gen 3": {
-      "year_range": "2002-2006",
-      "design_theme": "机制爆炸",
-      "theme_label": "战斗系统奠基",
-      "theme_subtitle": "特性系统、双打正式化、招式机重构——把'战斗'变成一个精密系统",
-      "key_shift": "引入特性（被动能力），让宝可梦从'属性堆数值'进化为'特性组合博弈'；正式确立双打为竞技核心格式；天气系统从随机效果升级为可建立、可反制的战术资产",
-      "theme_detail": "2002年11月21日，《宝可梦 红宝石·蓝宝石版》在 Game Boy Advance 平台上发售。这一代是宝可梦战斗系统的「工业化」时刻——GF 将之前两代积累的设计经验系统化、工程化，打造了一个足以支撑此后20年竞技对战的基础架构。\n\n特性（Abilities）系统是 Gen 3 最重要的创新。在此之前，每只宝可梦只有一个固定属性（Type），没有任何被动效果。特性系统的引入，让宝可梦从「属性+招式」的二维组合，进化为「属性+特性+招式+道具」的四维组合。这意味着「同一只宝可梦，有了不同的用法」——妙蛙花带「叶绿素」可以走晴天队，带「厚脂肪」可以走沙暴反杀队。特性组合的博弈深度，让队伍构筑本身成为了一门独立的策略学科。\n\n双打对战的正式确立，是竞技宝可梦的真正起点。Gen 1-2 的对战均为单打，双打在 Gen 3 才成为主游戏的标准模式。2v2 格式带来了三个全新的战术维度：位置博弈（谁在前面/后面）、嘲讽机制（看我嘛/愤怒粉——保护特定目标）、以及 AOE（范围攻击，一招打两只）。这三个维度至今仍是双打战术的核心变量。\n\n物理/特殊分家是 Gen 3 最「隐形」但影响最深远的改动。Gen 2 只是将 Special 数值拆成了特攻/特防两个格子，但招式的「物理」或「特殊」分类仍沿用 Gen 1 的规则（当时水/火/草/电/超能/冰均为特殊，其他为物理）。Gen 3 将这个分类规则彻底打破——每种招式现在独立判定物理或特殊，使得三合一磁怪等宝可梦的战术价值产生了质的飞跃：它们可以同时学习特攻的电/冰招式（特殊）和物理的雷电拳/冰冻拳（物理），成为真正的「双刀」。\n\n天气系统在 Gen 3 完成了从「随机事件」到「战术资产」的转变。Gen 1-2 的天气效果每回合随机触发，持续 5 回合；Gen 3 引入的天气启动特性（沙暴/降雪）可以让天气永久持续。这意味着天气不再是「来了就用用」的随机优势，而是「建立后锁定」的战术投资——围绕天气队构建整套阵容成为可能。\n\n招式机器（TM）系统在 Gen 3 大幅扩充，招式池从 Gen 1 的约 150 种扩展到超过 300 种。配合特性系统，宝可梦的战术可能性呈指数增长，也为后续世代的平衡管理难题埋下了种子。",
-      "gimmick_focus": "特性系统（从0到1，从无到有）",
-      "design_stage": "mechanics"
-    },
-    "Gen 4": {
-      "year_range": "2006-2011",
-      "design_theme": "精细化与平衡",
-      "theme_label": "复杂度的巅峰",
-      "theme_subtitle": "物理/特殊分家正式完成、招式池扩充至300+种、隐藏能力——精细到每只PM都有独特解法",
-      "key_shift": "物理/特殊分家——Gen 2 仅将 Special 拆为上下限，Gen 4 才真正将招式分为物理/特殊两类，招式池扩充至300+种；引入隐藏能力（HA）让每只PM同一物种出现个体差异；Wi-Fi 联网首次实现跨地域在线对战；首届 VGC 世界锦标赛（2009）标志官方竞技体系正式建立",
-      "theme_detail": "2006年9月28日，《宝可梦 钻石·珍珠》在 Nintendo DS 平台上发售。这是 Pokemon 第一次以双屏幕、触控笔和在线功能为核心的游戏体验，标志着系列从「掌机休闲」向「社交竞技」的转型。\n\n物理/特殊分家是 Gen 4 最重要的战斗系统遗产。Gen 2 将 Special 属性拆分为特攻和特防两个数值，但招式的「物理」或「特殊」分类仍沿用 Gen 1 的规则——水、火、草、电、超能、冰均为特殊招式，其余为物理。这意味着三合一磁怪等宝可梦可以同时学习特攻的电招式（特殊）和物理的雷电拳（物理），成为真正的「双刀」。Gen 4 将这一逻辑彻底贯彻执行，每个招式的物理/特殊分类重新设计，形成了沿用至今的「招式决定物理/特殊，而非属性决定」的规则。\n\n隐藏能力（Hidden Ability，HA）是 Gen 4 对特性系统最深远的扩展。Gen 1-3 每只宝可梦只有一个特性，Gen 4 为大量宝可梦追加了第二特性，而更关键的是「隐藏特性」——这是一种正常游戏流程中无法获得的特性，需要通过特定渠道（梦世界/连锁等）获取。隐藏能力将「个体差异化」从数值（IV）扩展到了能力层面，使得同一物种的不同个体在特性上就可能完全不同，大幅增加了收集和培育的深度。\n\nWi-Fi 联网对战是 Gen 4 技术层面的最大突破。虽然 Gen 2 就有 Mobile Adapter GB 的早期联网尝试，但 Gen 4 的 Nintendo Wi-Fi Connection（NFC）首次实现了真正的跨地域在线对战。玩家通过互联网进行单打/双打对战、随机匹配和好友对战，无需双方同时物理靠近。这直接催生了 Pokemon 线上社区的形成——大量玩家通过 NFC 认识了未来的对战伙伴、对手和社区成员。此外，NFC 还带来了 GTS（全球语音交换系统），允许玩家设定条件进行异步交换，彻底改变了宝可梦交换的生态。\n\n首届 VGC 世界锦标赛（2009）是 Gen 4 的竞技里程碑。使用 D/P/Pt 作为正式比赛游戏，VGC 从此成为 Pokemon 官方竞技体系的代名词。VGC 的建立意味着「用自己培育的宝可梦与他人对战」从玩家社区的自发行为，正式升级为有组织、有规则的竞技体育项目。讽刺的是，D/P/Pt 本身也是 Pokemon 历史上被批评最多的版本之一——节奏缓慢、剧情单薄、动画粗糙——但这丝毫没有影响其在对战领域的地位。",
-      "gimmick_focus": "隐藏能力（个体差异化的终极形态）",
-      "design_stage": "expansion"
-    },
-    "Gen 5": {
-      "year_range": "2011-2013",
-      "design_theme": "框架重构",
-      "theme_label": "规则重建",
-      "theme_subtitle": "VGC 赛季制度建立、组合禁用先例、全国图鉴限制——从'添加'转向'管理'",
-      "key_shift": "首次限制全国图鉴（仅 Gen 5 宝可梦）引发「简化 vs 深度」核心矛盾；建立 VGC 赛季制度引入组合禁用；天气民主化（梦世界）实验引发降雨+悠游自如组合危机；首次全国图鉴限制开启「设计承诺与执行能力」的品牌信任议题",
-      "theme_detail": "2011年9月18日，《宝可梦 黑·白》是 Pokemon 历史上野心的最大体现——首次只包含全新宝可梦（156种，不含任何前代宝可梦）的正统续作。GF 试图以「全新开始」吸引新玩家，同时通过精致的剧情和角色刻画回应老玩家的期待。\n\n全国图鉴限制是 Gen 5 最具争议的设计决策。黑白版只包含 Gen 5 自己的 156 种宝可梦，之前的 493 种完全无法在游戏中遇到。这在老玩家群体中引发了巨大反弹——很多人认为这是「背叛」了 Pokemon「收集全部」的核心承诺。然而 GF 的逻辑是：如果新玩家第一次接触 Pokemon 就是 Gen 5，他们不会觉得缺少任何东西。这是一个「软重启」策略，代价是老玩家感到被抛弃。更深层的矛盾在于：Pokemon 品牌 15 年来积累的「完整性承诺」（买每一代都能玩到所有宝可梦）被 Gen 5 打破，而 GF 此前从未明确告知玩家这个承诺是有条件的。\n\nVGC 赛季制度是 Gen 5 最具正面价值的遗产。GF 在 Gen 5 正式建立了赛季积分制度，让 VGC 从「不定期锦标赛」升级为「有固定赛历的职业竞技体系」。每个赛季有明确的开始/结束日期、积分规则、晋级门槛。赛季制度的建立让 Pokemon 竞技有了「职业周期」的概念——玩家可以规划自己的「赛季备战」，竞技生态因此有了可持续的商业模式。\n\n降雨+悠游自如组合危机是 Gen 5 留给整个游戏行业的平衡管理教科书。梦世界（Dream World）网页平台允许玩家通过浏览器给自己的宝可梦附加天气特性，让原本只能在特定对战中出现的降雨队大爆发。当降雨特性与悠游自如特性同时出现时，水系高速手几乎无解——因为悠游自如在雨天不只速度翻倍，威力也提升50%，导致一只精灵就能主导整个对战环境。这是 Pokemon 历史上第一个被 Smogon 联合禁用的组合，开创了「组合禁用 > 单体禁用」的重要先例。\n\nGen 5 同时也是实验性内容最丰富的一代：季节系统让同一地图在不同季节有不同的宝可梦和外观；反转对战让属性克制完全逆转；隐藏巢穴让野生宝可梦出现位置随机化。这些实验性内容在 Gen 6 之后大多被放弃，但它们证明了一个设计规律：「实验性内容」只有一次生命周期——如果第一个世代没有建立足够受众，它就会被移除。\n\n此外，Gen 5 的对战前沿（Bw2 World Tournament）是 Pokemon 历史上最后一个「高难度 PvE 对战设施」，之后的世代逐步将这类内容边缘化。Gen 5 因此成为「经典对战设计」的最后一个完整保存点。",
-      "gimmick_focus": "无新强化 gimmick，开始管理既有系统的复杂度",
-      "design_stage": "rebuild"
-    },
-    "Gen 6": {
-      "year_range": "2013-2016",
-      "design_theme": "差异化探索",
-      "theme_label": "Mega 进化",
-      "theme_subtitle": "48/56种专属进化形态——探索'谁能用'的差异化设计",
-      "key_shift": "引入超级进化（XY初始48种，ORAS扩展至56种），开创'强化 gimmick'先河；但48~56种中只有约8种有显著竞技价值，揭示'差异化在谁能用'的设计陷阱；3D 化转型首次让对战有了视觉特写，但3D 化代价导致跟随系统被移除",
-      "theme_detail": "2013年10月12日，《宝可梦 X·Y》在 Nintendo 3DS 平台上发售，标志 Pokemon 进入全 3D 时代。XY 引入了基于触控笔的触控战斗系统、3D 对战特写镜头和空越系统，让 Pokemon 第一次有了「主机级」的视觉表现力。\n\n超级进化（Mega Evolution）是 Gen 6 最重要的创新，也是 Pokemon 历史上第一个系统性的强化 gimmick。每只宝可梦可以携带专属的 Mega Stone，在对战中进化为更强大的形态——但这个进化是临时的，仅在当次对战中生效。超级进化的设计理念是「强化身份认同」：玩家将自己最喜欢的宝可梦进化为更强大的形态，这不仅是数值提升，更是一种情感表达。\n\n然而实际情况是：48种（XY）/ 56种（ORAS）Mega 进化中，约8种占据了95%的使用率。问题不在于数值不平衡，而在于设计方向：「差异化在谁能用」本身就是陷阱。当 Mega 进化按「谁能用」差异化时，设计工作量（48-56种专属动画/建模/数值平衡）与玩家实际参与度之间没有必然联系。大多数 Mega 进化从第一天起就只是「收藏品」，而非「实战选项」。\n\n3D 化转型是 Gen 6 最「隐性」但影响最深远的遗产。XY 首次让宝可梦有了 3D 建模和战斗特写，奠定了此后所有世代的视觉基础。然而 3D 化是有代价的：所有宝可梦都需要完整的 3D 行走动画，这使得 Gen 4 心金/魂银中首次实现的「跟随系统」在 Gen 6 被移除。这个决定在此后十年内持续引发玩家不满，直到 Gen 9 才逐步恢复部分跟随功能。\n\n超级训练（Super Training）是 Gen 6「民主化培育」的代表。它将 EV 培育从几十小时的机械重复压缩到几分钟的点击操作，同时保留了精确控制的空间——这是「降低门槛不等于降低深度」的教科书案例。\n\nPokemon 虚拟银行（Pokemon Bank）也在 Gen 6 发售——2013年12月24日，任天堂和 The Pokemon Company 推出了 Pokemon 虚拟银行服务，玩家支付年费即可在云端存储多达3000只宝可梦，并可通过 Pokemon Bank 在 Gen 5 和 Gen 6 之间跨代传输宝可梦。Pokemon Bank 开启了 Pokemon 的「跨代资产」概念——玩家培育的宝可梦不再是「一次性资产」，而是可以跨越世代持续保留的数字收藏品。",
-      "gimmick_focus": "超级进化（Mega Evolution）——差异化在'谁能用'",
-      "design_stage": "expansion"
-    },
-    "Gen 7": {
-      "year_range": "2016-2019",
-      "design_theme": "全员参与",
-      "theme_label": "Z 招式",
-      "theme_subtitle": "全员可用的一次性强化——探索'怎么让所有人参与'",
-      "key_shift": "引入 Z 招式，从'谁能用'转向'全员可用'；但决策深度不足，被批评为'关键时刻用'的单选题；同时移除 HM 系统",
-      "theme_detail": "2016年11月18日，《宝可梦 太阳·月亮》在 Nintendo 3DS 平台上发售，标志 Pokemon 第一次全面进入高清 3D 时代，也是系列首次完全放弃传统的固定视角 Gym Leader 挑战模式，采用全区域无缝探索的新框架。\n\nZ 招式是 Gen 7 最重要的 gimmick 创新。不同于 Gen 6 Mega 进化的「谁能用」差异化策略，Z 招式的核心理念是「全员可用」——每只宝可梦都能通过 Z-Crystal 获得一次性强力招式。这意味着无论玩家使用哪只宝可梦，都有机会在对战关键时刻释放 Z 招式。设计意图是「让每个人都有闪耀时刻」。\n\n然而 Z 招式的实际效果偏离了初衷：由于每场对战只能使用一次，Z 招式的使用变成了一场博弈中的「关键时刻」决策——玩家倾向于将 Z 招式留给最大收益的场景（斩杀、翻盘、关键控制），而不是分散使用。这反而将原本应该「丰富决策」的系统变成了「单选题」：在什么时候用 Z？给哪只 PM 用 Z？这类问题成为队伍构筑和对战决策中最核心的约束，限制了其他策略的生存空间。\n\nHM 系统在 Gen 7 被正式移除，这是 Pokemon 培育体系的一次重要简化。HM（秘传招式）从 Gen 1 开始就是「野外探索」的必需系统，玩家必须携带特定招式来解锁地形能力（冲浪、飞天、怪力等），这与对战队伍构筑产生了不可调和的矛盾——你喜欢的 PM 可能无法学会「冲浪」。HM 移除解放了队伍构筑的最后一层枷锁，让「对战用 PM」和「探索用 PM」彻底分离。\n\n此外，Gen 7 引入了「地区形态」（阿罗拉形态），首次在正统续作中大规模引入前代宝可梦的地区变体。椰蛋树变成「高个子」、拉达有了「阿罗拉形态」，这些变体具有不同的属性组合和特性，为对战生态增加了新的变量，同时也在不增加新 PM 总数的情况下延续了「收集」的乐趣。",
-      "gimmick_focus": "Z 招式——全员可用，但决策变单选题",
-      "design_stage": "expansion"
-    },
-    "Gen 8": {
-      "year_range": "2019-2022",
-      "design_theme": "团体叙事",
-      "theme_label": "极巨化",
-      "theme_subtitle": "全队可用/群体效果——把强化从'个人选择'变成'团体事件'",
-      "key_shift": "引入极巨化，从'个体强化'转向'团体叙事'；Smogon 以 87% 投票禁用；同期 Dexit 危机引发品牌信任危机",
-      "theme_detail": "2019年11月15日，《宝可梦 剑·盾》在 Nintendo Switch 平台上发售。这是 Pokemon 系列第一次在家用机上推出正统续作，标志着从掌机到家用机的首次全面移植，同时也带来了 Pokemon 历史上最大的争议事件——「Dexit」（Dexit Crisis）。\n\nDexit 危机是 Pokemon 历史上最严重的品牌信任事件。Game Freak 以「高清建模需要资源」为由，在《剑·盾中移除了全国图鉴支持——这意味着之前世代的宝可梦无法通过正常渠道传入 Gen 8。这直接违背了 Gen 5 以来的「完整性承诺」，引发了玩家社区的强烈反弹。「我的宝可梦去哪儿了」成为当时最热门的玩家话语。Dexit 证明了：「简化」不等于「可接受」，当「简化」伤害了玩家已有的资产积累时，社区反弹会远超预期。\n\n极巨化（Dynamax）是 Gen 8 的核心 gimmick，也是 Pokemon 历史上最被批评的 gimmick。与 Mega 进化的「谁可以用」和 Z 招式的「一次用」不同，极巨化让所有宝可梦在3回合内体型变大，获得额外 HP 和特殊招式。设计意图是「团体叙事」——极巨化不只影响对战双方，更影响了整个对战场景的视觉呈现。\n\n然而极巨化的实际竞技效果引发了严重平衡问题：极巨化提供的额外 HP 和强化能力让「极巨化 vs 非极巨化」的决策变成了「必选」——因为不使用极巨化就意味着对手的极巨化优势无法被抵消。Smogon 最终以 87% 的投票结果全面禁止了极巨化，这使其成为 Pokemon 历史上第一个在官方规则中被完全禁用的核心 gimmick。Dexit 危机加上极巨化争议，使得 Gen 8 成为 Pokemon 历史上评价最两极化的世代之一。\n\n然而 Gen 8 同时也引入了「极巨化清理」（Max Overgrowth）等「开放世界」元素，以及 Gen 8 独有的「旷野地带」DLC（铠之孤岛/冠之雪原），为后续的开放世界探索模式积累了重要的技术经验——这些经验直接影响了 Gen 9 的设计方向。",
-      "gimmick_focus": "极巨化——无趣但有效，Smogon 全面禁用",
-      "design_stage": "expansion"
-    },
-    "Gen 9": {
-      "year_range": "2022-2026",
-      "design_theme": "三维决策",
-      "theme_label": "太晶化",
-      "theme_subtitle": "时机/目标/属性三维决策——对 Gen 6 '差异化'命题的最终回答",
-      "key_shift": "引入太晶化，从'谁能用'回归'怎么用'，是30年演进后对强化机制命题的成熟回答；同时朱/紫 DLC 引入历代形态开放政策，开始'守护者视角'",
-      "theme_detail": "2022年3月18日，《宝可梦 朱·紫》在 Nintendo Switch 平台上发售，标志 Pokemon 第一次真正进入开放世界时代——玩家可以在广阔的帕蒂亚地区自由探索，三个故事线（传说之路/冠军之路/星辰之路）并行推进，打破了系列自 Gen 3 以来的固定剧情模式。\n\n太晶化（Terastallization）是 Gen 9 的核心 gimmick，也是 Pokemon 历史上设计最精妙的强化机制。太晶化允许宝可梦改变自己的属性（通过 Tera 结晶），同时在当次对战中获得额外的属性加成。这意味着太晶化带来了三个维度的决策空间：时机（什么时候用太晶化）、目标（改变成什么属性）、战术（利用属性变化做什么）。\n\n太晶化解决了 Gen 6 以来的所有强化 gimmick 困境：Mega 进化的「谁能用」（只有特定 PM 能用）→ Z 招式的「单选题」（用不用、给谁用）→ 极巨化的「必选」（不用就劣势）→ 太晶化的「三维决策」（怎么用更优）。太晶化让同一只 PM 在不同属性配置下有不同的用法，而属性的改变又会影响特性、招式、道具的协同——这使得「差异化」不再由「谁能用」决定，而是由「怎么用」决定。\n\nGen 9 同时也通过 DLC 政策回应了 Dexit 危机：《朱/紫》的两个 DLC（零之秘宝/碧之假名）大幅开放了历代形态的获取渠道，阿罗拉形态、伽勒尔形态等前代变体可以通过 DLC 获得。这标志着 GF 放弃了「简化」的策略，转向「开放获取」的思路——让玩家可以接触更多内容，而不是更少。\n\nPokemon Showdown 等第三方平台的兴起，使得「官方规则 vs 社区规则」的边界在 Gen 9 变得前所未有的清晰。大量玩家通过 Showdown 体验被官方删除的 PM 或规则，这催生了一个平行的「民间竞技生态」，对 VGC 的玩家参与度形成了竞争压力。",
-      "gimmick_focus": "太晶化——三维决策，历代最强强化机制",
-      "design_stage": "rebuild"
-    },
-    "Gen 10": {
-      "year_range": "2026-",
-      "design_theme": "遗产整合",
-      "theme_label": "历代回归",
-      "theme_subtitle": "Mega 进化/超级进化/极巨化/太晶化并存——从'替换'到'整合'",
-      "key_shift": "宣布 Mega 进化/极巨化/太晶化将在同一作中并存，标志从'替换策略'转向'遗产整合'；平衡管理难度指数级上升",
-      "theme_detail": "Gen 10 是 Pokemon 系列历史上第一次正式宣布「所有强化 gimmick 将共存」的世代。Game Freak 在 2026 年初的发布会上确认，Gen 10 的新作将同时支持 Mega 进化、超级进化（Mega Evolution）、极巨化和太晶化四种强化机制，这标志着 Pokemon 从「每代替换 gimmick」的策略转向了「遗产整合」的设计哲学。\n\n这一转变背后是 15 年的设计试错：Gen 6 Mega 进化开创了「强化 gimmick」时代，Gen 7 Z 招式试图「民主化」，Gen 8 极巨化引发巨大争议，Gen 9 太晶化达到设计高峰但仍是单一 gimmick。Gen 10 的「全整合」策略意味着：设计师必须为每一个 gimmick 找到各自的生态位——Mega 进化可能是「高风险高回报的强化」，极巨化可能是「团体战专用」，太晶化可能是「属性变换工具」。\n\n遗产整合策略带来的最大挑战是平衡管理。四种 gimmick 同时存在意味着潜在的四维交互效应——如果 Mega 进化可以让宝可梦变得极强，而太晶化又可以改变属性，那么 Mega 进化+太晶化的组合是否会形成无法应对的 combo？这将是 Gen 10 平衡设计团队面临的最大考验。\n\n从另一个角度看，遗产整合也是 GF 对玩家社区的妥协：Mega 进化是粉丝呼声最高的 gimmick，极巨化虽然被 Smogon 禁用但在官方 VGC 中仍是核心机制，而太晶化是最新且评价最好的设计。Gen 10 试图「全都要」，是对不同玩家群体诉求的集体回应。",
-      "gimmick_focus": "多 gimmick 并存——整合而非替换",
-      "design_stage": "consolidation"
-    }
   }
 }

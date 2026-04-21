@@ -2,6 +2,31 @@
 
 所有版本变更记录遵循 [Keep a Changelog](https://keepachangelog.com/) 规范。
 
+## [3.2.0] - 2026-04-21
+
+### Changed
+
+- **Gen 2 综述卡数据准确性核查**：发现并修正了多处错误——Mobile Adapter GB 是有线设备（而非无线适配器）、Wi-Fi 是 Gen 4 才引入（而非 Gen 2 的遗产）、Macho Brace 是 Gen 3 才引入的道具、Special 分家描述改为"拆分为独立的特攻和特防"（而非"上下限"）；同时大幅扩展 Gen 2 综述卡内容至约380字，覆盖携带道具、培育系统、Special 分家、联网局限性和设计哲学遗产
+
+## [3.1.0] - 2026-04-21
+
+### Added
+
+- **历代时间轴新增世代综述信息卡**：在每个世代交替节点处自动插入大型世代综述卡，显示设计主题、上代到本代的关键变更、关键系统和设计阶段
+- **「世代概览」过滤器**：新增过滤器按钮，支持仅查看世代综述卡（隐藏所有事件条目）
+- **世代综述卡交互**：卡片支持点击折叠/展开，默认展开状态
+- **世代专属主题色**：每个世代（Gen 1-10）配置独特的视觉标识色
+
+### Changed
+
+- **重构 `renderTimeline()` 函数**：引入 `getGenerationMeta()` 和 `renderGenerationCard()` 辅助函数，在时间轴渲染时自动检测世代更替并插入综述卡
+- **视觉层次升级**：从均质事件列表升级为分代叙事报告
+- **`generate_interactive_report.py`**：新增 `generation_metadata` 字段同步
+
+### Data
+
+- **新增 `GENERATION_METADATA`**：10 个世代节点（Gen 1-10），包含 year_range、design_theme、theme_label、theme_subtitle、key_shift、gimmick_focus、design_stage 字段
+
 ## [3.0.0] - 2026-04-21
 
 ### Added
