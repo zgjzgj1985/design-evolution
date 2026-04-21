@@ -36,6 +36,23 @@ from analyzer.report_generator import EvolutionReportGenerator
 from db.sqlite_store import SQLiteStore, db as global_db
 from db.vector_store import VectorStore
 
+# ──────────────────────────────────────────────────────────────────────────────
+# 时间轴数据加载（从 report_data.json 读取，与 docs/index.html 共用同一数据源）
+# ──────────────────────────────────────────────────────────────────────────────
+_REPORT_DATA_PATH = Path(__file__).parent / "docs" / "report_data.json"
+
+@st.cache_data(ttl=3600)
+def _load_timeline_data() -> dict:
+    """加载 report_data.json 中的时间轴数据（缓存1小时）"""
+    if not _REPORT_DATA_PATH.exists():
+        return {}
+    try:
+        with open(_REPORT_DATA_PATH, "r", encoding="utf-8") as f:
+            data = json.load(f)
+        return data.get("timelines", {})
+    except Exception:
+        return {}
+
 # ==================== LLM 配置持久化 ====================
 SETTINGS_FILE = Path(__file__).parent / ".llm_settings.json"
 
@@ -1105,60 +1122,8 @@ with tab2:
     st.header("机制时间轴")
     st.markdown("可视化展示历代多人对战机制的演进过程")
 
-    # 从 PokeAPI 获取版本信息构建时间轴（session_state 缓存避免重复请求）
-    timeline_data = []
-
-    if selected_game == "Pokemon":
-        # 使用 session_state 缓存，避免每次渲染都请求 PokeAPI
-        # 注意：Pokemon 不同世代的数据不同，但 Pokemon 游戏只有一个，不需要加游戏名
-        vgc_cache_key = f"_vgc_timeline_{selected_game}_{generation}"
-        if vgc_cache_key not in st.session_state:
-            try:
-                api_scraper = get_api_scraper()
-                version_groups = api_scraper.get_version_changelog(generation)
-                st.session_state[vgc_cache_key] = version_groups
-            except Exception as e:
-                st.session_state[vgc_cache_key] = []
-        else:
-            version_groups = st.session_state[vgc_cache_key]
-
-        for vg in version_groups:
-            timeline_data.append({
-                "generation": vg.get("generation", generation),
-                "year": 2019 + (vg.get("generation", generation) - 8),  # 粗略估算
-                "mechanism": vg.get("version", vg.get("version_group", "")),
-                "description": f"版本组: {vg.get('version_group', '')}",
-                "type": "版本",
-            })
-
-    # 机制演进数据（基于真实游戏历史）
-    mechanism_evolution = [
-        # 第一/二世代演进
-        {"generation": 1, "year": 1996, "mechanism": "基础双打对战", "description": "2v2对战成为标准模式", "type": "PvP"},
-        {"generation": 2, "year": 1999, "mechanism": "特性系统", "description": "约80种特性提供被动战术", "type": "机制"},
-        {"generation": 2, "year": 1999, "mechanism": "道具系统", "description": "宝可梦可携带道具", "type": "机制"},
-        # 第三/四世代演进
-        {"generation": 3, "year": 2002, "mechanism": "双打正式确立", "description": "4v4选2成为VGC基础规则", "type": "PvP"},
-        {"generation": 3, "year": 2002, "mechanism": "天气系统", "description": "晴/雨/沙/冰雹影响战斗", "type": "机制"},
-        {"generation": 4, "year": 2006, "mechanism": "Wi-Fi对战上线", "description": "全球线上双打对战普及", "type": "PvP"},
-        {"generation": 4, "year": 2006, "mechanism": "物理特殊分类改革", "description": "招式按物理/特殊分类", "type": "机制"},
-        # 第五世代演进
-        {"generation": 5, "year": 2011, "mechanism": "赛季制VGC", "description": "Seasonal Tournament正式引入", "type": "PvP"},
-        {"generation": 5, "year": 2011, "mechanism": "天气启动机", "description": "雨队/沙暴队成为环境核心", "type": "PvP"},
-        {"generation": 5, "year": 2012, "mechanism": "世界锦标赛", "description": "Pokemon World Championships举办", "type": "PvP"},
-        # 第六世代演进
-        {"generation": 6, "year": 2013, "mechanism": "Mega进化", "description": "特定宝可梦可进化为更强形态", "type": "机制"},
-        {"generation": 6, "year": 2014, "mechanism": "三打对战", "description": "3v3轮换对战模式", "type": "PvP"},
-        # 第七世代演进
-        {"generation": 7, "year": 2016, "mechanism": "Z招式", "description": "取代Mega进化的强化系统", "type": "机制"},
-        {"generation": 7, "year": 2017, "mechanism": "究极异兽", "description": "UB系列丰富VGC可用池", "type": "PvP"},
-        # 第八世代演进
-        {"generation": 8, "year": 2019, "mechanism": "极巨化", "description": "可让宝可梦巨大化并获得强力招式", "type": "机制"},
-        {"generation": 8, "year": 2020, "mechanism": "极巨团体战", "description": "4人合作挑战野生极巨化宝可梦", "type": "PvE"},
-        # 第九世代演进
-        {"generation": 9, "year": 2022, "mechanism": "太晶化", "description": "任何宝可梦都可附着太晶宝石", "type": "机制"},
-        {"generation": 9, "year": 2022, "mechanism": "太晶团体战", "description": "半即时制4人合作战斗", "type": "PvE"},
-    ]
+    # 统一从 report_data.json 读取时间轴数据（与 docs/index.html 共用同一数据源）
+    all_timelines = _load_timeline_data()
 
     # 游戏选择
     game_filter = st.multiselect(
@@ -1167,94 +1132,141 @@ with tab2:
         default=["Pokemon"],
     )
 
-    # 添加所选游戏的数据
+    # 从统一数据源构建 display_data
     display_data = []
-    if "Pokemon" in game_filter:
-        display_data.extend(mechanism_evolution)
+    for game in game_filter:
+        game_key = game.lower().replace(" ", "_")
+        # 兼容不同命名方式
+        if game_key not in all_timelines:
+            if game == "Pokemon" and "pokemon" in all_timelines:
+                game_key = "pokemon"
+            elif game == "Palworld" and "palworld" in all_timelines:
+                game_key = "palworld"
+        if game_key in all_timelines:
+            for item in all_timelines[game_key]:
+                display_data.append({
+                    "generation": item.get("gen", "").replace("Gen ", ""),
+                    "year": item.get("year", 0),
+                    "mechanism": item.get("title", ""),
+                    "description": item.get("detail", "")[:80],
+                    "type": _category_to_type(item.get("category", "")),
+                    "source": game,
+                    "confidence": item.get("data_confidence", "unknown"),
+                    "removed": item.get("removed", False),
+                    "gen_label": item.get("gen", ""),
+                })
 
-    # Temtem 机制
-    if "Temtem" in game_filter:
-        temtem_data = [
-            {"generation": 1, "year": 2020, "mechanism": "2v2核心对战", "description": "游戏核心就是2v2竞技", "type": "PvP"},
-            {"generation": 1, "year": 2022, "mechanism": "Ban/Pick系统", "description": "引入电竞化Ban/Pick机制", "type": "PvP"},
-        ]
-        display_data.extend(temtem_data)
-
-    # Cassette Beasts 机制
-    if "Cassette Beasts" in game_filter:
-        cb_data = [
-            {"generation": 1, "year": 2022, "mechanism": "融合系统", "description": "两只妖怪可融合成更强形态", "type": "机制"},
-            {"generation": 1, "year": 2022, "mechanism": "本地双人合作", "description": "支持本地双人合作游玩", "type": "PvE"},
-        ]
-        display_data.extend(cb_data)
-
-    # Palworld 机制
-    if "Palworld" in game_filter:
-        pw_data = [
-            {"generation": 1, "year": 2024, "mechanism": "多人Raid", "description": "多人合作挑战Boss", "type": "PvE"},
-            {"generation": 1, "year": 2024, "mechanism": "帕鲁捕捉", "description": "捕捉并培养帕鲁参与战斗", "type": "机制"},
-        ]
-        display_data.extend(pw_data)
+    def _category_to_type(cat: str) -> str:
+        mapping = {
+            "foundation": "奠基",
+            "pvp": "PvP",
+            "enhancement": "强化",
+            "pve": "PvE",
+            "social": "社交",
+            "meta": "Meta",
+        }
+        return mapping.get(cat, "其他")
 
     if display_data:
-        # 创建 DataFrame
+        # 按年份排序
+        display_data.sort(key=lambda x: (x["year"], x.get("generation", "")))
         df_timeline = pd.DataFrame(display_data)
 
-        # 颜色映射
+        # 颜色映射（与 index.html 一致）
         color_map = {
             "PvP": "#ff6b6b",
             "PvE": "#4ecdc4",
-            "机制": "#45b7d1",
-            "版本": "#96ceb4",
+            "强化": "#45b7d1",
+            "奠基": "#96ceb4",
+            "社交": "#a855f7",
+            "Meta": "#f0ad4e",
+            "其他": "#6b7280",
         }
 
-        # 创建时间轴
-        fig = px.scatter(
-            df_timeline,
-            x="year",
-            y="generation",
-            color="type",
-            size=[10] * len(df_timeline),
-            hover_name="mechanism",
-            hover_data={"description": True, "year": True},
-            color_discrete_map=color_map,
-            labels={"type": "类型", "generation": "世代"},
-        )
+        # 过滤掉已移除条目用于主图表（已移除条目单独展示）
+        active_data = [d for d in display_data if not d.get("removed")]
+        removed_data = [d for d in display_data if d.get("removed")]
 
-        # 添加文字标注
-        for idx, row in df_timeline.iterrows():
-            desc = row["description"]
-            if len(desc) > 20:
-                desc = desc[:20] + "..."
-            fig.add_annotation(
-                x=row["year"],
-                y=row["generation"],
-                text=f"{row['mechanism']}<br><span style='font-size:11px;color:#555'>{desc}</span>",
-                showarrow=False,
-                font=dict(size=13),
-                yanchor="bottom" if idx % 2 == 0 else "top",
+        if active_data:
+            df_active = pd.DataFrame(active_data)
+            fig = px.scatter(
+                df_active,
+                x="year",
+                y="generation",
+                color="type",
+                size=[10] * len(df_active),
+                hover_name="mechanism",
+                hover_data={"description": True, "year": True, "confidence": True},
+                color_discrete_map=color_map,
+                labels={"type": "类型", "generation": "世代", "confidence": "置信度"},
             )
 
-        fig.update_layout(
-            title="多人对战机制演进时间轴",
-            height=600,
-            xaxis_title="年份",
-            yaxis_title="世代/版本",
-            showlegend=True,
-            legend_title="机制类型",
-            font=dict(size=13),
-            yaxis=dict(
-                tickmode="array",
-                tickvals=list(range(1, 10)),
-                ticktext=[f"Gen {i}" for i in range(1, 10)],
-            ),
-        )
+            # 添加文字标注（避免重叠）
+            for idx, row in df_active.iterrows():
+                desc = row["description"][:20] + "..." if len(row["description"]) > 20 else row["description"]
+                fig.add_annotation(
+                    x=row["year"],
+                    y=row["generation"],
+                    text=f"{row['mechanism'][:15]}<br><span style='font-size:10px;color:#666'>{desc}</span>",
+                    showarrow=False,
+                    font=dict(size=11),
+                    yanchor="bottom" if idx % 2 == 0 else "top",
+                )
 
-        fig.update_yaxes(autorange="reversed")
+            gen_ticks = sorted(set(int(d["generation"]) for d in active_data if str(d["generation"]).isdigit()))
+            fig.update_layout(
+                title=f"多人对战机制演进时间轴（{len(active_data)} 条）",
+                height=600,
+                xaxis_title="年份",
+                yaxis_title="世代",
+                showlegend=True,
+                legend_title="机制类型",
+                font=dict(size=13),
+            )
+            if gen_ticks:
+                fig.update_layout(
+                    yaxis=dict(
+                        tickmode="array",
+                        tickvals=[str(g) for g in gen_ticks],
+                        ticktext=[f"Gen {g}" for g in gen_ticks],
+                    )
+                )
+                fig.update_yaxes(autorange="reversed")
 
-        st.plotly_chart(fig, use_container_width=True)
+            st.plotly_chart(fig, use_container_width=True)
+
+        # 已移除机制单独列表展示
+        if removed_data:
+            st.subheader(f"已移除机制（{len(removed_data)} 条）")
+            for item in sorted(removed_data, key=lambda x: x["year"]):
+                conf_color = {
+                    "official": "#16a34a",
+                    "community": "#0369a1",
+                    "inferred_high": "#0f766e",
+                    "inferred_mid": "#ca8a04",
+                    "inferred_low": "#dc2626",
+                    "future": "#6d28d9",
+                }.get(item.get("confidence", ""), "#888")
+                conf_label = {
+                    "official": "官方",
+                    "community": "社区",
+                    "inferred_high": "推断·高",
+                    "inferred_mid": "推断·中",
+                    "inferred_low": "推断·低",
+                    "future": "未来",
+                }.get(item.get("confidence", ""), item.get("confidence", ""))
+                st.markdown(
+                    f"- **{item.get('mechanism', '')}**（{item.get('gen_label', '')}，{item.get('year', '')}）"
+                    f" <span style='color:{conf_color};font-size:12px'>[{conf_label}]</span>"
+                    f" — {item.get('description', '')[:60]}...",
+                    unsafe_allow_html=True
+                )
+
     else:
-        st.info("请选择至少一个游戏来显示时间轴")
+        st.info("当前选择游戏的报告数据暂缺，请联系管理员扩充数据。")
+        # 备用：显示数据库中的已分析条目
+        st.divider()
+        st.subheader("已分析条目（来自本地数据库）")
 
     # 已分析的 DB 条目补充展示（让图表与真实数据联动）
     _tab2_db_key = f"_tab2_db_patches_{selected_game}_{generation}"

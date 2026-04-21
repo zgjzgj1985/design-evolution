@@ -2,6 +2,24 @@
 
 所有版本变更记录遵循 [Keep a Changelog](https://keepachangelog.com/) 规范。
 
+## [2.6.0] - 2026-04-21
+
+### Changed
+
+- **历代时间轴建立多级置信度体系**：所有 97 条时间轴条目新增 `data_confidence` 字段，替代旧的布尔 `data_verified`。置信度分为 5 级：`official`（官方来源，Serebii/Wiki公告）、`community`（社区共识，Smogon记录）、`inferred_high`（AI推断·高置信）、`inferred_mid`（AI推断·中置信）、`inferred_low`（AI推断·低置信）、`future`（未来事件）。前端以彩色标签形式展示于每条时间轴卡片上
+- **历代时间轴已删除条目详情顺序重排**：将原来"移除原因→因果分析→设计启示"的叙事顺序改为"设计启示→移除原因→因果分析"的学习效率最优顺序
+- **历代时间轴页面头部新增置信度图例**：说明每种置信度标签的含义和代表来源
+- **统一 app.py Tab2 机制时间轴数据源**：删除 `app.py:1135-1161` 的 20 条硬编码 `mechanism_evolution` 数据，改为从 `report_data.json` 读取，与 `docs/index.html` 共用同一数据源，消除数据不一致风险
+
+### Fixed
+
+- **移除所有 `data_verified` 字段**：旧字段已被 `data_confidence` 多级枚举替代
+
+### Added
+
+- **新增 P0 数据修复脚本**：`scripts/p0_data_fixes.py`，支持批量为时间轴条目添加置信度标注和禁用类型标注
+- **app.py Tab2 新增已移除机制列表**：将已删除条目单独列表展示，包含置信度标签和描述摘要
+
 ## [2.5.5] - 2026-04-20
 
 ### Added
