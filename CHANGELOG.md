@@ -2,17 +2,60 @@
 
 所有版本变更记录遵循 [Keep a Changelog](https://keepachangelog.com/) 规范。
 
+## [3.0.0] - 2026-04-21
+
+### Added
+
+- **综合数据审核修复脚本**：`scripts/audit_fixes_v3.py` + `scripts/audit_fixes_v3_supplement.py`，系统性修复 TIMELINE_AUDIT_REPORT.md 第十章中识别的所有问题
+
+### Fixed
+
+- **T2**：修正 Gen 6 集火机制标题措辞（"建立" → "在 Gen 6 中被确立为核心战术"）
+- **T4'**：太晶化条目增加 `chain_category_secondary: "enhancement"`，解决同时属于 pve_group 和 enhancement 演进链的问题
+- **T5**：统一 4 条被移除条目的 category 分类（反转对战移除：enhancement→pvp；SOS 呼叫移除：enhancement→pvp；招式教学移除：meta→foundation；Pokewalker 移除：foundation→meta）
+- **T6**：修复防御演进链断裂（嘲讽机制 chain_next 从"极巨化"修正为 null）
+- **N1**：修正 detail 引用与 data_confidence 不一致（战斗前沿移除、反转对战移除的置信度）
+- **N3'**：修正 Gen 10 条目的 data_confidence/freshness 标注（按事件实际发生状态分级）
+
+### Changed
+
+- **T3/T7**：补充 51 条 Pokemon 条目的 `related_principles` 和 `related_checklist` 标注，Pokemon 关联原则覆盖率从 65% 提升至 94.7%
+- **P2/P3**：修正 14 条 Palworld 条目的 `data_confidence`（从 inferred_mid 改为 official），补充 14 条关联原则标注，统一 7 条条目的 gen 字段（version→gen）
+- **数据版本**：报告元数据 version 从 2.5 升至 3.0
+
+### Notes
+
+- 所有修复均保留 `edit_history` 记录，标注版本 3.0.0 / 3.0.1
+- 备份文件：`docs/report_data_backup_v3.0.json`
+- T1 乱码问题经独立验证未在当前数据中发现，可能为旧版本描述有误，无需修复
+
+## [2.10.0] - 2026-04-21
+
+### Added
+
+- **历代时间轴完整审核**：对 `docs/index.html`、`report_data.json`、`app.py` 中的全部时间轴数据进行了系统性审核，生成了 `docs/TIMELINE_AUDIT_REPORT.md` 第八章"数据内容逐项审核"，包含事实性错误检查、数据结构一致性检查、演进链关联验证、类别标签一致性检查等全面审核结果
+
+### Fixed
+
+- **乱码问题（T1）**：修复了 Gen 6 "2v2 双打集火机制建立"条目中 detail 字段的乱码（"木eca粼粼粼效果" → "灼伤状态等"）
+- **演进链断裂问题（T4）**：修复了"太晶化"条目 chain_next 指向断裂问题（null → "Pokemon Champions 时代开启"），确保演进链导航完整性
+
 ## [2.9.0] - 2026-04-21
 
 ### Added
 
-- **数据新鲜度追踪（P3-2）**：为所有时间轴条目增加 `freshness` 字段（high/medium/low），前端以彩色标签显示在年份行。规则：2024年+事件=高新鲜度（红色）、2021-2023=中新鲜度（橙色）、2021以前=已稳定（灰色）。鼠标悬停显示最后验证日期
+- **数据新鲜度元数据（P3-2）**：为所有时间轴条目增加 `freshness` 字段（high/medium/low），作为内部数据标注，不在前端展示。规则：2024年+事件=高、2021-2023=中、2021以前=低。后续可按需启用为用户可见标签
 - **时间轴编辑历史（P3-3）**：每条时间轴条目增加 `edit_history` 字段，记录从 2.5.5 到 2.8.0 各版本的数据变更历史和编辑者。所有条目均标注 `last_verified` 为今日（2026-04-21）
 - **Tab4 历史验证层（P3-1）**：在 app.py Tab4 演进报告生成后，自动从时间轴中检索与当前演进枝主题相关的历史条目（按置信度/演进链标注），作为 AI 报告的"历史事实对照"。支持树形主题和扁平主题两条路径
-
-### Added
-
 - **P3 数据优化脚本**：`scripts/p3_data_optimization.py`
+
+### Changed
+
+- **时间轴 category 标签修正**：将不属于"强化机制"的3条条目从 `enhancement` 修正为 `foundation`：Pokewalker（实体硬件奖励系统）、反转对战（对战规则实验）、SOS 呼叫（野生捕捉连锁系统）
+
+### Changed
+
+- **置信度 `inferred_mid` 标签全面审查**：将24条核心事实为官方记录但被错误标记为 `inferred_mid` 的条目修正为 `official`，包括：Pokemon Stadium、双打对战、特性系统、物理/特殊分家、天气永久化、秘密别墅、看我嘛、Battle Revolution、Wi-Fi 对战、VGC 世锦赛、主机关战工具终止、Dream Radar、反转对战、Dream Radar 移除、Pokemon GO 联动初步、HOME 连接 GO、NFC 关闭及 GTS 终止、2v2→3v3 规则变更、碧之假面、蓝之圆盘、Pokemon Live、Z-A 发售、Bank 关闭。另有6条分析性条目和8条 Palworld 条目保留 `inferred_mid`
 
 ## [2.8.0] - 2026-04-21
 

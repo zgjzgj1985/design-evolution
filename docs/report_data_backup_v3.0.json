@@ -2,8 +2,8 @@
   "meta": {
     "title": "综合研究报告：宝可梦 VGC 多人对战设计演进",
     "subtitle": "Pokemon VGC Multiplayer Design Evolution",
-    "version": "3.0",
-    "generated_at": "2026-04-21T00:00:00.000000",
+    "version": "2.5",
+    "generated_at": "2026-04-20T18:53:20.958106",
     "source": "综合研究报告_宝可梦VGC多人对战设计经验.md",
     "description": "Pokemon 30年（1996-2026）多人对战设计演进研究，含10条设计原则与47条详细检查清单",
     "data_sources": [
@@ -882,6 +882,8 @@
         "detail": "确立回合制战斗、属性克制、捕捉机制等核心框架；Link Cable 支持联机交换但仅限单打对战，为多人对战埋下伏笔",
         "category": "foundation",
         "data_confidence": "official",
+        "related_principles": [],
+        "related_checklist": [],
         "freshness": "low",
         "last_verified": "2026-04-21"
       },
@@ -892,6 +894,8 @@
         "detail": "金/银版引入携带道具（Held Items）系统、宝可梦培育（培育屋/Egg Move/遗传机制）和 Special 属性分家（拆分为特攻和特防）三大核心系统；同时引入无线适配器（Mobile Adapter）的早期联网功能（仅日本），为日后 Wi-Fi 对战奠定基础。注意：金银版本身不包含双打对战模式——双打对战于 Gen 3 才在主游戏正式引入",
         "category": "foundation",
         "data_confidence": "official",
+        "related_principles": [],
+        "related_checklist": [],
         "freshness": "low",
         "last_verified": "2026-04-21"
       },
@@ -903,6 +907,8 @@
         "category": "foundation",
         "removed": false,
         "data_confidence": "official",
+        "related_principles": [],
+        "related_checklist": [],
         "freshness": "low",
         "last_verified": "2026-04-21"
       },
@@ -914,6 +920,8 @@
         "category": "social",
         "removed": false,
         "data_confidence": "official",
+        "related_principles": [],
+        "related_checklist": [],
         "freshness": "low",
         "last_verified": "2026-04-21"
       },
@@ -931,9 +939,30 @@
         "removal_note": "Mobile System GB 的历史地位常被忽视：它证明了 Pokemon 的玩家有强烈的网络化需求（交换、存储、积分），这在 Gen 4 的 Nintendo Wi-Fi Connection 中得到了完整实现。从 Mobile System GB 到 NFC 的历程说明：Pokemon 一直有线上化的意愿，但每一次都因为底层平台的变化而需要重新实现。Pokemon HOME 的出现，正是为了打破这一循环——建立一个不依赖特定游戏硬件的持久化服务层。",
         "data_confidence": "official",
         "ban_type": "content_removal",
+        "related_principles": [
+          7,
+          10
+        ],
+        "related_checklist": [
+          "A.7.2"
+        ],
         "chain_related": [],
         "freshness": "low",
-        "last_verified": "2026-04-21"
+        "last_verified": "2026-04-21",
+        "edit_history": [
+          {
+            "date": "2026-04-21",
+            "version": "2.8.0",
+            "action": "P2双向关联系统 - 关联原则/清单标注",
+            "editor": "AI-agent"
+          },
+          {
+            "date": "2026-04-20",
+            "version": "2.5.5",
+            "action": "扩充已删除条目详情",
+            "editor": "AI-agent"
+          }
+        ]
       },
       {
         "year": 2002,
@@ -943,6 +972,8 @@
         "category": "foundation",
         "removed": false,
         "data_confidence": "official",
+        "related_principles": [],
+        "related_checklist": [],
         "freshness": "low",
         "last_verified": "2026-04-21"
       },
@@ -954,6 +985,8 @@
         "category": "pvp",
         "removed": false,
         "data_confidence": "official",
+        "related_principles": [],
+        "related_checklist": [],
         "freshness": "low",
         "last_verified": "2026-04-21"
       },
@@ -965,6 +998,8 @@
         "category": "foundation",
         "removed": false,
         "data_confidence": "official",
+        "related_principles": [],
+        "related_checklist": [],
         "freshness": "low",
         "last_verified": "2026-04-21"
       },
@@ -982,8 +1017,36 @@
         "chain_related": [
           "嘲讽（看我嘛）机制引入"
         ],
+        "related_principles": [
+          1,
+          2
+        ],
+        "related_checklist": [
+          "A.1.1",
+          "A.1.2"
+        ],
         "freshness": "low",
-        "last_verified": "2026-04-21"
+        "last_verified": "2026-04-21",
+        "edit_history": [
+          {
+            "date": "2026-04-20",
+            "version": "2.6.0",
+            "action": "P0数据质量筑基 - 置信度标注",
+            "editor": "AI-agent"
+          },
+          {
+            "date": "2026-04-21",
+            "version": "2.7.0",
+            "action": "P1事件粒度标准化 - 从综合条目拆分",
+            "editor": "AI-agent"
+          },
+          {
+            "date": "2026-04-21",
+            "version": "2.8.0",
+            "action": "P2双向关联系统 - 关联原则/清单标注",
+            "editor": "AI-agent"
+          }
+        ]
       },
       {
         "year": 2002,
@@ -994,9 +1057,37 @@
         "data_confidence": "official",
         "chain_category": "differentiation",
         "chain_order": 1,
+        "related_principles": [
+          6,
+          7
+        ],
+        "related_checklist": [
+          "A.3.1",
+          "A.3.2"
+        ],
         "chain_related": [],
         "freshness": "low",
-        "last_verified": "2026-04-21"
+        "last_verified": "2026-04-21",
+        "edit_history": [
+          {
+            "date": "2026-04-20",
+            "version": "2.6.0",
+            "action": "P0数据质量筑基 - 置信度标注",
+            "editor": "AI-agent"
+          },
+          {
+            "date": "2026-04-21",
+            "version": "2.7.0",
+            "action": "P1事件粒度标准化 - 从综合条目拆分",
+            "editor": "AI-agent"
+          },
+          {
+            "date": "2026-04-21",
+            "version": "2.8.0",
+            "action": "P2双向关联系统 - 关联原则/清单标注",
+            "editor": "AI-agent"
+          }
+        ]
       },
       {
         "year": 2002,
@@ -1010,8 +1101,35 @@
         "chain_prev": "双打对战正式成为标准模式",
         "chain_next": null,
         "chain_related": [],
+        "related_principles": [
+          1,
+          4
+        ],
+        "related_checklist": [
+          "A.1.1"
+        ],
         "freshness": "low",
-        "last_verified": "2026-04-21"
+        "last_verified": "2026-04-21",
+        "edit_history": [
+          {
+            "date": "2026-04-20",
+            "version": "2.6.0",
+            "action": "P0数据质量筑基 - 置信度标注",
+            "editor": "AI-agent"
+          },
+          {
+            "date": "2026-04-21",
+            "version": "2.7.0",
+            "action": "P1事件粒度标准化 - 从综合条目拆分",
+            "editor": "AI-agent"
+          },
+          {
+            "date": "2026-04-21",
+            "version": "2.8.0",
+            "action": "P2双向关联系统 - 关联原则/清单标注",
+            "editor": "AI-agent"
+          }
+        ]
       },
       {
         "year": 2002,
@@ -1027,8 +1145,36 @@
         "chain_related": [
           "VGC 赛季制度建立 + 顺风/黏黏网"
         ],
+        "related_principles": [
+          1,
+          3
+        ],
+        "related_checklist": [
+          "A.1.3",
+          "A.1.4"
+        ],
         "freshness": "low",
-        "last_verified": "2026-04-21"
+        "last_verified": "2026-04-21",
+        "edit_history": [
+          {
+            "date": "2026-04-20",
+            "version": "2.6.0",
+            "action": "P0数据质量筑基 - 置信度标注",
+            "editor": "AI-agent"
+          },
+          {
+            "date": "2026-04-21",
+            "version": "2.7.0",
+            "action": "P1事件粒度标准化 - 从综合条目拆分",
+            "editor": "AI-agent"
+          },
+          {
+            "date": "2026-04-21",
+            "version": "2.8.0",
+            "action": "P2双向关联系统 - 关联原则/清单标注",
+            "editor": "AI-agent"
+          }
+        ]
       },
       {
         "year": 2006,
@@ -1038,12 +1184,28 @@
         "category": "foundation",
         "removed": false,
         "data_confidence": "official",
+        "related_principles": [
+          8,
+          5
+        ],
+        "related_checklist": [
+          "A.5.1",
+          "A.7.1"
+        ],
         "chain_related": [
           "华丽大赛作为「非战斗内容」登场",
           "华丽大赛从主系列中消失"
         ],
         "freshness": "low",
-        "last_verified": "2026-04-21"
+        "last_verified": "2026-04-21",
+        "edit_history": [
+          {
+            "date": "2026-04-21",
+            "version": "2.8.0",
+            "action": "P2双向关联系统 - 关联原则/清单标注",
+            "editor": "AI-agent"
+          }
+        ]
       },
       {
         "year": 2006,
@@ -1053,6 +1215,8 @@
         "category": "foundation",
         "removed": false,
         "data_confidence": "official",
+        "related_principles": [],
+        "related_checklist": [],
         "freshness": "low",
         "last_verified": "2026-04-21"
       },
@@ -1070,11 +1234,33 @@
         "removal_note": "秘密别墅的概念在 Gen 6 通过「超级愿望系统」（Super Training）中部分回归（玩家可以在训练场中保存自己的记录），但从未完全恢复。Gen 9 朱/紫的 Picnic 系统可以视为秘密别墅的「现代化」版本——玩家在野外建立临时营地，邀请宝可梦和玩家朋友参与，但缺乏秘密别墅的「固定性」和「装饰性」。秘密别墅的「装饰」元素最终在 Pokemon HOME 的「个人主页」功能中得到延续，但已经脱离了游戏内的空间概念。",
         "data_confidence": "official",
         "ban_type": "content_removal",
+        "related_principles": [
+          7,
+          8
+        ],
+        "related_checklist": [
+          "A.5.1",
+          "A.7.1"
+        ],
         "chain_related": [
           "秘密别墅（Secret Base）：玩家空间概念的原型"
         ],
         "freshness": "low",
-        "last_verified": "2026-04-21"
+        "last_verified": "2026-04-21",
+        "edit_history": [
+          {
+            "date": "2026-04-21",
+            "version": "2.8.0",
+            "action": "P2双向关联系统 - 关联原则/清单标注",
+            "editor": "AI-agent"
+          },
+          {
+            "date": "2026-04-20",
+            "version": "2.5.5",
+            "action": "扩充已删除条目详情",
+            "editor": "AI-agent"
+          }
+        ]
       },
       {
         "year": 2006,
@@ -1086,12 +1272,34 @@
         "chain_category": "protection",
         "chain_order": 1,
         "chain_prev": null,
-        "chain_next": null,
+        "chain_next": "极巨化与旷野地带",
         "chain_related": [
           "双打对战正式成为标准模式"
         ],
+        "related_principles": [
+          2,
+          1
+        ],
+        "related_checklist": [
+          "A.1.4",
+          "A.1.2"
+        ],
         "freshness": "low",
-        "last_verified": "2026-04-21"
+        "last_verified": "2026-04-21",
+        "edit_history": [
+          {
+            "date": "2026-04-21",
+            "version": "2.7.0",
+            "action": "P1事件粒度标准化 - 从综合条目拆分",
+            "editor": "AI-agent"
+          },
+          {
+            "date": "2026-04-21",
+            "version": "2.8.0",
+            "action": "P2双向关联系统 - 关联原则/清单标注",
+            "editor": "AI-agent"
+          }
+        ]
       },
       {
         "year": 2007,
@@ -1101,6 +1309,8 @@
         "category": "social",
         "removed": false,
         "data_confidence": "official",
+        "related_principles": [],
+        "related_checklist": [],
         "freshness": "low",
         "last_verified": "2026-04-21"
       },
@@ -1112,6 +1322,8 @@
         "category": "social",
         "removed": false,
         "data_confidence": "official",
+        "related_principles": [],
+        "related_checklist": [],
         "freshness": "low",
         "last_verified": "2026-04-21"
       },
@@ -1123,6 +1335,8 @@
         "category": "foundation",
         "removed": false,
         "data_confidence": "official",
+        "related_principles": [],
+        "related_checklist": [],
         "freshness": "low",
         "last_verified": "2026-04-21"
       },
@@ -1140,8 +1354,29 @@
         "chain_related": [
           "VGC 世界锦标赛首届举办"
         ],
+        "related_principles": [
+          9,
+          7
+        ],
+        "related_checklist": [
+          "A.7.2"
+        ],
         "freshness": "low",
-        "last_verified": "2026-04-21"
+        "last_verified": "2026-04-21",
+        "edit_history": [
+          {
+            "date": "2026-04-21",
+            "version": "2.7.0",
+            "action": "P1事件粒度标准化 - 从综合条目拆分",
+            "editor": "AI-agent"
+          },
+          {
+            "date": "2026-04-21",
+            "version": "2.8.0",
+            "action": "P2双向关联系统 - 关联原则/清单标注",
+            "editor": "AI-agent"
+          }
+        ]
       },
       {
         "year": 2009,
@@ -1152,8 +1387,18 @@
         "removed": false,
         "data_confidence": "official",
         "chain_category": "palworld_analog",
+        "related_principles": [],
+        "related_checklist": [],
         "freshness": "medium",
-        "last_verified": "2026-04-21"
+        "last_verified": "2026-04-21",
+        "edit_history": [
+          {
+            "date": "2026-04-21",
+            "version": "2.8.0",
+            "action": "手动新鲜度等级指定",
+            "editor": "AI-agent"
+          }
+        ]
       },
       {
         "year": 2009,
@@ -1169,15 +1414,43 @@
         "chain_related": [
           "Wi-Fi 联网对战正式上线"
         ],
+        "related_principles": [
+          3,
+          10
+        ],
+        "related_checklist": [
+          "A.4.1",
+          "A.6.1"
+        ],
         "freshness": "low",
-        "last_verified": "2026-04-21"
+        "last_verified": "2026-04-21",
+        "edit_history": [
+          {
+            "date": "2026-04-20",
+            "version": "2.6.0",
+            "action": "P0数据质量筑基 - 置信度标注",
+            "editor": "AI-agent"
+          },
+          {
+            "date": "2026-04-21",
+            "version": "2.7.0",
+            "action": "P1事件粒度标准化 - 从综合条目拆分",
+            "editor": "AI-agent"
+          },
+          {
+            "date": "2026-04-21",
+            "version": "2.8.0",
+            "action": "P2双向关联系统 - 关联原则/清单标注",
+            "editor": "AI-agent"
+          }
+        ]
       },
       {
         "year": 2010,
         "gen": "Gen 5",
         "title": "Pokewalker 随心金/魂银结束，未进入 Gen 5",
         "detail": "Pokemon 黑/白发布时不再包含 Pokewalker 支持，这是该系统最后的官方使用记录。尽管心金/魂银可以在黑/白中使用红外通信，但 Pokewalker 本身作为独立设备已停止生产，且没有在黑/白中引入任何替代性的步行-奖励机制。Gen 5 的 BW2 也没有恢复该功能。",
-        "category": "meta",
+        "category": "foundation",
         "removed": true,
         "removal_year": 2010,
         "removal_reason": "Pokewalker 的消失有技术和商业双重原因：(1) 它依赖专用的红外通信硬件，而后续的 Nintendo DS/DSi/3DS 系列逐渐淡化了红外端口（NDS Lite 之后 DS 系列大多移除了红外）；(2) 作为一个需要「额外硬件」的系统，它增加了玩家的进入门槛（需要同时拥有心金/魂银+Pokewalker）；(3) Pokemon 的目标受众从「携带设备步行」转向「随时随地游玩」的掌机模式。",
@@ -1186,11 +1459,39 @@
         "removal_note": "Pokewalker 的教训是：深度集成硬件的系统有极高的「平台锁定」风险——一旦底层硬件发生变化，整个系统就需要重写。Pokemon GO 的成功部分源于它选择了「利用通用硬件（智能手机 GPS）」而非「创造专用硬件」。设计游戏系统时，应该优先选择「可迁移」的技术路径，而非与特定硬件深度绑定的方案。",
         "data_confidence": "official",
         "ban_type": "content_removal",
+        "related_principles": [
+          9,
+          7
+        ],
+        "related_checklist": [
+          "A.5.2",
+          "A.7.2"
+        ],
         "chain_related": [
           "Pokewalker 将真实步行与游戏奖励绑定"
         ],
         "freshness": "low",
-        "last_verified": "2026-04-21"
+        "last_verified": "2026-04-21",
+        "edit_history": [
+          {
+            "date": "2026-04-21",
+            "version": "2.8.0",
+            "action": "手动新鲜度等级指定",
+            "editor": "AI-agent"
+          },
+          {
+            "date": "2026-04-21",
+            "version": "2.8.0",
+            "action": "P2双向关联系统 - 关联原则/清单标注",
+            "editor": "AI-agent"
+          },
+          {
+            "date": "2026-04-20",
+            "version": "2.5.5",
+            "action": "扩充已删除条目详情",
+            "editor": "AI-agent"
+          }
+        ]
       },
       {
         "year": 2011,
@@ -1204,6 +1505,8 @@
         "chain_prev": "天气系统革命：永久化天气",
         "chain_next": null,
         "chain_related": [],
+        "related_principles": [],
+        "related_checklist": [],
         "freshness": "low",
         "last_verified": "2026-04-21"
       },
@@ -1214,6 +1517,8 @@
         "detail": "日月/究极日月引入阿罗拉形态（Alola Forms）——同一宝可梦在不同地理环境中演化为不同形态，拥有不同属性组合和外观。这是 Pokemon 历史上首次出现「同一物种在不同地区有差异」的设计，为后续所有地区形态（伽勒尔/洗翠/帕底亚）奠定基础。设计意义：将「角色身份」与「地理叙事」绑定，大幅丰富了收集和探索动机",
         "category": "foundation",
         "data_confidence": "official",
+        "related_principles": [],
+        "related_checklist": [],
         "freshness": "low",
         "last_verified": "2026-04-21"
       },
@@ -1231,12 +1536,35 @@
         "removal_note": "「降低门槛」与「移除深度」是两件不同的事。当移除一个深度内容时，必须同时评估：有没有为深度用户准备的替代品？战斗前沿被移除后，核心粉丝失去了「安全练习高难度对战」的场所，这加速了核心用户向第三方模拟器（Showdown）的流失。设计提示：当你为了吸引新用户而降低门槛时，不要让老用户感到被抛弃。",
         "data_confidence": "community",
         "ban_type": "content_removal",
+        "related_principles": [
+          5,
+          7,
+          10
+        ],
+        "related_checklist": [
+          "A.5.1",
+          "A.6.2"
+        ],
         "chain_related": [
           "对战塔（Battle Tower）：回合制竞技场的原型",
           "对战塔在 Gen 8 剑/盾中彻底消失"
         ],
         "freshness": "low",
-        "last_verified": "2026-04-21"
+        "last_verified": "2026-04-21",
+        "edit_history": [
+          {
+            "date": "2026-04-21",
+            "version": "2.8.0",
+            "action": "P2双向关联系统 - 关联原则/清单标注",
+            "editor": "AI-agent"
+          },
+          {
+            "date": "2026-04-20",
+            "version": "2.5.5",
+            "action": "扩充已删除条目详情",
+            "editor": "AI-agent"
+          }
+        ]
       },
       {
         "year": 2011,
@@ -1252,9 +1580,32 @@
         "removal_note": "季节系统的消失提醒我们：「沉浸感设计」的长期价值往往被低估，但在资源紧张时最容易被优先削减。设计提示：如果你有一个「沉浸感系统」（如季节、昼夜、天气变化），在评估其价值时不仅要计算「直接收益」，还要评估它对「玩家留存」和「世界真实感」的隐性贡献。牺牲隐性体验来换取显性功能，往往是短视的。",
         "data_confidence": "community",
         "ban_type": "content_removal",
+        "related_principles": [
+          7,
+          8,
+          10
+        ],
+        "related_checklist": [
+          "A.7.1",
+          "A.6.2"
+        ],
         "chain_related": [],
         "freshness": "low",
-        "last_verified": "2026-04-21"
+        "last_verified": "2026-04-21",
+        "edit_history": [
+          {
+            "date": "2026-04-21",
+            "version": "2.8.0",
+            "action": "P2双向关联系统 - 关联原则/清单标注",
+            "editor": "AI-agent"
+          },
+          {
+            "date": "2026-04-20",
+            "version": "2.5.5",
+            "action": "扩充已删除条目详情",
+            "editor": "AI-agent"
+          }
+        ]
       },
       {
         "year": 2011,
@@ -1270,12 +1621,36 @@
         "removal_note": "华丽大赛的消失是 Pokemon「功能整合」策略的一个失败案例。Game Freak 最终没有找到一个让「战斗展示」和「战斗实力」共存的设计模式——要么分离（导致受众分裂），要么合并（导致两边都平庸）。这个教训在 Gen 9 的「太晶化」中有所体现：太晶化将「属性变化」和「视觉表演」融合在同一个动作中，不需要额外的评判系统，但仍然有「回合内操作密度过高」的问题。",
         "data_confidence": "community",
         "ban_type": "content_removal",
+        "related_principles": [
+          5,
+          7,
+          10
+        ],
+        "related_checklist": [
+          "A.5.1",
+          "A.6.2",
+          "A.7.1"
+        ],
         "chain_related": [
           "华丽大赛作为「非战斗内容」登场",
           "华丽大赛升级：添加华丽舞台与旁观模式"
         ],
         "freshness": "low",
-        "last_verified": "2026-04-21"
+        "last_verified": "2026-04-21",
+        "edit_history": [
+          {
+            "date": "2026-04-21",
+            "version": "2.8.0",
+            "action": "P2双向关联系统 - 关联原则/清单标注",
+            "editor": "AI-agent"
+          },
+          {
+            "date": "2026-04-20",
+            "version": "2.5.5",
+            "action": "扩充已删除条目详情",
+            "editor": "AI-agent"
+          }
+        ]
       },
       {
         "year": 2011,
@@ -1285,6 +1660,8 @@
         "category": "foundation",
         "removed": false,
         "data_confidence": "official",
+        "related_principles": [],
+        "related_checklist": [],
         "freshness": "low",
         "last_verified": "2026-04-21"
       },
@@ -1296,6 +1673,8 @@
         "category": "pvp",
         "removed": false,
         "data_confidence": "official",
+        "related_principles": [],
+        "related_checklist": [],
         "freshness": "low",
         "last_verified": "2026-04-21"
       },
@@ -1313,8 +1692,18 @@
         "removal_note": "Pokemon Showdown 的存在是 Pokemon 商业策略的一个有趣的「漏洞」——它由社区维护，提供了比官方工具更丰富的对战体验，但完全不产生收入。对于 Game Freak 来说，Pokemon Showdown 是一个双刃剑：它维持了核心对战社区的活跃度（从而支撑了 VGC 赛事的参与度），但也降低了玩家购买新游戏的动力（可以在 Showdown 上免费体验所有对战内容）。Game Freak 的应对策略是在主游戏中加入 Showdown 无法提供的独占内容（太晶化、Mega 进化等），将「对战基础」留在 Showdown 上，而「对战进化」留在商业游戏中。",
         "data_confidence": "official",
         "ban_type": "content_removal",
+        "related_principles": [],
+        "related_checklist": [],
         "freshness": "low",
-        "last_verified": "2026-04-21"
+        "last_verified": "2026-04-21",
+        "edit_history": [
+          {
+            "date": "2026-04-20",
+            "version": "2.5.5",
+            "action": "扩充已删除条目详情",
+            "editor": "AI-agent"
+          }
+        ]
       },
       {
         "year": 2012,
@@ -1324,6 +1713,8 @@
         "category": "foundation",
         "removed": false,
         "data_confidence": "official",
+        "related_principles": [],
+        "related_checklist": [],
         "freshness": "low",
         "last_verified": "2026-04-21"
       },
@@ -1341,8 +1732,30 @@
         "chain_related": [
           "超级进化被移除（剑/盾）"
         ],
+        "related_principles": [
+          4,
+          6
+        ],
+        "related_checklist": [
+          "A.2.1",
+          "A.2.3"
+        ],
         "freshness": "low",
-        "last_verified": "2026-04-21"
+        "last_verified": "2026-04-21",
+        "edit_history": [
+          {
+            "date": "2026-04-20",
+            "version": "2.6.0",
+            "action": "P0数据质量筑基 - 置信度标注",
+            "editor": "AI-agent"
+          },
+          {
+            "date": "2026-04-21",
+            "version": "2.8.0",
+            "action": "P2双向关联系统 - 关联原则/清单标注",
+            "editor": "AI-agent"
+          }
+        ]
       },
       {
         "year": 2013,
@@ -1366,8 +1779,31 @@
           "Z 招式 + 阿罗拉形态 + 友好协商",
           "超级进化 + 超级训练"
         ],
+        "related_principles": [
+          6,
+          5,
+          7
+        ],
+        "related_checklist": [
+          "A.2.3",
+          "A.6.1"
+        ],
         "freshness": "low",
-        "last_verified": "2026-04-21"
+        "last_verified": "2026-04-21",
+        "edit_history": [
+          {
+            "date": "2026-04-21",
+            "version": "2.8.0",
+            "action": "P2双向关联系统 - 关联原则/清单标注",
+            "editor": "AI-agent"
+          },
+          {
+            "date": "2026-04-20",
+            "version": "2.5.5",
+            "action": "扩充已删除条目详情",
+            "editor": "AI-agent"
+          }
+        ]
       },
       {
         "year": 2013,
@@ -1377,6 +1813,8 @@
         "category": "foundation",
         "removed": false,
         "data_confidence": "official",
+        "related_principles": [],
+        "related_checklist": [],
         "freshness": "low",
         "last_verified": "2026-04-21"
       },
@@ -1385,7 +1823,7 @@
         "gen": "Gen 6",
         "title": "反转对战在 Gen 6 升级后被移除",
         "detail": "Pokemon X/Y 引入「超级愿望系统」（Super Training）作为对战训练的核心，并大幅扩展了「旋转对战」设施，但反转对战模式本身被移除。Game Freak 曾在 X/Y 的早期补丁中短暂修复了 Gen 5 的一个与属性相关的 Bug，但并未将反转对战纳入 Gen 6 的对战体系。之后所有世代均未再出现反转对战。",
-        "category": "pvp",
+        "category": "enhancement",
         "removed": true,
         "removal_year": 2013,
         "removal_reason": "反转对战的消失主要原因：(1) 受众面极窄——绝大多数 Pokemon 玩家将「记住属性克制」视为已掌握的基础知识，「反转克制」对他们来说是一种认知负担而非乐趣；(2) 平衡性难以保证——反转模式会打破大量技能的伤害计算基础，导致某些宝可梦或技能变得极强或极弱；(3) 对战规则的复杂性已足够高——Game Freak 在 Gen 6 引入了 Mega 进化的同时，也在简化其他对战规则以避免「信息过载」。",
@@ -1394,11 +1832,33 @@
         "removal_note": "反转对战的案例揭示了「实验性设计」的可持续性问题：当一个玩法的乐趣来自「打破常规」时，它本质上是一个「一次性体验」而非一个可重复玩的模式。真正的可重复性游戏内容需要有「深度」而非仅仅「不同」。这个教训在 Gen 9 的「太晶化」中有所体现：太晶化不是改变规则（像反转对战那样），而是扩展规则（在现有克制体系上增加一层维度），因此具有更长期的趣味深度。",
         "data_confidence": "community",
         "ban_type": "content_removal",
+        "related_principles": [
+          1,
+          7
+        ],
+        "related_checklist": [
+          "A.1.2",
+          "A.6.1"
+        ],
         "chain_related": [
           "反转对战（Inverse Battle）模式登场"
         ],
         "freshness": "low",
-        "last_verified": "2026-04-21"
+        "last_verified": "2026-04-21",
+        "edit_history": [
+          {
+            "date": "2026-04-21",
+            "version": "2.8.0",
+            "action": "P2双向关联系统 - 关联原则/清单标注",
+            "editor": "AI-agent"
+          },
+          {
+            "date": "2026-04-20",
+            "version": "2.5.5",
+            "action": "扩充已删除条目详情",
+            "editor": "AI-agent"
+          }
+        ]
       },
       {
         "year": 2013,
@@ -1408,6 +1868,8 @@
         "category": "social",
         "removed": false,
         "data_confidence": "official",
+        "related_principles": [],
+        "related_checklist": [],
         "freshness": "low",
         "last_verified": "2026-04-21"
       },
@@ -1419,6 +1881,8 @@
         "category": "foundation",
         "removed": false,
         "data_confidence": "official",
+        "related_principles": [],
+        "related_checklist": [],
         "freshness": "low",
         "last_verified": "2026-04-21"
       },
@@ -1430,6 +1894,8 @@
         "category": "social",
         "removed": false,
         "data_confidence": "official",
+        "related_principles": [],
+        "related_checklist": [],
         "freshness": "low",
         "last_verified": "2026-04-21"
       },
@@ -1447,11 +1913,33 @@
         "removal_note": "跟随系统的缺失从 Gen 6 持续到 Gen 8，是 Pokemon 3D 化过程中最明显的「体验降级」之一。许多玩家在社区中表达了强烈的不满，这直接推动了 Gen 8 DLC「冠之雪原」和 Gen 9 朱/紫中部分宝可梦的跟随功能回归。值得注意的是，Gen 9 的朱/紫虽然加入了跟随功能，但并非所有宝可梦都支持（大型宝可梦无法跟随），说明 3D 化的工作量问题仍然存在。这个案例证明：「粉丝呼声」可以成为系统回归的驱动力，但完全恢复的成本仍然很高。",
         "data_confidence": "community",
         "ban_type": "content_removal",
+        "related_principles": [
+          8,
+          5
+        ],
+        "related_checklist": [
+          "A.5.1",
+          "A.7.1"
+        ],
         "chain_related": [
           "跟随系统（Following Pokemon）在心金/魂银中首次实现"
         ],
         "freshness": "low",
-        "last_verified": "2026-04-21"
+        "last_verified": "2026-04-21",
+        "edit_history": [
+          {
+            "date": "2026-04-21",
+            "version": "2.8.0",
+            "action": "P2双向关联系统 - 关联原则/清单标注",
+            "editor": "AI-agent"
+          },
+          {
+            "date": "2026-04-20",
+            "version": "2.5.5",
+            "action": "扩充已删除条目详情",
+            "editor": "AI-agent"
+          }
+        ]
       },
       {
         "year": 2013,
@@ -1461,17 +1949,21 @@
         "category": "social",
         "removed": false,
         "data_confidence": "official",
+        "related_principles": [],
+        "related_checklist": [],
         "freshness": "low",
         "last_verified": "2026-04-21"
       },
       {
         "year": 2013,
         "gen": "Gen 6",
-        "title": "2v2 双打集火策略在 Gen 6 中被确立为核心战术",
+        "title": "2v2 双打集火机制建立，「攻击集火」成为标准策略",
         "detail": "Pokemon X/Y 的双打对战确立了「集火机制」：当两只宝可梦对同一目标发动攻击时，两次攻击会分别判定，可以触发两次命中效果（如灼伤状态等）。这是 Pokemon 双打战术的基础——通过集火快速消灭一只宝可梦，使对方进入 2v1 的优势局面。集火机制让双打从「两只宝可梦各打各的」升级为「需要战术协调的团队游戏」。",
         "category": "enhancement",
         "removed": false,
         "data_confidence": "official",
+        "related_principles": [],
+        "related_checklist": [],
         "freshness": "low",
         "last_verified": "2026-04-21"
       },
@@ -1483,6 +1975,8 @@
         "category": "pvp",
         "removed": false,
         "data_confidence": "official",
+        "related_principles": [],
+        "related_checklist": [],
         "freshness": "low",
         "last_verified": "2026-04-21"
       },
@@ -1500,8 +1994,18 @@
         "removal_note": "Dream Radar 的教训是：AR/VR 功能的「工具化」是一条死路——当 AR 只是「到达目的地的手段」时，它无法独立存在。Pokemon GO 的成功在于它让 AR 成为了「捕捉体验的放大器」——每一次捕捉都是 AR 体验，而不仅仅是捕捉本身。设计 AR 功能时，应该让 AR 本身成为乐趣的来源，而非实现某个非 AR 目标的工具。",
         "data_confidence": "official",
         "ban_type": "content_removal",
+        "related_principles": [],
+        "related_checklist": [],
         "freshness": "low",
-        "last_verified": "2026-04-21"
+        "last_verified": "2026-04-21",
+        "edit_history": [
+          {
+            "date": "2026-04-20",
+            "version": "2.5.5",
+            "action": "扩充已删除条目详情",
+            "editor": "AI-agent"
+          }
+        ]
       },
       {
         "year": 2014,
@@ -1518,8 +2022,23 @@
         "chain_related": [
           "Wi-Fi 联网对战正式上线"
         ],
+        "related_principles": [
+          7,
+          10
+        ],
+        "related_checklist": [
+          "A.7.2"
+        ],
         "freshness": "low",
-        "last_verified": "2026-04-21"
+        "last_verified": "2026-04-21",
+        "edit_history": [
+          {
+            "date": "2026-04-21",
+            "version": "2.8.0",
+            "action": "P2双向关联系统 - 关联原则/清单标注",
+            "editor": "AI-agent"
+          }
+        ]
       },
       {
         "year": 2016,
@@ -1535,8 +2054,24 @@
         "chain_related": [
           "Z 招式被移除（剑/盾）"
         ],
+        "related_principles": [
+          1,
+          5
+        ],
+        "related_checklist": [
+          "A.2.1",
+          "A.2.4"
+        ],
         "freshness": "low",
-        "last_verified": "2026-04-21"
+        "last_verified": "2026-04-21",
+        "edit_history": [
+          {
+            "date": "2026-04-21",
+            "version": "2.8.0",
+            "action": "P2双向关联系统 - 关联原则/清单标注",
+            "editor": "AI-agent"
+          }
+        ]
       },
       {
         "year": 2016,
@@ -1552,9 +2087,31 @@
         "removal_note": "HM 的移除是「设计问题」的经典案例：它存在了20年（Gen 1-6），被大量玩家诟病，却一直没有被解决，直到 Gen 7 才彻底重构。教训：如果一个机制有根本性设计缺陷，不要等20年才修复——越早重构，用户的沉没成本越低。同时，「功能分离」（开路用骑乘宝可梦，战斗用对战宝可梦）是解决「多功能冲突」的经典设计模式。",
         "data_confidence": "community",
         "ban_type": "content_removal",
+        "related_principles": [
+          5,
+          9
+        ],
+        "related_checklist": [
+          "A.5.1",
+          "A.6.2"
+        ],
         "chain_related": [],
         "freshness": "low",
-        "last_verified": "2026-04-21"
+        "last_verified": "2026-04-21",
+        "edit_history": [
+          {
+            "date": "2026-04-21",
+            "version": "2.8.0",
+            "action": "P2双向关联系统 - 关联原则/清单标注",
+            "editor": "AI-agent"
+          },
+          {
+            "date": "2026-04-20",
+            "version": "2.5.5",
+            "action": "扩充已删除条目详情",
+            "editor": "AI-agent"
+          }
+        ]
       },
       {
         "year": 2016,
@@ -1570,11 +2127,32 @@
         "removal_note": "DexNav 的教训是「随机性是有设计价值的」。当一个系统把随机性完全消除（或允许无限重试），它就变成了一个「工业化流程」而非「冒险体验」。但同时，也要承认 DexNav 的「搜索技能」是一个极具创意的设计创新——它让「预判」本身成为了一种可学习的技能，这种「信息前置」的设计思路在后续的「太晶团体战」的读招环节中有回响。",
         "data_confidence": "community",
         "ban_type": "content_removal",
+        "related_principles": [
+          1,
+          5
+        ],
+        "related_checklist": [
+          "A.5.1"
+        ],
         "chain_related": [
           "DexNav：口袋探险队系统的集大成者"
         ],
         "freshness": "low",
-        "last_verified": "2026-04-21"
+        "last_verified": "2026-04-21",
+        "edit_history": [
+          {
+            "date": "2026-04-21",
+            "version": "2.8.0",
+            "action": "P2双向关联系统 - 关联原则/清单标注",
+            "editor": "AI-agent"
+          },
+          {
+            "date": "2026-04-20",
+            "version": "2.5.5",
+            "action": "扩充已删除条目详情",
+            "editor": "AI-agent"
+          }
+        ]
       },
       {
         "year": 2016,
@@ -1590,9 +2168,31 @@
         "removal_note": "O-Powers 的教训是：社交功能必须有「双向激励」才能持久。「单方面施惠」的社交系统即使在短期内有效，长期也会因为「给予者的冷漠」而失去活力。好的社交功能设计应该让参与各方都有收益或有足够的社交认可回报。Pokemon 后续在 Gen 7 引入的「朋友快递」和 Gen 8 的「极巨火锅」都遵循了这一原则——朋友之间互相帮助时，双方都有实质奖励。",
         "data_confidence": "community",
         "ban_type": "content_removal",
+        "related_principles": [
+          7,
+          9
+        ],
+        "related_checklist": [
+          "A.5.2",
+          "A.7.2"
+        ],
         "chain_related": [],
         "freshness": "low",
-        "last_verified": "2026-04-21"
+        "last_verified": "2026-04-21",
+        "edit_history": [
+          {
+            "date": "2026-04-21",
+            "version": "2.8.0",
+            "action": "P2双向关联系统 - 关联原则/清单标注",
+            "editor": "AI-agent"
+          },
+          {
+            "date": "2026-04-20",
+            "version": "2.5.5",
+            "action": "扩充已删除条目详情",
+            "editor": "AI-agent"
+          }
+        ]
       },
       {
         "year": 2016,
@@ -1608,11 +2208,32 @@
         "removal_note": "超级训练的演变揭示了「游戏化教学」的一个陷阱：当游戏化内容本身缺乏足够的深度和变化时，它反而会成为玩家的负担。好的教程设计应该是「让玩家在真实游戏中学习」（如在第一次捕捉野生宝可梦时自然理解 HP 和等级），而不是创造一个隔离的「教学场景」。Gen 7 的 Bottle Cap 设计更胜一筹——它承认了「培育是重复劳动」，用道具来解决重复问题，而不是用游戏化来掩盖重复。",
         "data_confidence": "community",
         "ban_type": "content_removal",
+        "related_principles": [
+          5,
+          10
+        ],
+        "related_checklist": [
+          "A.5.1"
+        ],
         "chain_related": [
           "超级进化 + 超级训练"
         ],
         "freshness": "low",
-        "last_verified": "2026-04-21"
+        "last_verified": "2026-04-21",
+        "edit_history": [
+          {
+            "date": "2026-04-21",
+            "version": "2.8.0",
+            "action": "P2双向关联系统 - 关联原则/清单标注",
+            "editor": "AI-agent"
+          },
+          {
+            "date": "2026-04-20",
+            "version": "2.5.5",
+            "action": "扩充已删除条目详情",
+            "editor": "AI-agent"
+          }
+        ]
       },
       {
         "year": 2016,
@@ -1622,6 +2243,8 @@
         "category": "foundation",
         "removed": false,
         "data_confidence": "official",
+        "related_principles": [],
+        "related_checklist": [],
         "freshness": "low",
         "last_verified": "2026-04-21"
       },
@@ -1633,6 +2256,8 @@
         "category": "foundation",
         "removed": false,
         "data_confidence": "official",
+        "related_principles": [],
+        "related_checklist": [],
         "freshness": "low",
         "last_verified": "2026-04-21"
       },
@@ -1644,6 +2269,8 @@
         "category": "foundation",
         "removed": false,
         "data_confidence": "official",
+        "related_principles": [],
+        "related_checklist": [],
         "freshness": "low",
         "last_verified": "2026-04-21"
       },
@@ -1655,6 +2282,8 @@
         "category": "foundation",
         "removed": false,
         "data_confidence": "official",
+        "related_principles": [],
+        "related_checklist": [],
         "freshness": "low",
         "last_verified": "2026-04-21"
       },
@@ -1666,6 +2295,8 @@
         "category": "foundation",
         "removed": false,
         "data_confidence": "official",
+        "related_principles": [],
+        "related_checklist": [],
         "freshness": "low",
         "last_verified": "2026-04-21"
       },
@@ -1677,6 +2308,8 @@
         "category": "social",
         "removed": false,
         "data_confidence": "official",
+        "related_principles": [],
+        "related_checklist": [],
         "freshness": "low",
         "last_verified": "2026-04-21"
       },
@@ -1701,8 +2334,30 @@
         "chain_related": [
           "轮转对战（Rotation Battle）被移除"
         ],
+        "related_principles": [
+          1,
+          7
+        ],
+        "related_checklist": [
+          "A.1.2",
+          "A.6.1"
+        ],
         "freshness": "low",
-        "last_verified": "2026-04-21"
+        "last_verified": "2026-04-21",
+        "edit_history": [
+          {
+            "date": "2026-04-21",
+            "version": "2.8.0",
+            "action": "P2双向关联系统 - 关联原则/清单标注",
+            "editor": "AI-agent"
+          },
+          {
+            "date": "2026-04-20",
+            "version": "2.5.5",
+            "action": "扩充已删除条目详情",
+            "editor": "AI-agent"
+          }
+        ]
       },
       {
         "year": 2017,
@@ -1725,8 +2380,31 @@
         "chain_related": [
           "三打（Triple Battle）被移除"
         ],
+        "related_principles": [
+          1,
+          7,
+          10
+        ],
+        "related_checklist": [
+          "A.1.2",
+          "A.6.1"
+        ],
         "freshness": "low",
-        "last_verified": "2026-04-21"
+        "last_verified": "2026-04-21",
+        "edit_history": [
+          {
+            "date": "2026-04-21",
+            "version": "2.8.0",
+            "action": "P2双向关联系统 - 关联原则/清单标注",
+            "editor": "AI-agent"
+          },
+          {
+            "date": "2026-04-20",
+            "version": "2.5.5",
+            "action": "扩充已删除条目详情",
+            "editor": "AI-agent"
+          }
+        ]
       },
       {
         "year": 2019,
@@ -1742,8 +2420,30 @@
         "chain_related": [
           "极巨化被移除（朱/紫）"
         ],
+        "related_principles": [
+          1,
+          2
+        ],
+        "related_checklist": [
+          "A.2.1",
+          "A.2.2"
+        ],
         "freshness": "low",
-        "last_verified": "2026-04-21"
+        "last_verified": "2026-04-21",
+        "edit_history": [
+          {
+            "date": "2026-04-20",
+            "version": "2.6.0",
+            "action": "P0数据质量筑基 - 置信度标注",
+            "editor": "AI-agent"
+          },
+          {
+            "date": "2026-04-21",
+            "version": "2.8.0",
+            "action": "P2双向关联系统 - 关联原则/清单标注",
+            "editor": "AI-agent"
+          }
+        ]
       },
       {
         "year": 2019,
@@ -1767,8 +2467,31 @@
           "Z 招式 + 阿罗拉形态 + 友好协商",
           "极巨化与旷野地带"
         ],
+        "related_principles": [
+          1,
+          5,
+          7
+        ],
+        "related_checklist": [
+          "A.2.1",
+          "A.2.4"
+        ],
         "freshness": "low",
-        "last_verified": "2026-04-21"
+        "last_verified": "2026-04-21",
+        "edit_history": [
+          {
+            "date": "2026-04-21",
+            "version": "2.8.0",
+            "action": "P2双向关联系统 - 关联原则/清单标注",
+            "editor": "AI-agent"
+          },
+          {
+            "date": "2026-04-20",
+            "version": "2.5.5",
+            "action": "扩充已删除条目详情",
+            "editor": "AI-agent"
+          }
+        ]
       },
       {
         "year": 2019,
@@ -1784,9 +2507,32 @@
         "removal_note": "「全部内容」是双刃剑。Dexit 的教训是：设计时不要过度承诺「所有内容永远可用」。当技术约束迫使削减时，提前告知玩家并提供替代方案（如「部分可用」「未来逐步回归」）比「直接砍掉」对品牌伤害更小。全国图鉴问题在 Gen 9「开放全图鉴」后得到修复，但玩家心中的伤痕持续更久。",
         "data_confidence": "official",
         "ban_type": "content_removal",
+        "related_principles": [
+          5,
+          7,
+          8
+        ],
+        "related_checklist": [
+          "A.3.1",
+          "A.6.2"
+        ],
         "chain_related": [],
         "freshness": "low",
-        "last_verified": "2026-04-21"
+        "last_verified": "2026-04-21",
+        "edit_history": [
+          {
+            "date": "2026-04-21",
+            "version": "2.8.0",
+            "action": "P2双向关联系统 - 关联原则/清单标注",
+            "editor": "AI-agent"
+          },
+          {
+            "date": "2026-04-20",
+            "version": "2.5.5",
+            "action": "扩充已删除条目详情",
+            "editor": "AI-agent"
+          }
+        ]
       },
       {
         "year": 2019,
@@ -1802,18 +2548,40 @@
         "removal_note": "Pokémon Refresh 的消失是 Game Freak 在 Gen 8「竞技化」转型中的一个牺牲品。这个案例提醒我们：情感系统的价值难以量化，因此在资源竞争中处于劣势。如果一个系统对「战斗数值」没有直接贡献，它需要被赋予更多功能性价值（如「奇妙分心」机制）来保证其存在。Gen 9 朱/紫部分恢复了「伙伴互动」（通过 Picnic 系统），但仍然是 Gen 7 体验的简化版本。",
         "data_confidence": "community",
         "ban_type": "content_removal",
+        "related_principles": [
+          8,
+          5
+        ],
+        "related_checklist": [
+          "A.5.1",
+          "A.7.1"
+        ],
         "chain_related": [
           "Pokémon Refresh（宝可清爽乐）登场：超越喂食机的情感系统"
         ],
         "freshness": "low",
-        "last_verified": "2026-04-21"
+        "last_verified": "2026-04-21",
+        "edit_history": [
+          {
+            "date": "2026-04-21",
+            "version": "2.8.0",
+            "action": "P2双向关联系统 - 关联原则/清单标注",
+            "editor": "AI-agent"
+          },
+          {
+            "date": "2026-04-20",
+            "version": "2.5.5",
+            "action": "扩充已删除条目详情",
+            "editor": "AI-agent"
+          }
+        ]
       },
       {
         "year": 2019,
         "gen": "Gen 8",
         "title": "SOS 呼叫在 Gen 8 剑/盾中被移除",
         "detail": "Pokemon 剑/盾移除了 SOS 呼叫机制，改用「极巨化」和「旷野地带」的明雷遇敌系统作为主要野生宝可梦遭遇方式。Gen 8 没有引入任何替代性的连锁系统——野生遭遇回归完全随机的模式，玩家无法通过任何机制主动改变遭遇表或提升特定状态（如隐藏特性）的概率。",
-        "category": "pvp",
+        "category": "enhancement",
         "removed": true,
         "removal_year": 2019,
         "removal_reason": "SOS 呼叫的移除与 Gen 8 的「旷野地带」设计直接相关——旷野地带是一个大规模开放区域，采用明雷遇敌（可以看到野生宝可梦再选择是否对战），而非暗雷遇敌（随机进入战斗）。这种设计下，SOS 呼叫的「战斗内连锁」逻辑不再适用，因为玩家可以主动选择与哪只宝可梦对战，而不需要通过战斗内呼叫来改变遭遇表。",
@@ -1822,12 +2590,33 @@
         "removal_note": "SOS 呼叫与 DexNav 的消失共同揭示了「遭遇系统的世代转型」——从「随机惊喜」向「主动选择」的转变。明雷遇敌给予了玩家更多的控制感和尊重感，但代价是失去了「不可预测性带来的惊喜」。Pokemon GO 的成功（大部分基于明雷遇敌）证明了这一转变在大众市场是受欢迎的。然而，对于追求「不可控随机性」的硬核玩家来说，这一转变是一种「体验降级」。这是一个经典的「设计民主化」困境：让更多玩家满意的设计，往往会让核心玩家感到被剥夺了一部分深度体验。",
         "data_confidence": "community",
         "ban_type": "content_removal",
+        "related_principles": [
+          1,
+          7
+        ],
+        "related_checklist": [
+          "A.5.1"
+        ],
         "chain_related": [
           "SOS 呼叫：Gen 7 的动态连锁系统",
           "DexNav 在 Gen 7 日月中被移除"
         ],
         "freshness": "low",
-        "last_verified": "2026-04-21"
+        "last_verified": "2026-04-21",
+        "edit_history": [
+          {
+            "date": "2026-04-21",
+            "version": "2.8.0",
+            "action": "P2双向关联系统 - 关联原则/清单标注",
+            "editor": "AI-agent"
+          },
+          {
+            "date": "2026-04-20",
+            "version": "2.5.5",
+            "action": "扩充已删除条目详情",
+            "editor": "AI-agent"
+          }
+        ]
       },
       {
         "year": 2019,
@@ -1837,6 +2626,8 @@
         "category": "enhancement",
         "removed": false,
         "data_confidence": "inferred_low",
+        "related_principles": [],
+        "related_checklist": [],
         "freshness": "low",
         "last_verified": "2026-04-21"
       },
@@ -1854,11 +2645,33 @@
         "removal_note": "对战设施的消失是 Pokemon「服务化转型」的一个缩影。当游戏从「买断制内容」转向「持续运营服务」时，「有终点的内容」被「无限的服务」所取代。这个转变对核心玩家来说是一种失去——对战塔的「连续对战」提供了一种「Roguelike」式的紧张感，而排名对战的单局之间是断开的。但对于休闲玩家来说，排名对战更加友好——不需要投入大量时间「肝」BP，可以随时开始匹配。这个转变的代价是：Pokemon 的单人内容丰富度降低了，但多人竞技深度增加了。",
         "data_confidence": "community",
         "ban_type": "content_removal",
+        "related_principles": [
+          5,
+          10
+        ],
+        "related_checklist": [
+          "A.5.1",
+          "A.6.2"
+        ],
         "chain_related": [
           "对战塔（Battle Tower）：回合制竞技场的原型"
         ],
         "freshness": "low",
-        "last_verified": "2026-04-21"
+        "last_verified": "2026-04-21",
+        "edit_history": [
+          {
+            "date": "2026-04-21",
+            "version": "2.8.0",
+            "action": "P2双向关联系统 - 关联原则/清单标注",
+            "editor": "AI-agent"
+          },
+          {
+            "date": "2026-04-20",
+            "version": "2.5.5",
+            "action": "扩充已删除条目详情",
+            "editor": "AI-agent"
+          }
+        ]
       },
       {
         "year": 2019,
@@ -1874,12 +2687,35 @@
         "removal_note": "对战塔的消失是「服务化转型」的另一个牺牲品，但它揭示了一个重要的设计权衡：「竞技教学」需要一个「低风险练习场」——玩家可以在对战塔中尝试新策略，失败的成本只是终止连胜（没有实际的积分损失）。排名对战没有这种「安全练习」的空间，所有对局都有 MMR 风险。这对新手玩家的学习曲线是不友好的。Game Freak 在 Gen 9 朱/紫中通过「超级团体战」的练习模式和「太晶化」的预热机制部分解决了这一问题，但仍然没有恢复到对战塔的「零风险练习」体验。",
         "data_confidence": "community",
         "ban_type": "content_removal",
+        "related_principles": [
+          5,
+          7,
+          10
+        ],
+        "related_checklist": [
+          "A.5.1",
+          "A.6.2"
+        ],
         "chain_related": [
           "对战塔（Battle Tower）：回合制竞技场的原型",
           "战斗前沿被移除（黑白版）"
         ],
         "freshness": "low",
-        "last_verified": "2026-04-21"
+        "last_verified": "2026-04-21",
+        "edit_history": [
+          {
+            "date": "2026-04-21",
+            "version": "2.8.0",
+            "action": "P2双向关联系统 - 关联原则/清单标注",
+            "editor": "AI-agent"
+          },
+          {
+            "date": "2026-04-20",
+            "version": "2.5.5",
+            "action": "扩充已删除条目详情",
+            "editor": "AI-agent"
+          }
+        ]
       },
       {
         "year": 2019,
@@ -1889,6 +2725,8 @@
         "category": "foundation",
         "removed": false,
         "data_confidence": "official",
+        "related_principles": [],
+        "related_checklist": [],
         "freshness": "low",
         "last_verified": "2026-04-21"
       },
@@ -1906,8 +2744,18 @@
         "removal_note": "Festival Plaza 的案例与「旋转战斗设施」的案例形成了有趣的对比——后者是「将多个入口合并为一个」，前者也是「将多个入口合并为一个」，但两者的命运相反。关键差异在于「合并的逻辑是否合理」：旋转战斗设施的合并是功能相关的（所有对战模式），所以被保留；Festival Plaza 的合并是人为的（将不相关的功能强行放在一起），所以被拆分。设计「枢纽」时，必须确保枢纽内的功能有内在逻辑关联，否则「枢纽」会变成「迷宫」。",
         "data_confidence": "inferred_mid",
         "ban_type": "content_removal",
+        "related_principles": [],
+        "related_checklist": [],
         "freshness": "low",
-        "last_verified": "2026-04-21"
+        "last_verified": "2026-04-21",
+        "edit_history": [
+          {
+            "date": "2026-04-20",
+            "version": "2.5.5",
+            "action": "扩充已删除条目详情",
+            "editor": "AI-agent"
+          }
+        ]
       },
       {
         "year": 2019,
@@ -1923,8 +2771,18 @@
         "removal_note": "Poke Pelago vs 宝可梦露营的对比是 Pokemon「培育系统」演变的一个缩影：从「效率工具」向「情感体验」的转变。Gen 7 的 Poke Pelago 是一个「外挂式」的培育系统（完全脱离战斗场景）；Gen 8 的宝可梦露营是一个「嵌入式」的培育系统（培育发生在玩家正在游玩的场景中）。后者虽然效率较低，但与玩家的游玩节奏更融合，没有「打开另一个界面」的中断感。这是「沉浸感优先」还是「效率优先」的经典设计权衡，Pokemon 在不同世代给出了不同的答案。",
         "data_confidence": "inferred_mid",
         "ban_type": "content_removal",
+        "related_principles": [],
+        "related_checklist": [],
         "freshness": "low",
-        "last_verified": "2026-04-21"
+        "last_verified": "2026-04-21",
+        "edit_history": [
+          {
+            "date": "2026-04-20",
+            "version": "2.5.5",
+            "action": "扩充已删除条目详情",
+            "editor": "AI-agent"
+          }
+        ]
       },
       {
         "year": 2020,
@@ -1938,6 +2796,8 @@
         "chain_prev": "极巨化与旷野地带",
         "chain_next": "太晶化",
         "chain_related": [],
+        "related_principles": [],
+        "related_checklist": [],
         "freshness": "low",
         "last_verified": "2026-04-21"
       },
@@ -1949,6 +2809,8 @@
         "category": "social",
         "removed": false,
         "data_confidence": "official",
+        "related_principles": [],
+        "related_checklist": [],
         "freshness": "low",
         "last_verified": "2026-04-21"
       },
@@ -1959,6 +2821,8 @@
         "detail": "第二部 DLC「凯之孤岛」（The Isle of Armor）于2021年6月发售；同时 GF 同步宣布异形（Vivillon）等 Gen 6 异色形态可从 Home 转入剑/盾，标志着 Gen 6 以来异形宝可梦的首次全形态大规模回归",
         "category": "pve",
         "data_confidence": "official",
+        "related_principles": [],
+        "related_checklist": [],
         "freshness": "medium",
         "last_verified": "2026-04-21"
       },
@@ -1984,8 +2848,29 @@
           "Wi-Fi 联网对战正式上线",
           "Pokemon Global Link（PGL）作为 NFC 替代品登场"
         ],
+        "related_principles": [
+          7,
+          10
+        ],
+        "related_checklist": [
+          "A.7.2"
+        ],
         "freshness": "medium",
-        "last_verified": "2026-04-21"
+        "last_verified": "2026-04-21",
+        "edit_history": [
+          {
+            "date": "2026-04-21",
+            "version": "2.8.0",
+            "action": "P2双向关联系统 - 关联原则/清单标注",
+            "editor": "AI-agent"
+          },
+          {
+            "date": "2026-04-20",
+            "version": "2.5.5",
+            "action": "扩充已删除条目详情",
+            "editor": "AI-agent"
+          }
+        ]
       },
       {
         "year": 2022,
@@ -2001,8 +2886,18 @@
         "removal_note": "GTS 的设计演进是「信任机制」设计的教科书案例。公开 GTS 的失败不是因为「交换」这个行为本身有问题，而是因为「没有准入门槛」导致恶意行为无法被惩罚。Pokemon 后续通过「朋友交换」（信任网络）和「奇迹交换」（善意假设）解决了这一问题。设计社交系统时，「信任基础」是关键——要么建立身份识别（朋友网络），要么建立善意假设（随机交换），两者都不做的公开平台最终会被恶意行为污染。",
         "data_confidence": "official",
         "ban_type": "content_removal",
+        "related_principles": [],
+        "related_checklist": [],
         "freshness": "medium",
-        "last_verified": "2026-04-21"
+        "last_verified": "2026-04-21",
+        "edit_history": [
+          {
+            "date": "2026-04-20",
+            "version": "2.5.5",
+            "action": "扩充已删除条目详情",
+            "editor": "AI-agent"
+          }
+        ]
       },
       {
         "year": 2022,
@@ -2015,9 +2910,27 @@
         "chain_order": 3,
         "chain_prev": "冠之雪原 DLC + Dynamax Adventures",
         "chain_next": "Pokemon Champions 时代开启",
+        "related_checklist": [
+          "A.2.1",
+          "A.2.2",
+          "A.2.3"
+        ],
         "freshness": "medium",
         "last_verified": "2026-04-21",
-        "chain_category_secondary": "enhancement"
+        "edit_history": [
+          {
+            "date": "2026-04-20",
+            "version": "2.6.0",
+            "action": "P0数据质量筑基 - 置信度标注",
+            "editor": "AI-agent"
+          },
+          {
+            "date": "2026-04-21",
+            "version": "2.8.0",
+            "action": "P2双向关联系统 - 关联原则/清单标注",
+            "editor": "AI-agent"
+          }
+        ]
       },
       {
         "year": 2022,
@@ -2041,15 +2954,38 @@
           "极巨化与旷野地带",
           "太晶化"
         ],
+        "related_principles": [
+          1,
+          5,
+          7
+        ],
+        "related_checklist": [
+          "A.2.1",
+          "A.2.4"
+        ],
         "freshness": "medium",
-        "last_verified": "2026-04-21"
+        "last_verified": "2026-04-21",
+        "edit_history": [
+          {
+            "date": "2026-04-21",
+            "version": "2.8.0",
+            "action": "P2双向关联系统 - 关联原则/清单标注",
+            "editor": "AI-agent"
+          },
+          {
+            "date": "2026-04-20",
+            "version": "2.5.5",
+            "action": "扩充已删除条目详情",
+            "editor": "AI-agent"
+          }
+        ]
       },
       {
         "year": 2022,
         "gen": "Gen 9",
         "title": "招式教学被移除（朱/紫）",
         "detail": "Pokemon 朱/紫完全移除了招式教学（Move Tutor）系统——历代游戏中允许用战斗点数或道具学习特定招式的 NPC 全部消失。取而代之的是 Gen 8 引入的「秘传之叶/冰叶/土叶」直接遗忘/重学系统，以及 Gen 9 的菜单内直接遗忘招式。",
-        "category": "foundation",
+        "category": "meta",
         "removed": true,
         "removal_year": 2022,
         "removal_reason": "Game Freak 在 Gen 8 开始将招式遗忘/重学权限直接下放给玩家，不再需要找 NPC。这简化了流程，但代价是失去了「招式教学」作为稀有奖励的价值感——玩家可以无限制地切换招式，培育的策略深度有所下降。",
@@ -2058,9 +2994,30 @@
         "removal_note": "培育系统简化是大趋势，但简化到什么程度需要权衡。「无限制遗忘」降低了门槛，也降低了「选择」的重量感——因为任何选择都可以轻易撤销。设计提示：培育系统的简化应保留「取舍感」，即使选择可以后悔，后悔的代价也要存在（如消耗资源/有冷却时间）。",
         "data_confidence": "inferred_mid",
         "ban_type": "content_removal",
+        "related_principles": [
+          5,
+          10
+        ],
+        "related_checklist": [
+          "A.5.1"
+        ],
         "chain_related": [],
         "freshness": "medium",
-        "last_verified": "2026-04-21"
+        "last_verified": "2026-04-21",
+        "edit_history": [
+          {
+            "date": "2026-04-21",
+            "version": "2.8.0",
+            "action": "P2双向关联系统 - 关联原则/清单标注",
+            "editor": "AI-agent"
+          },
+          {
+            "date": "2026-04-20",
+            "version": "2.5.5",
+            "action": "扩充已删除条目详情",
+            "editor": "AI-agent"
+          }
+        ]
       },
       {
         "year": 2022,
@@ -2076,8 +3033,18 @@
         "removal_note": "地区形态是「叙事型差异化」的代表——它用环境来创造角色的独特性。当游戏从线性世界转向开放世界时，「叙事型差异化」需要找到新的承载方式（如悖论宝可梦的「时间悖论」设定）。设计开放世界内容时，要提前评估哪些「叙事绑定」的设计会失效。",
         "data_confidence": "inferred_mid",
         "ban_type": "content_removal",
+        "related_principles": [],
+        "related_checklist": [],
         "freshness": "medium",
-        "last_verified": "2026-04-21"
+        "last_verified": "2026-04-21",
+        "edit_history": [
+          {
+            "date": "2026-04-20",
+            "version": "2.5.5",
+            "action": "扩充已删除条目详情",
+            "editor": "AI-agent"
+          }
+        ]
       },
       {
         "year": 2022,
@@ -2087,6 +3054,8 @@
         "category": "enhancement",
         "removed": false,
         "data_confidence": "official",
+        "related_principles": [],
+        "related_checklist": [],
         "freshness": "medium",
         "last_verified": "2026-04-21"
       },
@@ -2098,6 +3067,8 @@
         "category": "foundation",
         "removed": false,
         "data_confidence": "official",
+        "related_principles": [],
+        "related_checklist": [],
         "freshness": "medium",
         "last_verified": "2026-04-21"
       },
@@ -2108,6 +3079,8 @@
         "detail": "朱/紫首部 DLC「碧之假面」（The Teal Mask）于2023年9月发售，引入 Kitakami（鬼落叶）地区和第二个道馆挑战路线；玩家可使用合作模式（2人同屏）共同探索和战斗",
         "category": "foundation",
         "data_confidence": "official",
+        "related_principles": [],
+        "related_checklist": [],
         "freshness": "medium",
         "last_verified": "2026-04-21"
       },
@@ -2118,6 +3091,8 @@
         "detail": "朱/紫第二部 DLC「蓝之圆盘」（The Indigo Disk）于2023年12月发售，引入 Blueberry Academy（新角色）以及第19个属性「Tera」类型；全部战斗强制双打对战，为历代最具竞技性的 DLC 内容",
         "category": "foundation",
         "data_confidence": "official",
+        "related_principles": [],
+        "related_checklist": [],
         "freshness": "medium",
         "last_verified": "2026-04-21"
       },
@@ -2135,12 +3110,35 @@
         "removal_note": "「降低门槛」不等于「移除深度」。战斗设施被移除后，休闲 PvP 玩家失去了「安全的练习环境」——直接进入排名对战面对氪金玩家/刷子，环境极差。设计提示：当你移除一个「硬核」内容时，必须同时确认是否有足够的「入门级」替代品。单纯移除而不补充，会造成「中端用户」的体验真空。",
         "data_confidence": "community",
         "ban_type": "content_removal",
+        "related_principles": [
+          5,
+          7,
+          10
+        ],
+        "related_checklist": [
+          "A.5.1",
+          "A.6.2"
+        ],
         "chain_related": [
           "战斗前沿被移除（黑白版）",
           "对战塔在 Gen 8 剑/盾中彻底消失"
         ],
         "freshness": "medium",
-        "last_verified": "2026-04-21"
+        "last_verified": "2026-04-21",
+        "edit_history": [
+          {
+            "date": "2026-04-21",
+            "version": "2.8.0",
+            "action": "P2双向关联系统 - 关联原则/清单标注",
+            "editor": "AI-agent"
+          },
+          {
+            "date": "2026-04-20",
+            "version": "2.5.5",
+            "action": "扩充已删除条目详情",
+            "editor": "AI-agent"
+          }
+        ]
       },
       {
         "year": 2025,
@@ -2149,8 +3147,18 @@
         "detail": "Pokemon Legends: Z-A 于2025年10月16日发售，引入 Z-A Battle Club——4人自由混战实时对战模式（3分钟/非回合制/Mega Evolution为核心/计分制）；朱/紫最后官方赛季，世锦赛使用Regulation I；Mega Evolution将在Pokemon Champions中正式回归",
         "category": "pvp",
         "data_confidence": "official",
+        "related_principles": [],
+        "related_checklist": [],
         "freshness": "high",
-        "last_verified": "2026-04-21"
+        "last_verified": "2026-04-21",
+        "edit_history": [
+          {
+            "date": "2026-04-21",
+            "version": "2.8.0",
+            "action": "近期事件新鲜度标注",
+            "editor": "AI-agent"
+          }
+        ]
       },
       {
         "year": 2025,
@@ -2167,8 +3175,35 @@
         "chain_related": [
           "Pokemon Global Link（PGL）作为 NFC 替代品登场"
         ],
+        "related_principles": [
+          7,
+          10
+        ],
+        "related_checklist": [
+          "A.7.2"
+        ],
         "freshness": "medium",
-        "last_verified": "2026-04-21"
+        "last_verified": "2026-04-21",
+        "edit_history": [
+          {
+            "date": "2026-04-21",
+            "version": "2.8.0",
+            "action": "近期事件新鲜度标注",
+            "editor": "AI-agent"
+          },
+          {
+            "date": "2026-04-21",
+            "version": "2.8.0",
+            "action": "手动新鲜度等级指定",
+            "editor": "AI-agent"
+          },
+          {
+            "date": "2026-04-21",
+            "version": "2.8.0",
+            "action": "P2双向关联系统 - 关联原则/清单标注",
+            "editor": "AI-agent"
+          }
+        ]
       },
       {
         "year": 2025,
@@ -2184,11 +3219,44 @@
         "removal_note": "Pokemon Bank 的案例是「数字资产持久性」的警示。游戏内的收藏品（宝可梦、道具、存档）对于玩家来说具有情感价值，但这些资产的寿命取决于运营服务的存续。Pokemon HOME 的存在部分缓解了这一问题（因为它是免费的基础层级），但任何依赖服务器存储的内容都有「服务终止」的风险。Game Freak 在 HOME 中引入「免费100只存储空间」的策略，降低了用户对「付费后服务终止」的焦虑——即使 HOME 未来也关闭，基础功能可能永远保留。",
         "data_confidence": "official",
         "ban_type": "content_removal",
+        "related_principles": [
+          7,
+          10
+        ],
+        "related_checklist": [
+          "A.7.2"
+        ],
         "chain_related": [
           "Pokemon 虚拟银行（Pokemon Bank）上线，云端存储时代开启"
         ],
         "freshness": "low",
-        "last_verified": "2026-04-21"
+        "last_verified": "2026-04-21",
+        "edit_history": [
+          {
+            "date": "2026-04-21",
+            "version": "2.8.0",
+            "action": "近期事件新鲜度标注",
+            "editor": "AI-agent"
+          },
+          {
+            "date": "2026-04-21",
+            "version": "2.8.0",
+            "action": "手动新鲜度等级指定",
+            "editor": "AI-agent"
+          },
+          {
+            "date": "2026-04-21",
+            "version": "2.8.0",
+            "action": "P2双向关联系统 - 关联原则/清单标注",
+            "editor": "AI-agent"
+          },
+          {
+            "date": "2026-04-20",
+            "version": "2.5.5",
+            "action": "扩充已删除条目详情",
+            "editor": "AI-agent"
+          }
+        ]
       },
       {
         "year": 2026,
@@ -2198,8 +3266,18 @@
         "category": "enhancement",
         "removed": false,
         "data_confidence": "future",
+        "related_principles": [],
+        "related_checklist": [],
         "freshness": "high",
-        "last_verified": "2026-04-21"
+        "last_verified": "2026-04-21",
+        "edit_history": [
+          {
+            "date": "2026-04-21",
+            "version": "2.8.0",
+            "action": "近期事件新鲜度标注",
+            "editor": "AI-agent"
+          }
+        ]
       },
       {
         "year": 2026,
@@ -2208,9 +3286,19 @@
         "detail": "从 Gen 6 到 Gen 10 的集火机制演化趋势来看，Pokemon 的双打设计在「个人操作空间」和「团队协作价值」之间持续摇摆。Gen 6 的集火是「高决定性」的（集火几乎总是最优解）；Gen 8-9 的调整方向是「增加集火的成本」（需要预判保护、需要考虑掉人机制）；Gen 10 预计将继续这一方向，让「何时集火」成为一个有意义的战术决策而非自动行为。",
         "category": "enhancement",
         "removed": false,
-        "data_confidence": "inferred_mid",
+        "data_confidence": "inferred_low",
+        "related_principles": [],
+        "related_checklist": [],
         "freshness": "high",
-        "last_verified": "2026-04-21"
+        "last_verified": "2026-04-21",
+        "edit_history": [
+          {
+            "date": "2026-04-21",
+            "version": "2.8.0",
+            "action": "近期事件新鲜度标注",
+            "editor": "AI-agent"
+          }
+        ]
       },
       {
         "year": 2026,
@@ -2220,8 +3308,18 @@
         "category": "foundation",
         "removed": false,
         "data_confidence": "future",
+        "related_principles": [],
+        "related_checklist": [],
         "freshness": "high",
-        "last_verified": "2026-04-21"
+        "last_verified": "2026-04-21",
+        "edit_history": [
+          {
+            "date": "2026-04-21",
+            "version": "2.8.0",
+            "action": "近期事件新鲜度标注",
+            "editor": "AI-agent"
+          }
+        ]
       },
       {
         "year": 2026,
@@ -2232,8 +3330,18 @@
         "removed": false,
         "removal_note": "地区形态的案例是「内容膨胀」的经典游戏设计问题。当每个新功能都创造了「历史遗留」时，后续的开发成本会不断累积。阿罗拉形态虽然在 Gen 7 之后短暂「消失」，但最终被证实是一个「值得维护」的设计决策——它的情感价值和设计价值都足够高，足以支撑长期维护成本。这与「华丽大赛」和「跟随系统」等被移除后回归的内容形成了对比：不是所有被移除的内容都值得回归，地区形态回归是因为它的「对战差异化价值」是持续的，而华丽大赛的「表演价值」是递减的。",
         "data_confidence": "inferred_mid",
+        "related_principles": [],
+        "related_checklist": [],
         "freshness": "high",
-        "last_verified": "2026-04-21"
+        "last_verified": "2026-04-21",
+        "edit_history": [
+          {
+            "date": "2026-04-21",
+            "version": "2.8.0",
+            "action": "近期事件新鲜度标注",
+            "editor": "AI-agent"
+          }
+        ]
       },
       {
         "year": 2026,
@@ -2243,8 +3351,18 @@
         "category": "social",
         "removed": false,
         "data_confidence": "official",
+        "related_principles": [],
+        "related_checklist": [],
         "freshness": "high",
-        "last_verified": "2026-04-21"
+        "last_verified": "2026-04-21",
+        "edit_history": [
+          {
+            "date": "2026-04-21",
+            "version": "2.8.0",
+            "action": "近期事件新鲜度标注",
+            "editor": "AI-agent"
+          }
+        ]
       },
       {
         "year": 2026,
@@ -2255,8 +3373,18 @@
         "removed": false,
         "removal_note": "Pokemon GO 联动的案例是「跨平台生态设计」的经典案例。Pokemon 通过 HOME 建立了一个「跨平台中转站」，使得不同平台（手机、掌机、家用机）的玩家可以共享同一个宝可梦池。这个设计的优势是明显的：Pokemon GO 的活跃用户可以为主游戏提供宝可梦来源，增加了 Pokemon 品牌的整体活跃度。但它的挑战同样明显：不同平台的获取难度和成本不同，如何防止「付费平台」对「游戏平台」的竞争优势，是一个需要持续平衡的问题。目前 Pokemon 的解决方案是「限制特定强力宝可梦的传输来源」，但随着 Gen 10 的到来，这一平衡策略的可持续性还有待观察。",
         "data_confidence": "inferred_mid",
+        "related_principles": [],
+        "related_checklist": [],
         "freshness": "high",
-        "last_verified": "2026-04-21"
+        "last_verified": "2026-04-21",
+        "edit_history": [
+          {
+            "date": "2026-04-21",
+            "version": "2.8.0",
+            "action": "近期事件新鲜度标注",
+            "editor": "AI-agent"
+          }
+        ]
       },
       {
         "year": 2026,
@@ -2267,8 +3395,18 @@
         "removed": false,
         "removal_note": "HM 系统的历史是一面镜子，映照出 Pokemon 从「收集-战斗循环」向「伙伴关系叙事」的演进轨迹。HM 的存在曾经强化了「宝可梦是工具」的一面，而它的消失则让 Pokemon 的核心叙事更加纯粹。这个案例提醒我们：游戏系统的设计会影响玩家的情感认知——同一个系统在不同设计哲学下会得出完全不同的评价。",
         "data_confidence": "inferred_mid",
+        "related_principles": [],
+        "related_checklist": [],
         "freshness": "high",
-        "last_verified": "2026-04-21"
+        "last_verified": "2026-04-21",
+        "edit_history": [
+          {
+            "date": "2026-04-21",
+            "version": "2.8.0",
+            "action": "近期事件新鲜度标注",
+            "editor": "AI-agent"
+          }
+        ]
       },
       {
         "year": 2026,
@@ -2279,8 +3417,18 @@
         "removed": false,
         "removal_note": "这 30+ 个被移除的系统共同构成了 Pokemon 的「设计债务」。每一个被移除的系统都代表着一批玩家的情感记忆和投入——培育华丽大赛的技巧、掌握 DexNav 连锁的节奏、与 Pokewalker 的步行日记。Pokemon 的设计策略正在从「不断添加新系统」转向「谨慎选择、长期维护」，Gen 10 的「统一呈现历代形态」和「让 Mega 进化回归」的承诺，都指向同一个方向：Game Freak 正在学习「保留遗产」而非「不断推翻重来」。这是一个从「创造者视角」到「守护者视角」的转变，对于一个拥有 30 年历史、覆盖全球数十亿玩家的 IP 来说，这个转变是必要且及时的。",
         "data_confidence": "inferred_mid",
+        "related_principles": [],
+        "related_checklist": [],
         "freshness": "high",
-        "last_verified": "2026-04-21"
+        "last_verified": "2026-04-21",
+        "edit_history": [
+          {
+            "date": "2026-04-21",
+            "version": "2.8.0",
+            "action": "近期事件新鲜度标注",
+            "editor": "AI-agent"
+          }
+        ]
       },
       {
         "year": 2026,
@@ -2294,50 +3442,112 @@
         "chain_prev": "太晶化",
         "chain_next": null,
         "chain_related": [],
+        "related_principles": [],
+        "related_checklist": [],
         "freshness": "high",
-        "last_verified": "2026-04-21"
+        "last_verified": "2026-04-21",
+        "edit_history": [
+          {
+            "date": "2026-04-21",
+            "version": "2.8.0",
+            "action": "近期事件新鲜度标注",
+            "editor": "AI-agent"
+          },
+          {
+            "date": "2026-04-21",
+            "version": "2.8.0",
+            "action": "手动新鲜度等级指定",
+            "editor": "AI-agent"
+          },
+          {
+            "date": "2026-04-20",
+            "version": "2.6.0",
+            "action": "P0数据质量筑基 - 置信度标注",
+            "editor": "AI-agent"
+          }
+        ]
       }
     ],
     "palworld": [
       {
         "year": 2024,
+        "version": "v0.1",
         "title": "首发：生存建造 + 核心捕捉循环",
         "detail": "2024年1月；多人服务器首发；无任何 PvP 机制；专注于 Pals 捕捉与基地建造——'先 PvE 后 PvP'的保守策略显著降低了口碑风险",
         "category": "foundation",
-        "data_confidence": "official",
+        "data_confidence": "inferred_mid",
+        "related_principles": [],
+        "related_checklist": [],
         "freshness": "high",
         "last_verified": "2026-04-21",
-        "gen": "Palworld v0.1"
+        "edit_history": [
+          {
+            "date": "2026-04-21",
+            "version": "2.8.0",
+            "action": "近期事件新鲜度标注",
+            "editor": "AI-agent"
+          }
+        ]
       },
       {
         "year": 2024,
+        "version": "v0.2",
         "title": "首个 Raid Boss：Bellanoir",
         "detail": "2024年4月；Summoning Altar 召唤祭坛上线；raid difficulty 机制；首个合作 PvE 团体战内容",
         "category": "pve",
-        "data_confidence": "official",
+        "data_confidence": "inferred_mid",
+        "related_principles": [],
+        "related_checklist": [],
         "freshness": "high",
         "last_verified": "2026-04-21",
-        "gen": "Palworld v0.2"
+        "edit_history": [
+          {
+            "date": "2026-04-21",
+            "version": "2.8.0",
+            "action": "近期事件新鲜度标注",
+            "editor": "AI-agent"
+          }
+        ]
       },
       {
         "year": 2024,
+        "version": "v0.3.1",
         "title": "Sakurajima 岛 + PvP Arena",
         "detail": "2024年6月；新岛 Sakurajima 上线；Arena 竞技场首次出现（多人 PvP）；Oil Rig 攻城战；Blazamut Ryu Raid",
         "category": "pvp",
-        "data_confidence": "official",
+        "data_confidence": "inferred_mid",
+        "related_principles": [],
+        "related_checklist": [],
         "freshness": "high",
         "last_verified": "2026-04-21",
-        "gen": "Palworld v0.3.1"
+        "edit_history": [
+          {
+            "date": "2026-04-21",
+            "version": "2.8.0",
+            "action": "近期事件新鲜度标注",
+            "editor": "AI-agent"
+          }
+        ]
       },
       {
         "year": 2024,
+        "version": "v0.4",
         "title": "Feybreak 大型更新",
         "detail": "2024年12月；新岛 Feybreak；Expedition 远征系统；Research Lab 研究系统；Predator Pals；世界事件强制合作内容",
         "category": "pve",
-        "data_confidence": "official",
+        "data_confidence": "inferred_mid",
+        "related_principles": [],
+        "related_checklist": [],
         "freshness": "high",
         "last_verified": "2026-04-21",
-        "gen": "Palworld v0.4"
+        "edit_history": [
+          {
+            "date": "2026-04-21",
+            "version": "2.8.0",
+            "action": "近期事件新鲜度标注",
+            "editor": "AI-agent"
+          }
+        ]
       },
       {
         "year": 2024,
@@ -2349,8 +3559,24 @@
         "data_confidence": "inferred_mid",
         "chain_category": "palworld_foundation",
         "chain_order": 1,
+        "related_principles": [],
+        "related_checklist": [],
         "freshness": "high",
-        "last_verified": "2026-04-21"
+        "last_verified": "2026-04-21",
+        "edit_history": [
+          {
+            "date": "2026-04-21",
+            "version": "2.8.0",
+            "action": "近期事件新鲜度标注",
+            "editor": "AI-agent"
+          },
+          {
+            "date": "2026-04-21",
+            "version": "2.7.0",
+            "action": "P1 Palworld时间轴扩充",
+            "editor": "AI-agent"
+          }
+        ]
       },
       {
         "year": 2024,
@@ -2359,11 +3585,27 @@
         "detail": "Palworld 的帕鲁捕捉系统与 Pokemon 类似（血量降至50%以下可捕捉），但战斗系统有根本性差异：帕鲁可以由玩家直接操控（类似射击游戏中的载具），也可以设置为自动战斗（类似 Pokemon 的放养）。玩家还可以骑乘飞行帕鲁进行空战，这是 Pokemon 历代都未实现的机制。这种「收集 + 直接操控」的双模战斗设计，是 Palworld 区别于 Pokemon 的核心创新。",
         "category": "foundation",
         "removed": false,
-        "data_confidence": "official",
+        "data_confidence": "inferred_mid",
         "chain_category": "palworld_foundation",
         "chain_order": 3,
+        "related_principles": [],
+        "related_checklist": [],
         "freshness": "high",
-        "last_verified": "2026-04-21"
+        "last_verified": "2026-04-21",
+        "edit_history": [
+          {
+            "date": "2026-04-21",
+            "version": "2.8.0",
+            "action": "近期事件新鲜度标注",
+            "editor": "AI-agent"
+          },
+          {
+            "date": "2026-04-21",
+            "version": "2.7.0",
+            "action": "P1 Palworld时间轴扩充",
+            "editor": "AI-agent"
+          }
+        ]
       },
       {
         "year": 2024,
@@ -2372,11 +3614,27 @@
         "detail": "2024年3月，Palworld 宣布 Xbox Series X|S 和 Xbox Game Pass 同步发售，实现了 PC 和主机双平台运营。同月引入 PvP 公会战系统（PVP Guild Battles）——多个公会可以在特定服务器区域进行大规模对抗，这是 Palworld 首次引入有组织的 PvP 竞技内容，允许玩家以公会为单位争夺资源点和领地，标志着 Palworld 从纯 PvE 走向 PvP 混合生态。",
         "category": "pvp",
         "removed": false,
-        "data_confidence": "official",
+        "data_confidence": "inferred_mid",
         "chain_category": "palworld_pvp",
         "chain_order": 1,
+        "related_principles": [],
+        "related_checklist": [],
         "freshness": "high",
-        "last_verified": "2026-04-21"
+        "last_verified": "2026-04-21",
+        "edit_history": [
+          {
+            "date": "2026-04-21",
+            "version": "2.8.0",
+            "action": "近期事件新鲜度标注",
+            "editor": "AI-agent"
+          },
+          {
+            "date": "2026-04-21",
+            "version": "2.7.0",
+            "action": "P1 Palworld时间轴扩充",
+            "editor": "AI-agent"
+          }
+        ]
       },
       {
         "year": 2024,
@@ -2385,11 +3643,27 @@
         "detail": "2024年4月，Palworld v0.2.4.6 更新引入基地帕鲁（Base Pals）自动生产系统——帕鲁可以在玩家基地中自动执行工作（采矿、伐木、种植、发电等），实现了「生物收集 + 自动化生产」的深度整合。这是 Palworld 与 Pokemon 在「收集物参与世界」设计上的最大差异：Pokemon 的宝可梦主要服务于对战，而 Palworld 的帕鲁深度嵌入生存建造循环。",
         "category": "foundation",
         "removed": false,
-        "data_confidence": "official",
+        "data_confidence": "inferred_mid",
         "chain_category": "palworld_foundation",
         "chain_order": 2,
+        "related_principles": [],
+        "related_checklist": [],
         "freshness": "high",
-        "last_verified": "2026-04-21"
+        "last_verified": "2026-04-21",
+        "edit_history": [
+          {
+            "date": "2026-04-21",
+            "version": "2.8.0",
+            "action": "近期事件新鲜度标注",
+            "editor": "AI-agent"
+          },
+          {
+            "date": "2026-04-21",
+            "version": "2.7.0",
+            "action": "P1 Palworld时间轴扩充",
+            "editor": "AI-agent"
+          }
+        ]
       },
       {
         "year": 2024,
@@ -2398,31 +3672,67 @@
         "detail": "2024年5月，Palworld 正式支持自建专用服务器，提供完整的服务器管理工具、MOD 支持（通过 Steam Workshop）和配置文件自定义选项。官方还提供了 Docker 部署方案，降低了社区服务器的部署门槛。这是 Palworld 从「官方服务器为主」转向「社区自建服务器生态」的重要节点，使大规模多人合作和私有 PvP 赛事成为可能。",
         "category": "social",
         "removed": false,
-        "data_confidence": "official",
+        "data_confidence": "inferred_mid",
         "chain_category": "palworld_online",
         "chain_order": 1,
+        "related_principles": [],
+        "related_checklist": [],
         "freshness": "high",
-        "last_verified": "2026-04-21"
+        "last_verified": "2026-04-21",
+        "edit_history": [
+          {
+            "date": "2026-04-21",
+            "version": "2.8.0",
+            "action": "近期事件新鲜度标注",
+            "editor": "AI-agent"
+          },
+          {
+            "date": "2026-04-21",
+            "version": "2.7.0",
+            "action": "P1 Palworld时间轴扩充",
+            "editor": "AI-agent"
+          }
+        ]
       },
       {
         "year": 2025,
+        "version": "v0.5",
         "title": "Crossplay + Global Palbox",
         "detail": "2025年3月；跨平台联机；Global Palbox 跨世界转移；Flea Market 经济系统",
         "category": "foundation",
-        "data_confidence": "official",
+        "data_confidence": "inferred_mid",
+        "related_principles": [],
+        "related_checklist": [],
         "freshness": "high",
         "last_verified": "2026-04-21",
-        "gen": "Palworld v0.5"
+        "edit_history": [
+          {
+            "date": "2026-04-21",
+            "version": "2.8.0",
+            "action": "近期事件新鲜度标注",
+            "editor": "AI-agent"
+          }
+        ]
       },
       {
         "year": 2025,
+        "version": "v0.6.x",
         "title": "Terraria 联动 + 大量 Bug 修复",
         "detail": "2025年6月-11月；Terraria 联动（Moon Lord Raid）；v0.6.0-0.6.9 持续修复 Dungeons / Multiplayer connectivity / Bug；Dimensional storage 上线",
         "category": "pve",
-        "data_confidence": "official",
+        "data_confidence": "inferred_mid",
+        "related_principles": [],
+        "related_checklist": [],
         "freshness": "high",
         "last_verified": "2026-04-21",
-        "gen": "Palworld v0.6.x"
+        "edit_history": [
+          {
+            "date": "2026-04-21",
+            "version": "2.8.0",
+            "action": "近期事件新鲜度标注",
+            "editor": "AI-agent"
+          }
+        ]
       },
       {
         "year": 2025,
@@ -2431,11 +3741,21 @@
         "detail": "2025年，Palworld 正式版（v1.0）发售，标志其从抢先体验毕业。正式版引入新帕鲁（Pal）、新区域、新机制，并全面完善 PvP 系统。据 Pocket Pair 公告，正式版将大幅优化 PvP 平衡和竞技匹配系统，引入赛季制 PvP 竞技内容——这是 Palworld 首次正式拥抱电竞化方向。与 Pokemon 的 VGC 体系相比，Palworld 的 PvP 竞技化起步更晚但迭代更快。",
         "category": "pvp",
         "removed": false,
-        "data_confidence": "official",
+        "data_confidence": "inferred_mid",
         "chain_category": "palworld_pvp",
         "chain_order": 2,
+        "related_principles": [],
+        "related_checklist": [],
         "freshness": "high",
-        "last_verified": "2026-04-21"
+        "last_verified": "2026-04-21",
+        "edit_history": [
+          {
+            "date": "2026-04-21",
+            "version": "2.8.0",
+            "action": "近期事件新鲜度标注",
+            "editor": "AI-agent"
+          }
+        ]
       },
       {
         "year": 2025,
@@ -2444,21 +3764,41 @@
         "detail": "2025年正式版 DLC 引入「竞技场」（Arena）模式——允许玩家组队进行4v4 或更大规模的结构化 PvP 对战，并引入 Ban/Pick 机制的雏形。同期引入「多人 Raid Boss」——需要8-16名玩家协作挑战的高难度内容，类似 Pokemon 的太晶团体战但规模更大（支持16人）。DLC 还首次引入「赛季通行证」货币化机制。",
         "category": "pve",
         "removed": false,
-        "data_confidence": "official",
+        "data_confidence": "inferred_mid",
         "chain_category": "palworld_pvp",
         "chain_order": 3,
+        "related_principles": [],
+        "related_checklist": [],
         "freshness": "high",
-        "last_verified": "2026-04-21"
+        "last_verified": "2026-04-21",
+        "edit_history": [
+          {
+            "date": "2026-04-21",
+            "version": "2.8.0",
+            "action": "近期事件新鲜度标注",
+            "editor": "AI-agent"
+          }
+        ]
       },
       {
         "year": 2026,
+        "version": "v0.7.0-0.7.3",
         "title": "正式 PvP 功能 + 战场分离",
         "detail": "2026年1-4月；v0.7.0 Experimental PvP 正式加入（基地入侵/Raid战场分离）；v0.7.1-0.7.3 持续平衡调整和 Bug 修复（最新 v0.7.3 于 2026-04-06）",
         "category": "pvp",
-        "data_confidence": "official",
+        "data_confidence": "inferred_mid",
+        "related_principles": [],
+        "related_checklist": [],
         "freshness": "high",
         "last_verified": "2026-04-21",
-        "gen": "Palworld v0.7.0-0.7.3"
+        "edit_history": [
+          {
+            "date": "2026-04-21",
+            "version": "2.8.0",
+            "action": "近期事件新鲜度标注",
+            "editor": "AI-agent"
+          }
+        ]
       },
       {
         "year": 2026,
@@ -2467,11 +3807,21 @@
         "detail": "2026年，Pocket Pair 开始探索 Palworld 的电竞化路径，在部分第三方赛事（如 PGC，即 Palworld Global Championship）中引入排名系统。与 Pokemon 相比，Palworld 的 PvP 竞技化起步晚了近20年，但受益于 Pokemon 的经验教训，可以更快速地借鉴成熟的 Ban/Pick 机制和赛事运营模式。Palworld 的差异化优势在于：其战斗包含「直接操控」维度，使得操作技术和战术战略同等重要——这与传统 Pokemon 的纯策略对战有本质区别。",
         "category": "pvp",
         "removed": false,
-        "data_confidence": "official",
+        "data_confidence": "inferred_mid",
         "chain_category": "palworld_esports",
         "chain_order": 1,
+        "related_principles": [],
+        "related_checklist": [],
         "freshness": "high",
-        "last_verified": "2026-04-21"
+        "last_verified": "2026-04-21",
+        "edit_history": [
+          {
+            "date": "2026-04-21",
+            "version": "2.8.0",
+            "action": "近期事件新鲜度标注",
+            "editor": "AI-agent"
+          }
+        ]
       }
     ]
   },
