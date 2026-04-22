@@ -4,6 +4,12 @@
 
 ## [Unreleased]
 
+### Changed
+
+- **清理临时文件**：删除 `screenshot.png`、`screenshot-full.png`、`screenshot-before.png` 截图文件以及 `test-page.js` 临时测试脚本
+- **新增 Node.js 依赖**：`package.json` 和 `package-lock.json` 用于 playwright 依赖管理
+- **文档更新**：`README.md`、`docs/index.html`、`docs/report_data.json` 等文件更新
+
 ### Added
 
 - **设计前提与元洞察**：新增报告级别的 `design_premises`（设计前提）和 `meta_insight`（元洞察），明确宝可梦Like游戏的核心特征（P1单位可替代性、P2回合制决策、P3组合为核心乐趣、P4高培育成本），以及"30年试错没有完美解"的核心洞察
