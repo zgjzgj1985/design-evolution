@@ -88,6 +88,22 @@ st.set_page_config(
 # 自定义样式
 st.markdown("""
 <style>
+    /* 侧边栏按钮统一样式 */
+    [data-testid="stSidebar"] button {
+        background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%) !important;
+        border: 1px solid #475569 !important;
+        border-radius: 8px !important;
+        color: #e2e8f0 !important;
+        font-weight: 500 !important;
+        transition: all 0.25s ease !important;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.2) !important;
+    }
+    [data-testid="stSidebar"] button:hover {
+        background: linear-gradient(135deg, #334155 0%, #1e3a5f 100%) !important;
+        border-color: #3b82f6 !important;
+        color: #ffffff !important;
+        box-shadow: 0 4px 16px rgba(59,130,246,0.25) !important;
+    }
     .main-header {
         font-size: 2.5rem;
         font-weight: bold;
@@ -519,7 +535,8 @@ with st.sidebar:
         "「设计演化档案」完整报告 — 10条设计原则 / 47条检查清单 / 历代时间轴",
         unsafe_allow_html=True,
     )
-    if st.button("打开演进报告", use_container_width=True, icon="📊"):
+    
+    if st.button("打开交互式报告", use_container_width=True):
         import webbrowser, pathlib
         _path = pathlib.Path(__file__).parent / "docs" / "index.html"
         webbrowser.open(f"file:///{_path.as_posix()}")
