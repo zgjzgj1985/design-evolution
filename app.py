@@ -11,6 +11,7 @@
 import streamlit as st
 import pandas as pd
 import plotly.express as px
+import plotly.graph_objects as go
 import json
 from datetime import datetime
 from pathlib import Path
@@ -75,7 +76,8 @@ def save_llm_settings(provider, model, base_url, api_key):
     except Exception:
         return False
 
-    # ==================== 页面配置 ====================
+
+# ==================== 页面配置 ====================
 st.set_page_config(
     page_title="游戏设计演进研究工具",
     page_icon="",
@@ -105,10 +107,10 @@ st.markdown("""
         border-radius: 0.5rem;
         border-left: 4px solid #1f77b4;
     }
-    .tag-pvp { background-color: #ff6b6b; color: white; padding: 2px 8px; border-radius: 4px; }
-    .tag-pve { background-color: #4ecdc4; color: white; padding: 2px 8px; border-radius: 4px; }
-    .tag-mechanic { background-color: #45b7d1; color: white; padding: 2px 8px; border-radius: 4px; }
-    .tag-balance { background-color: #96ceb4; color: white; padding: 2px 8px; border-radius: 4px; }
+    .tag-pvp       { background-color: #B87878; color: white; padding: 2px 8px; border-radius: 4px; }
+    .tag-pve       { background-color: #7888B8; color: white; padding: 2px 8px; border-radius: 4px; }
+    .tag-mechanic  { background-color: #B8A078; color: white; padding: 2px 8px; border-radius: 4px; }
+    .tag-balance   { background-color: #78A098; color: white; padding: 2px 8px; border-radius: 4px; }
     .tab4-step-active {
         background: #1f77b4;
         color: white;
@@ -194,6 +196,14 @@ st.markdown("""
         color: #333;
         line-height: 1.6;
     }
+    /* 各类型胶囊颜色（低饱和度，与 color_map 一致） */
+    .pill-pvp   { background: #B87878; color: white; }
+    .pill-pve   { background: #7888B8; color: white; }
+    .pill-强化  { background: #B8A078; color: white; }
+    .pill-奠基  { background: #88A088; color: white; }
+    .pill-社交  { background: #8878B8; color: white; }
+    .pill-meta  { background: #78A098; color: white; }
+    .pill-other { background: #888898; color: white; }
     .data-source-badge {
         background-color: #e3f2fd;
         padding: 0.5rem 1rem;
@@ -209,11 +219,11 @@ st.markdown("""
         font-weight: 500;
         margin-right: 4px;
     }
-    .patch-tag-mechanic { background-color: #45b7d1; color: white; }
-    .patch-tag-other { background-color: #96ceb4; color: white; }
-    .patch-tag-pvp { background-color: #ff6b6b; color: white; }
-    .patch-tag-pve { background-color: #4ecdc4; color: white; }
-    .patch-tag-balance { background-color: #f0ad4e; color: white; }
+    .patch-tag-mechanic { background-color: #B8A078; color: white; }
+    .patch-tag-other    { background-color: #888898; color: white; }
+    .patch-tag-pvp      { background-color: #B87878; color: white; }
+    .patch-tag-pve      { background-color: #7888B8; color: white; }
+    .patch-tag-balance  { background-color: #78A098; color: white; }
     .patch-full-content {
         background-color: #f8f9fa;
         padding: 12px;
@@ -232,7 +242,6 @@ st.markdown("""
         color: #333;
         line-height: 1.6;
     }
-    /* Tab 标签页按钮化样式 */
     [data-testid="stTabList"] {
         gap: 4px;
         background-color: #f0f4f8;
@@ -1145,6 +1154,18 @@ with tab1:
 
 
 # ==================== Tab 2: 机制时间轴 ====================
+def _category_to_type(cat: str) -> str:
+    mapping = {
+        "foundation": "奠基",
+        "pvp": "PvP",
+        "enhancement": "强化",
+        "pve": "PvE",
+        "social": "社交",
+        "meta": "Meta",
+    }
+    return mapping.get(cat, "其他")
+
+
 with tab2:
     st.header("机制时间轴")
     st.markdown("可视化展示历代多人对战机制的演进过程")
@@ -1152,12 +1173,136 @@ with tab2:
     # 统一从 report_data.json 读取时间轴数据（与 docs/index.html 共用同一数据源）
     all_timelines = _load_timeline_data()
 
-    # 游戏选择
-    game_filter = st.multiselect(
-        "选择展示的游戏",
-        options=["Pokemon", "Temtem", "Cassette Beasts", "Palworld"],
-        default=["Pokemon"],
+    # 颜色映射（HSL 色相环均匀分布 + 低饱和度，差异大且专业）
+    color_map = {
+        "PvP":   "#B87878",   # 玫瑰灰，色相 0
+        "PvE":   "#7888B8",   # 灰蓝，色相 225
+        "强化":  "#B8A078",   # 暖灰金，色相 38
+        "奠基":  "#88A088",   # 灰绿，色相 120
+        "社交":  "#8878B8",   # 灰紫，色相 270
+        "Meta":  "#78A098",   # 灰青，色相 165
+        "其他":  "#888898",   # 中性灰，色相 240
+    }
+
+    # ── 类型选择区：Pokemon Showdown 风格彩色胶囊按钮（不再使用 expander）──────────────
+    # 先计算每个类型在当前数据中的数量
+    _type_counts = {}
+    for _game in ["Pokemon", "Temtem", "Cassette Beasts", "Palworld"]:
+        _gk = _game.lower().replace(" ", "_")
+        if _gk not in all_timelines:
+            if _game == "Pokemon" and "pokemon" in all_timelines:
+                _gk = "pokemon"
+            elif _game == "Palworld" and "palworld" in all_timelines:
+                _gk = "palworld"
+        if _gk in all_timelines:
+            for item in all_timelines[_gk]:
+                t = _category_to_type(item.get("category", ""))
+                if not item.get("removed"):
+                    _type_counts[t] = _type_counts.get(t, 0) + 1
+
+    # session state 管理
+    _type_key = f"tab2_types_{selected_game}"
+    _game_filter_key = "tab2_game_filter"
+    _DEFAULT_GAMES = ["Pokemon"]
+    _DEFAULT_TYPES = ["PvP", "PvE"]  # 默认只选中 PvP 和 PvE
+    if _type_key not in st.session_state:
+        st.session_state[_type_key] = _DEFAULT_TYPES
+    if _game_filter_key not in st.session_state:
+        st.session_state[_game_filter_key] = _DEFAULT_GAMES
+
+    _active_types = st.session_state.get(_type_key, _DEFAULT_TYPES)
+    _active_games = st.session_state.get(_game_filter_key, _DEFAULT_GAMES)
+
+    # ── 筛选机制类型区域：7个彩色按钮，点击切换选中状态 ─────────────
+    # 使用数字索引绑定 CSS；选中时填满颜色，未选中时淡化，悬停切换效果
+    _ALL_MECH_TYPES = list(color_map.keys())
+    _css_parts = []
+    for _ci, _tname in enumerate(_ALL_MECH_TYPES):
+        _tcolor = color_map[_tname]
+        _is_act = _tname in _active_types
+        _sel = f".st-key-type-btn-{_ci}"
+        _bg = _tcolor if _is_act else "transparent"
+        _txt = "#fff" if _is_act else _tcolor
+        _brd = _tcolor if _is_act else f"rgba({int(_tcolor[1:3],16)},{int(_tcolor[3:5],16)},{int(_tcolor[5:7],16)},0.35)"
+        _op = "1 !important;" if _is_act else "0.30 !important;"
+        _hover_bg = f"rgba({int(_tcolor[1:3],16)},{int(_tcolor[3:5],16)},{int(_tcolor[5:7],16)},0.85)"
+        _css_parts.append(
+            f"{_sel} {{"
+            f"display:inline-flex !important;"
+            f"align-items:center !important;"
+            f"padding:0 !important;"
+            f"margin:0 !important;"
+            f"border:none !important;"
+            f"box-shadow:none !important;"
+            f"background:transparent !important;"
+            f"width:fit-content !important;"
+            f"flex:unset !important;"
+            f"}}"
+            f"{_sel} button {{"
+            f"background:{_bg} !important;"
+            f"border:1.5px solid {_brd} !important;"
+            f"border-radius:3px !important;"
+            f"padding:2px 10px !important;"
+            f"margin:0 !important;"
+            f"box-shadow:none !important;"
+            f"min-width:unset !important;"
+            f"width:fit-content !important;"
+            f"display:inline-flex !important;"
+            f"white-space:nowrap !important;"
+            f"transition:background 0.12s, color 0.12s, border-color 0.12s !important;"
+            f"color:{_txt} !important;"
+            f"opacity:{_op}"
+            f"flex:unset !important;"
+            f"}}"
+            f"{_sel} button p {{"
+            f"font-size:0.72rem !important;"
+            f"font-weight:500 !important;"
+            f"margin:0 !important;"
+            f"color:inherit !important;"
+            f"white-space:nowrap !important;"
+            f"line-height:1 !important;"
+            f"padding:0 !important;"
+            f"border:none !important;"
+            f"background:transparent !important;"
+            f"box-shadow:none !important;"
+            f"display:inline !important;"
+            f"}}"
+            f"{_sel}:hover button {{"
+            f"background:{_tcolor} !important;"
+            f"color:#fff !important;"
+            f"border-color:{_tcolor} !important;"
+            f"opacity:1 !important;"
+            f"}}"
+            f"{_sel}:hover button p {{"
+            f"color:#fff !important;"
+            f"}}"
+        )
+    _css_parts.append(
+        "div[data-testid='stHorizontalBlock'] { "
+        "display:flex !important; "
+        "flex-wrap:wrap !important; "
+        "gap:0 !important; "
+        "align-items:center !important; "
+        "padding:2px 0 !important;"
+        "}"
     )
+    st.markdown(f"<style>{''.join(_css_parts)}</style>", unsafe_allow_html=True)
+
+    # 7个机制类型按钮，一行排列
+    _btn_cols = st.columns(len(_ALL_MECH_TYPES))
+    for _ci, _tname in enumerate(_ALL_MECH_TYPES):
+        with _btn_cols[_ci]:
+            if st.button(_tname, key=f"type-btn-{_ci}"):
+                if _tname in _active_types:
+                    st.session_state[_type_key] = [t for t in _active_types if t != _tname]
+                else:
+                    st.session_state[_type_key] = _active_types + [_tname]
+                st.rerun()
+
+    # 刷新最终状态
+    _active_types = st.session_state.get(_type_key, list(color_map.keys()))
+    _active_games = st.session_state.get(_game_filter_key, _DEFAULT_GAMES)
+    game_filter = _active_games
 
     # 从统一数据源构建 display_data
     display_data = []
@@ -1187,84 +1332,184 @@ with tab2:
                     "chain_category": item.get("chain_category"),
                 })
 
-    def _category_to_type(cat: str) -> str:
-        mapping = {
-            "foundation": "奠基",
-            "pvp": "PvP",
-            "enhancement": "强化",
-            "pve": "PvE",
-            "social": "社交",
-            "meta": "Meta",
-        }
-        return mapping.get(cat, "其他")
-
     if display_data:
-        # 按年份排序
-        display_data.sort(key=lambda x: (x["year"], x.get("generation", "")))
-        df_timeline = pd.DataFrame(display_data)
-
-        # 颜色映射（与 index.html 一致）
-        color_map = {
-            "PvP": "#ff6b6b",
-            "PvE": "#4ecdc4",
-            "强化": "#45b7d1",
-            "奠基": "#96ceb4",
-            "社交": "#a855f7",
-            "Meta": "#f0ad4e",
-            "其他": "#6b7280",
-        }
-
         # 过滤掉已移除条目用于主图表（已移除条目单独展示）
         active_data = [d for d in display_data if not d.get("removed")]
         removed_data = [d for d in display_data if d.get("removed")]
 
-        if active_data:
-            df_active = pd.DataFrame(active_data)
-            fig = px.scatter(
-                df_active,
-                x="year",
-                y="generation",
-                color="type",
-                size=[10] * len(df_active),
-                hover_name="mechanism",
-                hover_data={"description": True, "year": True, "confidence": True},
-                color_discrete_map=color_map,
-                labels={"type": "类型", "generation": "世代", "confidence": "置信度"},
-            )
+        # ── 甘特图：单一 Plotly 圆点图 + Streamlit 图例表格 ─────────────
+        active_filtered = [d for d in active_data if d.get("type") in _active_types]
 
-            # 添加文字标注（避免重叠）
-            for idx, row in df_active.iterrows():
-                desc = row["description"][:20] + "..." if len(row["description"]) > 20 else row["description"]
-                fig.add_annotation(
-                    x=row["year"],
-                    y=row["generation"],
-                    text=f"{row['mechanism'][:15]}<br><span style='font-size:10px;color:#666'>{desc}</span>",
-                    showarrow=False,
-                    font=dict(size=11),
-                    yanchor="bottom" if idx % 2 == 0 else "top",
-                )
+        if active_filtered:
+            # 按世代+年份排序，每世代内按年份编号
+            active_filtered.sort(key=lambda x: (
+                int(x.get("generation", 0)) if str(x.get("generation", "")).isdigit() else 999,
+                x.get("year", 0)
+            ))
+            _all_gens = sorted(set(
+                int(d["generation"]) for d in active_filtered
+                if str(d["generation"]).isdigit()
+            ))
+            _min_year = min(d["year"] for d in active_filtered if d["year"])
+            _max_year = max(d["year"] for d in active_filtered if d["year"])
 
-            gen_ticks = sorted(set(int(d["generation"]) for d in active_data if str(d["generation"]).isdigit()))
+            # 为每个条目分配 row_index（世代内序号）
+            _row_map = {}  # item -> row_index
+            for gen in _all_gens:
+                _g_items = [d for d in active_filtered if str(d.get("generation", "")) == str(gen)]
+                _g_items.sort(key=lambda x: x.get("year", 0))
+                for _ri, _d in enumerate(_g_items):
+                    _row_map[id(_d)] = _ri
+            _total_rows = max(_row_map.values()) + 1 if _row_map else 0
+
+            # ── Plotly：单一甘特图 ─────────────
+            fig = go.Figure()
+            for d in active_filtered:
+                _gen = int(d["generation"]) if str(d["generation"]).isdigit() else 999
+                _row = _row_map.get(id(d), 0)
+                _color = color_map.get(d.get("type", "其他"), "#6b7280")
+                _year = d["year"]
+                fig.add_trace(go.Scatter(
+                    x=[_year],
+                    y=[_row],
+                    mode="markers",
+                    marker=dict(size=14, color=_color, line=dict(width=2, color="white"), symbol="circle"),
+                    customdata=[[d.get("description", ""), d.get("confidence", ""), d.get("type", ""), d.get("mechanism", "")]],
+                    hovertemplate=(
+                        f"<b>{d.get('mechanism', '')}</b><br>"
+                        f"Gen {d.get('generation', '')} · {_year}<br>"
+                        f"类型: %{{customdata[2]}}<br>"
+                        f"说明: %{{customdata[0]}}<extra></extra>"
+                    ),
+                    name=d.get("mechanism", ""),
+                    showlegend=False,
+                ))
+
+            # 世代分隔虚线 + 世代 y 轴标签
+            _gen_boundaries = {}  # gen -> (top_row, bottom_row)
+            _gen_midpoints = {}   # gen -> midpoint row
+            for gen in _all_gens:
+                _g_items = [d for d in active_filtered if str(d.get("generation", "")) == str(gen)]
+                _g_items.sort(key=lambda x: x.get("year", 0))
+                if not _g_items:
+                    continue
+                _top = _row_map.get(id(_g_items[0]), 0)
+                _bot = _row_map.get(id(_g_items[-1]), 0)
+                _gen_boundaries[gen] = (_top, _bot)
+                _gen_midpoints[gen] = (_top + _bot) / 2
+
+            # 世代分隔线（垂直虚线，精确画在分隔处）
+            for gen in _all_gens:
+                _top, _bot = _gen_boundaries.get(gen, (0, 0))
+                if gen != _all_gens[0]:
+                    _sep_y = _top - 0.5
+                    fig.add_hline(y=_sep_y, line_dash="dot", line_color="#ddd", line_width=1.5)
+
+            # Y 轴世代标签（用 ticktext 模拟）
+            _y_ticks = [_gen_midpoints[g] for g in _all_gens if g in _gen_midpoints]
+            _y_ticktext = [f"Gen {g}" for g in _all_gens if g in _gen_midpoints]
+
             fig.update_layout(
-                title=f"多人对战机制演进时间轴（{len(active_data)} 条）",
-                height=600,
-                xaxis_title="年份",
-                yaxis_title="世代",
-                showlegend=True,
-                legend_title="机制类型",
-                font=dict(size=13),
+                height=max(300, _total_rows * 38 + 30),
+                margin=dict(l=8, r=8, t=8, b=36),
+                plot_bgcolor="white",
+                showlegend=False,
+                font=dict(size=12),
+                xaxis=dict(
+                    range=[_min_year - 1, _max_year + 1],
+                    title="年份",
+                    showgrid=True,
+                    gridcolor="#e8e8e8",
+                    dtick=1,
+                    tickfont=dict(size=11, color="#555"),
+                    zeroline=False,
+                ),
+                yaxis=dict(
+                    range=[_total_rows - 0.5, -0.5],
+                    showticklabels=False,
+                    showgrid=False,
+                    zeroline=False,
+                    fixedrange=True,
+                ),
             )
-            if gen_ticks:
-                fig.update_layout(
-                    yaxis=dict(
-                        tickmode="array",
-                        tickvals=[str(g) for g in gen_ticks],
-                        ticktext=[f"Gen {g}" for g in gen_ticks],
-                    )
+            if _y_ticks:
+                fig.update_yaxes(
+                    tickmode="array",
+                    tickvals=_y_ticks,
+                    ticktext=_y_ticktext,
+                    showticklabels=True,
+                    tickfont=dict(size=11, color="#666"),
                 )
-                fig.update_yaxes(autorange="reversed")
 
             st.plotly_chart(fig, use_container_width=True)
+
+            # ── 机制图例表格（Streamlit HTML 渲染）────────────
+            _conf_label_map = {
+                "official": "官方",
+                "community": "社区",
+                "inferred_high": "推断",
+                "inferred_mid": "推断",
+                "inferred_low": "推断",
+                "future": "未来",
+            }
+            # 构建表格行
+            _rows_html = ""
+            for gen in _all_gens:
+                _g_items = [d for d in active_filtered if str(d.get("generation", "")) == str(gen)]
+                _g_items.sort(key=lambda x: x.get("year", 0))
+                _gen_row_span = len(_g_items)
+                _row_bg = "#f8f9fa" if _all_gens.index(gen) % 2 == 0 else "#ffffff"
+                # 世代单元格（纵向合并）
+                _rows_html += (
+                    f'<tr>'
+                    f'<td rowspan="{_gen_row_span}" style="background:{_row_bg};color:#888;font-size:11px;font-weight:600;padding:4px 8px;border-right:1px solid #eee;vertical-align:middle;text-align:center;width:50px">Gen {gen}</td>'
+                )
+                for _di, d in enumerate(_g_items):
+                    _type_name = d.get("type", "其他")
+                    _type_color = color_map.get(_type_name, "#6b7280")
+                    _mech = d.get("mechanism", "")
+                    _desc = d.get("description", "")[:60]
+                    _conf = _conf_label_map.get(d.get("confidence", ""), d.get("confidence", ""))
+                    _year = d.get("year", "")
+                    if _di > 0:
+                        _rows_html += "<tr>"
+                    _rows_html += (
+                        f'<td style="padding:5px 8px;border-bottom:1px solid #f0f0f0;width:70px;text-align:center">'
+                        f'<span style="background:{_type_color};color:white;padding:1px 6px;border-radius:8px;font-size:10px;font-weight:600;white-space:nowrap">{_type_name}</span>'
+                        f'</td>'
+                        f'<td style="padding:5px 8px;border-bottom:1px solid #f0f0f0">'
+                        f'<div style="font-size:12px;font-weight:600;color:#222">{_mech}</div>'
+                        f'<div style="font-size:11px;color:#888;margin-top:1px">{_desc}{"…" if len(d.get("description","")) > 60 else ""}</div>'
+                        f'</td>'
+                        f'<td style="padding:5px 8px;border-bottom:1px solid #f0f0f0;color:#666;font-size:11px;white-space:nowrap">{_year}</td>'
+                        f'</tr>'
+                    )
+
+            st.markdown(
+                f'<table style="width:100%;border-collapse:collapse;font-size:12px;table-layout:fixed">'
+                f'<thead><tr style="background:#f5f5f5">'
+                f'<th style="padding:6px 8px;text-align:center;color:#888;font-weight:600;width:50px">世代</th>'
+                f'<th style="padding:6px 8px;text-align:center;color:#888;font-weight:600;width:70px">类型</th>'
+                f'<th style="padding:6px 8px;color:#888;font-weight:600">机制名称 / 描述</th>'
+                f'<th style="padding:6px 8px;text-align:center;color:#888;font-weight:600;width:50px">年份</th>'
+                f'</tr></thead>'
+                f'<tbody>{_rows_html}</tbody>'
+                f'</table>',
+                unsafe_allow_html=True
+            )
+
+        # 世代颜色映射（灰调，一致且专业）
+        gen_color_map = {
+            1: "#A0A0A0",  # Gen1
+            2: "#B8A088",  # Gen2
+            3: "#88A0B8",  # Gen3
+            4: "#A8B8A8",  # Gen4
+            5: "#888888",  # Gen5
+            6: "#B88888",  # Gen6
+            7: "#A89888",  # Gen7
+            8: "#88A0A8",  # Gen8
+            9: "#A0A8A0",  # Gen9
+        }
 
         # 已移除机制单独列表展示
         if removed_data:
@@ -1287,6 +1532,14 @@ with tab2:
                     "future": "未来",
                 }.get(item.get("confidence", ""), item.get("confidence", ""))
 
+                # 世代主题色
+                gen_val = item.get("generation", "")
+                try:
+                    gen_num = int(gen_val)
+                except (ValueError, TypeError):
+                    gen_num = 0
+                gen_color = gen_color_map.get(gen_num, "#888888")
+
                 # 演进链信息
                 chain_info = ""
                 if item.get("chain_prev") or item.get("chain_next"):
@@ -1295,7 +1548,7 @@ with tab2:
                     chain_info = f" <span style='color:#0369a1;font-size:12px'>链接: {prev_str} {next_str}</span>"
 
                 st.markdown(
-                    f"- **{item.get('mechanism', '')}**（{item.get('gen_label', '')}，{item.get('year', '')}）"
+                    f'- <span style="color:{gen_color};font-size:0.9rem">{item.get("mechanism", "")}</span>（{item.get("gen_label", "")}，{item.get("year", "")}）'
                     f" <span style='color:{conf_color};font-size:12px'>[{conf_label}]</span>"
                     f"{chain_info}"
                     f" — {item.get('description', '')[:60]}...",
@@ -1382,18 +1635,6 @@ with tab2:
                     st.markdown(_r.get("summary")[:200])
 
     # 防御机制演进对比（仅游戏筛选器选中了 Pokemon 时显示）
-    if "Pokemon" in game_filter:
-        comparison_data = {
-            "特性": ["保护机制", "持续时间", "使用限制", "多人适用"],
-            "守住 (Protect)": ["完全抵挡攻击", "单回合", "可连续使用", "是"],
-            "看我嘛 (Follow Me)": ["吸引对方攻击", "持续至切换", "受威吓影响", "2v2核心"],
-            "极巨防壁": ["极巨化中自动保护", "极巨化期间", "仅极巨化中", "团体战"],
-            "太晶化": ["属性改变+招式", "1回合", "任意宝可梦", "PvP/PvE"],
-        }
-        st.divider()
-        st.subheader("防御/保护机制演进对比")
-        df_defense = pd.DataFrame(comparison_data)
-        st.dataframe(df_defense, width="stretch", hide_index=True)
 
 
 # ==================== Tab 3: 设计意图分析 ====================
