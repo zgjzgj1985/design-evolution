@@ -386,17 +386,44 @@ def fetch_game_data(game: str, generation: int = None, refresh: bool = False) ->
 with st.sidebar:
     st.header("配置")
 
-    # 游戏选择
+    # 预计算各游戏数据量（用于选择器标签）
+    import json as _json
+    from pathlib import Path as _Path
+
+    def _count_game_patches(game_name: str) -> int:
+        """统计游戏在 data/ 目录中的补丁条数"""
+        if game_name == "Pokemon":
+            # Pokemon 数据来自内置 Wiki，不在 data/ 目录
+            return 0
+        _folder = {"Temtem": "temtem", "Palworld": "palworld", "Cassette Beasts": "cassette_beasts"}.get(game_name)
+        if not _folder:
+            return 0
+        _df = _Path(__file__).parent / "data" / _folder / "patches.json"
+        if not _df.exists():
+            return 0
+        try:
+            with open(_df, "r", encoding="utf-8") as _f:
+                _d = _json.load(_f)
+            return len(_d.get("patches", []))
+        except Exception:
+            return 0
+
+    _game_counts = {g: _count_game_patches(g) for g in config.SUPPORTED_GAMES}
+
+    # 游戏选择（显示数据量提示）
+    def _game_label(name: str) -> str:
+        base = config.SUPPORTED_GAMES[name]
+        count = _game_counts.get(name, 0)
+        if count > 0:
+            return f"{base}  ({count}条)"
+        return base
+
     selected_game = st.selectbox(
         "选择游戏",
         options=list(config.SUPPORTED_GAMES.keys()),
-        format_func=lambda x: config.SUPPORTED_GAMES[x],
+        format_func=_game_label,
         index=0,
     )
-
-    # 游戏数据量展示
-    import json as _json
-    from pathlib import Path as _Path
 
     def _get_game_data_count(game_name: str) -> tuple:
         """返回 (总记录数, 多人相关数, 最新日期)"""
