@@ -367,14 +367,20 @@ body {
 .home-start-btn--primary {
   background: var(--accent); color: #fff; border: none;
 }
-.home-start-btn--primary:hover { background: var(--accent-hover); }
-.home-start-arrow { transition: transform var(--tr-fast); }
-.home-start-btn--primary:hover .home-start-arrow { transform: translateX(3px); }
+.home-start-btn--primary:hover {
+  background: var(--accent-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
 .home-start-btn--secondary {
   background: transparent; color: var(--accent);
   border: 1px solid var(--accent);
 }
-.home-start-btn--secondary:hover { background: var(--accent-light); }
+.home-start-btn--secondary:hover {
+  background: var(--accent-light);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
 
 .home-divider {
   display: flex; align-items: center; gap: var(--sp-4);
@@ -2001,7 +2007,6 @@ body {
         <div class="home-quick-start">
           <button class="home-start-btn home-start-btn--primary" onclick="showSection('scenes', true)">
             开始探索
-            <span class="home-start-arrow">→</span>
           </button>
           <button class="home-start-btn home-start-btn--secondary" onclick="showSection('report', true)">
             研究报告

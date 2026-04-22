@@ -66,7 +66,7 @@ class SteamScraper:
         self.game_name = self.APP_IDS[game]["name"]
         self.session = requests.Session()
         self.session.headers.update({"User-Agent": config.USER_AGENT})
-        # 保持代理设置启用（trust_env=True），确保能通过代理访问 Steam API
+        self.session.trust_env = False
 
         # 配置重试策略和超时
         retry_strategy = Retry(

@@ -15,7 +15,7 @@
 - **设计意图分析** — 调用 LLM 深度分析每次改动的设计动机
 - **演进报告** — AI 自动发现主题，生成专题研究报告
 - **语义检索** — 支持按问题搜索历史改动，如"2v2 集火问题是如何解决的"
-- **交互式报告** — [综合研究报告：宝可梦 VGC 多人对战设计演进](docs/index.html) ⭐ — 可交互的 10 条设计原则速查、时间轴、检查清单
+- **交互式报告** — [综合研究报告：宝可梦 VGC 多人对战设计演进](docs/index.html) — 可交互的 10 条设计原则速查、时间轴、检查清单
 
 ## 支持的游戏
 
@@ -53,6 +53,20 @@ pip install -r requirements.txt
 
 支持的 Provider：OpenAI (GPT-4o-mini)、Anthropic (Claude)、OpenRouter
 
+### 配置文件优先级
+
+项目使用两套配置文件，优先级如下：
+
+| 优先级 | 文件 | 用途 | 示例 |
+|--------|------|------|------|
+| **高** | `.llm_settings.json` | 运行时 LLM 配置（UI 侧边栏修改） | base_url、model、api_key |
+| **低** | `.env` | 全局环境变量（手动编辑） | OPENAI_API_KEY、OPENROUTER_BASE_URL |
+
+**说明**：
+- LLM 连接时，程序优先读取 `.llm_settings.json`。如果文件不存在或字段缺失，才回退到 `.env` 中的默认值。
+- 侧边栏「LLM 设置」保存后，内容写入 `.llm_settings.json`，不会修改 `.env`。
+- `.env` 和 `.llm_settings.json` 都会被 `.gitignore` 忽略，不会提交到 Git。
+
 ### 启动应用
 
 ```bash
@@ -66,24 +80,29 @@ streamlit run app.py
 ├── app.py                    # Streamlit Web 主入口
 ├── data_manager.py           # 本地数据管理（核心）
 ├── fetch_all_data.py         # 数据采集脚本（一次性执行）
+├── fetch_vgc_history.py      # VGC 历史数据采集脚本
 ├── requirements.txt          # Python 依赖清单
 ├── .env                      # 环境变量配置
 ├── .llm_settings.json        # LLM 配置
 │
 ├── data/                     # 预采集静态数据
 │   ├── temtem/patches.json   # Temtem 更新日志（100条）
-│   ├── palworld/patches.json # 幻兽帕鲁更新日志（118条，含早期版本）
-│   ├── pokemon/vgc_history.json # Pokemon VGC 历史
-│   └── cassette_beasts/      # 占位（Steam无公告）
+│   ├── palworld/            # 幻兽帕鲁数据
+│   │   ├── patches.json     # Steam News 更新日志（100条）
+│   │   └── patches_early.json # Wiki 补全早期版本（v0.1-v0.6）
+│   ├── pokemon/
+│   │   └── vgc_history.json # Pokemon VGC 历史赛季数据
+│   └── cassette_beasts/
+│       └── patches.json      # 占位（Steam 无公告）
 │
 ├── docs/                     # 研究报告与文档
-│   ├── index.html            # 交互式报告（Web 入口）⭐
-│   ├── report_data.json     # 报告结构化数据
-│   ├── Pokemon_vs_Palworld_多人对战设计对照.md # 跨游戏对照
-│   └── 综合研究报告_审核报告.md # 报告审核意见
+│   ├── index.html            # 交互式报告（Web 入口）
+│   ├── report_data.json      # 报告结构化数据
+│   ├── CODE_REVIEW.md        # 代码审查报告
+│   └── VERSION_CHRONICLES_PAGE.md # 版本编年史页面
 │
 ├── scrapers/                 # 数据采集层
-│   ├── steam_scraper.py      # Steam 爬虫（降级方案）
+│   ├── steam_scraper.py      # Steam 爬虫（本地优先，API降级）
 │   ├── pokemon_wiki.py       # 宝可梦 Wiki + 内置数据
 │   ├── bulbapedia.py         # Bulbapedia + PokeAPI
 │   ├── smogon.py             # Smogon/Pikalytics
@@ -92,14 +111,21 @@ streamlit run app.py
 │
 ├── analyzer/                 # AI 分析层
 │   ├── intent_extractor.py   # 设计意图提取
-│   ├── ai_topic_discoverer.py # 主题发现
+│   ├── ai_topic_discoverer.py # AI 动态主题发现
 │   ├── report_generator.py   # 演进报告生成
-│   ├── research_topics.py    # 研究主题配置
-│   └── prompts.py            # Prompt 模板
+│   ├── research_topics.py    # 研究主题配置（已降级为兼容模块）
+│   └── prompts.py            # Prompt 模板库
 │
 ├── db/                       # 数据持久化层
 │   ├── sqlite_store.py       # 结构化存储
 │   └── vector_store.py       # 向量存储 (ChromaDB)
+│
+├── scripts/                   # 数据优化脚本
+│   ├── p1_data_optimization.py
+│   ├── p2_data_optimization.py
+│   ├── p3_data_optimization.py
+│   ├── audit_fixes_v3.py
+│   └── generate_report_data.py
 │
 └── utils/
     └── config.py              # 全局配置

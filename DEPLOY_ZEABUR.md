@@ -29,19 +29,18 @@ git push -u origin main
 
 | 变量名 | 说明 | 示例值 |
 |--------|------|--------|
-| `OPENAI_API_KEY` | 你的 OpenAI API Key | `sk-...` |
-| `LLM_PROVIDER` | LLM 提供商 | `openai` / `anthropic` / `openrouter` |
-| `LLM_MODEL` | 模型名称 | `gpt-4o-mini` |
-| `OPENROUTER_BASE_URL` | OpenRouter 地址（仅 openrouter 时） | `https://openrouter.ai/api/v1` |
+| `OPENAI_API_KEY` | OpenAI API Key（备用） | `sk-...` |
+| `LLM_MODEL` | 模型名称 | `anthropic/claude-3.5-sonnet` |
+| `OPENROUTER_BASE_URL` | OpenRouter 地址（推荐） | `https://us.novaiapi.com/v1` |
 
 **配置方式**：
 - 点击 **Edit as Raw**
 - 每行一个 `KEY=value` 格式
 - 例如：
   ```
-  OPENAI_API_KEY=sk-你的真实key
-  LLM_PROVIDER=openai
-  LLM_MODEL=gpt-4o-mini
+  OPENAI_API_KEY=sk-your-key-here
+  LLM_MODEL=anthropic/claude-3.5-sonnet
+  OPENROUTER_BASE_URL=https://us.novaiapi.com/v1
   ```
 
 ### 第四步：部署

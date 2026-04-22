@@ -4,9 +4,20 @@
 
 ## [Unreleased]
 
+### Fixed
+
+- **文档系统性审核与修正**：全面审核所有文档，修正过时或错误信息：
+  - `README.md`：更新目录结构（补全 `scripts/` 目录、`fetch_vgc_history.py`、Palworld 早期版本数据 `patches_early.json`），移除不存在的文件引用（`Pokemon_vs_Palworld_多人对战设计对照.md`、`综合研究报告_审核报告.md`），修正数据量描述（Palworld 100条 Steam News + Wiki 补全），移除已删除的 Tab 5「版本对比」功能引用
+  - `PROJECT.md`：更新目录结构与 README 保持一致，修正「Web UI 五大标签页」为「四大标签页」，更新项目版本号至 v3.6.0+
+  - `DEPLOY_ZEABUR.md`：更新环境变量配置示例，与 `utils/config.py` 中的默认值保持一致（`LLM_MODEL` 默认 `anthropic/claude-3.5-sonnet`，`OPENROUTER_BASE_URL` 默认 `https://us.novaiapi.com/v1`）
+  - `docs/CODE_REVIEW.md`：确认 P0-P3 所有问题状态均为已完成（代码审核报告已无待处理项）
+  - `设计审核报告.md`：确认 P0-P2 问题追踪状态，Tab 5 版本对比功能已在 v1.8.2 中移除，文档反映最新状态
+
+- **语言规范扩展（rules）**：明确要求 AI 的思维过程（thinking/reasoning）必须使用中文简体呈现
+
 ### Changed
 
-- **语言规范扩展（rules）**：明确要求 AI 的思维过程（thinking/reasoning）必须使用中文简体呈现，涵盖内部推理步骤、问题拆解、方案对比、错误排查、代码修改解释等所有分析性内容
+- **P3-1 配置文件优先级说明（docs/CODE_REVIEW.md）**：在 `README.md`「配置 LLM」小节后新增「配置文件优先级」段落，明确 `.llm_settings.json`（高，运行时 UI 配置）和 `.env`（低，环境变量默认值）的优先级关系及适用场景说明
 
 ## [3.6.0] - 2026-04-22
 

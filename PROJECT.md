@@ -22,32 +22,51 @@
 ├── app.py                    # Streamlit Web 主入口
 ├── data_manager.py           # 本地数据管理（核心）
 ├── fetch_all_data.py         # 数据采集脚本（一次性执行）
+├── fetch_vgc_history.py      # VGC 历史数据采集脚本
 ├── requirements.txt          # Python 依赖清单
 ├── .env                      # 环境变量配置
 ├── .llm_settings.json        # LLM 配置（用户级配置）
 │
 ├── data/                     # 预采集静态数据
 │   ├── temtem/patches.json   # Temtem 更新日志（100条）
-│   ├── palworld/patches.json # 幻兽帕鲁更新日志（100条）
-│   └── cassette_beasts/      # 占位（Steam无公告）
+│   ├── palworld/            # 幻兽帕鲁数据
+│   │   ├── patches.json     # Steam News 更新日志（100条）
+│   │   └── patches_early.json # Wiki 补全早期版本（v0.1-v0.6）
+│   ├── pokemon/
+│   │   └── vgc_history.json # Pokemon VGC 历史赛季数据
+│   └── cassette_beasts/
+│       └── patches.json      # 占位（Steam 无公告）
+│
+├── docs/                     # 研究报告与文档
+│   ├── index.html            # 交互式报告（Web 入口）
+│   ├── report_data.json      # 报告结构化数据
+│   └── CODE_REVIEW.md        # 代码审查报告
 │
 ├── scrapers/                 # 数据采集层
 │   ├── steam_scraper.py      # Steam 爬虫（本地优先，API降级）
 │   ├── pokemon_wiki.py       # 宝可梦 Wiki + 内置数据
 │   ├── bulbapedia.py         # Bulbapedia + PokeAPI
 │   ├── smogon.py             # Smogon/Pikalytics
+│   ├── palworld_wiki.py      # Palworld Wiki 早期版本补全
 │   └── patch_notes.py        # 更新日志基类
 │
 ├── analyzer/                 # AI 分析层
 │   ├── intent_extractor.py   # 设计意图提取
-│   ├── ai_topic_discoverer.py # 主题发现
+│   ├── ai_topic_discoverer.py # AI 动态主题发现
 │   ├── report_generator.py   # 演进报告生成
-│   ├── research_topics.py    # 研究主题配置
-│   └── prompts.py            # Prompt 模板
+│   ├── research_topics.py    # 研究主题配置（已降级为兼容模块）
+│   └── prompts.py            # Prompt 模板库
 │
 ├── db/                       # 数据持久化层
 │   ├── sqlite_store.py       # 结构化存储
 │   └── vector_store.py       # 向量存储 (ChromaDB)
+│
+├── scripts/                   # 数据优化与审核脚本
+│   ├── p1_data_optimization.py
+│   ├── p2_data_optimization.py
+│   ├── p3_data_optimization.py
+│   ├── audit_fixes_v3.py
+│   └── generate_report_data.py
 │
 └── utils/
     └── config.py              # 全局配置
@@ -73,7 +92,7 @@ fetch_all_data.py（一次性采集，更新 data/ 目录）
 
 ## 核心功能
 
-### Web UI 五大标签页
+### Web UI 四大标签页
 
 | Tab | 名称 | 功能描述 |
 |-----|------|----------|
@@ -81,7 +100,6 @@ fetch_all_data.py（一次性采集，更新 data/ 目录）
 | 2 | 机制时间轴 | Plotly 交互图表，可视化历代机制演进 |
 | 3 | 设计意图分析 | 调用 LLM 分析单条更新的设计意图 |
 | 4 | 演进报告 | **AI 动态发现主题** → 用户选择 → 生成定制化报告 |
-| 5 | 版本对比 | 对比两个游戏/版本的更新内容 |
 
 ### 动态主题发现
 
@@ -174,8 +192,8 @@ streamlit run app.py
 
 ## 项目状态
 
-- **版本**：正式版 (v1.0+)
-- **数据完整性**：Gen 8/Gen 9 宝可梦更新日志已完成
+- **版本**：正式版 (v3.6.0+)
+- **数据完整性**：Gen 8/Gen 9 宝可梦更新日志已完成；VGC 历史数据覆盖 2009-2026 赛季
 - **数据来源**：[Serebii.net](https://serebii.net/) 官方更新日志页面
 
 ---
