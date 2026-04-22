@@ -228,18 +228,7 @@ body {
 }
 
 .nav-arrow {
-  margin-left: auto;
-  font-size: var(--fs-2xs);
-  opacity: 0;
-  transform: translateX(-4px);
-  transition: opacity var(--tr-fast), transform var(--tr-fast);
-  color: var(--action);
-  flex-shrink: 0;
-}
-.nav-item:hover .nav-arrow,
-.nav-item.active .nav-arrow {
-  opacity: 1;
-  transform: translateX(0);
+  display: none;
 }
 
 /* ─── Main ───────────────────────────────────────── */
@@ -433,7 +422,7 @@ body {
 .entry-card.pvp .entry-card-icon { background: rgba(239,68,68,0.08); color: #dc2626; }
 .entry-card.pve .entry-card-icon { background: rgba(16,185,129,0.08); color: #10b981; }
 
-.entry-card-title { font-size: var(--fs-base); font-weight: 700; color: var(--text-primary); }
+.entry-card-title { font-size: var(--fs-sm); font-weight: 400; color: var(--text-primary); }
 .entry-card-sub { font-size: var(--fs-xs); color: var(--text-muted); margin-top: 1px; }
 
 .entry-card-desc {
@@ -488,7 +477,7 @@ body {
   background: var(--accent-light);
 }
 .quick-diagnosis-item-label {
-  font-size: var(--fs-sm); font-weight: 600; color: var(--text-primary);
+  font-size: var(--fs-xs); font-weight: 600; color: var(--text-primary);
 }
 .quick-diagnosis-item-examples {
   font-size: var(--fs-xs); color: var(--text-muted);
@@ -670,7 +659,7 @@ body {
 .principle-card:hover { border-color: var(--cat-primary); box-shadow: 0 2px 8px rgba(31,119,180,0.08); }
 
 .principle-card-header { display: flex; align-items: flex-start; gap: var(--sp-2); margin-bottom: var(--sp-3); flex-wrap: wrap; }
-.principle-name { font-size: var(--fs-base); font-weight: 700; color: var(--text-primary); line-height: 1.5; margin-bottom: var(--sp-3); }
+.principle-name { font-size: var(--fs-base); font-weight: 400; color: var(--text-primary); line-height: 1.5; margin-bottom: var(--sp-3); }
 .principle-summary { font-size: var(--fs-sm); color: var(--text-secondary); line-height: 1.7; }
 .principle-expand-hint {
   font-size: var(--fs-xs); color: var(--action);
@@ -682,6 +671,253 @@ body {
 .principle-card:hover .principle-expand-hint { opacity: 1; transform: translateY(0); }
 
 .grid-pvp-principles { display: flex; flex-direction: column; gap: var(--sp-4); margin-top: var(--sp-3); }
+
+/* ═══════════════════════════════════════════════
+   PRINCIPLES — Scene Entry (决策型入口)
+═══════════════════════════════════════════════ */
+.scene-entry-header {
+  margin-bottom: var(--sp-6);
+}
+.scene-entry-header h3 {
+  font-size: var(--fs-xl); font-weight: 700; color: var(--text-primary);
+  margin-bottom: var(--sp-2);
+}
+.scene-entry-header p {
+  font-size: var(--fs-sm); color: var(--text-secondary);
+}
+
+.scene-grid {
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--sp-4);
+  margin-bottom: var(--sp-6);
+}
+
+.scene-card {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: var(--sp-5);
+  cursor: pointer;
+  transition: all var(--tr-base);
+  position: relative;
+  overflow: hidden;
+}
+.scene-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  transition: opacity var(--tr-fast);
+}
+.scene-card.pvp::before { background: #dc2626; }
+.scene-card.enhancement::before { background: #0f766e; }
+.scene-card.multiplayer::before { background: #6d28d9; }
+.scene-card.meta::before { background: #b45309; }
+
+.scene-card:hover {
+  border-color: var(--border-light);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.scene-card-icon {
+  width: 40px; height: 40px; border-radius: var(--r-md);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px; margin-bottom: var(--sp-3);
+}
+.scene-card-icon.pvp { background: rgba(220,38,38,0.1); }
+.scene-card-icon.enhancement { background: rgba(15,118,110,0.1); }
+.scene-card-icon.multiplayer { background: rgba(109,40,217,0.1); }
+.scene-card-icon.meta { background: rgba(180,83,9,0.1); }
+
+.scene-card-title {
+  font-size: var(--fs-sm) !important; font-weight: 400 !important; color: #B8956A !important;
+  margin-bottom: var(--sp-2);
+}
+.scene-card-desc {
+  font-size: var(--fs-sm); color: var(--text-secondary); line-height: 1.6;
+  margin-bottom: var(--sp-3);
+}
+.scene-card-meta {
+  display: flex; align-items: center; gap: var(--sp-3);
+  margin-bottom: var(--sp-3); flex-wrap: wrap;
+}
+.scene-card-count {
+  font-size: var(--fs-xs); font-weight: 700;
+  padding: 2px 8px; border-radius: var(--r-sm);
+  background: var(--accent-light); color: var(--accent);
+}
+.scene-card-count .n {
+  color: #6366f1;
+  font-weight: 800;
+}
+.scene-card-tags {
+  font-size: var(--fs-xs); color: var(--text-muted);
+}
+.scene-card-principles {
+  display: flex; gap: 6px; flex-wrap: wrap;
+}
+.scene-prin-tag {
+  font-size: var(--fs-2xs); font-weight: 700;
+  padding: 3px 8px; border-radius: var(--r-sm);
+  background: var(--bg-elevated); color: var(--text-secondary);
+  border: 1px solid var(--border);
+  cursor: pointer; transition: all var(--tr-fast);
+}
+.scene-prin-tag:hover {
+  background: var(--accent); color: #fff; border-color: var(--accent);
+}
+
+.scene-entry-footer {
+  padding-top: var(--sp-4); border-top: 1px solid var(--border);
+}
+.scene-switch-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: var(--fs-sm); color: var(--text-secondary);
+  background: none; border: none; cursor: pointer;
+  padding: 6px 12px; border-radius: var(--r-sm);
+  transition: all var(--tr-fast);
+  font-family: inherit;
+}
+.scene-switch-btn:hover { background: var(--bg-elevated); color: var(--text-primary); }
+
+/* 场景聚焦模式：高亮当前场景相关原则 */
+.scene-card.active-scene .scene-prin-tag {
+  background: var(--accent); color: #fff; border-color: var(--accent);
+}
+
+/* ═══════════════════════════════════════════════
+   原则详情 — 新的信息层级样式
+═══════════════════════════════════════════════ */
+.dp-section-label {
+  font-size: var(--fs-2xs); font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.07em; color: var(--text-muted);
+  padding: 6px 12px; background: var(--bg-elevated);
+  border-bottom: 1px solid var(--border);
+}
+
+/* 制作人提示前置样式 */
+.dp-section.producer-first {
+  background: var(--accent-light);
+  border: 2px solid var(--accent);
+  border-radius: var(--r-md);
+  margin-bottom: var(--sp-4);
+}
+.dp-section.producer-first .dp-section-label {
+  background: var(--accent);
+  color: #fff;
+  border-bottom: none;
+}
+.dp-section.producer-first .dp-section-body {
+  position: relative;
+  padding-right: 80px;
+}
+
+/* 核心问题样式 */
+.dp-section.core-question {
+  background: rgba(220,38,38,0.04);
+  border-left: 3px solid #dc2626;
+  margin-bottom: var(--sp-4);
+}
+.dp-section.core-question .dp-section-label {
+  background: transparent;
+  color: #dc2626;
+}
+
+/* 复制按钮 */
+.copy-note-btn {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+  padding: 4px 12px;
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all var(--tr-fast);
+  font-family: inherit;
+}
+.copy-note-btn:hover {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+}
+.copy-note-btn.copied {
+  background: var(--conf-high);
+  color: #fff;
+  border-color: var(--conf-high);
+}
+
+/* 相关检查清单样式 */
+.dp-section.related-checklist {
+  margin-top: var(--sp-6);
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+}
+.dp-section.related-checklist .dp-section-label {
+  background: var(--bg-elevated);
+}
+.dp-section.related-checklist .dp-section-body {
+  padding: 0;
+}
+.related-checklist-body {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+.related-checklist-item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--sp-3);
+  padding: var(--sp-3) var(--sp-4);
+  cursor: pointer;
+  transition: background var(--tr-fast);
+  border-bottom: 1px solid var(--border);
+}
+.related-checklist-item:last-child {
+  border-bottom: none;
+  border-radius: 0 0 var(--r-md) var(--r-md);
+}
+.related-checklist-item:hover {
+  background: var(--bg-elevated);
+}
+.related-checklist-id {
+  font-size: var(--fs-2xs);
+  font-weight: 700;
+  font-family: var(--font-mono);
+  color: var(--text-muted);
+  background: var(--bg-elevated);
+  padding: 2px 6px;
+  border-radius: var(--r-sm);
+  flex-shrink: 0;
+}
+.related-checklist-item.priority-core .related-checklist-id {
+  background: rgba(220,38,38,0.1);
+  color: #dc2626;
+}
+.related-checklist-item.priority-important .related-checklist-id {
+  background: rgba(217,119,6,0.1);
+  color: #d97706;
+}
+.related-checklist-text {
+  font-size: var(--fs-xs);
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+/* 检查清单高亮闪烁动画 */
+@keyframes highlightFlash {
+  0% { background: rgba(30, 41, 59, 0.2); }
+  50% { background: rgba(30, 41, 59, 0.15); }
+  100% { background: transparent; }
+}
+.highlight-flash {
+  animation: highlightFlash 1.5s ease-out;
+}
 
 
 
@@ -752,8 +988,9 @@ body {
   color: var(--text-muted);
   text-transform: uppercase;
   letter-spacing: 0.07em;
-  padding: var(--sp-2) 0 var(--sp-1);
-  margin-top: var(--sp-2);
+  padding: var(--sp-3) 0 var(--sp-1);
+  margin-top: var(--sp-3);
+  border-bottom: 1px solid var(--border);
 }
 .pl-group-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--cat-color, var(--text-muted)); }
 .pl-item {
@@ -765,13 +1002,14 @@ body {
   cursor: pointer;
   transition: background 0.1s;
   border: 1px solid transparent;
+  border-left: 2px solid transparent;
 }
-.pl-item:hover { background: var(--bg-surface); }
-.pl-item.active { background: var(--accent-light); border-color: var(--cat-primary); }
-.pl-item-num { font-size: var(--fs-2xs); font-weight: 700; color: var(--text-muted); font-family: var(--font-mono); min-width: 24px; }
-.pl-item-name { font-size: var(--fs-sm); font-weight: 600; color: var(--text-primary); flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.pl-item-arrow { font-size: var(--fs-2xs); color: var(--action); opacity: 0; transition: opacity 0.1s; flex-shrink: 0; }
-.pl-item:hover .pl-item-arrow, .pl-item.active .pl-item-arrow { opacity: 1; }
+.pl-item:hover { background: var(--bg-surface); border-left-color: var(--cat-color, var(--cat-primary)); }
+.pl-item.active { background: var(--accent-light); border-color: var(--cat-color, var(--cat-primary)); border-left-color: var(--cat-color, var(--cat-primary)); }
+.pl-item-num { font-size: var(--fs-2xs); font-weight: 700; color: var(--cat-color, var(--text-muted)); font-family: var(--font-mono); min-width: 24px; }
+.pl-item-name { font-size: var(--fs-sm); color: var(--text-primary); flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; letter-spacing: 0.01em; }
+.pl-item-arrow { display: none; }
+.pl-item:hover .pl-item-arrow, .pl-item.active .pl-item-arrow { opacity: 0; }
 .pl-detail { flex: 1.2; min-width: 0; max-height: 80vh; overflow-y: auto; padding: var(--sp-6) var(--sp-6); }
 .pl-detail-empty { text-align: center; color: var(--text-muted); font-size: var(--fs-sm); padding: 40px 20px; border: 1px dashed var(--border); border-radius: var(--r-md); }
 .dp-header { }
@@ -782,12 +1020,12 @@ body {
 .dp-conf-high { background: var(--conf-high-bg); color: var(--conf-high); }
 .dp-conf-medium { background: var(--conf-medium-bg); color: var(--conf-medium); }
 .dp-conf-low { background: var(--conf-low-bg); color: var(--conf-low); }
-.dp-title { font-size: var(--fs-xl); font-weight: 800; color: var(--text-primary); margin-top: var(--sp-5); margin-bottom: var(--sp-4); line-height: 1.35; letter-spacing: -0.01em; }
-.dp-summary { font-size: var(--fs-base); color: var(--text-secondary); line-height: 1.75; margin-bottom: var(--sp-6); padding-bottom: var(--sp-6); border-bottom: 1px solid var(--border); }
+.dp-title { font-size: var(--fs-2xl); font-weight: 800; color: var(--text-primary); margin-top: var(--sp-5); margin-bottom: var(--sp-4); line-height: 1.35; letter-spacing: -0.01em; }
+.dp-summary { font-size: var(--fs-xs); color: var(--text-secondary); line-height: 1.75; margin-bottom: var(--sp-6); padding-bottom: var(--sp-6); border-bottom: 1px solid var(--border); }
 .dp-sections { display: flex; flex-direction: column; gap: var(--sp-4); }
 .dp-section { background: var(--bg-surface); border: 1px solid var(--border); border-radius: var(--r-md); overflow: hidden; }
-.dp-section-label { font-size: var(--fs-2xs); font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: var(--text-muted); padding: 6px 12px; background: var(--bg-elevated); border-bottom: 1px solid var(--border); }
-.dp-section-body { font-size: var(--fs-base); color: var(--text-primary); line-height: 1.7; padding: 12px 16px; }
+.dp-section-label { font-size: var(--fs-2xs); font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-muted); padding: 6px 12px; background: var(--bg-elevated); border-bottom: 1px solid var(--border); }
+.dp-section-body { font-size: var(--fs-xs) !important; color: var(--text-primary); line-height: 1.7; padding: 12px 16px; }
 
 /* ═══════════════════════════════════════════════
    MODAL
@@ -1659,6 +1897,8 @@ body {
 .report-principle-summary { font-size: var(--fs-sm); color: var(--text-secondary); line-height: 1.7; }
 .report-principle-tags { display: flex; flex-wrap: wrap; gap: var(--sp-2); margin-top: var(--sp-4); }
 .report-principle-tag { font-size: var(--fs-2xs); font-weight: 600; padding: 2px 8px; border-radius: var(--r-sm); background: rgba(71,85,105,0.08); color: #475569; }
+.report-principle-tag .n-principle { color: #6366f1; font-weight: 700; }
+.report-principle-tag .n-checklist { color: #0891b2; font-weight: 700; }
 
 .report-scenario-item { background: var(--bg-surface); border: 1px solid var(--border); border-radius: var(--r-lg); padding: var(--sp-5); margin-bottom: var(--sp-4); cursor: pointer; transition: all var(--tr-fast); }
 .report-scenario-item:hover { border-color: var(--accent); }
@@ -1809,7 +2049,7 @@ body {
   letter-spacing: 0.06em; color: var(--text-muted); margin-bottom: var(--sp-2);
 }
 .principle-popup-section-body {
-  font-size: var(--fs-sm); color: var(--text-secondary); line-height: 1.7;
+  font-size: var(--fs-xs); color: var(--text-secondary); line-height: 1.7;
 }
 .principle-popup-section-body strong {
   color: var(--text-primary);
@@ -1827,6 +2067,10 @@ body {
   display: flex;
   flex-direction: column;
   gap: 12px;
+}
+.popup-decision-tree strong {
+  font-weight: normal;
+  color: var(--text-primary);
 }
 .popup-dt-core {
   background: rgba(220, 38, 38, 0.06);
@@ -1863,7 +2107,11 @@ body {
   padding: 8px 12px;
   background: var(--bg-elevated);
   border-radius: var(--r-sm);
-  font-size: var(--fs-xs);
+  border-left: 3px solid var(--cat-color, var(--cat-primary));
+}
+.popup-evolution-item strong {
+  font-weight: normal;
+  color: var(--cat-color, var(--cat-primary));
 }
 .popup-evolution-insight {
   margin-top: 8px;
@@ -1871,8 +2119,22 @@ body {
   background: rgba(16, 185, 129, 0.08);
   border-radius: var(--r-sm);
   border-left: 3px solid #10b981;
-  font-size: var(--fs-xs);
   color: var(--text-primary);
+}
+.popup-layer-breakdown {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.popup-layer-item {
+  padding: 8px 12px;
+  background: var(--bg-elevated);
+  border-radius: var(--r-sm);
+  border-left: 3px solid var(--cat-color, var(--cat-primary));
+}
+.popup-layer-item strong {
+  font-weight: normal;
+  color: var(--cat-color, var(--cat-primary));
 }
 .principle-popup-footer {
   padding: var(--sp-4) var(--sp-6);
@@ -2474,16 +2736,89 @@ body {
           <div class="scenario-header-title">10 条设计原则</div>
           <div class="scenario-header-desc">来自 Pokemon 29 年演进历史验证的核心设计准则。每条包含决策逻辑、历史案例、应用场景、边界条件和制作人提示。</div>
         </div>
-        <div class="pl-body">
-          <!-- 原则分组列表（左侧） -->
-          <div class="pl-sidebar">
-            <div class="pl-cat-tabs" id="plCatNav"></div>
-            <div class="pl-count" id="plCount"></div>
-            <div class="pl-list" id="plList"></div>
+
+        <!-- 场景入口视图（决策型入口） -->
+        <div id="principleSceneEntry">
+          <div class="scene-entry-header">
+            <h3>你在设计什么？</h3>
+            <p>选择你的设计问题，快速找到相关的设计原则</p>
           </div>
-          <!-- 原则详情（右侧） -->
-          <div class="pl-detail" id="plDetailPane">
-            <div class="pl-detail-empty">点击左侧原则名称查看详情</div>
+          <div class="scene-grid">
+            <div class="scene-card" onclick="showScenePrinciples('pvp')">
+              <div class="scene-card-title">平衡性设计</div>
+              <div class="scene-card-desc">如何设计"集火-保护-反制"机制，让对战双方都有决策空间</div>
+              <div class="scene-card-meta">
+                <span class="scene-card-count"><span class="n">3</span> 条原则</span>
+                <span class="scene-card-tags">决策空间 / 三明治平衡 / 组合监管</span>
+              </div>
+              <div class="scene-card-principles">
+                <span class="scene-prin-tag" onclick="event.stopPropagation();plSelectFromScene(1)">P1</span>
+                <span class="scene-prin-tag" onclick="event.stopPropagation();plSelectFromScene(2)">P2</span>
+                <span class="scene-prin-tag" onclick="event.stopPropagation();plSelectFromScene(3)">P3</span>
+              </div>
+            </div>
+
+            <div class="scene-card" onclick="showScenePrinciples('enhancement')">
+              <div class="scene-card-title">强化/爆发机制</div>
+              <div class="scene-card-desc">如何设计 Mega/Z/极巨化/太晶化，让玩家在不同选择间博弈</div>
+              <div class="scene-card-meta">
+                <span class="scene-card-count"><span class="n">3</span> 条原则</span>
+                <span class="scene-card-tags">使用决策 / 窗口期 / 差异化</span>
+              </div>
+              <div class="scene-card-principles">
+                <span class="scene-prin-tag" onclick="event.stopPropagation();plSelectFromScene(4)">P4</span>
+                <span class="scene-prin-tag" onclick="event.stopPropagation();plSelectFromScene(5)">P5</span>
+                <span class="scene-prin-tag" onclick="event.stopPropagation();plSelectFromScene(6)">P6</span>
+              </div>
+            </div>
+
+            <div class="scene-card" onclick="showScenePrinciples('multiplayer')">
+              <div class="scene-card-title">多人协作设计</div>
+              <div class="scene-card-desc">如何让多人玩法区别于单打独斗，让每个玩家的贡献可见</div>
+              <div class="scene-card-meta">
+                <span class="scene-card-count"><span class="n">2</span> 条原则</span>
+                <span class="scene-card-tags">团队性 / 可见性</span>
+              </div>
+              <div class="scene-card-principles">
+                <span class="scene-prin-tag" onclick="event.stopPropagation();plSelectFromScene(7)">P7</span>
+                <span class="scene-prin-tag" onclick="event.stopPropagation();plSelectFromScene(8)">P8</span>
+              </div>
+            </div>
+
+            <div class="scene-card" onclick="showScenePrinciples('meta')">
+              <div class="scene-card-title">Meta 生态管理</div>
+              <div class="scene-card-desc">如何通过 Ban List、赛季规则管理长期竞技环境</div>
+              <div class="scene-card-meta">
+                <span class="scene-card-count"><span class="n">2</span> 条原则</span>
+                <span class="scene-card-tags">可预测性 / 新人门槛</span>
+              </div>
+              <div class="scene-card-principles">
+                <span class="scene-prin-tag" onclick="event.stopPropagation();plSelectFromScene(9)">P9</span>
+                <span class="scene-prin-tag" onclick="event.stopPropagation();plSelectFromScene(10)">P10</span>
+              </div>
+            </div>
+          </div>
+          <div class="scene-entry-footer">
+            <button class="scene-switch-btn" onclick="togglePrincipleView('list')">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg>
+              切换到分类列表视图
+            </button>
+          </div>
+        </div>
+
+        <!-- 原有的分类列表视图（默认隐藏） -->
+        <div id="principleListView" style="display:none;">
+          <div class="pl-body">
+            <!-- 原则分组列表（左侧） -->
+            <div class="pl-sidebar">
+              <div class="pl-cat-tabs" id="plCatNav"></div>
+              <div class="pl-count" id="plCount"></div>
+              <div class="pl-list" id="plList"></div>
+            </div>
+            <!-- 原则详情（右侧） -->
+            <div class="pl-detail" id="plDetailPane">
+              <div class="pl-detail-empty">点击左侧原则名称查看详情</div>
+            </div>
           </div>
         </div>
       </div>
@@ -2994,29 +3329,29 @@ function showPrinciplePopup(id) {
     '</div>';
   }
 
-  // 新顺序：决策逻辑 → 边界条件 → 决策树 → 应用场景 → 反例 → 历史案例 → 制作人提示
+  // 顺序与内嵌详情保持一致：制作人提示 → 核心问题 → 适用边界 → 应用场景 → 反例参考 → 历史案例 → 决策树
   var sectionsHtml = '';
 
+  if (p.producer_note) {
+    sectionsHtml += buildFieldContent('producer_note', p.producer_note, '制作人提示');
+  }
   if (p.decision_logic) {
-    sectionsHtml += buildFieldContent('decision_logic', p.decision_logic, '决策逻辑');
+    sectionsHtml += buildFieldContent('decision_logic', p.decision_logic, '核心问题');
   }
   if (p.boundary_condition) {
-    sectionsHtml += buildFieldContent('boundary_condition', p.boundary_condition, '边界条件');
-  }
-  if (p.decision_tree) {
-    sectionsHtml += buildFieldContent('decision_tree', p.decision_tree, '决策树');
+    sectionsHtml += buildFieldContent('boundary_condition', p.boundary_condition, '适用边界');
   }
   if (p.application) {
-    sectionsHtml += buildFieldContent('application', p.application, '应用指南');
+    sectionsHtml += buildFieldContent('application', p.application, '应用场景');
   }
   if (p.counter_example) {
-    sectionsHtml += buildFieldContent('counter_example', p.counter_example, '反例');
+    sectionsHtml += buildFieldContent('counter_example', p.counter_example, '反例参考');
   }
   if (p.case_study) {
     sectionsHtml += buildFieldContent('case_study', p.case_study, '历史案例');
   }
-  if (p.producer_note) {
-    sectionsHtml += buildFieldContent('producer_note', p.producer_note, '制作人提示');
+  if (p.decision_tree) {
+    sectionsHtml += buildFieldContent('decision_tree', p.decision_tree, '决策树');
   }
 
   // 构建元信息
@@ -3079,6 +3414,14 @@ function showSection(id) {
   window.scrollTo({ top: 0, behavior: 'smooth' });
   document.getElementById('sidebar').classList.remove('open');
   closeSearch();
+
+  // 原则页面特殊处理：默认显示场景入口
+  if (id === 'principles') {
+    var sceneEntry = document.getElementById('principleSceneEntry');
+    var listView = document.getElementById('principleListView');
+    if (sceneEntry) sceneEntry.style.display = 'block';
+    if (listView) listView.style.display = 'none';
+  }
 }
 
 var currentSection = 'home';
@@ -3104,15 +3447,14 @@ function renderPvPSubScenarios() {
     return '<div class="entry-card pvp" style="padding:var(--sp-6);" onclick="navigateToPvpSub(\'' + s.id + '\')">' +
       '<div class="entry-card-header" style="margin-bottom:var(--sp-3);">' +
         '<div>' +
-          '<div class="entry-card-title" style="font-size:var(--fs-lg);">' + s.label + '</div>' +
+          '<div class="entry-card-title" style="font-size:var(--fs-base);">' + s.label + '</div>' +
         '</div>' +
       '</div>' +
       '<div class="entry-card-desc" style="font-size:var(--fs-sm);margin-bottom:var(--sp-3);">' + s.desc + '</div>' +
       '<div style="display:flex;gap:var(--sp-4);">' +
-        '<div style="font-size:var(--fs-xs);color:var(--text-muted);cursor:pointer;" onclick="event.stopPropagation();navigateToPvpSub(\'' + s.id + '\',\'principles\')"><strong style="color:var(--accent);">' + s.principles.length + '</strong> 条原则</div>' +
-        '<div style="font-size:var(--fs-xs);color:var(--text-muted);cursor:pointer;" onclick="event.stopPropagation();navigateToPvpSub(\'' + s.id + '\',\'checklist\')"><strong style="color:var(--accent);">' + s.count + '</strong> 条清单</div>' +
+        '<div style="font-size:var(--fs-xs);color:var(--text-muted);cursor:pointer;" onclick="event.stopPropagation();navigateToPvpSub(\'' + s.id + '\',\'principles\')"><strong style="color:#ea580c;">' + s.principles.length + '</strong> 条原则</div>' +
+        '<div style="font-size:var(--fs-xs);color:var(--text-muted);cursor:pointer;" onclick="event.stopPropagation();navigateToPvpSub(\'' + s.id + '\',\'checklist\')"><strong style="color:#ea580c;">' + s.count + '</strong> 条清单</div>' +
       '</div>' +
-      '<div class="entry-card-arrow">→</div>' +
     '</div>';
   }).join('');
 }
@@ -3201,7 +3543,7 @@ function renderPvESubScenarios() {
   grid.innerHTML = '<div class="entry-card pve" style="padding:var(--sp-6);" onclick="navigateToPveSub(\'' + pveScenario.id + '\')">' +
     '<div class="entry-card-header" style="margin-bottom:var(--sp-3);">' +
       '<div>' +
-        '<div class="entry-card-title" style="font-size:var(--fs-lg);">' + pveScenario.label + '</div>' +
+        '<div class="entry-card-title" style="font-size:var(--fs-base);">' + pveScenario.label + '</div>' +
       '</div>' +
     '</div>' +
     '<div class="entry-card-desc" style="font-size:var(--fs-sm);margin-bottom:var(--sp-3);">' + pveScenario.desc + '</div>' +
@@ -3209,7 +3551,6 @@ function renderPvESubScenarios() {
       '<div style="font-size:var(--fs-xs);color:var(--text-muted);cursor:pointer;" onclick="event.stopPropagation();navigateToPveSub(\'' + pveScenario.id + '\',\'principles\')"><strong style="color:var(--cat-pve);">' + pveScenario.principles.length + '</strong> 条原则</div>' +
       '<div style="font-size:var(--fs-xs);color:var(--text-muted);cursor:pointer;" onclick="event.stopPropagation();navigateToPveSub(\'' + pveScenario.id + '\',\'checklist\')"><strong style="color:var(--cat-pve);">' + pveScenario.count + '</strong> 条清单</div>' +
     '</div>' +
-    '<div class="entry-card-arrow">→</div>' +
   '</div>';
 }
 
@@ -3243,10 +3584,7 @@ function buildPrincipleCardHTML(p) {
     '</div>' +
     '<div class="principle-name">' + p.name + '</div>' +
     '<div class="principle-summary">' + p.summary + '</div>' +
-    '<div class="principle-expand-hint">' +
-      '<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>' +
-      '查看详情' +
-    '</div>' +
+    '<div class="principle-expand-hint">查看详情</div>' +
   '</div>';
 }
 
@@ -3278,7 +3616,7 @@ function buildChecklistItemHTML(item, dimName) {
         return rp ? '<span class="item-principle-tag" onclick="event.stopPropagation();showPrinciplePopup(' + pid + ')">原则' + pid + '</span>' : '';
       }).join('') + '</div>';
   }
-  return '<div class="checklist-item' + (checked ? ' checked' : '') + '" onclick="event.stopPropagation();">' +
+  return '<div class="checklist-item' + (checked ? ' checked' : '') + '" data-item-id="' + item.id + '" onclick="event.stopPropagation();">' +
     '<div class="checkbox" onclick="event.stopPropagation();toggleChecklist(\'' + key.replace(/'/g, "\\'") + '\', this.parentElement)" role="checkbox" aria-checked="' + checked + '" tabindex="0" onkeydown="if(event.key===\'Enter\'){event.stopPropagation();toggleChecklist(\'' + key.replace(/'/g, "\\'") + '\', this.parentElement);}">' + (checked ? '&#10003;' : '') + '</div>' +
     '<div class="item-body">' +
       '<div class="item-meta">' +
@@ -3322,59 +3660,97 @@ function renderPrinciplesList() {
   var principles = reportData.principles;
   if (count) count.textContent = principles.length + ' 条原则';
 
-  var catOrder = ['combat', 'multiplayer', 'meta'];
+  // 使用报告中的分类
+  var catOrder = ['balance', 'enhancement', 'multiplayer', 'meta'];
   var catLabels = {
-    combat: '战斗设计',
-    multiplayer: '多人协作',
-    meta: 'Meta与运营'
+    balance: '平衡性',
+    enhancement: '强化机制',
+    multiplayer: '多人玩法',
+    meta: 'Meta管理'
   };
   var catColors = {
-    combat: 'var(--cat-pvp)',
+    balance: 'var(--cat-pvp)',
+    enhancement: 'var(--cat-enhancement)',
     multiplayer: 'var(--cat-multiplayer)',
     meta: 'var(--cat-meta)'
   };
 
   var cats = {};
   principles.forEach(function(p) {
-    // 使用 layer 字段分组，没有则回退到 category
-    var cat = p.layer || p.category || 'other';
+    var cat = p.category || 'other';
     if (!cats[cat]) cats[cat] = [];
     cats[cat].push(p);
   });
 
-  nav.innerHTML = catOrder.filter(function(c) { return cats[c]; }).map(function(c) {
+  // 按 ID 排序
+  Object.keys(cats).forEach(function(cat) {
+    cats[cat].sort(function(a, b) { return a.id - b.id; });
+  });
+
+  nav.innerHTML = '<button class="pl-cat-tab active" data-cat="all" onclick="plFilterCategory(\'all\', this)" style="--cat-color:var(--text-muted)">全部</button>' +
+    catOrder.filter(function(c) { return cats[c]; }).map(function(c) {
     return '<button class="pl-cat-tab" data-cat="' + c + '" onclick="plFilterCategory(\'' + c + '\', this)" style="--cat-color:' + catColors[c] + '">' +
       '<span class="pl-cat-dot"></span>' +
       catLabels[c] + ' <span class="pl-cat-num">' + cats[c].length + '</span>' +
       '</button>';
   }).join('');
 
-  list.innerHTML = catOrder.filter(function(c) { return cats[c]; }).map(function(c) {
-    return '<div class="pl-group" data-cat="' + c + '" style="--cat-color:' + catColors[c] + '">' +
-      '<div class="pl-group-label">' +
-        '<span class="pl-group-dot"></span>' +
-        catLabels[c] +
-      '</div>' +
-      '<div class="pl-group-items">' +
-        cats[c].map(function(p) {
-          return '<div class="pl-item" data-principle-id="' + p.id + '" data-id="' + p.id + '" data-cat="' + c + '" onclick="plSelect(' + p.id + ', this)">' +
-            '<span class="pl-item-num">P' + p.id + '</span>' +
-            '<span class="pl-item-name">' + p.name + '</span>' +
-            '<span class="pl-item-arrow">&#8594;</span>' +
-          '</div>';
-        }).join('') +
-      '</div>' +
-    '</div>';
-  }).join('');
+  list.innerHTML = '<div class="pl-group" data-cat="all">' +
+    principles.map(function(p) {
+      var cat = p.category || 'other';
+      var color = catColors[cat] || 'var(--text-muted)';
+      return '<div class="pl-item" data-principle-id="' + p.id + '" data-id="' + p.id + '" data-cat="' + cat + '" onclick="plSelect(' + p.id + ', this)" style="--cat-color:' + color + '">' +
+        '<span class="pl-item-num">P' + p.id + '</span>' +
+        '<span class="pl-item-name">' + p.name + '</span>' +
+        '<span class="pl-item-arrow">&#8594;</span>' +
+      '</div>';
+    }).join('') +
+  '</div>';
 
-  if (principles.length > 0) plSelect(principles[0].id, null);
+  // 如果有场景过滤，先应用
+  if (currentSceneFilter && SCENE_CONFIG[currentSceneFilter]) {
+    var scenePrinciples = SCENE_CONFIG[currentSceneFilter];
+    document.querySelectorAll('.pl-item').forEach(function(item) {
+      var id = parseInt(item.dataset.principleId);
+      if (scenePrinciples.indexOf(id) === -1) {
+        item.style.display = 'none';
+      }
+    });
+  }
+
+  // 默认选中第一个
+  if (principles.length > 0 && !selectedPrincipleId) {
+    plSelect(principles[0].id, null);
+  } else if (selectedPrincipleId) {
+    // 如果之前已选中，恢复高亮
+    var prevEl = document.querySelector('.pl-item[data-id="' + selectedPrincipleId + '"]');
+    if (prevEl) plSelect(selectedPrincipleId, prevEl);
+  }
 }
 
 function plFilterCategory(cat, btn) {
+  // 确保在列表视图中
+  var sceneEntry = document.getElementById('principleSceneEntry');
+  var listView = document.getElementById('principleListView');
+  if (sceneEntry) sceneEntry.style.display = 'none';
+  if (listView) listView.style.display = 'block';
+
   document.querySelectorAll('.pl-cat-tab').forEach(function(b) { b.classList.remove('active'); });
   if (btn) btn.classList.add('active');
-  document.querySelectorAll('.pl-group').forEach(function(g) {
-    g.style.display = (cat === 'all' || g.dataset.cat === cat) ? '' : 'none';
+
+  // 新的单一分组结构
+  document.querySelectorAll('.pl-item').forEach(function(item) {
+    if (cat === 'all') {
+      item.style.display = '';
+    } else {
+      item.style.display = item.dataset.cat === cat ? '' : 'none';
+    }
+  });
+
+  // 清除场景过滤
+  currentSceneFilter = null;
+  document.querySelectorAll('.scene-card').forEach(function(card) {
+    card.classList.remove('active-scene');
   });
 }
 
@@ -3383,6 +3759,7 @@ function plSelect(id, el) {
   if (!p) return;
   selectedPrincipleId = id;
 
+  // 更新左侧列表高亮
   document.querySelectorAll('.pl-item').forEach(function(i) { i.classList.remove('active'); });
   var activeEl = el || document.querySelector('.pl-item[data-id="' + id + '"]');
   if (activeEl) {
@@ -3390,10 +3767,22 @@ function plSelect(id, el) {
     activeEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   }
 
+  // 更新场景卡片高亮
+  document.querySelectorAll('.scene-card').forEach(function(card) {
+    card.classList.remove('active-scene');
+  });
+  for (var scene in SCENE_CONFIG) {
+    if (SCENE_CONFIG[scene].indexOf(id) !== -1) {
+      var sceneCard = document.querySelector('.scene-card.' + scene);
+      if (sceneCard) sceneCard.classList.add('active-scene');
+      break;
+    }
+  }
+
   var pane = document.getElementById('plDetailPane');
 
   // 构建字段内容（处理对象格式）
-  function buildDetailField(key, value, label) {
+  function buildDetailField(key, value, label, extraClass) {
     if (!value) return '';
     var content = '';
     if (typeof value === 'object') {
@@ -3424,31 +3813,83 @@ function plSelect(id, el) {
           content += '<div class="popup-evolution-insight">核心洞察：' + value.core_insight + '</div>';
         }
         content += '</div>';
+      } else if (key === 'decision_tree') {
+        // 决策树格式
+        content += '<div class="popup-decision-tree">';
+        if (value.核心检查) {
+          content += '<div class="popup-dt-core"><strong>核心检查：</strong>' + value.核心检查 + '</div>';
+        }
+        if (value.判断标准) {
+          content += '<div class="popup-dt-standards">';
+          content += '<strong>判断标准：</strong><ul>';
+          for (var outcome in value.判断标准) {
+            content += '<li><strong>' + outcome + '：</strong>' + value.判断标准[outcome] + '</li>';
+          }
+          content += '</ul></div>';
+        }
+        if (value.配套检查) {
+          content += '<div class="popup-dt-配套"><strong>配套检查：</strong>' + value.配套检查 + '</div>';
+        }
+        content += '</div>';
       } else {
-        // 其他对象格式直接 JSON.stringify
-        content = JSON.stringify(value, null, 2);
+        // 其他对象格式直接显示
+        content = value;
       }
     } else {
       content = value;
     }
     if (!content) return '';
-    return '<div class="dp-section">' +
+    var cls = extraClass ? ' dp-section ' + extraClass : ' dp-section';
+    return '<div class="' + cls + '">' +
       '<div class="dp-section-label">' + label + '</div>' +
       '<div class="dp-section-body">' + content + '</div>' +
     '</div>';
   }
 
+  // 重新组织字段顺序：制作人提示前置，核心问题紧随
   var fields = [
-    { key: 'decision_logic', label: '决策逻辑' },
-    { key: 'boundary_condition', label: '边界条件' },
-    { key: 'application', label: '应用场景' },
-    { key: 'counter_example', label: '反例' },
-    { key: 'case_study', label: '历史案例' },
-    { key: 'producer_note', label: '制作人提示' }
+    { key: 'producer_note', label: '制作人提示', extraClass: 'producer-first', isCopyable: true },
+    { key: 'decision_logic', label: '核心问题', extraClass: 'core-question' },
+    { key: 'boundary_condition', label: '适用边界', extraClass: '' },
+    { key: 'application', label: '应用场景', extraClass: '' },
+    { key: 'counter_example', label: '反例参考', extraClass: '' },
+    { key: 'case_study', label: '历史案例', extraClass: '' },
+    { key: 'decision_tree', label: '决策树', extraClass: '' }
   ];
   var sections = fields.filter(function(f) { return p[f.key]; }).map(function(f) {
-    return buildDetailField(f.key, p[f.key], f.label);
+    var html = buildDetailField(f.key, p[f.key], f.label, f.extraClass);
+    // 为制作人提示添加复制按钮
+    if (f.isCopyable) {
+      html = html.replace('</div>', '<button class="copy-note-btn" onclick="copyProducerNote(this, \'' + f.key + '\')">复制</button></div>');
+    }
+    return html;
   }).join('');
+
+  // 构建相关检查清单链接
+  var relatedChecklistHtml = '';
+  if (reportData.checklist) {
+    var relatedItems = [];
+    reportData.checklist.forEach(function(dim) {
+      dim.items.forEach(function(item) {
+        if (item.related_principles && item.related_principles.indexOf(p.id) !== -1) {
+          relatedItems.push({ id: item.id, text: item.text, dim: dim.dimension, priority: item.priority });
+        }
+      });
+    });
+    if (relatedItems.length > 0) {
+      var checklistLinks = relatedItems.map(function(item) {
+        var priClass = item.priority === 'core' ? 'priority-core' : item.priority === 'important' ? 'priority-important' : 'priority-general';
+        return '<div class="related-checklist-item ' + priClass + '" onclick="jumpToChecklist(\'' + item.id + '\')">' +
+          '<span class="related-checklist-id">' + item.id + '</span>' +
+          '<span class="related-checklist-text">' + item.text.substring(0, 50) + '...</span>' +
+        '</div>';
+      }).join('');
+      relatedChecklistHtml = '<div class="dp-section related-checklist">' +
+        '<div class="dp-section-label">相关检查清单（' + relatedItems.length + ' 条）</div>' +
+        '<div class="dp-section-body related-checklist-body">' + checklistLinks + '</div>' +
+      '</div>';
+    }
+  }
 
   var tagClass = CAT_TAG[p.category] || 'cat-pvp';
   pane.innerHTML =
@@ -3461,7 +3902,7 @@ function plSelect(id, el) {
       '<h2 class="dp-title">' + p.name + '</h2>' +
       '<p class="dp-summary">' + p.summary + '</p>' +
     '</div>' +
-    '<div class="dp-sections">' + sections + '</div>';
+    '<div class="dp-sections">' + sections + relatedChecklistHtml + '</div>';
 }
 
 
@@ -3470,6 +3911,94 @@ function plSelect(id, el) {
 function openPrincipleModal(id) {
   showSection('principles');
   plSelect(id, null);
+}
+
+// ─── Scene Entry Functions (决策型入口) ─────────────────
+var currentSceneFilter = null; // 当前选中的场景
+
+// 场景配置：每个场景对应哪些原则（与 report_data.json 中的 category 匹配）
+var SCENE_CONFIG = {
+  pvp: [1, 2, 3],        // 平衡性原则 -> PvP战斗设计
+  enhancement: [4, 5, 6], // 强化机制原则 -> 强化/爆发设计
+  multiplayer: [7, 8],   // 多人玩法原则 -> 多人协作设计
+  meta: [9, 10]          // Meta管理原则 -> Meta生态管理
+};
+
+// 从场景入口快速选择原则
+function plSelectFromScene(id) {
+  togglePrincipleView('list');
+  setTimeout(function() {
+    plSelect(id, null);
+  }, 50);
+}
+
+// 显示特定场景的相关原则
+function showScenePrinciples(scene) {
+  currentSceneFilter = scene;
+  togglePrincipleView('list');
+
+  // 高亮当前场景
+  document.querySelectorAll('.scene-card').forEach(function(card) {
+    card.classList.remove('active-scene');
+  });
+  var activeCard = document.querySelector('.scene-card.' + scene);
+  if (activeCard) activeCard.classList.add('active-scene');
+
+  // 选中该场景的第一个原则
+  setTimeout(function() {
+    var principles = SCENE_CONFIG[scene] || [];
+    if (principles.length > 0) {
+      plSelect(principles[0], null);
+    }
+  }, 50);
+}
+
+// 切换视图
+function togglePrincipleView(view) {
+  var sceneEntry = document.getElementById('principleSceneEntry');
+  var listView = document.getElementById('principleListView');
+
+  if (view === 'list') {
+    if (sceneEntry) sceneEntry.style.display = 'none';
+    if (listView) {
+      listView.style.display = 'block';
+      // 确保渲染列表
+      renderPrinciplesList();
+    }
+  } else {
+    if (sceneEntry) sceneEntry.style.display = 'block';
+    if (listView) listView.style.display = 'none';
+  }
+}
+
+// 复制制作人提示
+function copyProducerNote(btn, key) {
+  var p = reportData.principles.find(function(pr) { return pr.id === selectedPrincipleId; });
+  if (!p || !p[key]) return;
+
+  var text = p[key];
+  navigator.clipboard.writeText(text).then(function() {
+      btn.textContent = '已复制';
+      btn.classList.add('copied');
+      setTimeout(function() {
+        btn.textContent = '复制';
+      btn.classList.remove('copied');
+    }, 2000);
+  });
+}
+
+// 跳转到检查清单条目
+function jumpToChecklist(itemId) {
+  showSection('checklist');
+  // 滚动到对应条目
+  setTimeout(function() {
+    var el = document.querySelector('[data-item-id="' + itemId + '"]');
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      el.classList.add('highlight-flash');
+      setTimeout(function() { el.classList.remove('highlight-flash'); }, 1500);
+    }
+  }, 200);
 }
 function closeModal() {
   var modal = document.getElementById('modalOverlay');
@@ -4011,8 +4540,8 @@ function renderReportScenarios() {
       '</div>' +
       '<div class="report-scenario-desc">' + s.description + '</div>' +
       '<div class="report-principle-tags">' +
-        '<span class="report-principle-tag">' + s.principles.length + ' 条原则</span>' +
-        '<span class="report-principle-tag">' + s.checklist_ids.length + ' 条清单</span>' +
+        '<span class="report-principle-tag"><span class="n-principle">' + s.principles.length + '</span> 条原则</span>' +
+        '<span class="report-principle-tag"><span class="n-checklist">' + s.checklist_ids.length + '</span> 条清单</span>' +
       '</div>' +
     '</div>';
   }).join('');
@@ -4092,7 +4621,7 @@ function showScenarioDetail(id) {
       '</div>';
     }).join('');
     var moreCount = scenario.checklist_ids.length - 3;
-    var moreHtml = moreCount > 0 ? '<div class="scenario-check-more" onclick="closeModal(); navigateToScenarioChecklist(\'' + id + '\')">查看全部 <strong>' + scenario.checklist_ids.length + '</strong> 条清单 →</div>' : '';
+    var moreHtml = moreCount > 0 ? '<div class="scenario-check-more" onclick="closeModal(); navigateToScenarioChecklist(\'' + id + '\')">查看全部 <strong style="color:#ea580c;">' + scenario.checklist_ids.length + '</strong> 条清单 →</div>' : '';
     checklistPreviewHtml = '<div class="modal-section modal-section-checklist">' +
       '<div class="modal-section-label">检查清单</div>' +
       '<div class="scenario-check-list">' + previewItems + moreHtml + '</div>' +
@@ -4242,6 +4771,38 @@ document.getElementById('searchInput').addEventListener('input', function() {
       if (idx >= 0 && searchActions[idx]) searchActions[idx]();
     });
   });
+});
+
+// 键盘导航支持（原则列表）
+document.addEventListener('keydown', function(e) {
+  // 仅在原则页面生效
+  var plDetail = document.getElementById('plDetailPane');
+  if (!plDetail || document.getElementById('principleSceneEntry')?.style.display !== 'none') return;
+  if (document.getElementById('searchOverlay')?.classList.contains('open')) return;
+
+  var items = Array.from(document.querySelectorAll('.pl-item:not([style*="display: none"])'));
+
+  if (e.key === 'ArrowDown' || e.key === 'j') {
+    e.preventDefault();
+    var currentIndex = items.findIndex(function(item) { return item.classList.contains('active'); });
+    var nextIndex = currentIndex < items.length - 1 ? currentIndex + 1 : 0;
+    if (items[nextIndex]) {
+      plSelect(parseInt(items[nextIndex].dataset.id), items[nextIndex]);
+    }
+  }
+
+  if (e.key === 'ArrowUp' || e.key === 'k') {
+    e.preventDefault();
+    var currentIndex = items.findIndex(function(item) { return item.classList.contains('active'); });
+    var prevIndex = currentIndex > 0 ? currentIndex - 1 : items.length - 1;
+    if (items[prevIndex]) {
+      plSelect(parseInt(items[prevIndex].dataset.id), items[prevIndex]);
+    }
+  }
+
+  if (e.key === 'Enter' && selectedPrincipleId) {
+    // 可以添加展开详情等功能
+  }
 });
 
 document.addEventListener('DOMContentLoaded', init);
