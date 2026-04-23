@@ -1,0 +1,118 @@
+# 项目上下文 - 设计演化档案
+
+本文件包含项目的基础结构信息，每次会话开始时自动加载，**无需重复探索**。
+
+---
+
+## 核心数据文件
+
+| 文件 | 路径 | 说明 |
+|------|------|------|
+| **报告核心数据** | `docs/report_data.json` | 包含所有结构化数据（timelines、principles、checklist 等），约 25 万字符 |
+| **预采集静态数据** | `data/*/patches.json` | 各游戏预采集的更新日志 |
+| **Web 入口** | `docs/index.html` | 交互式报告前端 |
+| **主入口** | `app.py` | Streamlit Web 应用 |
+
+---
+
+## report_data.json 结构
+
+```json
+{
+  "meta": { ... },           // 项目元信息、设计前提、元洞察
+  "principles": [ ... ],    // 10 条设计原则
+  "timelines": {
+    "pokemon": [ ... ]      // 历代时间轴条目（约 40+ 条）
+  },
+  "checklist": [ ... ]      // 47 条检查清单
+}
+```
+
+### timelines.pokemon 字段定义
+
+```json
+{
+  "year": 1996,                    // 年份
+  "gen": "Gen 1",                 // 世代
+  "title": "Pokemon 红/绿版发售",  // 标题
+  "detail": "...",               // 详细描述
+  "category": "foundation",      // 类型
+  "data_confidence": "official",  // 置信度
+  "related_principles": [],      // 关联原则 ID
+  "related_checklist": [],        // 关联检查清单 ID
+  // 以下为已删除条目特有字段
+  "removed": true,               // 布尔值，true 表示已删除
+  "removal_year": 2011,          // 移除年份
+  "removal_reason": "...",       // 移除原因
+  "removal_cause": "...",         // 深层因果分析
+  "removal_impact": "negative",  // 影响评估
+  "removal_note": "..."          // 设计启示
+}
+```
+
+### timelines.pokemon category 类型
+
+| 值 | 中文含义 |
+|---|---------|
+| `foundation` | 奠基 |
+| `pvp` | PvP 多人对战 |
+| `pve` | PvE 多人合作 |
+| `enhancement` | 强化机制 |
+| `social` | 社交 |
+| `meta` | Meta 管理 |
+
+### 已删除条目（removed: true）
+
+通过 `removed: true` 标记，包含额外的 `removal_*` 字段。
+
+---
+
+## 目录结构速查
+
+```
+设计演化档案/
+├── docs/
+│   ├── report_data.json      # 核心数据（优先读取）
+│   └── index.html            # Web 前端
+├── data/                     # 预采集静态数据
+│   ├── temtem/patches.json
+│   ├── palworld/patches.json
+│   └── pokemon/vgc_history.json
+├── app.py                    # Streamlit 主入口
+├── data_manager.py          # 数据管理层
+├── scrapers/                 # 爬虫层
+├── analyzer/                # AI 分析层
+├── db/                       # 持久化层
+│   ├── sqlite_store.py
+│   └── vector_store.py
+└── scripts/                  # 优化脚本
+```
+
+---
+
+## 常用操作
+
+### 读取 report_data.json
+
+由于文件较大（约 25 万字符），使用 `Read` 时请指定 `limit`：
+
+```python
+Read(path="d:/设计演化档案/docs/report_data.json", limit=200)  # 读取前 200 行
+```
+
+### 搜索特定数据
+
+使用 `Grep` 而非读取整个文件：
+
+```python
+Grep(path="d:/设计演化档案/docs/report_data.json", pattern="removed.*true")
+```
+
+---
+
+## 重要约定
+
+1. **优先读取 report_data.json**：所有结构化数据均存储于此
+2. **大文件分段读取**：设置 `limit` 参数避免超时
+3. **直接搜索而非全读**：使用 `Grep` 搜索特定内容
+4. **data/ 为只读**：预采集数据通常不需要修改
