@@ -591,10 +591,25 @@ body {
 .lesson-item:hover { background: rgba(239,68,68,0.06); border-color: rgba(239,68,68,0.15); }
 .lesson-item.pvp:hover { background: rgba(239,68,68,0.06); }
 .lesson-item.pve:hover { background: rgba(16,185,129,0.06); border-color: rgba(16,185,129,0.15); }
+.lesson-item.lesson-linkable { cursor: pointer; position: relative; }
+.lesson-item.lesson-linkable:hover { background: rgba(30,41,59,0.04); border-color: var(--border-light); box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
+.lesson-arrow-hint {
+  display: none;
+  position: absolute;
+  right: var(--sp-4);
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: var(--fs-2xs);
+  color: var(--action);
+  font-weight: 600;
+  opacity: 0;
+  transition: opacity var(--tr-fast);
+}
+.lesson-item.lesson-linkable:hover .lesson-arrow-hint { display: block; opacity: 1; }
 .lesson-year { font-size: var(--fs-xs); font-weight: 700; font-family: var(--font-mono); flex-shrink: 0; min-width: 40px; }
 .lesson-item.pvp .lesson-year { color: #dc2626; }
 .lesson-item.pve .lesson-year { color: #059669; }
-.lesson-text { font-size: var(--fs-sm); color: var(--text-secondary); line-height: 1.6; }
+.lesson-text { font-size: var(--fs-sm); color: var(--text-secondary); line-height: 1.6; flex: 1; }
 
 /* ─── Section Header ──────────────────────────────── */
 .section-header {
@@ -1235,7 +1250,12 @@ body {
   cursor: pointer;
   transition: all var(--tr-fast);
 }
-.checklist-item:hover { background: var(--bg-elevated); border-color: var(--border-light); }
+.checklist-item:hover { 
+  background: var(--bg-elevated); 
+  border-color: var(--accent); 
+  box-shadow: 0 0 0 2px rgba(249, 115, 22, 0.15);
+  transform: translateX(4px);
+}
 .checklist-item.checked { background: rgba(82,196,26,0.04); border-color: rgba(82,196,26,0.2); }
 .checklist-item.checked .item-text { text-decoration: line-through; color: var(--text-muted); }
 
@@ -1460,6 +1480,17 @@ body {
   opacity: 0; transform: translateY(6px);
   animation: tlFadeIn 0.3s ease forwards;
   animation-delay: calc(var(--i, 0) * 50ms);
+  transition: box-shadow 0.2s ease, background 0.2s ease;
+}
+.timeline-item:hover {
+  background: rgba(30, 41, 59, 0.03);
+  border-radius: var(--r-lg);
+}
+.timeline-item:hover .timeline-card,
+.timeline-item.timeline-item-hover .timeline-card {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px rgba(249, 115, 22, 0.15);
+  transform: translateY(-1px);
 }
 @keyframes tlFadeIn { to { opacity: 1; transform: translateY(0); } }
 
@@ -1500,7 +1531,11 @@ body {
   cursor: pointer;
   transition: all var(--tr-fast);
 }
-.timeline-card:hover { border-color: var(--border-light); }
+.timeline-card:hover {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px rgba(249, 115, 22, 0.15);
+  transform: translateY(-1px);
+}
 .timeline-card-header { display: flex; align-items: center; justify-content: space-between; gap: var(--sp-3); }
 .timeline-card-title { font-size: var(--fs-sm); font-weight: 700; color: var(--text-primary); }
 .toggle-icon { font-size: var(--fs-2xs); color: var(--text-muted); transition: transform var(--tr-fast); flex-shrink: 0; }
@@ -1557,8 +1592,26 @@ body {
   background: var(--bg-surface);
   border-color: var(--border-light);
 }
+.timeline-item.removed .timeline-card:hover,
+.timeline-item.removed.timeline-item-hover .timeline-card {
+  border-color: var(--error);
+  box-shadow: 0 0 0 2px rgba(220, 38, 38, 0.15);
+  transform: translateY(-1px);
+}
 .timeline-item.removed .timeline-card-title {
   color: var(--text-secondary);
+}
+.timeline-item.highlight-flash {
+  animation: timeline-flash 2s ease-out;
+}
+.timeline-item.highlight-flash:hover {
+  background: rgba(249, 115, 22, 0.08) !important;
+  box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.2);
+}
+@keyframes timeline-flash {
+  0% { box-shadow: 0 0 0 0 rgba(249, 115, 22, 0.4); background: rgba(249, 115, 22, 0.15); }
+  30% { box-shadow: 0 0 0 10px rgba(249, 115, 22, 0.2); background: rgba(249, 115, 22, 0.1); }
+  100% { box-shadow: 0 0 0 0 rgba(249, 115, 22, 0); background: transparent; }
 }
 .timeline-removed-tag {
   font-size: var(--fs-2xs); padding: 2px 7px; border-radius: var(--r-sm);
@@ -2505,25 +2558,30 @@ body {
             <div class="lesson-block-label-text">历史教训</div>
           </div>
           <div class="lesson-items">
-            <div class="lesson-item pvp">
+            <div class="lesson-item pvp lesson-linkable" onclick="scrollToTimelineItem('1999')">
               <div class="lesson-year">1999</div>
               <div class="lesson-text">守住机制的三个设计要素：完全抵挡（有效）、一回合限制（反制窗口）、可预判（博弈深度）。防守不是无敌，是有代价的选择。</div>
+              <div class="lesson-arrow-hint">→ 查看时间轴</div>
             </div>
-            <div class="lesson-item pvp">
+            <div class="lesson-item pvp lesson-linkable" onclick="scrollToTimelineItem('2002')">
               <div class="lesson-year">2002</div>
               <div class="lesson-text">「看我嘛」引入嘲讽概念，第一次将「谁来承受伤害」变成了战术决策，而非随机结果。</div>
+              <div class="lesson-arrow-hint">→ 查看时间轴</div>
             </div>
-            <div class="lesson-item pvp">
+            <div class="lesson-item pvp lesson-linkable" onclick="scrollToTimelineItem('2011')">
               <div class="lesson-year">2011</div>
               <div class="lesson-text">VGC 赛季制度建立，第一次将「提前公布规则」作为设计原则。临时改规则引发大量玩家抱怨的教训历历在目。</div>
+              <div class="lesson-arrow-hint">→ 查看时间轴</div>
             </div>
-            <div class="lesson-item pvp">
+            <div class="lesson-item pvp lesson-linkable" onclick="scrollToTimelineItem('2013')">
               <div class="lesson-year">2013</div>
               <div class="lesson-text">超级进化 Gen 6 初代28种/XY+ORAS总计约48种专属强化形态——专属强化（谁能用）vs 通用强化（怎么用）的设计选择，使用率高度集中于头部约5-8种，其余大量成为设计库存。</div>
+              <div class="lesson-arrow-hint">→ 查看时间轴</div>
             </div>
-            <div class="lesson-item pvp">
+            <div class="lesson-item pvp lesson-linkable" onclick="scrollToTimelineItem('2022')">
               <div class="lesson-year">2022</div>
               <div class="lesson-text">太晶化三维度决策（时机/目标/属性切换）成为历代最强，因为差异化在「怎么用」上，所有玩家都能参与。</div>
+              <div class="lesson-arrow-hint">→ 查看时间轴</div>
             </div>
           </div>
         </div>
@@ -2681,21 +2739,25 @@ body {
             <div class="lesson-block-label-text">历史教训</div>
           </div>
           <div class="lesson-items">
-            <div class="lesson-item pve">
+            <div class="lesson-item pve lesson-linkable" onclick="scrollToTimelineItem('2019')">
               <div class="lesson-year">2019</div>
               <div class="lesson-text">极巨团体战引入护盾机制，第一次让「血量」变成了可交互的资源，而不只是倒计时。</div>
+              <div class="lesson-arrow-hint">→ 查看时间轴</div>
             </div>
-            <div class="lesson-item pve">
+            <div class="lesson-item pve lesson-linkable" onclick="scrollToTimelineItem('2022')">
               <div class="lesson-year">2022</div>
               <div class="lesson-text">太晶团体战引入时间轴机制，每位玩家有独立行动窗口，等待时间大幅改善。但贡献归属问题仍未完全解决。</div>
+              <div class="lesson-arrow-hint">→ 查看时间轴</div>
             </div>
-            <div class="lesson-item pve">
+            <div class="lesson-item pve lesson-linkable" onclick="scrollToTimelineItem('2024_pal_separation')">
               <div class="lesson-year">2024</div>
               <div class="lesson-text">Palworld v0.7 战场分离解决了一个核心问题：PvP 入侵不影响 PvE 体验。将不同玩法模式物理分离是关键设计决策。</div>
+              <div class="lesson-arrow-hint">→ 查看时间轴</div>
             </div>
-            <div class="lesson-item pve">
+            <div class="lesson-item pve lesson-linkable" onclick="scrollToTimelineItem('2024_pal_feybreak')">
               <div class="lesson-year">2024</div>
               <div class="lesson-text">Palworld Raid Boss 从单难度到多难度演进，Expedition 远征系统引入自动匹配。组队便利性是多人 PvE 的基础设施。</div>
+              <div class="lesson-arrow-hint">→ 查看时间轴</div>
             </div>
           </div>
         </div>
@@ -3394,6 +3456,77 @@ function saveState() {
 
 var previousSection = 'home';
 
+var LESSON_TO_TITLE = {
+  '1999': '携带道具',
+  '2002': '双打',
+  '2011': 'VGC 赛季制度',
+  '2013': '超级进化',
+  '2019': '极巨化与旷野地带',
+  '2022': '太晶化',
+  '2024_pal_feybreak': 'Feybreak 大型更新',
+  '2024_pal_separation': '正式 PvP 功能 + 战场分离'
+};
+
+var skipScrollToTop = false;
+
+function scrollToTimelineItem(lessonYear, gameType) {
+  skipScrollToTop = true;
+  showSection('timeline');
+  skipScrollToTop = false;
+
+  // 根据年份和类型判断应该显示哪个游戏的时间轴
+  var targetGame = 'pokemon';
+  var searchTitle = null;
+
+  if (lessonYear === '2024_pal_feybreak' || (lessonYear === '2024' && gameType === 'pal_feybreak')) {
+    targetGame = 'palworld';
+    searchTitle = 'Feybreak 大型更新';
+  } else if (lessonYear === '2024_pal_separation' || (lessonYear === '2024' && gameType === 'pal_separation')) {
+    targetGame = 'palworld';
+    searchTitle = '战场分离';
+  } else if (lessonYear === '2019') {
+    searchTitle = '极巨化与旷野地带';
+  } else if (lessonYear === '2022') {
+    searchTitle = '太晶化';
+  } else {
+    searchTitle = LESSON_TO_TITLE[lessonYear];
+  }
+
+  var tabBtns = document.querySelectorAll('.timeline-tab');
+  tabBtns.forEach(function(b) { b.classList.remove('active'); if (b.dataset.game === targetGame) b.classList.add('active'); });
+  var filterBtns = document.querySelectorAll('.timeline-filter-btn');
+  filterBtns.forEach(function(b) { b.classList.remove('active'); if (b.dataset.type === 'all') b.classList.add('active'); });
+  currentTimelineGame = targetGame;
+  currentTimelineType = 'all';
+  renderTimeline(targetGame);
+
+  // 等待浏览器渲染完成后再滚动
+  requestAnimationFrame(function() {
+    requestAnimationFrame(function() {
+      setTimeout(function() {
+        if (!searchTitle) return;
+        var items = document.querySelectorAll('.timeline-item');
+        for (var i = 0; i < items.length; i++) {
+          var titleEl = items[i].querySelector('.timeline-card-title');
+          if (titleEl && titleEl.textContent.indexOf(searchTitle) !== -1) {
+            var targetItem = items[i];
+            // 立即显示目标条目，跳过动画
+            targetItem.style.opacity = '1';
+            targetItem.style.transform = 'none';
+            targetItem.style.animation = 'none';
+            targetItem.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            targetItem.classList.add('highlight-flash');
+            // 模拟悬停状态
+            targetItem.classList.add('timeline-item-hover');
+            setTimeout(function() { targetItem.classList.remove('highlight-flash'); targetItem.classList.remove('timeline-item-hover'); }, 2000);
+            break;
+          }
+        }
+      }, 0);
+    });
+  });
+}
+
 function goBack() {
   var target = previousSection;
   previousSection = 'home';
@@ -3411,7 +3544,11 @@ function showSection(id) {
   if (ni) ni.classList.add('active');
   document.getElementById('breadcrumbCurrent').textContent = SECTION_TITLES[id] || id;
   document.getElementById('progressBar').style.display = id === 'checklist' ? 'flex' : 'none';
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+  if (!skipScrollToTop) {
+    // 滚动到页面顶部
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
+  }
   document.getElementById('sidebar').classList.remove('open');
   closeSearch();
 
@@ -3616,7 +3753,7 @@ function buildChecklistItemHTML(item, dimName) {
         return rp ? '<span class="item-principle-tag" onclick="event.stopPropagation();showPrinciplePopup(' + pid + ')">原则' + pid + '</span>' : '';
       }).join('') + '</div>';
   }
-  return '<div class="checklist-item' + (checked ? ' checked' : '') + '" data-item-id="' + item.id + '" onclick="event.stopPropagation();">' +
+  return '<div class="checklist-item' + (checked ? ' checked' : '') + '" data-item-id="' + item.id + '" data-key="' + key.replace(/'/g, "\\'") + '" onclick="onChecklistItemClick(this, event)">' +
     '<div class="checkbox" onclick="event.stopPropagation();toggleChecklist(\'' + key.replace(/'/g, "\\'") + '\', this.parentElement)" role="checkbox" aria-checked="' + checked + '" tabindex="0" onkeydown="if(event.key===\'Enter\'){event.stopPropagation();toggleChecklist(\'' + key.replace(/'/g, "\\'") + '\', this.parentElement);}">' + (checked ? '&#10003;' : '') + '</div>' +
     '<div class="item-body">' +
       '<div class="item-meta">' +
@@ -4063,6 +4200,14 @@ function renderChecklist() {
   }).join('');
 }
 
+function onChecklistItemClick(el, event) {
+  // 检查是否点击的是 checkbox 或 item-logic-toggle
+  if (event.target.closest('.checkbox')) return;
+  if (event.target.closest('.item-logic-toggle')) return;
+  // 点击大框则切换展开/折叠状态
+  el.classList.toggle('expanded-logic');
+}
+
 function toggleChecklist(key, el) {
   checkedItems[key] = !checkedItems[key];
   el.classList.toggle('checked', checkedItems[key]);
@@ -4357,7 +4502,8 @@ function renderTimeline(game) {
 
       var itemClass = (item.category || 'foundation') + (item.removed ? ' removed' : '');
       var detailContent = item.detail ? item.detail.replace(/\n/g, '<br>') : '';
-      return genCardHtml + '<div class="timeline-item ' + itemClass + '" style="--i:' + idx + '">' +
+      var itemId = 'tl-' + game + '-' + idx;
+      return genCardHtml + '<div class="timeline-item ' + itemClass + '" id="' + itemId + '" style="--i:' + idx + '">' +
         '<div class="timeline-dot"></div>' +
         '<div class="timeline-year">' + item.year + genTag + verTag + srcPokemon + srcPalworld + confidenceBadge + removedTag + removalYearTag + impactBadge + '</div>' +
         '<div class="timeline-card" onclick="this.classList.toggle(\'expanded\')">' +

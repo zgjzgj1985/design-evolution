@@ -1,0 +1,60 @@
+---
+description: Web问题排查必须使用Playwright定位
+alwaysApply: true
+---
+
+# Web问题排查规范
+
+## 核心原则
+
+**禁止猜测 Web 问题**。所有 Web 相关的问题定位必须使用 Playwright 进行实际验证。
+
+## 具体要求
+
+### 1. 定位问题必须使用 Playwright
+
+当遇到 Web 页面显示异常、功能失效、布局问题等时：
+
+- **必须**使用 Playwright 启动浏览器访问目标页面
+- **必须**通过控制台日志、截图、元素检查等手段获取实际证据
+- **禁止**仅凭猜测或推测就给出修复方案
+
+### 2. Playwright 使用流程
+
+1. **访问页面**：使用 `playwright` 或 `pyppeteer` 打开目标 URL
+2. **获取证据**：截图、保存 HTML、控制台日志
+3. **定位元素**：使用开发者工具检查 DOM 结构、CSS 样式
+4. **验证假设**：通过实际运行代码验证问题根因
+
+### 3. 示例
+
+```python
+# ❌ 禁止：猜测问题
+# "可能是CSS样式冲突导致的"
+
+# ✅ 正确：使用 Playwright 定位
+from playwright.sync_api import sync_playwright
+
+with sync_playwright() as p:
+    browser = p.chromium.launch()
+    page = browser.new_page()
+    page.goto("https://example.com")
+    page.screenshot(path="debug.png")
+    console_logs = page.console.messages
+    # ... 分析实际证据后再给出结论
+```
+
+### 4. 禁止行为
+
+- 禁止在未访问页面的情况下声称"这是xxx问题"
+- 禁止在未检查控制台的情况下声称"没有错误"
+- 禁止在未查看元素的情况下声称"元素存在/不存在"
+
+### 5. 输出要求
+
+排查 Web 问题时，必须提供：
+
+1. **实际截图**：证明问题的真实存在
+2. **控制台日志**：捕获的错误信息
+3. **元素检查结果**：DOM 结构或 CSS 样式的实际值
+4. **问题根因**：基于实际证据的分析，而非猜测
