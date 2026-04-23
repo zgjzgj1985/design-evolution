@@ -6,6 +6,20 @@
 
 ### Changed
 
+- **Web问题排查规范新增善后清理规则**：问题解决后，必须清理排查过程中生成的临时文件（截图、临时HTML、日志等调试文件），不得将调试文件留在代码仓库中
+
+### Changed
+
+- **清理过时备份文件**：删除 `docs/report_data_backup_v3.0.json` 和 `docs/report_data_backup_v3.0_before_tl_cleanup.json`（4月21日创建的 v3.0 中间版本备份，已被4月23日最新版本取代，无保留价值）
+
+### Fixed
+
+- **修复「10条设计原则」页面右侧详情中相关检查清单文本加粗问题**：`.related-checklist-text` 样式缺少 `font-weight` 属性，导致浏览器回退样式应用了加粗效果；现已显式设置 `font-weight: 400` 确保文本正常显示
+
+- **修复「历代时间轴」展开卡片中相关检查清单标签缺失问题**：`scripts/p2_data_optimization.py` 脚本已执行，但 `docs/report_data.json` 中时间轴条目的 `related_checklist` 字段未实际写入数据；现已重新执行脚本，为 33 条 Pokemon 时间轴条目正确填充双向关联数据（`related_principles` 和 `related_checklist` 字段）；同步重新生成 `docs/index.html` 确保前端 `INLINE_REPORT_DATA` 包含最新数据
+
+### Changed
+
 - **清理临时文件**：删除 `screenshot.png`、`screenshot-full.png`、`screenshot-before.png` 截图文件以及 `test-page.js` 临时测试脚本
 - **新增 Node.js 依赖**：`package.json` 和 `package-lock.json` 用于 playwright 依赖管理
 - **文档更新**：`README.md`、`docs/index.html`、`docs/report_data.json` 等文件更新
