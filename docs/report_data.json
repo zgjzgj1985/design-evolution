@@ -916,7 +916,7 @@
       "id": "pvp_combat",
       "label": "集火与保护",
       "question": "我要设计 2v2 的集火与保护机制",
-      "description": "Pokemon 用六代建立三层防御体系：守住 → 看我嘛 → 威吓。三层各有分工、相互配合。",
+      "description": "2v2 战斗需要多层防御体系——进攻方有集火目标选择，保护方有替保/嘲讽/削弱等多种手段，各层分工明确、相互配合。",
       "chapter": "场景1",
       "principles": [
         1,
@@ -942,7 +942,7 @@
       "id": "enhancement",
       "label": "强化机制",
       "question": "我要设计强化 / 变身 / 爆发机制",
-      "description": "太晶化三维度决策（时机/目标/属性）成为历代最强——差异化应在怎么用而非谁能用。",
+      "description": "强化机制应提供多维度决策（时机/目标/条件），让差异化体现在「怎么用」而非「谁能用」。",
       "chapter": "场景2",
       "principles": [
         4,
@@ -970,7 +970,7 @@
       "id": "pvp_speed",
       "label": "速度博弈",
       "question": "我要解决先手优势过大的问题",
-      "description": "Pokemon 29年都未能完全解决「极速就是正义」问题，需要通过空间机制、属性差异等手段为低速单位创造差异化价值。",
+      "description": "速度优势如果无法被克制，会导致「谁先手谁赢」的单调博弈。低速单位需要通过空间机制、属性差异等手段获得差异化价值。",
       "chapter": "场景3",
       "principles": [
         7
@@ -990,7 +990,7 @@
       "id": "pvp_environment",
       "label": "环境控制",
       "question": "我要设计天气 / 地形 / 环境系统",
-      "description": "降雨+悠游自如组合被联合禁用，开创机制组合禁用先例。环境系统必须评估最坏情况下的组合效果。",
+      "description": "天气/地形等环境机制容易与某些能力产生过强的组合效果。设计时必须评估最坏情况，必要时预留组合禁用空间。",
       "chapter": "场景4",
       "principles": [
         3
@@ -1011,7 +1011,7 @@
       "id": "pve_group",
       "label": "PvE 多人合作",
       "question": "我要设计 4 人合作的 PvE 挑战",
-      "description": "多人 PvE 有三重困境：等待时间、贡献归属、状态失控。太晶团体战的时间轴机制是当前最优解。",
+      "description": "多人 PvE 存在三重困境：等待时间、贡献归属、状态失控。时间轴/轮流行动等机制可以让多人协作更流畅。",
       "chapter": "场景5",
       "principles": [
         7,
@@ -1059,7 +1059,7 @@
       "id": "meta_progression",
       "label": "养成系统",
       "question": "我要设计培育 / 养成 / 成长系统",
-      "description": "降低门槛不等于降低深度。超级训练示范：简单界面让新人上手，精确控制让高手追求——两条路径由玩家自选。",
+      "description": "降低门槛不等于降低深度。好的养成系统应提供简单路径让新人上手，同时保留精确控制让高手追求——两条路径由玩家自选。",
       "chapter": "场景7",
       "principles": [
         10
@@ -1090,6 +1090,51 @@
         "related_checklist": []
       },
       {
+        "year": 1996,
+        "gen": "Gen 1",
+        "title": "守住（Protect）引入",
+        "detail": "守住是宝可梦历史上第一个提供「完全抵挡单体攻击一次」的保护类招式。它开创了「防御机制必须有代价」的设计先河：守住每场战斗只能使用有限次数，且连续使用时成功率递减。这种设计让防御不再是无限资源，而是需要玩家在关键时刻做出「是否使用」的博弈决策。守住被认为是 Gen 1 最成功的设计之一——它给了对手明确的选择窗口，而非让选择消失。",
+        "category": "combat",
+        "chain_category": "protection",
+        "chain_order": 1,
+        "chain_prev": null,
+        "chain_next": "威吓（Intimidate）引入",
+        "chain_related": [],
+        "data_confidence": "official",
+        "related_principles": [2],
+        "related_checklist": ["A.1.1", "A.1.5"]
+      },
+      {
+        "year": 1999,
+        "gen": "Gen 2",
+        "title": "威吓（Intimidate）引入 + Special 分家",
+        "detail": "威吓是宝可梦第一个提供「被动降低对方攻击伤害」的机制。它开创了「削弱攻击方」而非「保护己方」的防御思路——最好的防御是让敌人变弱。威吓作为被动特性（非回合制招式），无需消耗行动回合即可生效，这让它的使用代价极低，但也开启了「特性之间差异化」的设计方向。同时，金银版将 Gen 1 的单一 Special 属性拆分为独立的特攻和特防两个数值，深刻改变了宝可梦的能力分布。",
+        "category": "combat",
+        "chain_category": "protection",
+        "chain_order": 2,
+        "chain_prev": "守住（Protect）引入",
+        "chain_next": "看我嘛（Follow Me）+ 双打正式化",
+        "chain_related": [],
+        "data_confidence": "official",
+        "related_principles": [2],
+        "related_checklist": ["A.1.4", "A.1.6"]
+      },
+      {
+        "year": 2002,
+        "gen": "Gen 3",
+        "title": "双打正式化 + 看我嘛（Follow Me）+ 特性系统",
+        "detail": "红蓝宝石版是宝可梦多人对战的转折点：(1) 双打对战正式成为标准模式，为 2v2 竞技奠定基础；(2) 看我嘛（Follow Me）作为首个「嘲讽转移」机制引入——强制敌方优先攻击己方嘲讽手，而非预定目标。它与守住的组合开创了「三层防御体系」的前两层：守住防单体攻击，嘲讽转移防集火目标选择；(3) 特性系统首次引入（约80个特性），取代 Gen 1 的固定属性设计，为防御机制的差异化提供基础载体（如威吓、结实等防御向特性）。三层防御体系至此完整：守住→看我嘛→威吓，各有分工、相互配合。",
+        "category": "combat",
+        "chain_category": "protection",
+        "chain_order": 3,
+        "chain_prev": "威吓（Intimidate）引入",
+        "chain_next": "广域战力（Wide Guard）引入",
+        "chain_related": [],
+        "data_confidence": "official",
+        "related_principles": [1, 2],
+        "related_checklist": ["A.1.2", "A.1.4", "A.1.6"]
+      },
+      {
         "year": 1999,
         "gen": "Gen 2",
         "title": "携带道具 + 培育系统 + Special 分家",
@@ -1105,8 +1150,13 @@
         "title": "双打 + 特性系统 + 天气永久化 + 招式池扩充",
         "detail": "红蓝宝石版同期引入四大核心系统：(1) 双打对战正式成为标准模式（红蓝宝石版主游戏支持，Emerald 进一步强化规则）；(2) 特性（Abilities）系统首次引入——每只宝可梦拥有被动能力，取代 Gen 1 的固定属性设计，共约80个特性；(3) 天气系统完整化——引入天气启动特性（Drizzle/Drought/Sand Stream），使天气可被特性永久召唤，将天气从随机效果变为可建立的优势；(4) 招式池大幅扩充——约102个新招式加入，奠定了 Gen 4 物理/特殊分家的基础（注：物理/特殊分家是 Gen 4 才完成的历史性改革，非 Gen 3）。Emerald 版额外加入了随机天气开局规则，对竞技格局产生深远影响",
         "category": "pvp",
+        "chain_category": "core_battle",
+        "chain_order": 1,
+        "chain_prev": "Pokemon 红/绿版发售",
+        "chain_next": "物理/特殊分家 + VGC起步",
+        "chain_related": [],
         "data_confidence": "official",
-        "related_principles": [],
+        "related_principles": [7],
         "related_checklist": []
       },
       {
@@ -1115,9 +1165,29 @@
         "title": "物理/特殊分家 + Wi-Fi联网对战 + VGC起步",
         "detail": "钻石/珍珠版引入三大核心系统：(1) 物理/特殊分家（Physical/Special Split）——历史性改革，将招式分类从\"按属性一刀切\"改为\"逐招式独立判定\"，解决了格斗系全是物理但火焰拳用特攻打人的逻辑荒谬；(2) 宝可梦系列首次接入 Wi-Fi 联网对战——Nintendo Wi-Fi Connection 于2005年11月上线，Gen 4 是首批接入的游戏，配合好友代码系统打破地理限制，2008年设立 Wi-Fi Corner；(3) 首届 VGC 世界锦标赛（2009年）使用 D/P/Pt 作为正式比赛游戏，标志着官方竞技体系的正式建立。Soul Dew 因使 Latias/Latios 超出平衡区间被禁用，开创了\"因道具组合禁用\"的先例",
         "category": "pvp",
+        "chain_category": "core_battle",
+        "chain_order": 2,
+        "chain_prev": "双打正式化 + 特性系统",
+        "chain_next": "2v2 双打集火机制建立",
+        "chain_related": [],
         "data_confidence": "inferred_mid",
-        "related_principles": [],
+        "related_principles": [7],
         "related_checklist": []
+      },
+      {
+        "year": 2006,
+        "gen": "Gen 4",
+        "title": "广域战力（Wide Guard）引入 + 保护机制完善",
+        "detail": "钻石/珍珠版引入广域战力（Wide Guard）——首个提供「全体保护」的招式，可以抵挡对手全体的多目标攻击招式。这完善了宝可梦的保护体系：从单体保护（守住）→嘲讽转移（看我嘛）→全体保护（广域战力），三层防御各有权衡。广域战力的局限性在于它只能抵挡多目标招式，对单体攻击无效，这使得保护体系形成了「单体保护/嘲讽转移/全体保护」的三角博弈结构，让防守方可以根据对手配置做出差异化选择。",
+        "category": "combat",
+        "chain_category": "protection",
+        "chain_order": 4,
+        "chain_prev": "双打正式化 + 看我嘛",
+        "chain_next": "顺风/黏黏网引入（速度博弈完善）",
+        "chain_related": [],
+        "data_confidence": "official",
+        "related_principles": [2],
+        "related_checklist": ["A.1.1", "A.1.4", "A.1.6"]
       },
       {
         "year": 2011,
@@ -1133,6 +1203,21 @@
         "data_confidence": "official",
         "related_principles": [],
         "related_checklist": []
+      },
+      {
+        "year": 2011,
+        "gen": "Gen 5",
+        "title": "顺风/黏黏网引入（速度博弈完善）",
+        "detail": "黑白版引入了顺风（全队速度翻倍，持续2回合）和黏黏网（所有上场敌人基础速度降一级）两大速度调控机制。这标志着宝可梦速度博弈体系的完整建立：顺风轴（加速）与黏黏网轴（减速）形成双轨设计，让速度调控成为战术决策的核心维度之一。同时，黏黏网作为环境陷阱招式，补充了防御体系的层次——不仅有主动保护（守住/看我嘛），还有环境控制（减速场地）。",
+        "category": "combat",
+        "chain_category": "protection",
+        "chain_order": 5,
+        "chain_prev": "广域战力（Wide Guard）引入",
+        "chain_next": null,
+        "chain_related": [],
+        "data_confidence": "official",
+        "related_principles": [2, 7],
+        "related_checklist": ["A.1.4", "A.3.2", "A.3.4"]
       },
       {
         "year": 2011,
@@ -2161,44 +2246,64 @@
         "year": 2013,
         "gen": "Gen 6",
         "title": "2v2 双打集火机制建立，「攻击集火」成为标准策略",
-        "detail": "Pokemon X/Y 的双打对战确立了「集火机制」：当两只宝可梦对同一目标发动攻击时，两次攻击会分别判定，可以触发两次命中效果（如灼伤、木eca粼粼粼效果）。这是 Pokemon 双打战术的基础——通过集火快速消灭一只宝可梦，使对方进入 2v1 的优势局面。集火机制让双打从「两只宝可梦各打各的」升级为「需要战术协调的团队游戏」。",
-        "category": "enhancement",
+        "detail": "Pokemon X/Y 的双打对战确立了「集火机制」：当两只宝可梦对同一目标发动攻击时，两次攻击会分别判定，可以触发两次命中效果（如灼伤、木屐牌粼粼效果）。这是 Pokemon 双打战术的基础——通过集火快速消灭一只宝可梦，使对方进入 2v1 的优势局面。集火机制让双打从「两只宝可梦各打各的」升级为「需要战术协调的团队游戏」。",
+        "category": "combat",
+        "chain_category": "core_battle",
+        "chain_order": 3,
+        "chain_prev": "物理/特殊分家 + VGC起步",
+        "chain_next": "2v2 双打集火机制的隐性变化",
+        "chain_related": [],
         "removed": false,
         "data_confidence": "official",
-        "related_principles": [],
-        "related_checklist": []
+        "related_principles": [1],
+        "related_checklist": ["A.1.2", "A.1.3"]
       },
       {
         "year": 2019,
         "gen": "Gen 8",
         "title": "2v2 双打集火机制的隐性变化：优先度与保护交互",
         "detail": "Pokemon 剑/盾（以及后续的 Gen 9 朱/紫）在集火机制上引入了大量隐性平衡调整：(1) 广域战力（Wide Guard）从对手全体保护升级为「保护所有攻击目标」，改变了集火窗口；(2) 电磁波/黏黏网等状态施加的判定时机发生变化，影响了集火前的准备阶段；(3) Gen 9 引入了「掉人」机制（当宝可梦被击倒时，可以立即切换），使集火的「秒杀价值」有所降低。整体趋势是：集火仍然是核心战术，但「集火什么」和「何时集火」的决策复杂度增加了。",
-        "category": "enhancement",
+        "category": "combat",
+        "chain_category": "core_battle",
+        "chain_order": 4,
+        "chain_prev": "2v2 双打集火机制建立",
+        "chain_next": "VGC 规则变更：3v3 时代",
+        "chain_related": [],
         "removed": false,
         "data_confidence": "official",
-        "related_principles": [],
-        "related_checklist": []
+        "related_principles": [1, 2],
+        "related_checklist": ["A.1.2", "A.1.5"]
       },
       {
         "year": 2022,
         "gen": "Gen 9",
         "title": "2v2 双打从 VGC 规则中移除，改为 VGC 3v3",
         "detail": "Pokemon 朱/紫的 VGC 规则从 2v2 改为 3v3 规则（双打仍存在但不再是 VGC 核心），这是一个重大的规则变革。3v3 规则下的战术深度发生了本质变化：集火的目标选择更多（从 2 个变为 3 个），而「掉人」机制让残阵状态更有价值（一只宝可梦倒下时留下的「空位」可以被利用）。3v3 也降低了「首回合集火秒杀」的决定了局率，增加了中后期的运营权重。",
-        "category": "enhancement",
+        "category": "combat",
+        "chain_category": "core_battle",
+        "chain_order": 5,
+        "chain_prev": "2v2 双打集火机制的隐性变化",
+        "chain_next": "Pokemon Champions 承诺回归 VGC 2v2 规则",
+        "chain_related": [],
         "removed": false,
         "data_confidence": "official",
-        "related_principles": [],
-        "related_checklist": []
+        "related_principles": [1, 7],
+        "related_checklist": ["A.1.2"]
       },
       {
         "year": 2026,
         "gen": "Gen 10",
         "title": "Pokemon Champions 承诺回归 VGC 2v2 规则",
         "detail": "Pokemon Champions（2026）将作为 Gen 9 朱/紫的 DLC 推出，并承诺在 VGC 规则上进行调整——具体规则尚未完全公开，但预计将回归 2v2 为核心的对战形式，同时保留 Gen 9 引入的「掉人」机制和「太晶化」系统。这意味着集火策略将在一个新的框架下重新被评估。",
-        "category": "enhancement",
+        "category": "combat",
+        "chain_category": "core_battle",
+        "chain_order": 6,
+        "chain_prev": "2v2 双打从 VGC 规则中移除",
+        "chain_next": "Gen 10 2v2 规则展望",
+        "chain_related": [],
         "removed": false,
         "data_confidence": "future",
-        "related_principles": [],
+        "related_principles": [1, 7],
         "related_checklist": []
       },
       {
@@ -2206,11 +2311,16 @@
         "gen": "Gen 10",
         "title": "Gen 10 2v2 规则展望：集火策略的「去决定论化」趋势",
         "detail": "从 Gen 6 到 Gen 10 的集火机制演化趋势来看，Pokemon 的双打设计在「个人操作空间」和「团队协作价值」之间持续摇摆。Gen 6 的集火是「高决定性」的（集火几乎总是最优解）；Gen 8-9 的调整方向是「增加集火的成本」（需要预判保护、需要考虑掉人机制）；Gen 10 预计将继续这一方向，让「何时集火」成为一个有意义的战术决策而非自动行为。",
-        "category": "enhancement",
+        "category": "combat",
+        "chain_category": "core_battle",
+        "chain_order": 7,
+        "chain_prev": "Pokemon Champions 承诺回归 VGC 2v2 规则",
+        "chain_next": null,
+        "chain_related": [],
         "removed": false,
         "data_confidence": "future",
-        "related_principles": [],
-        "related_checklist": []
+        "related_principles": [1, 7],
+        "related_checklist": ["A.1.2", "A.1.5"]
       },
       {
         "year": 2011,
@@ -2818,7 +2928,7 @@
             }
           },
           {
-            "label": "强化/成长系统",
+            "label": "强化 / 变身 / 爆发",
             "target": {
               "chapter": "场景2",
               "principles": [
