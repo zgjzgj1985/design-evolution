@@ -2,7 +2,119 @@
 
 所有版本变更记录遵循 [Keep a Changelog](https://keepachangelog.com/) 规范。
 
-## [Unreleased]
+## [Unreleased] - 2026-04-24
+
+### Added
+
+- **report_generator_config.py 报告配置模块**：支持根据游戏类型动态生成设计原则和检查清单
+  - `MHXY_PRINCIPLES`：8条梦幻西游Like游戏设计原则
+  - `MHXY_CHECKLISTS`：27条检查清单（7个维度）
+  - `get_report_data_for_game(game_type)`：根据游戏类型生成对应报告数据
+  - `GAME_TYPE_METADATA`：游戏类型元数据配置
+
+- **神武完整历史时间线数据**：`docs/shenwu_timeline_data.json` 新增神武（2010-2026年）完整时间线数据：
+  - 7个时期分段：2010-2011起步期、2012-2013首届服战、2014-2016神武2时代、2017-2020神武3到4、2021-2023持续运营、2024-未来
+  - 30+条历史事件：覆盖公测、资料片、门派调整、赛事、PVP系统更新
+  - 12大门派详情：天策、龙宫、方寸山、魔王寨、化生寺、普陀山、五庄观、狮驼岭、天宫、盘丝洞、幽冥地府、天魔里
+  - 4个PVP赛事：神武之战、神武之巅、跨服擂台、全明星赛
+  - 设计演进分析：4个时期的演进主题和平衡策略
+
+- **大话西游2完整历史时间线数据**：`docs/dahua_timeline_data.json` 新增大话西游2（2002-2026年）完整时间线数据：
+  - 7个时期分段：2002-2005起步期、2006-2010系统完善期、2011-2016资料片爆发期、2017-2020持续运营、2021-2023稳定期、2024-未来
+  - 40+条历史事件：覆盖公测、资料片、鎏金宝鉴、门派调整、赛事、PVP系统更新
+  - 12大门派详情：大唐官府、方寸山、普陀山、龙宫、化生寺、女儿村、狮驼岭、魔王寨、阴德地府、天宫、五庄观、无底洞
+  - 4个PVP赛事：天梯赛、水陆大会、天下第一比武大会、天梯巅峰赛
+  - 设计演进分析：5个时期的演进主题和平衡策略
+  - 2026年最新四经脉系统数据
+
+- **梦幻西游Like游戏支持**：新增对梦幻西游Like回合制MMO的支持，包括：
+  - `scrapers/mhxy_data.py`：内置梦幻西游、神武、大话西游历史数据
+  - `fetch_mhxy_data.py`：数据采集脚本
+  - `data/mhxy/`、`data/shenwu/`、`data/dhxy/`：预采集数据目录
+
+- **交互式报告重构**：`docs/report_data.json` 全面重构为多游戏类型版本：
+  - 梦幻西游Like：8条设计原则 + 27条检查清单（7个维度）
+  - 宝可梦Like：10条设计原则 + 47条检查清单（7个维度）
+  - 游戏类型元数据：`game_types.mhxy` 和 `game_types.pokemon`
+  - 保留原有时间轴数据和向后兼容的顶层字段
+
+### Changed
+
+- **data_manager.py 新增动态报告数据方法**：
+  - `get_report_data(game, game_type)` - 获取指定游戏的报告数据
+  - `get_principles(game, game_type)` - 获取设计原则列表
+  - `get_checklist(game, game_type)` - 获取检查清单列表
+  - `get_principles_count(game, game_type)` - 获取设计原则数量
+  - `get_checklist_count(game, game_type)` - 获取检查清单条目总数
+  - `_get_game_type(game)` - 根据游戏名称判断游戏类型
+
+- **app.py 动态显示报告摘要**：
+  - 新增 `_get_report_summary(game)` 函数
+  - 交互式报告入口动态显示当前游戏的设计原则和检查清单数量
+
+- **scripts/generate_multi_game_report_data.py 报告生成脚本**：
+  - 从 git 动态获取宝可梦原始数据
+  - 生成包含多游戏类型的 report_data.json
+
+### Changed
+
+- **游戏上下文知识全面更新**：`analyzer/prompts.py` 从宝可梦体系重构为梦幻西游Like体系
+  - `GAME_DESIGN_CONTEXT`：从宝可梦VGC改为回合制MMO的门派技能、召唤兽、阵法、特技等核心概念
+  - `DESIGN_INTENT_PROMPT`：分析维度从"宝可梦属性克制"改为"门派技能平衡"
+  - `SIMPLE_EXTRACT_PROMPT`：提取字段从"PvP/PvE"改为"门派调整/召唤兽/阵法/装备"
+  - `TIMELINE_PROMPT`：演进单位从"世代"改为"资料片/时期"
+
+- **数据管理模块更新**：`data_manager.py` 关键词和分类规则全面重构
+  - 新增梦幻西游Like游戏映射：梦幻西游、神武、大话西游
+  - 玩法关键词新增：门派、封印、输出、辅助、召唤兽、阵法、比武、武神坛等
+  - 分类规则新增：门派调整、召唤兽、阵法、装备、数值经济等
+
+- **应用配置更新**：`utils/config.py` 新增梦幻西游Like游戏配置
+  - `MHXY_LIKE_GAMES`：梦幻西游、神武、大话西游
+  - `MHXY_PERIODS`：7个时期的元数据
+  - `SUPPORTED_GAMES`：合并宝可梦Like和梦幻西游Like游戏
+
+- **Web UI 更新**：`app.py` 适配梦幻西游Like数据源
+  - 导入 `MHXYDataProvider` 数据模块
+  - 游戏选择器默认选中"梦幻西游"
+  - 数据来源展示新增梦幻西游Like游戏
+  - 世代选择改为时期/资料片选择
+
+- **README.md 全面更新**：
+  - 核心定位从"宝可梦Like研究"改为"回合制MMO研究"
+  - 新增梦幻西游Like游戏支持表格
+  - 新增宝可梦vs梦幻西游Like对照表
+  - 更新项目结构和数据来源说明
+
+### Removed
+
+- **部分宝可梦特定引用**：移除对 Pokemon Gen世代选择器的默认显示，改为根据游戏类型动态显示
+
+### Changed
+
+- **设计原则和检查清单根据游戏类型动态生成**：
+  - 新增 `report_generator_config.py` 配置文件，包含多游戏类型的报告生成逻辑
+  - 梦幻西游Like游戏：8条设计原则 + 27条检查清单（7个维度）
+  - 宝可梦Like游戏：10条设计原则 + 47条检查清单（7个维度）
+  - 设计原则覆盖：封印控制、门派平衡、阵法战术、召唤兽生态、数值经济、养成进度、版本节奏
+  - 检查清单覆盖：封印设计、门派平衡、阵法战术、召唤兽生态、数值经济、PvP配合、养成进度
+
+- **data_manager.py 新增动态报告数据方法**：
+  - `get_report_data(game, game_type)` - 获取指定游戏的报告数据
+  - `get_principles(game, game_type)` - 获取设计原则列表
+  - `get_checklist(game, game_type)` - 获取检查清单列表
+  - `get_principles_count(game, game_type)` - 获取设计原则数量
+  - `get_checklist_count(game, game_type)` - 获取检查清单条目总数
+  - `_get_game_type(game)` - 根据游戏名称判断游戏类型
+
+- **app.py 动态显示报告摘要**：
+  - 新增 `_get_report_summary(game)` 函数
+  - 交互式报告入口动态显示当前游戏的设计原则和检查清单数量
+
+- **新增报告生成脚本**：
+  - `scripts/generate_multi_game_report_data.py` - 生成多游戏类型报告数据
+
+## [Unreleased] - 2026-04-24
 
 ### Fixed
 

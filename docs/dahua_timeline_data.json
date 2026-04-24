@@ -1,0 +1,507 @@
+{
+  "game": "大话西游2",
+  "generated_at": "2026-04-24T10:35:00.000000",
+  "game_info": {
+    "full_name": "大话西游2经典版",
+    "developer": "网易",
+    "publisher": "网易",
+    "launch_date": "2002年8月15日",
+    "rename_date": "2013年9月5日更名为新大话西游2",
+    "genre": "回合制MMORPG",
+    "server_region": "中国大陆",
+    "history": "2002年公测，运营超过20年，是中国最长寿的回合制MMO之一"
+  },
+  "periods": [
+    {
+      "period": "2024-未来",
+      "events": [
+        {
+          "id": "2026年4月 门派大改",
+          "title": "2026年4月 门派调整",
+          "date": "2026-04-21",
+          "description": "大唐升级为四经脉门派，成为首个四流派门派。新增奇谋兵圣经脉，使召唤兽也能学会横扫千军。地府封系法术命中率优势降低，普陀山获得新被动技能莲华，龙宫、无底洞等门派进行相应调整。",
+          "categories": ["门派调整", "平衡性调整", "经脉系统"],
+          "pvp_impact": "高",
+          "pve_impact": "中"
+        },
+        {
+          "id": "2026年 持续运营",
+          "title": "2026年 持续运营",
+          "date": "2026-01-01",
+          "description": "大话西游2持续运营中，定期进行门派调整、节日活动、鎏金宝鉴更新等内容。",
+          "categories": ["内容更新", "运营"],
+          "pvp_impact": "中",
+          "pve_impact": "中"
+        },
+        {
+          "id": "2025年 鎏金宝鉴",
+          "title": "2025年 鎏金宝鉴",
+          "date": "2025-08-01",
+          "description": "2025年鎏金宝鉴采用1个批次+余量批销售模式，盒子需在8月15日后打开。",
+          "categories": ["鎏金宝鉴", "内容更新"],
+          "pvp_impact": "低",
+          "pve_impact": "中"
+        },
+        {
+          "id": "2024年 鎏金宝鉴风熊",
+          "title": "2024年 鎏金宝鉴风熊",
+          "date": "2024-08-01",
+          "description": "2024年鎏金宝鉴推出风熊召唤兽，分为分享版(268元)、珍爱版(498元)、白金版(1168元)、典藏版(2998元)。",
+          "categories": ["鎏金宝鉴", "召唤兽系统"],
+          "pvp_impact": "中",
+          "pve_impact": "中"
+        }
+      ]
+    },
+    {
+      "period": "2021-2023",
+      "events": [
+        {
+          "id": "2023年 持续运营",
+          "title": "2023年 持续运营更新",
+          "date": "2023-01-01",
+          "description": "继续通过定期更新维持游戏活力，包括新内容、新玩法、门派调整等。",
+          "categories": ["内容更新"],
+          "pvp_impact": "中",
+          "pve_impact": "中"
+        },
+        {
+          "id": "2022年 二十周年鎏金宝鉴",
+          "title": "2022年 二十周年鎏金宝鉴",
+          "date": "2022-08-01",
+          "description": "推出二十周年鎏金宝鉴，包含周年庆限定召唤兽及多种周边奖励。",
+          "categories": ["鎏金宝鉴", "内容更新"],
+          "pvp_impact": "中",
+          "pve_impact": "中"
+        },
+        {
+          "id": "2022年 新内容更新",
+          "title": "2022年 新内容更新",
+          "date": "2022-01-01",
+          "description": "继续推出新内容和玩法优化，保持游戏更新节奏。",
+          "categories": ["内容更新"],
+          "pvp_impact": "中",
+          "pve_impact": "中"
+        },
+        {
+          "id": "2021年 惜红衣鎏金宝鉴",
+          "title": "2021年 惜红衣鎏金宝鉴",
+          "date": "2021-08-01",
+          "description": "推出惜红衣召唤兽，采用预约制，分为分享版、珍爱版、白金版、典藏版四个版本。",
+          "categories": ["鎏金宝鉴", "召唤兽系统"],
+          "pvp_impact": "中",
+          "pve_impact": "中"
+        },
+        {
+          "id": "2021年 天梯巅峰赛",
+          "title": "2021年 天梯巅峰赛",
+          "date": "2021-06-01",
+          "description": "天梯赛持续举办，为玩家提供竞技平台。",
+          "categories": ["PvP", "赛事"],
+          "pvp_impact": "高",
+          "pve_impact": "无"
+        }
+      ]
+    },
+    {
+      "period": "2017-2020",
+      "events": [
+        {
+          "id": "2020年 持续运营",
+          "title": "2020年 持续运营",
+          "date": "2020-01-01",
+          "description": "大话西游2经典版持续运营，定期进行内容更新和优化。",
+          "categories": ["内容更新"],
+          "pvp_impact": "中",
+          "pve_impact": "中"
+        },
+        {
+          "id": "2019年 新内容",
+          "title": "2019年 新内容",
+          "date": "2019-01-01",
+          "description": "继续推出新资料片和玩法更新，维持游戏活力。",
+          "categories": ["内容更新"],
+          "pvp_impact": "中",
+          "pve_impact": "高"
+        },
+        {
+          "id": "2018年 新资料片",
+          "title": "2018年 新资料片",
+          "date": "2018-01-01",
+          "description": "推出新资料片内容，丰富游戏内容。",
+          "categories": ["资料片"],
+          "pvp_impact": "中",
+          "pve_impact": "高"
+        },
+        {
+          "id": "2017年 仗剑伏魔资料片",
+          "title": "2017年 仗剑伏魔资料片",
+          "date": "2017-02-01",
+          "description": "推出魔王窟副本系统，包含前殿、中殿、移山大殿、混天大牢四个副本区域。玩家可获得玉符套装、机缘令牌、机缘仙丹等奖励。进入要求：5人组队，角色1转100级以上。",
+          "categories": ["资料片", "PvE"],
+          "pvp_impact": "低",
+          "pve_impact": "高"
+        },
+        {
+          "id": "2017年 上古神骑资料片",
+          "title": "2017年 上古神骑资料片",
+          "date": "2017-05-11",
+          "description": "推出会飞的七坐骑、五级帮派、全新副本帮派秘境等内容。",
+          "categories": ["资料片", "坐骑系统", "帮派系统"],
+          "pvp_impact": "中",
+          "pve_impact": "高"
+        }
+      ]
+    },
+    {
+      "period": "2011-2016",
+      "events": [
+        {
+          "id": "2016年 通玄妙境资料片",
+          "title": "2016年 通玄妙境资料片",
+          "date": "2016-06-23",
+          "description": "第十七部资料片，推出永劫之数-2大新副本地图、8大唯美新主角、悟法系统-15大法门技能。",
+          "categories": ["资料片", "内容更新", "悟法系统"],
+          "pvp_impact": "高",
+          "pve_impact": "高"
+        },
+        {
+          "id": "2015年 经典版推出",
+          "title": "2015年 经典版推出",
+          "date": "2015-08-07",
+          "description": "推出大话西游2经典版，保留经典玩法设定。",
+          "categories": ["运营", "版本更新"],
+          "pvp_impact": "中",
+          "pve_impact": "中"
+        },
+        {
+          "id": "2014年 新内容",
+          "title": "2014年 新内容",
+          "date": "2014-01-01",
+          "description": "继续推出新内容和玩法更新。",
+          "categories": ["内容更新"],
+          "pvp_impact": "中",
+          "pve_impact": "高"
+        },
+        {
+          "id": "2013年 更名新大话西游2",
+          "title": "2013年 更名新大话西游2",
+          "date": "2013-09-05",
+          "description": "正式更名为新大话西游2，推出新内容和系统优化。",
+          "categories": ["运营", "重大更新"],
+          "pvp_impact": "中",
+          "pve_impact": "高"
+        },
+        {
+          "id": "2012年 新资料片",
+          "title": "2012年 新资料片",
+          "date": "2012-01-01",
+          "description": "推出新资料片内容。",
+          "categories": ["资料片"],
+          "pvp_impact": "中",
+          "pve_impact": "高"
+        },
+        {
+          "id": "2011年 持续运营",
+          "title": "2011年 持续运营",
+          "date": "2011-01-01",
+          "description": "游戏持续运营中。",
+          "categories": ["运营"],
+          "pvp_impact": "中",
+          "pve_impact": "中"
+        }
+      ]
+    },
+    {
+      "period": "2006-2010",
+      "events": [
+        {
+          "id": "2010年 烽火连城资料片",
+          "title": "2010年 烽火连城资料片",
+          "date": "2010-08-01",
+          "description": "推出召唤兽技能系统，丰富召唤兽战斗能力。",
+          "categories": ["资料片", "召唤兽系统"],
+          "pvp_impact": "高",
+          "pve_impact": "中"
+        },
+        {
+          "id": "2009年 新内容",
+          "title": "2009年 新内容",
+          "date": "2009-01-01",
+          "description": "继续推出新内容和玩法。",
+          "categories": ["内容更新"],
+          "pvp_impact": "中",
+          "pve_impact": "高"
+        },
+        {
+          "id": "2008年 新资料片",
+          "title": "2008年 新资料片",
+          "date": "2008-01-01",
+          "description": "推出新资料片内容。",
+          "categories": ["资料片"],
+          "pvp_impact": "中",
+          "pve_impact": "高"
+        },
+        {
+          "id": "2007年 新资料片",
+          "title": "2007年 新资料片",
+          "date": "2007-01-01",
+          "description": "推出新资料片内容。",
+          "categories": ["资料片"],
+          "pvp_impact": "中",
+          "pve_impact": "高"
+        },
+        {
+          "id": "2006年 新资料片",
+          "title": "2006年 新资料片",
+          "date": "2006-01-01",
+          "description": "推出新资料片内容。",
+          "categories": ["资料片"],
+          "pvp_impact": "中",
+          "pve_impact": "高"
+        }
+      ]
+    },
+    {
+      "period": "2002-2005",
+      "events": [
+        {
+          "id": "2005年 大闹天宫资料片",
+          "title": "2005年 大闹天宫资料片",
+          "date": "2005-08-01",
+          "description": "推出首个副本玩法大闹天宫，丰富PVE内容。",
+          "categories": ["资料片", "PvE"],
+          "pvp_impact": "无",
+          "pve_impact": "高"
+        },
+        {
+          "id": "2005年 月光宝盒资料片",
+          "title": "2005年 月光宝盒资料片",
+          "date": "2005-01-01",
+          "description": "推出三转系统、法宝系统，增加角色转生机制和法宝装备。",
+          "categories": ["资料片", "转生系统", "法宝系统"],
+          "pvp_impact": "高",
+          "pve_impact": "高"
+        },
+        {
+          "id": "2004年 鬼斧神工资料片",
+          "title": "2004年 鬼斧神工资料片",
+          "date": "2004-09-01",
+          "description": "推出召唤兽内丹系统、作坊系统，丰富召唤兽养成和装备打造内容。",
+          "categories": ["资料片", "召唤兽系统", "装备系统"],
+          "pvp_impact": "高",
+          "pve_impact": "高"
+        },
+        {
+          "id": "2004年 骑天大圣资料片",
+          "title": "2004年 骑天大圣资料片",
+          "date": "2004-01-01",
+          "description": "推出坐骑系统，玩家可以骑乘坐骑参与战斗。",
+          "categories": ["资料片", "坐骑系统"],
+          "pvp_impact": "中",
+          "pve_impact": "中"
+        },
+        {
+          "id": "2003年 缘定三生资料片",
+          "title": "2003年 缘定三生资料片",
+          "date": "2003-04-01",
+          "description": "推出地煞星系统、封妖系统、神兵系统，丰富游戏内容和挑战。",
+          "categories": ["资料片", "内容更新"],
+          "pvp_impact": "中",
+          "pve_impact": "高"
+        },
+        {
+          "id": "2002年 再世情缘资料片",
+          "title": "2002年 再世情缘资料片",
+          "date": "2002-11-01",
+          "description": "推出转生系统、宝石合成系统，为角色提供轮回和装备强化机制。",
+          "categories": ["资料片", "转生系统", "装备系统"],
+          "pvp_impact": "高",
+          "pve_impact": "高"
+        },
+        {
+          "id": "2002年 游戏公测",
+          "title": "2002年8月15日 游戏公测",
+          "date": "2002-08-15",
+          "description": "大话西游2正式开启公测，建立人魔仙三族体系和人鬼魔仙四族门派体系。建立基础的回合制战斗系统、召唤兽系统和师门任务。",
+          "categories": ["内容", "门派调整"],
+          "pvp_impact": "中",
+          "pve_impact": "高"
+        }
+      ]
+    }
+  ],
+  "schools": [
+    {
+      "name": "大唐官府",
+      "faction": "人族",
+      "role": "物理输出",
+      "description": "高爆发的物理输出门派，核心技能横扫千军",
+      "launch_period": "2002年",
+      "special": "2026年升级为四经脉门派"
+    },
+    {
+      "name": "方寸山",
+      "faction": "仙族",
+      "role": "封印控制",
+      "description": "封印门派，擅长控制对手行动",
+      "launch_period": "2002年"
+    },
+    {
+      "name": "普陀山",
+      "faction": "仙族",
+      "role": "辅助治疗",
+      "description": "治疗和辅助门派，2026年获得新被动技能莲华",
+      "launch_period": "2002年"
+    },
+    {
+      "name": "龙宫",
+      "faction": "仙族",
+      "role": "法术输出",
+      "description": "法系输出门派，龙卷雨击是招牌技能",
+      "launch_period": "2002年"
+    },
+    {
+      "name": "化生寺",
+      "faction": "佛门",
+      "role": "辅助治疗",
+      "description": "治疗和辅助门派，为团队提供续航",
+      "launch_period": "2002年"
+    },
+    {
+      "name": "女儿村",
+      "faction": "人族",
+      "role": "封印控制",
+      "description": "封印门派，具有速度优势",
+      "launch_period": "2002年"
+    },
+    {
+      "name": "狮驼岭",
+      "faction": "魔族",
+      "role": "物理输出",
+      "description": "群体物理输出门派，鹰击可攻击多个目标",
+      "launch_period": "2002年"
+    },
+    {
+      "name": "魔王寨",
+      "faction": "魔族",
+      "role": "法术输出",
+      "description": "法系输出门派，具有高爆发能力",
+      "launch_period": "2002年"
+    },
+    {
+      "name": "阴德地府",
+      "faction": "魔族",
+      "role": "封印/辅助",
+      "description": "擅长诅咒和封印，夜战能力出色。2026年被削弱封系命中率",
+      "launch_period": "2002年"
+    },
+    {
+      "name": "天宫",
+      "faction": "仙族",
+      "role": "封印/物理",
+      "description": "具有封印和物理双重能力",
+      "launch_period": "2002年"
+    },
+    {
+      "name": "五庄观",
+      "faction": "仙族",
+      "role": "封印/辅助",
+      "description": "日月乾坤是招牌技能，可封印敌人",
+      "launch_period": "2002年"
+    },
+    {
+      "name": "无底洞",
+      "faction": "魔族",
+      "role": "辅助封印",
+      "description": "辅助和封印双定位，2026年进行调整",
+      "launch_period": "2002年"
+    }
+  ],
+  "pvp_events": [
+    {
+      "name": "天梯赛",
+      "type": "日常竞技",
+      "description": "玩家日常PVP竞技的主要方式",
+      "launch_year": 2006
+    },
+    {
+      "name": "水陆大会",
+      "type": "帮派赛",
+      "description": "帮派对战的PVP赛事",
+      "launch_year": 2008
+    },
+    {
+      "name": "天下第一比武大会",
+      "type": "全服赛",
+      "description": "最高级别的PVP赛事",
+      "launch_year": 2005
+    },
+    {
+      "name": "天梯巅峰赛",
+      "type": "明星赛",
+      "description": "明星玩家参与的表演赛",
+      "launch_year": 2018
+    }
+  ],
+  "design_evolution": [
+    {
+      "period": "2002-2005",
+      "theme": "起步与基础建立期",
+      "key_features": [
+        "人魔仙三族体系建立",
+        "四族十二门派体系",
+        "转生系统引入",
+        "宝石合成系统",
+        "坐骑系统",
+        "召唤兽内丹系统",
+        "首个副本玩法"
+      ],
+      "pvp_balance_approach": "通过转生等级限制平衡玩家强度"
+    },
+    {
+      "period": "2006-2010",
+      "theme": "系统完善期",
+      "key_features": [
+        "天梯赛建立",
+        "召唤兽技能系统",
+        "水陆大会",
+        "法宝系统完善"
+      ],
+      "pvp_balance_approach": "通过天梯积分系统进行平衡匹配"
+    },
+    {
+      "period": "2011-2016",
+      "theme": "资料片爆发期",
+      "key_features": [
+        "第十七部资料片通玄妙境",
+        "悟法系统",
+        "帮派秘境",
+        "经典版推出"
+      ],
+      "pvp_balance_approach": "通过资料片调整门派平衡"
+    },
+    {
+      "period": "2017-2023",
+      "theme": "持续运营期",
+      "key_features": [
+        "魔王窟副本",
+        "七坐骑",
+        "鎏金宝鉴",
+        "悟法升级",
+        "持续的门派调整"
+      ],
+      "pvp_balance_approach": "定期门派平衡调整，优化竞技生态"
+    },
+    {
+      "period": "2024-未来",
+      "theme": "现代化更新期",
+      "key_features": [
+        "四经脉系统（2026）",
+        "召唤兽横扫千军（2026）",
+        "持续优化"
+      ],
+      "pvp_balance_approach": "四经脉系统带来更丰富的Build选择"
+    }
+  ]
+}

@@ -1,5 +1,5 @@
 """
-多人对战游戏设计演进研究工具
+梦幻西游Like回合制MMO游戏设计演进研究工具
 主应用入口 - Streamlit Web UI
 
 使用方法:
@@ -32,15 +32,25 @@ from scrapers.steam_scraper import (
 from scrapers.pokemon_wiki import PokemonWikiScraper
 from scrapers.bulbapedia import BulbapediaScraper, PokeAPIScraper
 from scrapers.smogon import SmogonScraper, PikalyticsScraper
+from scrapers.mhxy_data import MHXYDataProvider
 from analyzer.intent_extractor import IntentExtractor
 from analyzer.report_generator import EvolutionReportGenerator
 from db.sqlite_store import SQLiteStore, db as global_db
 from db.vector_store import VectorStore
+from data_manager import data_manager
 
 # ──────────────────────────────────────────────────────────────────────────────
 # 时间轴数据加载（从 report_data.json 读取，与 docs/index.html 共用同一数据源）
 # ──────────────────────────────────────────────────────────────────────────────
 _REPORT_DATA_PATH = Path(__file__).parent / "docs" / "report_data.json"
+
+
+def _get_report_summary(game: str) -> str:
+    """获取当前游戏的报告摘要（动态显示设计原则和检查清单数量）"""
+    principles_count = data_manager.get_principles_count(game)
+    checklist_count = data_manager.get_checklist_count(game)
+    return f"{principles_count}条设计原则 / {checklist_count}条检查清单 / 历代时间轴"
+
 
 @st.cache_data(ttl=3600)
 def _load_timeline_data() -> dict:
@@ -353,10 +363,19 @@ def fetch_game_data(game: str, generation: int = None, refresh: bool = False) ->
     # 非Steam游戏列表（Nintendo平台）
     non_steam_games = {"Pokemon"}
 
+    # 梦幻西游Like游戏列表（使用内置数据）
+    mhxy_like_games = {"梦幻西游", "神武", "大话西游"}
+
     # 从各数据源获取数据
     try:
-        if game not in non_steam_games:
-            # 从 Steam 获取更新日志
+        if game in mhxy_like_games:
+            # 梦幻西游Like游戏：使用内置数据
+            mhxy_patches = MHXYDataProvider.get_all_patches(game)
+            patches.extend(mhxy_patches)
+            fetch_stats["source"] = "mhxy_builtin"
+            fetch_stats["total"] = len(mhxy_patches)
+        elif game not in non_steam_games:
+            # Steam 游戏：从 Steam 获取更新日志
             steam_scraper = get_steam_scraper(game)
             with st.spinner(f"正在从 Steam API 获取 {game} 更新日志..."):
                 steam_patches = steam_scraper.get_patch_notes(count=50)
@@ -420,6 +439,9 @@ with st.sidebar:
         if game_name == "Pokemon":
             # Pokemon 数据来自内置 Wiki，不在 data/ 目录
             return 0
+        if game_name in {"梦幻西游", "神武", "大话西游"}:
+            # 梦幻西游Like游戏：使用内置数据
+            return len(MHXYDataProvider.get_all_patches(game_name))
         _folder = {"Temtem": "temtem", "Palworld": "palworld", "Cassette Beasts": "cassette_beasts"}.get(game_name)
         if not _folder:
             return 0
@@ -455,6 +477,14 @@ with st.sidebar:
         if game_name == "Pokemon":
             # Pokemon 数据来自内置，直接用当前已加载的 patches
             return None, None, None
+        if game_name in {"梦幻西游", "神武", "大话西游"}:
+            # 梦幻西游Like游戏：使用内置数据
+            patches = MHXYDataProvider.get_all_patches(game_name)
+            _mp_keywords = ["PvP", "门派调整", "平衡性调整", "赛事规则", "比武", "华山", "武神坛", "封印", "输出", "辅助"]
+            _mp_count = sum(1 for p in patches if any(kw in p.get("categories", []) for kw in _mp_keywords))
+            _dates = [p.get("date", "") for p in patches if p.get("date")]
+            _latest = sorted(_dates)[-1] if _dates else None
+            return len(patches), _mp_count, _latest
         _folder = {"Temtem": "temtem", "Palworld": "palworld"}.get(game_name)
         if not _folder:
             return 0, 0, None
@@ -505,10 +535,15 @@ with st.sidebar:
     st.subheader("数据概览")
 
     _GAME_SOURCE_INFO = {
+        # 宝可梦Like游戏
         "Pokemon": {"source": "Serebii.net + 内置数据", "type": "结构化内置"},
         "Temtem": {"source": "Steam News API（预采集）", "type": "JSON 静态文件"},
         "Palworld": {"source": "Steam News API（预采集）", "type": "JSON 静态文件"},
         "Cassette Beasts": {"source": "Steam（无公开公告）", "type": "数据暂缺"},
+        # 梦幻西游Like游戏
+        "梦幻西游": {"source": "内置历史数据 + 社区整理", "type": "结构化内置"},
+        "神武": {"source": "内置历史数据 + 社区整理", "type": "结构化内置"},
+        "大话西游": {"source": "内置历史数据 + 社区整理", "type": "结构化内置"},
     }
 
     source_info = _GAME_SOURCE_INFO.get(selected_game, {"source": "未知", "type": "未知"})
@@ -531,8 +566,9 @@ with st.sidebar:
 
     # 交互式报告入口
     st.subheader("交互式报告")
+    report_summary = _get_report_summary(selected_game)
     st.markdown(
-        "「设计演化档案」完整报告 — 10条设计原则 / 47条检查清单 / 历代时间轴",
+        f"「设计演化档案」完整报告 — {report_summary}",
         unsafe_allow_html=True,
     )
     
@@ -1078,7 +1114,14 @@ def _render_patch_card(patch, selected_game, generation, llm_ready, extractor, d
 # ==================== Tab 1: 版本编年史 ====================
 with tab1:
     st.header("版本编年史")
-    st.markdown("基于 Wiki 结构化整理的版本更新记录" if selected_game == "Pokemon" else "从 Steam News API 预采集的更新日志记录")
+
+    # 根据游戏和数据来源显示不同描述
+    if selected_game == "Pokemon":
+        st.markdown("基于 Wiki 结构化整理的版本更新记录")
+    elif selected_game == "梦幻西游":
+        st.markdown("来自梦幻西游官方论坛的真实门派调整数据，包含具体数值变化")
+    else:
+        st.markdown("从 Steam News API 预采集的更新日志记录")
 
     if not patches:
         st.info("已加载结构化版本数据，可通过侧边栏筛选世代查看详细更新记录。" if selected_game == "Pokemon"
@@ -1204,8 +1247,9 @@ with tab2:
     # ── 类型选择区：Pokemon Showdown 风格彩色胶囊按钮（不再使用 expander）──────────────
     # 先计算每个类型在当前数据中的数量
     _type_counts = {}
-    for _game in ["Pokemon", "Temtem", "Cassette Beasts", "Palworld"]:
-        _gk = _game.lower().replace(" ", "_")
+    _all_games_for_timeline = ["Pokemon", "Temtem", "Palworld", "梦幻西游", "神武", "大话西游"]
+    for _game in _all_games_for_timeline:
+        _gk = _game.lower().replace(" ", "_").replace("梦幻西游", "mhxy").replace("神武", "shenwu").replace("大话西游", "dhxy")
         if _gk not in all_timelines:
             if _game == "Pokemon" and "pokemon" in all_timelines:
                 _gk = "pokemon"
@@ -1220,7 +1264,7 @@ with tab2:
     # session state 管理
     _type_key = f"tab2_types_{selected_game}"
     _game_filter_key = "tab2_game_filter"
-    _DEFAULT_GAMES = ["Pokemon"]
+    _DEFAULT_GAMES = ["梦幻西游"] if "梦幻西游" in config.SUPPORTED_GAMES else ["Pokemon"]
     _DEFAULT_TYPES = ["PvP", "PvE"]  # 默认只选中 PvP 和 PvE
     if _type_key not in st.session_state:
         st.session_state[_type_key] = _DEFAULT_TYPES
@@ -1931,7 +1975,7 @@ with tab4:
                 st.rerun()
 
         elif not has_topics:
-            st.info("AI 分析完成，但没有发现足够支撑研究主题的数据。可以尝试切换到 Pokemon Gen9 或其他数据更丰富的游戏/世代。")
+            st.info("AI 分析完成，但没有发现足够支撑研究主题的数据。可以尝试切换到其他游戏或扩大数据范围。")
 
         else:
             # ---- Step 1 完成 ----

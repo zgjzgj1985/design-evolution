@@ -1,28 +1,47 @@
 """
-本地静态数据管理模块
+本地静态数据管理模块（梦幻西游Like版）
 
 架构原则：
 - Steam 游戏（Temtem, Cassette Beasts, Palworld）的更新日志提前采集为本地 JSON 文件
 - Pokemon 由 pokemon_wiki.py 提供内置结构化数据
+- 梦幻西游Like游戏由 mhxy_data.py 提供数据
 - 应用启动时直接读本地文件，不访问网络（除非本地数据不存在）
-- 新增数据：通过 fetch_all_data.py 脚本手动采集，更新到 data/ 目录
+- 新增数据：通过 fetch_mhxy_data.py 脚本手动采集，更新到 data/ 目录
 
-数据来源：
-- Steam 游戏：运行 fetch_all_data.py 采集 Steam News API
-- Pokemon：内置于 scrapers/pokemon_wiki.py（已包含 Gen 8/9 完整数据）
+设计原则和检查清单：
+- 根据游戏类型动态生成：梦幻西游Like使用独立配置，Pokemon使用内置配置
 """
 
 import json
 from pathlib import Path
-from typing import List, Optional
+from typing import List, Optional, Dict, Any
 from datetime import datetime
+
+# 导入报告配置模块
+try:
+    from report_generator_config import (
+        get_report_data_for_game,
+        GAME_TYPE_METADATA,
+        MHXY_PRINCIPLES,
+        MHXY_CHECKLISTS,
+    )
+    HAS_REPORT_CONFIG = True
+except ImportError:
+    HAS_REPORT_CONFIG = False
+    MHXY_PRINCIPLES = []
+    MHXY_CHECKLISTS = []
 
 
 # 游戏标识到本地数据目录的映射（不含 Pokemon，Pokemon 由 pokemon_wiki.py 单独处理）
 GAME_DATA_MAP = {
+    # Steam 游戏
     "Temtem": "temtem",
     "Cassette Beasts": "cassette_beasts",
     "Palworld": "palworld",
+    # 梦幻西游Like游戏
+    "梦幻西游": "mhxy",
+    "神武": "shenwu",
+    "大话西游": "dhxy",
 }
 
 # Pokemon 专用数据文件
@@ -34,16 +53,29 @@ POKEMON_DATA_FILES = {
 class DataManager:
     """本地数据管理器"""
 
+    # 梦幻西游Like版本的玩法关键词
     GAMEPLAY_KEYWORDS = [
-        "battle", "raid", "vgc", "doubles", "singles", "tournament", "championship",
+        # 战斗相关
+        "battle", "raid", "pvp", "pve", "竞技", "比武", "华山", "剑会",
         "mechanic", "feature", "system", "ability", "特性", "技能", "招式",
+        "封印", "输出", "辅助", "治疗", "物理", "法术",
         "move", "skill", "attack", "type", "属性",
-        "balance", "nerf", "buff", "adjust", "调整", "修改", "平衡",
+        "balance", "nerf", "buff", "adjust", "调整", "修改", "平衡", "削弱", "增强",
         "fix", "bug", "修复", "错误",
-        "dynamax", "gigantamax", "tera", "mega", "z-move", "极巨化", "太晶化",
-        "patch", "update", "ver", "version", "版本", "更新",
+        # 门派相关
+        "门派", "大唐", "方寸", "化生", "女儿", "狮驼", "魔王", "龙宫", "地府", "普陀", "天宫", "五庄", "盘丝", "凌波", "神木", "力地府", "女魃", "无底", "天机", "花果", "东海", "凌霄",
+        # 召唤兽相关
+        "召唤兽", "宝宝", "炼妖", "打书", "进阶", "内丹", "资质", "成长", "特性",
+        # 阵法相关
+        "阵法", "龙飞", "虎翼", "鸟翔", "云垂", "蛇蟠", "鹰啸", "地载", "天覆",
+        # 系统相关
+        "patch", "update", "ver", "version", "版本", "更新", "资料片",
         "dlc", "expansion", "content", "new", "新增",
-        "co-op", "multiplayer", "2v2", "组队", "对战", "双打", "单打",
+        # 经济相关
+        "装备", "宝石", "灵饰", "修炼", "强化", "打造", "熔炼",
+        # 养成相关
+        "等级", "经验", "金币", "银币", "仙玉", "日常", "周常",
+        "组队", "对战", "双打", "单打", "5v5", "多人",
     ]
 
     EXCLUDE_KEYWORDS = [
@@ -51,39 +83,51 @@ class DataManager:
         "achievement", "steam award", "成就",
         "localization", "language", "语言",
         "soundtrack", "ost", "音乐",
+        # 梦幻西游特有的排除项
+        "锦衣", "祥瑞", "外观",  # 纯外观付费，不影响战力
     ]
 
+    # 梦幻西游Like版本的分类规则
     CATEGORY_RULES = {
-        "PvP": ["vgc", "tournament", "championship", "doubles", "singles", "ranked", "对战", "竞技", "双打", "单打"],
-        "PvE": ["raid", "dungeon", "boss", "团体战", "合作"],
-        "机制": ["mechanic", "system", "feature", "ability", "特性", "move", "skill", "type", "技能", "招式", "极巨化", "太晶化", "mega", "dynamax", "tera"],
-        "平衡性": ["balance", "nerf", "buff", "adjust", "modify", "调整", "削弱", "增强", "修改"],
-        "内容": ["dlc", "expansion", "新增", "加入", "开放"],
+        # 战斗分类
+        "PvP": ["pvp", "竞技", "比武", "华山", "剑会", "双打", "单打", "5v5", "对战"],
+        "PvE": ["raid", "dungeon", "boss", "团体战", "合作", "副本", "神器", "归墟", "地煞"],
+        # 机制分类
+        "门派调整": ["门派", "大唐", "方寸", "化生", "女儿", "狮驼", "魔王", "龙宫", "地府", "普陀", "天宫", "五庄", "盘丝"],
+        "召唤兽": ["召唤兽", "宝宝", "炼妖", "打书", "进阶", "内丹", "资质", "成长", "特性"],
+        "阵法": ["阵法", "龙飞", "虎翼", "鸟翔", "云垂", "蛇蟠"],
+        "装备": ["装备", "灵饰", "宝石", "打造", "熔炼"],
+        "平衡性": ["balance", "nerf", "buff", "adjust", "调整", "削弱", "增强", "修改"],
+        "内容": ["dlc", "expansion", "新增", "加入", "开放", "资料片"],
         "修复": ["fix", "bug", "issue", "crash", "error", "修复", "错误", "问题"],
     }
 
     # 互斥关键词：出现这些词时不判定为多人对战
-    # 解决 "battle pass" 被误判为 PvP 的问题
     PVP_EXCLUDE = [
         "battle pass", "battle pass:", "battle pass：",
         "price", "sale", "discount", "打折", "降价",
         "achievement", "steam award", "成就",
         "localization", "language pack", "语言包",
         "soundtrack", "ost", "音乐",
+        "锦衣", "祥瑞", "外观",  # 纯外观付费
     ]
 
     # PvE 互斥词：排除明显的商业/社交词汇
     PVE_EXCLUDE = [
         "battle pass", "season", "赛季", "price", "sale",
         "成就", "achievement", "steam",
+        "锦衣", "祥瑞", "外观",
     ]
 
+    # 梦幻西游Like版本的多人对战关键词
     MULTIPLAYER_KEYWORDS = [
         "raid", "battle", "doubles", "co-op", "multiplayer", "multi-player",
         "online", "versus", "vs", "tournament", "vgc", "competitive",
         "team", "group", "friends", "lobby",
         "团体战", "对战", "双打", "单打", "多人", "合作", "联机",
-        "dynamax", "tera", "gigantamax", "极巨化", "太晶化",
+        # 梦幻西游特有
+        "比武", "华山", "剑会", "武神坛", "5v5", "组队",
+        "封印", "输出", "辅助", "点杀", "保护",
     ]
 
     def __init__(self, data_dir: Path = None):
@@ -190,6 +234,61 @@ class DataManager:
                 categories.append(cat)
 
         return categories if categories else ["其他"]
+
+    # ---- 设计原则和检查清单 ----
+
+    def get_report_data(self, game: str = None, game_type: str = None) -> Dict[str, Any]:
+        """
+        获取指定游戏的报告数据（设计原则、检查清单等）
+
+        Args:
+            game: 游戏名称（可选，用于判断游戏类型）
+            game_type: 游戏类型 ('mhxy' 或 'pokemon')，优先级高于 game
+
+        Returns:
+            报告数据字典，包含 principles（设计原则）、checklist（检查清单）等
+        """
+        # 确定游戏类型
+        if game_type is None and game:
+            game_type = self._get_game_type(game)
+
+        if not HAS_REPORT_CONFIG:
+            return {"principles": [], "checklist": [], "scenarios": [], "meta": {}}
+
+        return get_report_data_for_game(game_type)
+
+    def get_principles(self, game: str = None, game_type: str = None) -> List[Dict]:
+        """获取设计原则列表"""
+        report_data = self.get_report_data(game, game_type)
+        return report_data.get("principles", [])
+
+    def get_checklist(self, game: str = None, game_type: str = None) -> List[Dict]:
+        """获取检查清单列表"""
+        report_data = self.get_report_data(game, game_type)
+        return report_data.get("checklist", [])
+
+    def get_principles_count(self, game: str = None, game_type: str = None) -> int:
+        """获取设计原则数量"""
+        report_data = self.get_report_data(game, game_type)
+        return len(report_data.get("principles", []))
+
+    def get_checklist_count(self, game: str = None, game_type: str = None) -> int:
+        """获取检查清单条目总数"""
+        report_data = self.get_report_data(game, game_type)
+        checklist = report_data.get("checklist", [])
+        return sum(len(cat.get("items", [])) for cat in checklist)
+
+    def _get_game_type(self, game: str) -> str:
+        """根据游戏名称判断游戏类型"""
+        mhxy_games = ["梦幻西游", "神武", "大话西游"]
+        pokemon_games = ["Pokemon", "Temtem", "Cassette Beasts", "Palworld"]
+
+        if game in mhxy_games:
+            return "mhxy"
+        elif game in pokemon_games:
+            return "pokemon"
+        else:
+            return "pokemon"  # 默认
 
     # ---- 数据统计 ----
 

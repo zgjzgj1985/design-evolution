@@ -50,12 +50,23 @@ class Config:
     )
 
     # 目标游戏列表（键: 英文标识符, 值: 显示名称）
-    SUPPORTED_GAMES: dict = {
+    # 宝可梦Like游戏
+    POKEMON_LIKE_GAMES: dict = {
         "Pokemon": "宝可梦 (Pokemon)",
         "Temtem": "Temtem",
         "Cassette Beasts": "磁带妖怪 (Cassette Beasts)",
         "Palworld": "幻兽帕鲁 (Palworld)",
     }
+
+    # 梦幻西游Like游戏
+    MHXY_LIKE_GAMES: dict = {
+        "梦幻西游": "梦幻西游",
+        "神武": "神武",
+        "大话西游": "大话西游",
+    }
+
+    # 合并所有支持的游戏
+    SUPPORTED_GAMES: dict = {**POKEMON_LIKE_GAMES, **MHXY_LIKE_GAMES}
 
     # 宝可梦各世代信息
     POKEMON_GENERATIONS: dict = {
@@ -68,6 +79,17 @@ class Config:
         7: {"name": "第七世代", "games": ["太阳/月亮/究极之日/究极之月"], "years": "2016-2019", "region": "阿罗拉", "pvp_intro": "首次实现跨平台跨世代宝可梦传递"},
         8: {"name": "第八世代", "games": ["剑/盾", "盾/剑"], "years": "2019-2022", "region": "伽勒尔", "pvp_intro": "极巨化成为VGC核心机制"},
         9: {"name": "第九世代", "games": ["朱/紫"], "years": "2022-2024", "region": "帕底亚", "pvp_intro": "太晶化替代极巨化，全宠可强化"},
+    }
+
+    # 梦幻西游各时期信息
+    MHXY_PERIODS: dict = {
+        "起步期": {"name": "起步期", "years": "2001-2002", "description": "游戏公测，建立核心玩法框架"},
+        "资料片迭代期": {"name": "资料片迭代期", "years": "2003-2005", "description": "通过资料片逐步完善游戏内容"},
+        "资料片爆发期": {"name": "资料片爆发期", "years": "2006-2010", "description": "大量资料片涌现，系统不断完善"},
+        "成熟稳定期": {"name": "成熟稳定期", "years": "2011-2015", "description": "游戏进入成熟期，更新趋于稳定"},
+        "持续运营期": {"name": "持续运营期", "years": "2016-2020", "description": "通过定期更新维持游戏活力"},
+        "现代化更新期": {"name": "现代化更新期", "years": "2021-2024", "description": "对老系统进行现代化改造"},
+        "持续演进期": {"name": "持续演进期", "years": "2025-未来", "description": "游戏持续演进，探索新方向"},
     }
 
     # Reddit API 配置（用于社区反应采集）
