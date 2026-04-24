@@ -96,9 +96,9 @@ fetch_all_data.py（一次性采集，更新 data/ 目录）
 
 | Tab | 名称 | 功能描述 |
 |-----|------|----------|
-| 1 | 版本编年史 | 展示所有更新日志，支持搜索和分类筛选 |
-| 2 | 机制时间轴 | Plotly 交互图表，可视化历代机制演进 |
-| 3 | 设计意图分析 | 调用 LLM 分析单条更新的设计意图 |
+| 1 | 版本编年史 | 展示所有更新日志，支持搜索和分类筛选（研究价值/时间顺序） |
+| 2 | 机制时间轴 | Plotly 交互图表，可视化历代机制演进（类型/游戏筛选） |
+| 3 | 设计意图分析 | 调用 LLM 分析单条更新的设计意图，支持语义搜索 |
 | 4 | 演进报告 | **AI 动态发现主题** → 用户选择 → 生成定制化报告 |
 
 ### 动态主题发现
@@ -119,13 +119,13 @@ fetch_all_data.py（一次性采集，更新 data/ 目录）
 
 ## 支持的游戏
 
-| 游戏 | 平台 | 数据来源 |
-|------|------|----------|
-| Pokemon 剑/盾 | 非 Steam | Wiki 爬虫 + 内置数据 |
-| Pokemon 朱/紫 | 非 Steam | Wiki 爬虫 + 内置数据 |
-| Temtem | Steam (ID: 745920) | Steam News API |
-| Cassette Beasts | Steam (ID: 1322240) | Steam News API |
-| Palworld | Steam (ID: 1623730) | Steam News API |
+| 游戏 | 平台 | 数据来源 | 数据量 |
+|------|------|----------|--------|
+| Pokemon 剑/盾 | Nintendo | Wiki 爬虫 + 内置数据 | Gen 8 完整 |
+| Pokemon 朱/紫 | Nintendo | Wiki 爬虫 + 内置数据 | Gen 9 完整 |
+| Temtem | Steam (ID: 745920) | Steam News API | 100条预采集 |
+| Cassette Beasts | Steam (ID: 1322240) | Steam（无公开公告） | 暂缺 |
+| Palworld | Steam (ID: 1623730) | Steam News API + Wiki | 100条+早期版本 |
 
 ---
 
@@ -193,7 +193,12 @@ streamlit run app.py
 ## 项目状态
 
 - **版本**：正式版 (v3.6.0+)
-- **数据完整性**：Gen 8/Gen 9 宝可梦更新日志已完成；VGC 历史数据覆盖 2009-2026 赛季
+- **交互式报告版本**：v3.0
+- **数据完整性**：
+  - Gen 1-9 宝可梦更新日志已完成
+  - Gen 10（Pokemon Champions）展望数据
+  - VGC 历史数据覆盖 2009-2026 赛季（18个赛季）
+  - Palworld 数据含早期版本（v0.1-v0.6）Wiki 补全
 - **数据来源**：[Serebii.net](https://serebii.net/) 官方更新日志页面
 
 ---
