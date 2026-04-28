@@ -1,6 +1,8 @@
 ---
 description: 任务计划与进度记录规范
 alwaysApply: true
+version: v1.1.0
+lastUpdated: 2026-04-28
 ---
 
 # 任务计划与进度记录规范
@@ -90,6 +92,9 @@ alwaysApply: true
 
 ## 开始时间
 2026-04-24 10:30
+
+## 完成时间
+2026-04-24 11:45
 ```
 
 ## 注意事项

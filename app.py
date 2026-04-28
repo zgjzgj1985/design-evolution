@@ -33,6 +33,7 @@ from scrapers.pokemon_wiki import PokemonWikiScraper
 from scrapers.bulbapedia import BulbapediaScraper, PokeAPIScraper
 from scrapers.smogon import SmogonScraper, PikalyticsScraper
 from scrapers.mhxy_data import MHXYDataProvider
+from db.mhxy_major_store import MHXYMajorStore
 from analyzer.intent_extractor import IntentExtractor
 from analyzer.report_generator import EvolutionReportGenerator
 from db.sqlite_store import SQLiteStore, db as global_db
@@ -378,8 +379,8 @@ def fetch_game_data(game: str, generation: int = None, refresh: bool = False) ->
             # Steam 游戏：从 Steam 获取更新日志
             steam_scraper = get_steam_scraper(game)
             with st.spinner(f"正在从 Steam API 获取 {game} 更新日志..."):
-                steam_patches = steam_scraper.get_patch_notes(count=50)
-            multiplayer_patches = steam_scraper.get_multiplayer_patches(count=50)
+                steam_patches = steam_scraper.get_patch_notes(count=200)
+            multiplayer_patches = steam_scraper.get_multiplayer_patches(count=200)
             patches.extend(multiplayer_patches)
             fetch_stats["steam_count"] = len(steam_patches)
             fetch_stats["multiplayer_count"] = len(multiplayer_patches)
@@ -431,27 +432,21 @@ with st.sidebar:
     st.header("配置")
 
     # 预计算各游戏数据量（用于选择器标签）
-    import json as _json
-    from pathlib import Path as _Path
-
     def _count_game_patches(game_name: str) -> int:
-        """统计游戏在 data/ 目录中的补丁条数"""
+        """统计游戏实际会加载的条数（与右侧内容一致）"""
         if game_name == "Pokemon":
             # Pokemon 数据来自内置 Wiki，不在 data/ 目录
             return 0
         if game_name in {"梦幻西游", "神武", "大话西游"}:
-            # 梦幻西游Like游戏：使用内置数据
+            # 梦幻西游Like游戏：使用内置数据（已过滤）
             return len(MHXYDataProvider.get_all_patches(game_name))
+        # Steam 游戏：使用 DataManager 的多人相关过滤（与右侧加载逻辑一致）
         _folder = {"Temtem": "temtem", "Palworld": "palworld", "Cassette Beasts": "cassette_beasts"}.get(game_name)
         if not _folder:
             return 0
-        _df = _Path(__file__).parent / "data" / _folder / "patches.json"
-        if not _df.exists():
-            return 0
+        # 直接用 DataManager 计算（与右侧加载逻辑完全一致）
         try:
-            with open(_df, "r", encoding="utf-8") as _f:
-                _d = _json.load(_f)
-            return len(_d.get("patches", []))
+            return len(data_manager.get_multiplayer_patches(game_name, 200))
         except Exception:
             return 0
 
@@ -488,22 +483,13 @@ with st.sidebar:
         _folder = {"Temtem": "temtem", "Palworld": "palworld"}.get(game_name)
         if not _folder:
             return 0, 0, None
-        _df = _Path(__file__).parent / "data" / _folder / "patches.json"
-        if not _df.exists():
-            return 0, 0, None
         try:
-            with open(_df, "r", encoding="utf-8") as _f:
-                _d = _json.load(_f)
-            _patches = _d.get("patches", [])
-            _mp_keywords = ["battle", "pvp", "pve", "multiplayer", "raid", "coop", "versus", "match", "team", "balance", "nerf", "buff", "fix", "patch", "update"]
-            _mp_count = 0
-            for _p in _patches:
-                _raw = (_p.get("title", "") + _p.get("contents", "")).lower()
-                if any(_k in _raw for _k in _mp_keywords):
-                    _mp_count += 1
-            _dates = [p.get("date", "") for p in _patches if p.get("date")]
+            # 直接复用 data_manager（与右侧 Tab1 加载逻辑完全一致）
+            _all_patches = data_manager.get_patches(game_name, 200)
+            _mp_patches = data_manager.get_multiplayer_patches(game_name, 200)
+            _dates = [p.get("date", "") for p in _all_patches if p.get("date")]
             _latest = sorted(_dates)[-1] if _dates else None
-            return len(_patches), _mp_count, _latest
+            return len(_all_patches), len(_mp_patches), _latest
         except Exception:
             return 0, 0, None
 
@@ -562,21 +548,26 @@ with st.sidebar:
             if _latest_date:
                 st.caption(f"**最新记录**: {_latest_date}")
 
-    st.divider()
+    # 交互式报告入口（仅当游戏有对应报告时才显示）
+    _INTERACTIVE_REPORT_MAP = {
+        "Pokemon": "index.html",
+        "梦幻西游": "mhxy_index.html",
+    }
 
-    # 交互式报告入口
-    st.subheader("交互式报告")
-    report_summary = _get_report_summary(selected_game)
-    st.markdown(
-        f"「设计演化档案」完整报告 — {report_summary}",
-        unsafe_allow_html=True,
-    )
-    
-    if st.button("打开交互式报告", use_container_width=True):
-        import webbrowser, pathlib
-        _path = pathlib.Path(__file__).parent / "docs" / "index.html"
-        webbrowser.open(f"file:///{_path.as_posix()}")
-        st.toast("已在浏览器中打开演进报告")
+    if selected_game in _INTERACTIVE_REPORT_MAP:
+        st.divider()
+        st.subheader("交互式报告")
+        report_summary = _get_report_summary(selected_game)
+        st.markdown(
+            f"「设计演化档案」完整报告 — {report_summary}",
+            unsafe_allow_html=True,
+        )
+
+        if st.button("打开交互式报告", use_container_width=True):
+            import webbrowser, pathlib
+            _path = pathlib.Path(__file__).parent / "docs" / _INTERACTIVE_REPORT_MAP[selected_game]
+            webbrowser.open(f"file:///{_path.as_posix()}")
+            st.toast("已在浏览器中打开演进报告")
 
     # 免责声明
     st.warning(
@@ -1061,7 +1052,9 @@ def _render_patch_card(patch, selected_game, generation, llm_ready, extractor, d
         content = patch.get("content", "")
         if content:
             st.markdown("**更新摘要**:")
-            st.markdown(f'<div class="patch-full-content">{content}</div>', unsafe_allow_html=True)
+            # 将换行符转换为 HTML 换行，保持可读性
+            content_html = content.replace('\n', '<br>')
+            st.markdown(f'<div class="patch-full-content">{content_html}</div>', unsafe_allow_html=True)
 
         detail = patch.get("detail", "")
         if detail:

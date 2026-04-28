@@ -1,4 +1,13 @@
+---
+description: 项目上下文信息，每次会话自动加载
+alwaysApply: true
+version: v1.1.0
+lastUpdated: 2026-04-28
+---
+
 # 项目上下文 - 设计演化档案
+
+> **注意**：本文件的目录结构描述为会话开始时的快照，可能随项目演进而变化，请以实际项目结构为准。
 
 本文件包含项目的基础结构信息，每次会话开始时自动加载，**无需重复探索**。
 
@@ -7,11 +16,25 @@
 ## 核心数据文件
 
 | 文件 | 路径 | 说明 |
-|------|------|------|
-| **报告核心数据** | `docs/report_data.json` | 包含所有结构化数据（timelines、principles、checklist 等），约 25 万字符 |
-| **预采集静态数据** | `data/*/patches.json` | 各游戏预采集的更新日志 |
-| **Web 入口** | `docs/index.html` | 交互式报告前端 |
+|---|---|---|
+| **报告核心数据** | `docs/report_data.json` | 包含所有结构化数据（timelines、principles、checklist 等） |
+| **Web 前端** | `docs/index.html` | 交互式报告前端 |
 | **主入口** | `app.py` | Streamlit Web 应用 |
+| **报告配置** | `report_generator_config.py` | 游戏类型报告生成配置 |
+
+### 预采集静态数据（`data/`）
+
+以下为预采集数据文件，通常不需要修改，AI 应避免主动覆写：
+
+| 目录 | 内容 |
+|---|---|
+| `data/temtem/patches.json` | Temtem 更新日志 |
+| `data/palworld/patches.json` | Palworld 更新日志 |
+| `data/palworld/patches_early.json` | Palworld 早期版本数据 |
+| `data/cassette_beasts/patches.json` | Cassette Beasts 占位文件 |
+| `data/pokemon/vgc_history.json` | 宝可梦 VGC 赛季历史 |
+| `data/mhxy_patch_links.json` | 梦幻西游补丁链接 |
+| `data/mhxy_news_links.json` | 梦幻西游新闻链接 |
 
 ---
 
@@ -20,11 +43,11 @@
 ```json
 {
   "meta": { ... },           // 项目元信息、设计前提、元洞察
-  "principles": [ ... ],    // 10 条设计原则
+  "principles": [ ... ],     // 10 条设计原则
   "timelines": {
-    "pokemon": [ ... ]      // 历代时间轴条目（约 40+ 条）
+    "pokemon": [ ... ]       // 历代时间轴条目
   },
-  "checklist": [ ... ]      // 47 条检查清单
+  "checklist": [ ... ]       // 检查清单
 }
 ```
 
@@ -36,16 +59,16 @@
   "gen": "Gen 1",                 // 世代
   "title": "Pokemon 红/绿版发售",  // 标题
   "detail": "...",               // 详细描述
-  "category": "foundation",      // 类型
+  "category": "foundation",       // 类型
   "data_confidence": "official",  // 置信度
   "related_principles": [],      // 关联原则 ID
-  "related_checklist": [],        // 关联检查清单 ID
+  "related_checklist": [],       // 关联检查清单 ID
   // 以下为已删除条目特有字段
   "removed": true,               // 布尔值，true 表示已删除
-  "removal_year": 2011,          // 移除年份
+  "removal_year": 2011,         // 移除年份
   "removal_reason": "...",       // 移除原因
-  "removal_cause": "...",         // 深层因果分析
-  "removal_impact": "negative",  // 影响评估
+  "removal_cause": "...",        // 深层因果分析
+  "removal_impact": "negative", // 影响评估
   "removal_note": "..."          // 设计启示
 }
 ```
@@ -69,23 +92,56 @@
 
 ## 目录结构速查
 
+以下为会话开始时的快照（实际情况请以 `Glob` 探索结果为准）：
+
 ```
 设计演化档案/
+├── app.py                      # Streamlit 主入口
+├── data_manager.py             # 数据管理层
+├── report_generator_config.py  # 报告生成配置
 ├── docs/
-│   ├── report_data.json      # 核心数据（优先读取）
-│   └── index.html            # Web 前端
-├── data/                     # 预采集静态数据
-│   ├── temtem/patches.json
-│   ├── palworld/patches.json
-│   └── pokemon/vgc_history.json
-├── app.py                    # Streamlit 主入口
-├── data_manager.py          # 数据管理层
-├── scrapers/                 # 爬虫层
-├── analyzer/                # AI 分析层
-├── db/                       # 持久化层
+│   ├── report_data.json        # 核心数据（优先读取）
+│   ├── index.html             # Web 前端
+│   ├── mhxy_*.json            # 梦幻西游相关数据
+│   ├── timeline_data.json      # 时间轴数据
+│   ├── mhxy_comprehensive_*.json
+│   ├── mhxy_index.html        # 梦幻西游前端
+│   ├── shenwu_timeline_data.json
+│   └── dahua_timeline_data.json
+├── data/                      # 预采集静态数据（通常不修改）
+│   ├── pokemon/vgc_history.json
+│   ├── palworld/
+│   ├── temtem/
+│   ├── cassette_beasts/
+│   └── mhxy_*.json
+├── scrapers/                   # 爬虫层
+│   ├── pokemon_wiki.py
+│   ├── steam_scraper.py
+│   ├── bulbapedia.py
+│   ├── patch_notes.py
+│   ├── smogon.py
+│   ├── palworld_wiki.py
+│   ├── mhxy_scraper.py
+│   ├── mhxy_official_scraper.py
+│   ├── mhxy_history.py
+│   └── mhxy_data.py
+├── analyzer/                   # AI 分析层
+│   ├── prompts.py
+│   ├── intent_extractor.py
+│   ├── report_generator.py
+│   ├── ai_topic_discoverer.py
+│   ├── research_topics.py
+│   └── __init__.py
+├── db/                        # 持久化层
 │   ├── sqlite_store.py
 │   └── vector_store.py
-└── scripts/                  # 优化脚本
+├── scripts/                   # 优化脚本
+│   ├── generate_report_data.py
+│   ├── generate_multi_game_report_data.py
+│   ├── generate_interactive_report.py
+│   └── p*_data_optimization.py
+└── utils/
+    └── config.py
 ```
 
 ---
@@ -94,7 +150,7 @@
 
 ### 读取 report_data.json
 
-由于文件较大（约 25 万字符），使用 `Read` 时请指定 `limit`：
+由于文件较大，使用 `Read` 时请指定 `limit`：
 
 ```python
 Read(path="d:/设计演化档案/docs/report_data.json", limit=200)  # 读取前 200 行
@@ -115,4 +171,4 @@ Grep(path="d:/设计演化档案/docs/report_data.json", pattern="removed.*true"
 1. **优先读取 report_data.json**：所有结构化数据均存储于此
 2. **大文件分段读取**：设置 `limit` 参数避免超时
 3. **直接搜索而非全读**：使用 `Grep` 搜索特定内容
-4. **data/ 为只读**：预采集数据通常不需要修改
+4. **预采集数据不主动覆写**：`data/*/` 目录下的预采集数据文件通常不需要修改

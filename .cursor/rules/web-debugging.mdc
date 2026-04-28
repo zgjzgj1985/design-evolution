@@ -1,6 +1,8 @@
 ---
 description: Web问题排查必须使用Playwright定位
 alwaysApply: true
+version: v1.0.0
+lastUpdated: 2026-04-28
 ---
 
 # Web问题排查规范

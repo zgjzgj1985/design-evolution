@@ -1,6 +1,8 @@
 ---
 description: 强制 AI 在执行 git 操作前必须征得明确许可
 alwaysApply: true
+version: v1.1.0
+lastUpdated: 2026-04-28
 ---
 
 # Git 操作安全规范
@@ -9,9 +11,15 @@ alwaysApply: true
 
 没有明确指令，不得执行任何 git 相关操作。
 
+## 权限边界
+
+- **git 仓库操作需要许可**：任何 git 命令（commit、push、pull、checkout、reset、rebase、stash、stash pop、stash drop、clean 等）必须先征得用户明确许可
+- **普通文件写入属于默认权限**：编辑代码、写入文档等普通文件操作属于 AI 默认权限，无需额外许可
+- **规则文件例外**：`CHANGELOG.md` 和 `.cursor/rules/*.mdc` 的写入由对应规则文件（changelog.mdc）管辖，无需引用 git-safety.mdc 申请许可
+
 ## 细则
 
-- **禁止自动执行 git 命令**：任何 git 命令（commit、push、pull、checkout、reset、rebase 等）必须先征得用户明确许可
+- **禁止自动执行 git 命令**：任何 git 命令必须先征得用户明确许可
 - **危险操作必须预警**：即使被要求执行 git 操作，如果该操作可能导致数据丢失（如 checkout、reset、rebase），必须先说明风险并确认
 - **不主动操作 .git 目录**：不得读取或修改 .git 目录内容
 - **恢复操作需双重确认**：用户要求"撤销"、"取消"、"回滚"时，先问清楚要撤销哪部分改动，确认后再执行

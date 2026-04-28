@@ -257,7 +257,7 @@ def get_official_summon() -> List[Dict]:
 
 
 def get_all_official_data() -> List[Dict]:
-    """获取所有官方论坛数据"""
+    """获取所有官方论坛数据（自动去重）"""
     patches = get_official_patches()
     updates = get_official_updates()
     expansions = get_official_expansions()
@@ -266,8 +266,18 @@ def get_all_official_data() -> List[Dict]:
 
     # 合并并按日期排序
     all_data = patches + updates + expansions + maintenance + summon
-    all_data.sort(key=lambda x: x.get("date", ""), reverse=True)
-    return all_data
+
+    # 去重：基于日期+标题前30字符作为唯一键
+    seen = {}
+    unique_data = []
+    for item in all_data:
+        key = f"{item.get('date', '')}:{item.get('title', '')[:30]}"
+        if key not in seen:
+            seen[key] = True
+            unique_data.append(item)
+
+    unique_data.sort(key=lambda x: x.get("date", ""), reverse=True)
+    return unique_data
 
 
 # ============================================================

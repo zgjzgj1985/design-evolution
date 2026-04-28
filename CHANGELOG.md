@@ -2,6 +2,30 @@
 
 所有版本变更记录遵循 [Keep a Changelog](https://keepachangelog.com/) 规范。
 
+## [Unreleased] - 2026-04-28
+
+### Added
+
+- **梦幻西游数据采集与入库**：完成 MHXY 数据采集任务六个阶段：
+  - 阶段一：基础框架验证（爬虫可正常运行，官方论坛 xyq.163.com 部分可访问）
+  - 阶段二：现有数据清洗（删除 mhxy_maintenance.json，清理杂质数据）
+  - 阶段三：门派调整采集（最终 25 条，覆盖 2013-2024 年）
+  - 阶段四：资料片采集（最终 18 条，覆盖主要资料片）
+  - 阶段五：召唤兽系统采集（最终 13 条，包含召唤兽进阶、特性等）
+  - 阶段六：数据入库（53 条记录成功入库 SQLite）
+  - 问题说明：早期 URL（2014 年以前）大量失效，目标达成率 45-52%
+  - 脚本：`scripts/scrape_faction_patches.py`、`scripts/migrate_mhxy_data.py`、`scripts/import_to_db.py`
+  - 数据文件：`docs/mhxy_patches_history.json`、`docs/mhxy_expansions.json`、`docs/mhxy_summon_system.json`
+
+### Changed
+
+- **数据模块整合**：`db/mhxy_major_store.py` 数据库存储模块完善
+- **数据合并**：`scripts/merge_timeline.py` 支持从 timeline 文件合并数据
+
+### Config
+
+- **语言规范升级**：`language.mdc` 新增"AI 思维链（推理过程）必须使用中文简体"要求，覆盖 `<reasoning>`、思考泡、内心独白等内部推理环节
+
 ## [Unreleased] - 2026-04-27
 
 ### Fixed
