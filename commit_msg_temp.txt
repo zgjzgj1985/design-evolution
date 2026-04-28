@@ -1,6 +1,0 @@
-feat: 语言规范升级 + 梦幻西游数据第六阶段入库
-
-Language: 语言规范新增 AI 思维链必须使用中文简体要求
-Rules: 更新 project-context.mdc 目录结构、git-safety.mdc 权限边界、changelog.mdc 修订号规则、task-progress.mdc 模板、web-debugging.mdc 响应式说明
-MHXY: 门派调整 25 条、资料片 18 条、召唤兽系统 13 条数据入库，删除杂质数据 mhxy_maintenance.json
-App: 优化 app.py 代码结构
