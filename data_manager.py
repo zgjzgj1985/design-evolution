@@ -45,9 +45,6 @@ GAME_DATA_MAP = {
 }
 
 # Pokemon 专用数据文件
-POKEMON_DATA_FILES = {
-    "vgc_history": "pokemon/vgc_history.json",
-}
 
 
 class DataManager:

@@ -2,7 +2,13 @@
 
 所有版本变更记录遵循 [Keep a Changelog](https://keepachangelog.com/) 规范。
 
-## [Unreleased] - 2026-04-28
+## [Unreleased] - 2026-04-29
+
+### Config
+
+- 修订 task-progress.mdc，改为"临时文件统一存放 temp/ 目录"方案，清理时直接删除 temp/ 目录，避免全项目搜索误删风险
+- 同步更新 project-context.mdc 目录结构速查，加入 temp/ 目录说明
+- 语言规范升级：`language.mdc` 新增"AI 思维链（推理过程）必须使用中文简体"要求，覆盖 `<reasoning>`、思考泡、内心独白等内部推理环节
 
 ### Added
 
@@ -21,10 +27,11 @@
 
 - **数据模块整合**：`db/mhxy_major_store.py` 数据库存储模块完善
 - **数据合并**：`scripts/merge_timeline.py` 支持从 timeline 文件合并数据
-
-### Config
-
-- **语言规范升级**：`language.mdc` 新增"AI 思维链（推理过程）必须使用中文简体"要求，覆盖 `<reasoning>`、思考泡、内心独白等内部推理环节
+- **Rules 文档系统性审核与修复**：
+  - `task-progress.mdc`：合并临时文件清理规范，消除自身重复；统一 checkbox 格式示例；文件从 130 行精简至 121 行；版本升至 v1.3.0
+  - `project-context.mdc`：补充快照更新机制说明，明确更新责任归属
+  - `changelog.mdc`：补充自我指涉循环记录说明
+  - `git-safety.mdc`：统一 CHANGELOG 写入权限表述，与 changelog.mdc 保持一致
 
 ## [Unreleased] - 2026-04-27
 

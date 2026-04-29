@@ -100,3 +100,11 @@ lastUpdated: 2026-04-28
 - 禁止使用模糊描述（如"更新了某些文件"）
 - 禁止事后补录历史变更（除非是新发现遗漏的旧版本变更）
 - **注意**：更新 CHANGELOG.md 文件本身不需要 git 许可，但 git commit/push 仍需用户明确许可（参见 git-safety.mdc）
+
+## 自我记录规则
+
+`changelog.mdc` 自身的更新遵循以下规则：
+
+- `changelog.mdc` 作为 `.cursor/rules/*.mdc` 的一员，其变更**同样需要记录到 CHANGELOG.md**，归入 `### Config` 分类
+- 由于 `changelog.mdc` 是规范本身，AI 或用户在执行任何 rules 变更时，应将本次 rules 变更的 Config 条目追加到 CHANGELOG.md 的 `[Unreleased]` 区块
+- 不存在"谁来记录 changelog.mdc 自身变更"的循环困境——任何变更（包括 `changelog.mdc` 的变更）均由执行变更的主体（AI 或用户）负责同步到 CHANGELOG.md

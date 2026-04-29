@@ -5,7 +5,7 @@
 
 数据来源：
 - 官方论坛门派调整（主要）：docs/mhxy_patches_history.json
-- 官方论坛资料片/系统更新：docs/mhxy_full_history.json
+- 官方论坛资料片/系统更新：docs/mhxy_comprehensive_updates.json
 - 备用：scrapers/mhxy_history.py
 
 支持的梦幻西游Like游戏：
@@ -19,11 +19,10 @@ from pathlib import Path
 from typing import List, Dict, Optional
 from datetime import datetime
 
-# 官方论坛数据路径
+# 官方论坛数据路径（清理后）
 _OFFICIAL_PATCHES_PATH = Path(__file__).parent.parent / "docs" / "mhxy_patches_history.json"
-_OFFICIAL_FULL_PATH = Path(__file__).parent.parent / "docs" / "mhxy_full_history.json"
 _OFFICIAL_EXPANSIONS_PATH = Path(__file__).parent.parent / "docs" / "mhxy_expansions.json"
-_OFFICIAL_MAINTENANCE_PATH = Path(__file__).parent.parent / "docs" / "mhxy_maintenance.json"
+_OFFICIAL_COMPREHENSIVE_PATH = Path(__file__).parent.parent / "docs" / "mhxy_comprehensive_updates.json"
 _OFFICIAL_SUMMON_PATH = Path(__file__).parent.parent / "docs" / "mhxy_summon_system.json"
 
 
@@ -65,39 +64,34 @@ def _load_official_patches() -> List[Dict]:
         return []
 
 
-def _load_official_updates() -> List[Dict]:
-    """加载官方论坛资料片和系统更新数据"""
-    if not _OFFICIAL_FULL_PATH.exists():
+def _load_official_comprehensive() -> List[Dict]:
+    """加载官方论坛综合更新公告数据"""
+    if not _OFFICIAL_COMPREHENSIVE_PATH.exists():
         return []
 
     try:
-        with open(_OFFICIAL_FULL_PATH, "r", encoding="utf-8") as f:
+        with open(_OFFICIAL_COMPREHENSIVE_PATH, "r", encoding="utf-8") as f:
             data = json.load(f)
 
         updates = []
-        for item in data.get("updates", []):
+        for item in data.get("announcements", []):
+            update_type = item.get("category", "其他")
             updates.append({
                 "title": item.get("title", ""),
                 "date": item.get("date", ""),
                 "content": item.get("content", "")[:2000],
                 "full_content": item.get("content", ""),
-                "categories": [item.get("category", "其他")],
+                "categories": [update_type],
                 "source": "官方论坛",
                 "source_url": item.get("url", ""),
                 "game": "梦幻西游",
-                "update_type": item.get("category", "其他"),
+                "update_type": update_type,
             })
 
         updates.sort(key=lambda x: x.get("date", ""), reverse=True)
         return updates
     except Exception:
         return []
-
-
-# 缓存
-_official_patches_cache = None
-_official_updates_cache = None
-_official_expansions_cache = None
 
 
 def _load_official_expansions() -> List[Dict]:
@@ -120,48 +114,12 @@ def _load_official_expansions() -> List[Dict]:
                 "source": "官方论坛-资料片",
                 "source_url": item.get("url", ""),
                 "game": "梦幻西游",
-                "update_type": "资料片",
+                "update_type": item.get("category", "资料片"),
                 "expansion_name": item.get("name", ""),
             })
 
         expansions.sort(key=lambda x: x.get("date", ""), reverse=True)
         return expansions
-    except Exception:
-        return []
-
-
-def get_official_expansions() -> List[Dict]:
-    """获取官方论坛资料片数据（带缓存）"""
-    global _official_expansions_cache
-    if _official_expansions_cache is None:
-        _official_expansions_cache = _load_official_expansions()
-    return _official_expansions_cache
-
-
-def _load_official_maintenance() -> List[Dict]:
-    """加载维护公告数据"""
-    if not _OFFICIAL_MAINTENANCE_PATH.exists():
-        return []
-
-    try:
-        with open(_OFFICIAL_MAINTENANCE_PATH, "r", encoding="utf-8") as f:
-            data = json.load(f)
-
-        items = []
-        for item in data.get("maintenance", []):
-            items.append({
-                "title": item.get("title", ""),
-                "date": item.get("date", ""),
-                "content": item.get("content", "")[:2000],
-                "full_content": item.get("content", ""),
-                "categories": ["维护公告"],
-                "source": "官方论坛-维护公告",
-                "source_url": item.get("url", ""),
-                "game": "梦幻西游",
-                "update_type": "系统调整",
-            })
-        items.sort(key=lambda x: x.get("date", ""), reverse=True)
-        return items
     except Exception:
         return []
 
@@ -196,24 +154,10 @@ def _load_official_summon() -> List[Dict]:
 
 
 # 缓存
-_official_maintenance_cache = None
+_official_patches_cache = None
+_official_comprehensive_cache = None
+_official_expansions_cache = None
 _official_summon_cache = None
-
-
-def get_official_maintenance() -> List[Dict]:
-    """获取维护公告数据（带缓存）"""
-    global _official_maintenance_cache
-    if _official_maintenance_cache is None:
-        _official_maintenance_cache = _load_official_maintenance()
-    return _official_maintenance_cache
-
-
-def get_official_summon() -> List[Dict]:
-    """获取召唤兽和系统调整数据（带缓存）"""
-    global _official_summon_cache
-    if _official_summon_cache is None:
-        _official_summon_cache = _load_official_summon()
-    return _official_summon_cache
 
 
 def get_official_patches() -> List[Dict]:
@@ -224,12 +168,12 @@ def get_official_patches() -> List[Dict]:
     return _official_patches_cache
 
 
-def get_official_updates() -> List[Dict]:
-    """获取官方论坛资料片和系统更新数据（带缓存）"""
-    global _official_updates_cache
-    if _official_updates_cache is None:
-        _official_updates_cache = _load_official_updates()
-    return _official_updates_cache
+def get_official_comprehensive() -> List[Dict]:
+    """获取官方论坛综合更新公告数据（带缓存）"""
+    global _official_comprehensive_cache
+    if _official_comprehensive_cache is None:
+        _official_comprehensive_cache = _load_official_comprehensive()
+    return _official_comprehensive_cache
 
 
 def get_official_expansions() -> List[Dict]:
@@ -238,14 +182,6 @@ def get_official_expansions() -> List[Dict]:
     if _official_expansions_cache is None:
         _official_expansions_cache = _load_official_expansions()
     return _official_expansions_cache
-
-
-def get_official_maintenance() -> List[Dict]:
-    """获取维护公告数据（带缓存）"""
-    global _official_maintenance_cache
-    if _official_maintenance_cache is None:
-        _official_maintenance_cache = _load_official_maintenance()
-    return _official_maintenance_cache
 
 
 def get_official_summon() -> List[Dict]:
@@ -259,13 +195,12 @@ def get_official_summon() -> List[Dict]:
 def get_all_official_data() -> List[Dict]:
     """获取所有官方论坛数据（自动去重）"""
     patches = get_official_patches()
-    updates = get_official_updates()
+    comprehensive = get_official_comprehensive()
     expansions = get_official_expansions()
-    maintenance = get_official_maintenance()
     summon = get_official_summon()
 
     # 合并并按日期排序
-    all_data = patches + updates + expansions + maintenance + summon
+    all_data = patches + comprehensive + expansions + summon
 
     # 去重：基于日期+标题前30字符作为唯一键
     seen = {}
@@ -401,7 +336,7 @@ MHXY_PATCHES_DB = {
                 "pve_impact": "中",
             },
             {
-                "id": "m hxy_010",
+                "id": "mhxy_010",
                 "title": "2009年 法宝系统",
                 "date": "2009-01-01",
                 "content": "推出法宝系统，玩家可以装备法宝获得特殊能力。法宝宝莲灯、苍白纸人等成为PVP常用道具。",

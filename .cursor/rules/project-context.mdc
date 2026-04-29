@@ -99,6 +99,7 @@ lastUpdated: 2026-04-28
 ├── app.py                      # Streamlit 主入口
 ├── data_manager.py             # 数据管理层
 ├── report_generator_config.py  # 报告生成配置
+├── temp/                       # 临时文件目录（任务完成后清空）
 ├── docs/
 │   ├── report_data.json        # 核心数据（优先读取）
 │   ├── index.html             # Web 前端
@@ -172,3 +173,11 @@ Grep(path="d:/设计演化档案/docs/report_data.json", pattern="removed.*true"
 2. **大文件分段读取**：设置 `limit` 参数避免超时
 3. **直接搜索而非全读**：使用 `Grep` 搜索特定内容
 4. **预采集数据不主动覆写**：`data/*/` 目录下的预采集数据文件通常不需要修改
+
+## 快照更新机制
+
+目录结构速查为会话开始时的快照，可能随项目演进而过时。更新规则如下：
+
+- **触发条件**：新增或删除标准目录（如 `analyzer/`、`db/`、`scripts/` 等）、新增或移除核心文件（如 `app.py`、`report_generator_config.py` 等），或新增标准目录（如新增 `temp/`），需更新快照
+- **执行时机**：上述变更发生时立即更新，与 CHANGELOG 同步记录（`### Config`）
+- **描述原则**：保持简洁，仅标注与上版本的差异，不追求实时同步
