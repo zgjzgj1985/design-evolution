@@ -9,6 +9,16 @@
 - 修订 task-progress.mdc，改为"临时文件统一存放 temp/ 目录"方案，清理时直接删除 temp/ 目录，避免全项目搜索误删风险
 - 同步更新 project-context.mdc 目录结构速查，加入 temp/ 目录说明
 - 语言规范升级：`language.mdc` 新增"AI 思维链（推理过程）必须使用中文简体"要求，覆盖 `<reasoning>`、思考泡、内心独白等内部推理环节
+- 删除 `web-debugging.mdc` 规则文件（功能已迁移或废弃）
+
+### Removed
+
+- 清理废弃脚本：`fetch_vgc_history.py`、`scrape_vgc_history.py`
+- 清理过时数据文件：`data/pokemon/vgc_history.json`、`docs/mhxy_full_history.json`、`docs/mhxy_meridian_history.json`
+
+### Changed
+
+- 同步梦幻西游数据：`mhxy_expansions.json`、`mhxy_summon_system.json`、`report_data.json`
 
 ### Added
 
